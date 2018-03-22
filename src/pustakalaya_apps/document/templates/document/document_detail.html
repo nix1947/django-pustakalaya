@@ -155,24 +155,14 @@
                                     style="font-size: 16px;"
                                     class="text-dark text-capitalize text-primary">
                                 {{ author }}<br>
-                                <!--{% if forloop.counter != object.document_authors.count %}|{% endif %}-->
+
                             </div></a>
 
                         {% endfor %}
 
                     </div>
 
-                    <!-- Illustrator section -->
-                    <div class="pb-1">
-                        <!-- Authors -->
-                        <!-- TODO pluralization -->
-                        <!--strong class="text-capitalize font-weight-normal text-dark">{% trans "Illustrators:" %}</strong-->
-                        {% for author in object.document_illustrators.all %}
-                            <span class="text-dark text-capitalize">{{ illustrator }}</span>
-                        {% endfor %}
 
-
-                    </div>
                     <!-- abstract -->
                     <!-- abstract of a document -->
                     <div>
@@ -281,11 +271,11 @@
 
                             <!-- Publication year -->
                             <div class="pb-1 border-line"
-                                    {% if not object.year_of_available_on_text %}
+                                    {% if not object.publication_year_on_text %}
                                  style="display: none;"
                                     {% endif %}>
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-                                <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
+                                <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}</span>
 
 
                             </div>

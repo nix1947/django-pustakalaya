@@ -160,11 +160,13 @@
 
         <!-- Publication year -->
         <div class="pb-1 border-line"
-        {% if not object.publication_year %}
+        {% if not object.publication_year_on_text %}
         style="display: none"
         {% endif %}>
           <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-          <span class="text-dark text-capitalize"> {{ object.publication_year }}</span>
+          <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}
+
+          </span>
         </div>
 
         <!-- audio read by -->
@@ -282,9 +284,15 @@
         >
           <!-- TODO: implement pluralization in total page -->
           <span class="text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
+          <span class="text-dark">
           {% for education_level in object.education_levels.all %}
-          <span class="text-dark"> {{ education_level }}</span>
+          {{ education_level }}
+           {%  if not forloop.last %}
+                                            ,
+             {%  endif %}
+
           {% endfor %}
+            </span>
         </div>
 
         <!-- Rights -->
@@ -303,9 +311,15 @@
                 {% endif %}>
           <!-- TODO pluralization -->
           <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
+          <span class="text-dark text-capitalize">
           {% for sponsor in object.sponsors.all %}
-          <span class="text-dark text-capitalize"> {{ sponsor }}</span>
+          {{ sponsor }}
+          {%  if not forloop.last %}
+                                            ,
+             {%  endif %}
+
           {% endfor %}
+          </span>
         </div>
       </div>
     </div>

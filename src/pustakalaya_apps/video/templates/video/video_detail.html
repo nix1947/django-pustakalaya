@@ -141,12 +141,13 @@
                 </div>
 
                 <!-- Publication year -->
+              {% if object.publication_year_on_text %}
                 <div class="pb-1 border-line">
                     <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.publication_year }}</span>
+                    <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}</span>
 
                 </div>
-
+              {% endif %}
                 <!-- Available year -->
                 <div class="pb-1 border-line">
                     <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
@@ -237,7 +238,7 @@
                     <span class="text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</span>
                   <span class="text-capitalize">
                   {% for language in object.languages.all %}
-                        <a href="#"> {{ language }}</a>
+                         {{ language }}
                     {%  if not forloop.last %}
                     ,
                    {%  endif %}
@@ -256,6 +257,9 @@
                     <span class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
                          {{ education_level }}
+                      {%  if not forloop.last %}
+                                            ,
+                      {%  endif %}
                     {% endfor %}
                     </span>
 
@@ -283,6 +287,9 @@
                   <span class="text-capitalize">
                   {% for sponsor in object.sponsors.all %}
                         {{ sponsor }}
+                    {%  if not forloop.last %}
+                                            ,
+                      {%  endif %}
                     {% endfor %}
                   </span>
                 </div>
