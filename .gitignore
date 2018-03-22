@@ -1,4 +1,5 @@
 ### Django ###
+*.sw*
 *.log
 *.pot
 *.pyc
