@@ -407,9 +407,14 @@
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "languages" %}:</span>
-                                {% for language in object.languages.all %}
-                                    <span class="text-dark "> {{ language }}</span>
+                              <span class="text-dark ">
+                              {% for language in object.languages.all %}
+                                    {{ language }}
+                                  {%  if not forloop.last %}
+                                    ,
+                                  {%  endif %}
                                 {% endfor %}
+                                </span>
                             </div>
 
                             <!-- Education level -->
@@ -420,9 +425,15 @@
                              >
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
+                                <span class="text-dark">
                                 {% for education_level in object.education_levels.all %}
-                                    <span class="text-dark"> {{ education_level }}</span>
+                                    {{ education_level }}
+                                    {%  if not forloop.last %}
+                                            ,
+                                        {%  endif %}
+
                                 {% endfor %}
+                                </span>
 
 
                             </div>
@@ -455,9 +466,15 @@
                                     {% endif %}>
                                 <!-- TODO pluralization -->
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
+                               <span class="text-dark text-capitalize">
                                 {% for sponsor in object.sponsors.all %}
-                                    <span class="text-dark text-capitalize"> {{ sponsor }}</span>
+                                    {{ sponsor }}
+                                    {%  if not forloop.last %}
+                                            ,
+                                        {%  endif %}
+
                                 {% endfor %}
+                                      </span>
                             </div>
                         </div>
 
