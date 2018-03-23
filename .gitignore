@@ -201,4 +201,4 @@ books.json
  *.bak
 
 #ignore config.json file
-#config.json
+config.json
