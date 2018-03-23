@@ -59,8 +59,9 @@ def author_books(request, author_name):
     :param author_name:
     :return:
     """
+    #print("author name = ",author_name)
     author_name = " ".join(author_name.split("-"))
-    print(author_name)
+    #print(author_name)
     # TODO: explicitly define the index name
     search_field = "author_list"
     search_value = author_name

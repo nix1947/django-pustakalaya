@@ -394,6 +394,7 @@
                             </div>
 
                             <!-- Language -->
+                            {% if object.languages.all %}
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "languages" %}:</span>
@@ -406,6 +407,7 @@
                                 {% endfor %}
                                 </span>
                             </div>
+                            {% endif %}
 
                             <!-- Education level -->
                             <div class="pb-1 border-line"
