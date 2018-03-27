@@ -148,17 +148,16 @@
 
                 </div>
               {% endif %}
+              {% if object.year_of_available_on_text %}
                 <!-- Available year -->
                 <div class="pb-1 border-line">
                     <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.created_date }}</span>
+                    <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
                 </div>
-
+                {% endif %}
                 <!-- Keywords -->
-                <div class="pb-1 border-line"
-                        {% if not object.keywords.all %}
-                     style="display: none"
-                        {% endif %}>
+              {% if object.keywords.all %}
+                <div class="pb-1 border-line">
 
                     <!-- TODO pluralization -->
                     <span class="text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</span>
@@ -173,26 +172,24 @@
                     </span>
 
                 </div>
+                {% endif %}
 
+                {% if object.description  %}
                 <!-- Description -->
-                <div class="pb-1 border-line"
-                        {% if not object.description %}
-                     style="display: none;"
-                        {% endif %}>
+                <div class="pb-1 border-line">
                     <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
                     <span class="text-capitalize"> {{ object.description }}</span>
                 </div>
+              {% endif %}
 
+                {% if object.license.license %}
                 <!-- License type -->
-                <div class="pb-1 border-line"
-                {% if not object.license.license %}
-                     style="display: none;"
-                {% endif %}
-                >
+                <div class="pb-1 border-line">
                     <!-- TODO pluralization -->
                     <span class="capitalize font-weight-normal text-dark">{% trans "License type:" %}</span>
                     <span class="text-capitalize"> {{ object.license.license }}</span>
                 </div>
+                {% endif %}
 
                 <!-- video series -->
                 <div class="pb-1 border-line">

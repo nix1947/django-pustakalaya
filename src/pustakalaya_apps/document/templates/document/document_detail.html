@@ -39,7 +39,7 @@
 
 {% block content %}
     <div>
-        <div class=" min_height_document_detail pt-4" style="margin-left:8.0rem;margin-right:8.0rem;">
+        <div class=" min_height_document_detail pt-4 large-device-padding padding-left-right">
             <div class="row">
 
                 <div class="col-md-3 col-sm-12  col-xs-12 ">
@@ -188,7 +188,7 @@
                                     {% endif %}>
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
-                                <span class="capitalize font-weight-normal text-dark">{% trans "Authors:" %}</span>
+                                <span class="capitalize font-weight-normal text-dark">{% trans "Author(s):" %}</span>
                                 <span class="text-dark text-capitalize">
                                 {% for author in object.document_authors.all %}
                                    <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">{{ author }}</a>
@@ -328,7 +328,7 @@
                                     {% endif %}>
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
                                 <span class="text-dark text-capitalize"
-                                      style="vertical-align: top;">{{ object.description }}</span>
+                                      style="vertical-align: top;width:50%;">{{ object.description }}</span>
 
                             </div>
 
@@ -397,7 +397,7 @@
                             {% if object.languages.all %}
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
-                                <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "languages" %}:</span>
+                                <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "language" %}:</span>
                               <span class="text-dark ">
                               {% for language in object.languages.all %}
                                     {{ language }}
@@ -448,7 +448,7 @@
                             >
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</span>
                                 <span class="text-dark text-capitalize"
-                                      style="vertical-align: top;"> {{ object.custom_license }}</span>
+                                      style="vertical-align: top;width:50%;"> {{ object.custom_license }}</span>
                             </div>
 
                             <!-- sponsor -->
@@ -473,7 +473,7 @@
                     </div>
                     <br>
                   <!--Review system added-->
-                   <div class="container" style="margin-left:-27px;">
+                   <div class="container margin-padding-for-comment" style="margin-left:-27px;">
 
                      <div class="form-group">
                        <div class="container" >
@@ -488,7 +488,7 @@
                        </div>
                      </div>
 
-                     <div class="container"  style="margin-left:-40px !important;" id="commentContainer">
+                     <div class="container margin-padding-for-comment"  style="margin-left:-40px !important;" id="commentContainer">
                        <!--comment system views -->
                        <ul>
                        {% if user %}

@@ -154,15 +154,58 @@
         .grid > li > div.list-abstract {
             display: none;
         }
- @media screen and (max-width: 765px) and (min-width: 50px)
+ @media screen and (max-width: 765px)
     {   /*small device (sd)*/
 
     .small-device-hide-button{
      display:none !important;
     }
+    .small-device-hide-content{
+       display:none !important;
+      }
+      .small-device-full-width{
+      margin:5px!important;
+      padding:10px!important;
+
+      }
 
      }/*close of small device*/
+@media screen and (min-width: 765px){
 
+    .medium-large-spacing{
+    margin-left:8.0rem;
+    margin-right:8.0rem;
+    }
+
+  }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 310px) and (max-device-width : 480px) {
+
+.small-device-small-font{
+    font-size:80%;
+}
+
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+
+}
 
     </style>
 
@@ -171,7 +214,7 @@
 
 {% block content %}
     <div class="for-bg-color-container pt-4">
-        <div class=" min_height_document_detail" style="margin-left:8.0rem;margin-right:8.0rem;">
+        <div class=" min_height_document_detail small-device-full-width medium-large-spacing" >
             <!-- Result container -->
             {% if hits %}
                 <div class="row">
@@ -191,8 +234,7 @@
                                                onclick="queryAndFilter()">
                                         <label class="text-capitalize facet-element" for="{{ type }}">
                                             {% blocktrans %} {{ type }} {% endblocktrans %}
-                                            <span
-                                                    class="text-muted">&nbsp;({{ count }})</span>
+                                            <span class="text-muted">&nbsp;({{ count }})</span>
                                         </label>
                                     </div>
                                 {% endfor %}
@@ -473,7 +515,7 @@
                     <div id="container">
                         <div class="ml-3 mb-3 buttons">
                             <button class="grid btn btn-dark btn-sm fa fa-th text-white small-device-hide-button" role="link" style="background:#006596 !important"></button>
-                            <button class="list fa fa-list text-white btn btn-dark btn-sm" style="background:#006596 !important"></button>
+                            <button class="list fa fa-list text-white btn btn-dark btn-sm small-device-hide-button" style="background:#006596 !important"></button>
                         </div>
                         <ul class="list clearfix">
                             {% for hit in hits %}
@@ -496,13 +538,13 @@
                             {% endif %}
                                             <!--<a href="#">-->
 
-                                  <p class="text-primary description lead" id="_itemTitle">
+                                  <p class="text-primary description lead bold" id="_itemTitle">
                                     <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}">
-                                    {{ hit.title}}
-                                      </a>
+                                      {{ hit.title|truncatechars:17}}
+                                    </a>
                                     </p>
 
-                                    <div class="list-abstract text-dark ">{{ hit.abstract|truncatechars:232 }}
+                                    <div class="list-abstract text-secondary small-device-small-font ">{{ hit.abstract|truncatechars:150 }}
                                         <br>
                                         <strong class="text-black">{% trans "Views" %}:</strong>
                                         &nbsp;{{ hit.view_count }}
@@ -545,9 +587,9 @@
                                                      title="{{ hit.title }}"
                                                      style="height:230px !important;"
                                                      alt="{{ hit.title }}"/>
-                                                <div class="myId_caption">
+                                                <div class="myId_caption ">
                                                     <h4 class="myId_group myId_inner  text-primary text-center">
-                                                        {{ hit.title }}</h4>
+                                                      {{ hit.title }}</h4>
                                                     <p class="myId_group myId_inner text-justify myId_list-group-item-text">
                                                         {{ hit.abstract |truncatechars:"200" }}</p>
                                                     <div class="myId_row">

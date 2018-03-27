@@ -158,6 +158,31 @@
     overflow: auto;
   }
 }
+
+@media screen and (max-width: 767px) and (min-width: 500px)
+ {
+ /* smaller device */
+ /*give margin to content*/
+
+ .small-device-margin-left-right{
+  margin-left:10% !important;
+  margin-right:30% !important;
+  }
+
+ .pull-relative{
+    float:left !important;
+    margin-left:10% ! important;
+ }
+
+}
+
+
+
+
+
+/*ipad width = 768 */
+
+
 .button-hover:hover{
 
   border-radius:2px;
@@ -311,11 +336,12 @@
           <!--&lt;!&ndash; search &ndash;&gt;-->
           <!--{% include '_partials/search_form.html' %}-->
         <!--</div>-->
-        <section>
+
           <p class="description bold text-uppercase text-dark  m-0 sm-sidebar-menu-content ">Books we love</p>
-          <div class="row maximize-width-for-ipad sm-margin-main-container">
+          <div class="row maximize-width-for-ipad sm-margin-main-container small-device-margin-left-right">
             {% for book in featured_books %}
-            <div class="col-md-2 col-sm-12  col-xs-12  p-0      thumbnail-box-shadow sm-margin-thumbnail-container" title="{{ book.title }}" id="lg-thumbnail-spacing">
+            <div class="col-md-2 col-sm-12  col-xs-12  p-0      thumbnail-box-shadow sm-margin-thumbnail-container lg-thumbnail-spacing" title="{{ book.title }}" >
+              <div  class="pull-right" style="width:100%">
               <a href="{% url 'document:detail_without_slug'  book.pk %}">
 
 
@@ -364,15 +390,15 @@
                 </div>
               </a>
 
-
+              </div>
               {% if forloop.counter|divisibleby:"6" %}
               <div class="mt-1"></div>
               {% endif %}
             </div>
             {% endfor %}
           </div>
-          <a href="{% url 'show_featured:show_all_featured_item' %}" class="pull-right" style="color: #2a6496">Show all featured items</a>
-        </section>
+          <a href="{% url 'show_featured:show_all_featured_item' %}" class="pull-right pull-relative" style="color: #2a6496">Show all featured items</a>
+
         <br>
 
 

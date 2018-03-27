@@ -213,11 +213,11 @@
 
         <!-- Available year -->
         <div class="pb-1 border-line"
-        {% if not  object.created_date%}
+        {% if not  object.year_of_available_on_text%}
         style="display: none"
         {% endif %}>
           <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
-          <span class="text-dark text-capitalize"> {{ object.created_date }}</span>
+          <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
         </div>
 
         <!-- Keywords -->

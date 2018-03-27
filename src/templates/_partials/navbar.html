@@ -29,9 +29,7 @@
   margin-top: -50px;
 }
 .navbar-box-shadow {
-
     box-shadow: 0 0 3px #7f8c8d;
-
 }
 
 
@@ -47,16 +45,70 @@
    }
 
    #lg-index-page-spacing{
-    margin-left:7.0rem;margin-right:7.0rem;
+    margin-left:7.0rem;
+    margin-right:7.0rem;
    }
 
-   #lg-thumbnail-spacing{
+   .lg-thumbnail-spacing{
    min-width:17.5%;
    margin:11px;
    }
 
 
 }
+@media only screen and (min-width: 759px) {
+ .large-device-padding{
+  margin-left:7.0rem;
+  margin-right:7.0rem;
+ }
+
+
+}
+@media only screen and (max-width: 759px) {
+.padding-left-right{
+    padding:25px;
+ }
+ .about-page-margin{
+    padding:25px;
+ }
+
+}
+@media only screen and (max-width: 990px) and (min-width: 320px) {
+
+     .navigation-width-full{
+     width:100%!important;
+     }
+     .navigation-icon-pull-right-custom{
+     float:right!important;
+     padding-top:15px;
+    }
+
+    .margin-padding-for-comment{
+    margin:0px!important;
+    padding:0px!important;
+    }
+
+}
+@media only screen and (min-width: 990px) and (max-width: 1325px){
+    .small-device-small-font{
+    font-size:75%!important;
+    }
+    .small-device-size{
+     width:20%;
+    }
+    .small-device-search-bar{
+    min-width:25px ;
+    }
+}
+@media only screen and (min-width: 759px) and (max-width: 959px){
+
+ .lg-thumbnail-spacing{
+   margin:5px;
+   }
+
+
+}
+
 
 </style>
 <!--THis 2 div closing is in the footer page-->
@@ -66,15 +118,15 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-box-shadow  p-0 m-0">
-    <div class="container-fluid pr-5 pl-5 " >
-        <div class="navbar-translate  ">
+    <div class="container-fluid pr-5 pl-5  " >
+        <div class="navbar-translate  small-device-size navigation-width-full">
             <a class="navbar-brand " href="/" id="sm-icon-small">
                 <img src="{% static 'images/logos/ep_logo.png' %}"
                      height="50px"
 
                      alt="Pustakalaya">
             </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            <button class="navbar-toggler navbar-toggler-right navigation-icon-pull-right-custom" type="button" data-toggle="collapse"
                     data-target="#navigation" aria-controls="navigation-index" aria-expanded="false"
                     aria-label="Toggle navigation">
                 <i class="fa fa-2x fa-bars text-primary" aria-hidden="true"></i>
@@ -85,7 +137,7 @@
 
         <!-- navigation menu -->
         <div class="collapse navbar-collapse  " id="navigation">
-            <ul class="navbar-nav  index_tpyo" id="lg-side-space" >
+            <ul class="navbar-nav  index_tpyo " id="lg-side-space" >
 
               <li class="nav-item  " id="lg_large_searchbar">
                 <div   >
@@ -94,7 +146,7 @@
                   </div>
               </li>
                 <li class="nav-item " style="margin-top:22px;">
-                    <a class="nav-link text-black text-primary" href="{% url 'about' %}" >
+                    <a class="nav-link text-black text-primary small-device-small-font" href="{% url 'about' %}" >
                         {% trans "About" %}
                     </a>
                 </li>
@@ -104,22 +156,22 @@
                     </a>
                 </li-->
                 <li class="nav-item " style="margin-top:22px;">
-                    <a class="nav-link text-primary "  href="{% url 'help' %}">{% trans "Help" %}</a>
+                    <a class="nav-link text-primary small-device-small-font"  href="{% url 'help' %}">{% trans "Help" %}</a>
                 </li>
                 <li class="nav-item  " style="margin-top:22px;">
 
-                    <a class="nav-link text-primary " href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
+                    <a class="nav-link text-primary small-device-small-font" href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
                 </li>
 
 
 
 
                 <!-- language selection button -->
-                <li class="nav-item " style="margin-top:20px;">
+                <li class="nav-item small-device-small-font small-device-search-bar" style="margin-top:20px;">
 
 
                     <a class="nav-link text-primary">
-                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" class="">
+                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
                             {% get_current_language as LANGUAGE_CODE %}
                             {% csrf_token %}
                             <!-- Change value to current_url without language -->
@@ -151,7 +203,7 @@
 
                 {% if user.is_authenticated %}
 
-                    <li class="nav-item dropdown" style="margin-top:22px;">
+                    <li class="nav-item dropdown small-device-small-font" style="margin-top:22px;">
                         <a class="nav-link dropdown-toggle text-primary text-capitalize"
 
                            href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
@@ -162,7 +214,7 @@
                             {{request.user}}
                         </a>
 
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size:100%;">
                             <a class="dropdown-item text-primary text-capitalize"
                                href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
                             <a class="dropdown-item text-primary text-capitalize"
@@ -175,7 +227,7 @@
 
 
                {% if not  user.is_authenticated %}
-                    <li class="nav-item dropdown" style="margin-top:20px;" >
+                    <li class="nav-item dropdown small-device-small-font" style="margin-top:22px;" >
                         <a href="#" class="nav-link dropdown-toggle text-primary" data-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="false">

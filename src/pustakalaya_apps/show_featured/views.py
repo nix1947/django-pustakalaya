@@ -9,9 +9,6 @@ def show_all_featured_item(request):
 
     item_list = Document.objects.filter(featured="yes")
 
-    print("item list = ",item_list)
-    print("count = ",len(item_list))
-    #print("item list = ", item_list[0].document_authors)
     paginator = Paginator(item_list, 24)
     page = request.GET.get('page')
     try:
@@ -22,8 +19,6 @@ def show_all_featured_item(request):
     except EmptyPage:
         # If page is out of range (e.g. 7777), deliver last page of results.
         doc = paginator.page(paginator.num_pages)
-
-    print("featured doc = ",doc)
 
     return render(request, "show_featured/all_featured_item.html", {
         'favourite_documents':doc
