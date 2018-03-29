@@ -176,6 +176,29 @@
 
 }
 
+/*for ipad screen*/
+@media screen and (max-width:1100px) and (min-width:763px){
+
+.index-page-sidebar-section{
+
+  float:left!important;
+  padding-left:300px!important;
+  margin-top:-100px!important;
+
+  }
+  .index-page-sidebar-education-level{
+  margin-top:60px!important;
+  position:absolute
+  }
+
+  .index-page-content{
+  padding-top:300px;
+  margin-left:-24%!important;
+  padding-left:5px;
+  margin-right:-24%!important;
+  }
+
+}
 
 
 
@@ -190,11 +213,10 @@
 
 }
 .button-hover:hover{
-
-
   color:white
 
 }
+
 </style>
 
 
@@ -203,7 +225,7 @@
 
 {% block content %}
 <!--custom style backgound-color is in base.html body which includes for all-->
-<div class="for-bg-color-container background-color mt-1">
+<div class="for-bg-color-container background-color mt-1 ">
   <!--search-->
   <div class=" pt-4  " id="lg-index-page-spacing">
     <!-- Search bar section -->
@@ -264,7 +286,7 @@
 
         <!-- Browse by subjects -->
 <!--<div class="container">-->
-    <div class="box-model-new sm-sidebar-menu-content " >
+    <div class="box-model-new sm-sidebar-menu-content index-page-sidebar-section" >
         <div class="row box-model-head-new">
            <p class="description  text-uppercase ">sections</p>
         </div>
@@ -295,7 +317,7 @@
 
     <!--<br>-->
     <!-- Browse by level -->
-        <div class="box-model-new sm-sidebar-menu-content" >
+        <div class="box-model-new sm-sidebar-menu-content index-page-sidebar-education-level" >
         <div class="row box-model-head-new">
            <p class="description  text-uppercase ">Education Level</p>
         </div>
@@ -331,7 +353,7 @@
       </div>
 
       <!-- Featured books -->
-      <div class="col-md-9 col-sm-12 col-xs-12 row-second-width" >
+      <div class="col-md-9 col-sm-12 col-xs-12 row-second-width index-page-content" >
         <!--<div class="search maximize-width-for-ipad">-->
           <!--&lt;!&ndash; search &ndash;&gt;-->
           <!--{% include '_partials/search_form.html' %}-->

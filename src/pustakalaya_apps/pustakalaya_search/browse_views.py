@@ -55,13 +55,41 @@ def browse(request):
         ]
 
 
-        client = connections.get_connection()
 
-        s = Search(using=client, index="pustakalaya", doc_type=DocumentDoc).query("match_all").sort(
+        client = connections.get_connection()
+        #This new code also give the same thing...
+        '''
+        response = client.search(
+            index=settings.ES_INDEX,
+            doc_type="document",
+            body={
+                "query": {"match_all": {}}
+            }
+            )
+        '''
+        # for item in response:
+        #     print("\n item == ",item)
+
+        #print("new response = \n",response['hits'])
+
+        # s = Search(using=client, index=settings.ES_INDEX).query("match_all").sort(
+        #     *query
+        # )
+        #--This one is real
+        s = Search(using=client, index=settings.ES_INDEX, doc_type=DocumentDoc).query("match_all").sort(
             *query
         )
 
+        #s = Search().using(client).query("match_all").sort(*query)
+
+        #--uncomment this later if you want to use old one
         response = s.execute()
+
+        #print("old response = \n",len(response['hits']['hits']))
+        #dict_value = []
+        # for item in response['':
+        #     dict_value.append(item)
+
 
         # Pagination configuration before executing a query.
         paginator = Paginator(response, 25)
@@ -75,10 +103,19 @@ def browse(request):
             # If page is out of range (e.g. 7777), deliver last page of results.
             books = paginator.page(paginator.num_pages)
 
+        # return render(request, "pustakalaya_search/browse.html", {
+        #     "response": books,
+        #     "sort_by": sort_by,
+        #     "sort_order": sort_order,
+        #     "count":len(response)
+        #
+        # })
+
+
         return render(request, "pustakalaya_search/browse.html", {
             "response": books,
             "sort_by": sort_by,
             "sort_order": sort_order,
-            "count":len(response)
+            "count": len(response)
 
         })

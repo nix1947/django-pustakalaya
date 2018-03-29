@@ -20,6 +20,7 @@ class ItemDoc(DocType):
     publication_year = Date()
     created_date = Date()
     updated_date = Date()
-    author_list = Text(multi=True)
+    author_list = Text(fields={'keyword': Keyword()},multi=True)
     url = Text()
     view_count = Integer()
+    published = Text(fields={'keyword': Keyword()})

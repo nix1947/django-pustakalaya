@@ -43,3 +43,8 @@ class PustakalayaSearch(FacetedSearch):
         'publication_year': DateHistogramFacet(field='year_of_available', interval='month', min_doc_count=0),
 
     }
+
+    def search(self):
+        # override methods to add custom pieces
+        s = super().search().query("match", published="yes")
+        return s

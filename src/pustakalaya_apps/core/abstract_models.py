@@ -279,7 +279,8 @@ class AbstractItem(AbstractTimeStampModel):
             publication_year=self.publication_year,
             created_date=self.created_date,
             updated_date=self.updated_date,
-            view_count = self.get_view_count
+            view_count = self.get_view_count,
+            published = self.published
         )
 
     @abc.abstractmethod

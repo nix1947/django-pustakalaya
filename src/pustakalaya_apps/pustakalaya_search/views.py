@@ -30,8 +30,12 @@ def search(request):
         # Get data ajax request
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
+
         except (TypeError, JSONDecodeError):
-            filters = {}
+            # Query all the published data only
+            filters = {
+
+            }
 
         # Search in elastic search
         search_obj = PustakalayaSearch(query=query_string, filters=filters)
@@ -132,10 +136,9 @@ def completion(request):
     :return:
     """
 
-    client = connections.get_connection()
-
     if request.method == "GET":
         text = request.GET.get('suggest_text') or " "
+        client = connections.get_connection()
         response = client.search(
             index=settings.ES_INDEX,
             body={"_source": "suggest",
