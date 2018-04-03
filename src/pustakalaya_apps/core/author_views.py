@@ -42,6 +42,8 @@ def author_list(request):
             if item.name:
                 new_list.append(item)
 
+        print("author_list len =",len(author_list))
+        print("new_list len =",len(new_list))
 
         # Paginate the results
         number_per_page = 15
