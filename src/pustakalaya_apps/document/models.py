@@ -153,6 +153,13 @@ class Document(AbstractItem, HitCountMixin):
         blank=True,
     )
 
+    document_translator = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Translator(s)"),
+        related_name="translators",
+        blank=True,
+    )
+
     document_illustrators = models.ManyToManyField(
         Biography,
         verbose_name=_("Illustrator"),
@@ -265,6 +272,9 @@ class Document(AbstractItem, HitCountMixin):
             document_editors=[
                 editor.getname for editor in self.document_editors.all()
                 ],  # Multi value
+            document_translator=[
+                translator.getname for translator in self.document_translator.all()
+            ],
             document_total_page=self.document_total_page,
             # Document interactivity
             document_interactivity=self.document_interactivity,

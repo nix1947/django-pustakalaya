@@ -166,12 +166,10 @@
                     <!-- abstract -->
                     <!-- abstract of a document -->
                     <div>
-
-                        <span class="text-justify text-dark paragraph-font"
-                                {% if not object.abstract %}
-                              style="display: none"
-                                {% endif %}>
+                        {% if  object.abstract %}
+                        <span class="text-justify text-dark paragraph-font" >
                             {{ object.abstract }}</span>
+                      {% endif %}
 
                     </div>
 
@@ -182,10 +180,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
                             <!-- author section -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.document_authors.all %}
-                                 style="display: none;"
-                                    {% endif %}>
+                          {% if  object.document_authors.all %}
+                            <div class="pb-1 border-line">
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <span class="capitalize font-weight-normal text-dark">{% trans "Author(s):" %}</span>
@@ -198,12 +194,11 @@
                                 {% endfor %}
                                 </span>
                             </div>
+                          {% endif %}
 
                             <!-- Illustrator section -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.document_illustrators.all %}
-                                 style="display: none;"
-                                    {% endif %}>
+                           {% if  object.document_illustrators.all %}
+                            <div class="pb-1 border-line">
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "illustrators:" %}</span>
@@ -215,19 +210,16 @@
                                   {%  endif %}
                                 {% endfor %}
                                 </span>
-
-
                             </div>
+                          {% endif %}
+
 
                             <!-- editor section -->
-                            <div class="pb-1 border-line"
-                              {% if not object.document_editors.all %}
-                                 style="display: none;"
-                                    {% endif %}
-                              >
+                           {% if  object.document_editors.all %}
+                            <div class="pb-1 border-line">
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
-                                <span class="text-capitalize font-weight-normal text-dark">{% trans "Editors:" %}</span>
+                                <span class="text-capitalize font-weight-normal text-dark">{% trans "Editor(s):" %}</span>
                                 <span class="text-dark text-capitalize">
                                 {% for editor in object.document_editors.all %}
                                     {{ editor }}
@@ -236,9 +228,29 @@
                                   {%  endif %}
                                 {% endfor %}
                                  </span>
+                            </div>
+                           {% endif %}
+
+
+
+                          <!-- editor section -->
+                           {% if  object.document_translator.all %}
+                            <div class="pb-1 border-line">
+                                <!-- Authors -->
+                                <!-- TODO pluralization -->
+                                <span class="text-capitalize font-weight-normal text-dark">{% trans "Translator(s):" %}</span>
+                                <span class="text-dark text-capitalize">
+                                {% for translator in object.document_translator.all %}
+                                    {{ translator }}
+                                  {%  if not forloop.last %}
+                                            ,
+                                  {%  endif %}
+                                {% endfor %}
+                                 </span>
 
 
                             </div>
+                             {% endif %}
 
 
                             {% if  object.publisher.all %}
@@ -259,45 +271,37 @@
 
 
                             <!-- place of publication -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.place_of_publication %}
-                                 style="display: none;"
-                                    {% endif %}>
+                          {% if  object.place_of_publication %}
+                            <div class="pb-1 border-line">
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</span>
                                 <span class="text-dark text-capitalize"> {{ object.place_of_publication }}</span>
 
                             </div>
+                           {% endif %}
 
 
                             <!-- Publication year -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.publication_year_on_text %}
-                                 style="display: none;"
-                                    {% endif %}>
+                          {% if  object.publication_year_on_text %}
+                            <div class="pb-1 border-line">
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
                                 <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}</span>
 
-
                             </div>
+                          {% endif %}
 
                             <!-- Available year -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.year_of_available_on_text %}
-                                 style="display: none;"
-                                    {% endif %}>
+                           {% if  object.year_of_available_on_text %}
+                            <div class="pb-1 border-line">
 
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
                                 <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
 
                             </div>
+                          {% endif %}
 
                             <!-- Keywords -->
-                            {%  if object.keywords  %}
-                            <div class="pb-1 border-line"
-                            {% if not object.keywords.all %}
-                                 style="display: none;"
-                                    {% endif %}
-                            >
+                            {%  if object.keywords.all  %}
+                            <div class="pb-1 border-line" >
 
                                 <!-- TODO pluralization -->
                                 <span class="text-capitalize font-weight-normal text-dark" style="vertical-align: top;">{% trans "keywords:" %}</span>
@@ -311,39 +315,32 @@
                                         {%  endif %}
 
                                       </a>
-
-
-                                {% endfor %}
+                               {% endfor %}
                               </span>
-
-
-
                             </div>
                              {%  endif  %}
 
+
                             <!-- Description -->
-                            <div class="pb-1 border-line"
-                                    {% if not object.description %}
-                                 style="display: none"
-                                    {% endif %}>
+                          {% if  object.description %}
+                            <div class="pb-1 border-line">
                                 <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
                                 <span class="text-dark text-capitalize"
                                       style="vertical-align: top;width:50%;">{{ object.description }}</span>
 
                             </div>
+                          {% endif %}
 
                             <!-- License type -->
-                            <div class="pb-1 border-line"
-                            {% if not object.license.license %}
-                                 style="display: none;"
-                                    {% endif %}
-                            >
+                          {% if  object.license.license %}
+                            <div class="pb-1 border-line">
                                 <!-- TODO pluralization -->
                                 <span class="capitalize font-weight-normal text-dark">{% trans "License type:" %}</span>
                                 <span class="text-dark text-capitalize"> {{ object.license.license }}</span>
                             </div>
+                          {% endif %}
 
-                            {%  if not object.document_series or object.document_series == "_" %}
+                            {%  if  object.document_series  %}
                             <!-- document series -->
                             <div class="pb-1 border-line">
                                 <!-- Add 2px right margin in each -->
@@ -410,11 +407,8 @@
                             {% endif %}
 
                             <!-- Education level -->
-                            <div class="pb-1 border-line"
-                            {% if not object.education_levels.all %}
-                                 style="display: none;"
-                                    {% endif %}
-                             >
+                          {% if  object.education_levels.all %}
+                            <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
                                 <span class="text-dark">
@@ -429,14 +423,18 @@
 
 
                             </div>
+                           {% endif %}
 
                             <!-- Interactivity -->
-                            {%  if not object.document_interactivity or object.document_interactivity is "NA"  %}
+
+                            {%  if  object.document_interactivity  %}
+                            {%  if  object.document_interactivity != "NA"     %}
                             <div class="pb-1 border-line">
                                 <!-- TODO: implement pluralization in total page -->
                                 <span class="text-capitalize font-weight-normal hidden text-dark text-capitalize">{% trans "interactivity" %}:</span>
                                 <span class="text-dark"> {{ object.document_interactivity }}</span>
                             </div>
+                            {%  endif %}
                             {%  endif %}
 
 
