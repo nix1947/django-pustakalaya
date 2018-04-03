@@ -1,6 +1,36 @@
 {% load static %}
 {% load i18n %}
-
+{% block style %}
+<style>
+  .a-facebook{
+   color:white;
+   border-style:solid;
+   border-radius:5px;
+  }
+  .a-facebook:hover {
+   color:#2980b9;
+    background-color:white;
+  }
+  .a-twitter{
+   color:white;
+   border-style:solid;
+    border-radius:5px;
+  }
+  .a-twitter:hover {
+   color:#3498db;
+    background-color:white;
+  }
+  .a-android{
+   color:white;
+   border-style:solid;
+    border-radius:5px;
+  }
+  .a-android:hover{
+    background-color:white;
+   color:green;
+  }
+</style>
+{% endblock %}
 <!-- footer navigation -->
 <footer class=" section-padding mt-3" style="color:white !important;background-color:rgb(13,146,63)!important;">
 
@@ -15,10 +45,10 @@
       </div>
 
       <h4>Follow us: </h4>
-      <a href="https://www.facebook.com/olenepal/" target="_blank"><i class="fa fa-2x fa-facebook text-white p-2 "></i></a>
-      <a href="https://twitter.com/olenepal/" target="_blank"><i class="fa fa-2x fa-twitter text-white p-2 "></i></a>
+      <a href="https://www.facebook.com/olenepal/" target="_blank" class="a-facebook pt-4 pb-1"><i class="fa fa-2x fa-facebook  p-3 "></i></a>
+      <a href="https://twitter.com/olenepal/" target="_blank" class="a-twitter pt-4 pb-1"><i class="fa fa-2x fa-twitter  p-3 "></i></a>
       <h4>Download App:</h4>
-      <a href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><i class="fa fa-2x fa-android text-white p-2 "></i></a>
+      <a class="a-android pt-4 pb-1" href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><i class="fa fa-2x fa-android  p-3 "></i></a>
 
 
     </div>
