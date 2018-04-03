@@ -52,14 +52,23 @@
       </span>
 
                 {% endfor %}
+              <br>
+              {% if letter_exist %}
+              <a id="alphabet-button" class="btn btn-xs btn-simple text-primary"
+           href="/authors/"
+           readonly>Show all</a>
+              {% endif %}
+
+
             </div>
         </div>
 
         <!-- author list -->
         {% for author in authors %}
+            {% if author.getname.strip  %}
             <div class="row mb-2">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <span class="text-dark">{{ forloop.counter }}.</span>
+                    <span class="text-dark">{{ page_number_count|add:forloop.counter }}.</span>
                     <a style="text-decoration: none" class="text-primary"
                        href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">
                         {{ author.getname }}
@@ -67,6 +76,7 @@
                 </div>
             </div>
             <hr>
+            {% endif %}
         {% endfor %}
         <!-- include pagination -->
         {% if authors.has_other_pages %}

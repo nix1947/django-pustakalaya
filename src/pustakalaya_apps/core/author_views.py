@@ -24,6 +24,9 @@ def author_list(request):
                       'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'स',
                       'ष', 'ह']
 
+    #Filter for show all
+    letter_exist = False;
+
     if request.method == "GET":
         query_letter = request.GET.get('letter',None)
 
@@ -31,23 +34,45 @@ def author_list(request):
             author_list = Biography.objects.all()
         else:
             author_list = Biography.objects.filter(name__startswith=query_letter or query_letter.upper())
+            letter_exist = True
 
-        # Get the page no.
-        page = request.GET.get('page', 1)
+        new_list = []
+        for item in author_list:
+            if item.getName is not "" or None:
+                new_list.append(item)
 
         # Paginate the results
-        paginator = Paginator(author_list, 25)
+        number_per_page = 25
+        # Get the page no.
+
+        page_no = request.GET.get('page')
+
+        paginator = Paginator(new_list, number_per_page)
         try:
-            authors = paginator.page(page)
+            authors = paginator.page(page_no)
         except PageNotAnInteger:
             authors = paginator.page(1)
         except EmptyPage:
             authors = paginator.page(paginator.num_pages)
 
+        start_item_count = 0
+        # print("pg num= ",page_no)
+        if page_no is not None:
+
+            if page_no.isdigit():
+                if page_no == 1:
+                    start_item_count = 1
+                elif int(page_no) > 1:
+                    start_item_count = (int(page_no) - 1) * number_per_page
+            else:
+                start_item_count = 0
+
     return render(request, "core/author_list.html", {
         "letters": letters,
         "authors": authors,
-        "nepali_letters": nepali_letters
+        "nepali_letters": nepali_letters,
+        "page_number_count" : start_item_count,
+        "letter_exist":letter_exist
     })
 
 
