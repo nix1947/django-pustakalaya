@@ -38,7 +38,8 @@ def author_list(request):
 
         new_list = []
         for item in author_list:
-            if item.name is not None:
+            print("name=",item.name)
+            if item.name:
                 new_list.append(item)
 
 
