@@ -7,7 +7,9 @@ from pustakalaya_apps.document.models import Document
 
 def show_all_featured_item(request):
 
-    item_list = Document.objects.filter(featured="yes")
+    item_list = Document.objects.filter(featured="yes",published="yes")
+
+    total_count = len(item_list)
 
     paginator = Paginator(item_list, 24)
     page = request.GET.get('page')
@@ -21,7 +23,8 @@ def show_all_featured_item(request):
         doc = paginator.page(paginator.num_pages)
 
     return render(request, "show_featured/all_featured_item.html", {
-        'favourite_documents':doc
+        'favourite_documents':doc,
+        'total_count':total_count
     })
 
 

@@ -6,7 +6,8 @@
         <li class="media mb-3"
             onclick="window.location.href='{% url hit.type|add:":detail" hit.title|slugify hit.id %}'"
              style="cursor:pointer;">
-            <span class="mr-2">{{ forloop.counter }}.</span>
+
+            <span class="mr-2">{{ page_number_count|add:forloop.counter  }}.</span>
 
           {% if hit.thumbnail  %}
 
@@ -50,14 +51,14 @@
                     <a class="text-capitalize text-dark bold-content"
                        href="{% url hit.type|add:":detail" hit.title|slugify hit.id %}">{{ hit.title }}</a>
                 </p>
-                <div class="text-dark text-capitalize">
+                <div class="text-dark">
                     <div>
                         {% for author in hit.author_list %}
                             {% if author == "null" %}
                                 <!-- do nothing -->
                             {% else %}
                                 <!-- hard link are used as so as, wrong urls can break the page -->
-                                <a style="text-decoration: none" class="text-capitalize text-description text-info"
+                                <a style="text-decoration: none" class="text-description text-info"
                                    href="/authors/{{ author.0|slugify }}/{{ author.1 }}">
                                     {{ author.0 }}
                                 </a>

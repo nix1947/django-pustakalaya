@@ -53,6 +53,7 @@ def author_list(request):
 
 def author_books(request, author_name):
     from pustakalaya_apps.core.utils import list_search_from_elastic
+    from pustakalaya_apps.core.utils import  list_search_from_elastic_work
     """
     Query all the books by this author from ES.
     :param request:
@@ -60,7 +61,8 @@ def author_books(request, author_name):
     :return:
     """
     #print("author name = ",author_name)
-    author_name = " ".join(author_name.split("-"))
+    # author_name = " ".join(author_name.split("-"))
+    author_name = " ".join(author_name.split("_"))
     #print(author_name)
     # TODO: explicitly define the index name
     search_field = "author_list"
@@ -72,7 +74,8 @@ def author_books(request, author_name):
     # Query to elastic search in keywords field having the value of search_value
     # Return response object.
 
-    context = list_search_from_elastic(request, **kwargs)
+    #context = list_search_from_elastic(request, **kwargs)
+    context = list_search_from_elastic_work(request,author_name)
 
     context["keyword"] = context
     context["author"] = author_name

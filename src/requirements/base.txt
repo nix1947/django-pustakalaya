@@ -26,6 +26,10 @@ django-modeladmin-reorder==0.3
 #bootstrap_pagination
 django-bootstrap-pagination==1.6.4
 
+#django-cleanup
+django-cleanup==2.1.0
+
+
 
 
 

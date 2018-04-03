@@ -39,7 +39,8 @@ def collection_detail(request, name, pk):
     })
 
     # Pagination configuration before executing a query.
-    paginator = Paginator(s, 25)
+    number_per_page= 25
+    paginator = Paginator(s, number_per_page)
 
     page_no = request.GET.get('page')
     try:
@@ -49,10 +50,22 @@ def collection_detail(request, name, pk):
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
 
+    start_item_count = 0
+
+    if page_no is not None:
+
+        if page_no.isdigit():
+            if page_no==1:
+                start_item_count = 1
+            elif int(page_no) > 1 :
+                start_item_count = (int(page_no) - 1) * number_per_page
+        else:
+            start_item_count = 0
+
+
     response = page.object_list.execute()
     splitted_name = name.split()
     collection_name = "-".join(splitted_name)
-    #print("splitted_name name = ","-".join(splitted_name))
     collection = Collection.objects.get(pk=pk)
 
     context["response"] = response
@@ -61,8 +74,9 @@ def collection_detail(request, name, pk):
     context["community_name"] = collection.community_name
     context["sort_order"] = sort_order
     context["sort_by"] = sort_by
-    # print("respoinse = ",collection)
+
     context["page_obj"] = page
-    # context["paginator"] = paginator
+    context["page_number_count"]= start_item_count
+
 
     return render(request, "collection/collection_detail.html", context)

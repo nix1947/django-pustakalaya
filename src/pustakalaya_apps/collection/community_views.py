@@ -28,9 +28,8 @@ def community_detail(request, community_name):
     all_total = 0
 
     for collection in collections:
-        # Get the total no of items having this collection name in elastic search
-        # item_count_per_collection = Search(index="pustakalaya").using(client).query("match", communities=collection).count()
-        item_count_per_collection = Search(index="pustakalaya").using(client).query("match", collections=collection.collection_name).count()
+
+        item_count_per_collection = Search(index="pustakalaya").using(client).query("match",collections=collection.collection_name).count()
 
 
         all_total += item_count_per_collection

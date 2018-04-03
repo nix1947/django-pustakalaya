@@ -19,8 +19,8 @@ class Collection(AbstractTimeStampModel):
         ("course materials", _("Course materials")),
         ("teaching materials", _("Teaching materials")),
         ("reference materials", _("Reference materials")),
+        ("newpapers and magazines ", _("Newpapers and magazines")),
         ("other educational materials", _("Other educational materials")),
-        ("newspaper and magazines", _("newspaper and magazines")),
     )
 
     community_name = models.CharField(
@@ -39,6 +39,10 @@ class Collection(AbstractTimeStampModel):
         _("Collection description"),
         blank=True
     )
+
+    # def get_underscore_collection_name(self):
+    #     new_underscore_collection_name = self.collection_name.replace(" ", "_")
+    #     return new_underscore_collection_name;
 
     def save(self, *args, **kwargs):
         # Check the index server, If index server is down, reject the save
@@ -78,3 +82,4 @@ class Collection(AbstractTimeStampModel):
 
     class Meta:
         db_table = "collection"
+

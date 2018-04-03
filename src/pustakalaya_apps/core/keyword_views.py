@@ -22,8 +22,6 @@ def keyword_detail(request, keyword):
     # context["response"] = response
     context["keyword"] = keyword
 
-    # Implement pagination
-
 
     return render(request, "core/keyword_detail.html", context)
 

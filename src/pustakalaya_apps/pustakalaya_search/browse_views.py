@@ -57,45 +57,22 @@ def browse(request):
 
 
         client = connections.get_connection()
-        #This new code also give the same thing...
-        '''
-        response = client.search(
-            index=settings.ES_INDEX,
-            doc_type="document",
-            body={
-                "query": {"match_all": {}}
-            }
-            )
-        '''
-        # for item in response:
-        #     print("\n item == ",item)
 
-        #print("new response = \n",response['hits'])
-
-        # s = Search(using=client, index=settings.ES_INDEX).query("match_all").sort(
-        #     *query
-        # )
-        #--This one is real
         s = Search(using=client, index=settings.ES_INDEX, doc_type=DocumentDoc).query("match_all").sort(
             *query
         )
+        total = s.count()
+        s = s[0:total]
 
-        #s = Search().using(client).query("match_all").sort(*query)
-
-        #--uncomment this later if you want to use old one
         response = s.execute()
-
-        #print("old response = \n",len(response['hits']['hits']))
-        #dict_value = []
-        # for item in response['':
-        #     dict_value.append(item)
 
 
         # Pagination configuration before executing a query.
-        paginator = Paginator(response, 25)
-        page = request.GET.get('page')
+        number_per_page = 25
+        paginator = Paginator(response, number_per_page)
+        page_no = request.GET.get('page')
         try:
-            books = paginator.page(page)
+            books = paginator.page(page_no)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
             books = paginator.page(1)
@@ -111,11 +88,23 @@ def browse(request):
         #
         # })
 
+        start_item_count = 0
+        # print("pg num= ",page_no)
+        if page_no is not None:
+
+            if page_no.isdigit():
+                if page_no == 1:
+                    start_item_count = 1
+                elif int(page_no) > 1:
+                    start_item_count = (int(page_no) - 1) * number_per_page
+            else:
+                start_item_count = 0
 
         return render(request, "pustakalaya_search/browse.html", {
             "response": books,
             "sort_by": sort_by,
             "sort_order": sort_order,
-            "count": len(response)
+            "count": len(response),
+            "page_number_count":start_item_count
 
         })

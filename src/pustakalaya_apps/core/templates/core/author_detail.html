@@ -30,7 +30,7 @@
 
       {% endif %}
       <br/><br/>
-      <p><strong class="text-capitalize paragraph-font"><a href="{%  url "author:books" object.getname|slugify %}">{% trans "View author's book" %}</a></strong></p>
+      <p><strong class="text-capitalize paragraph-font"><a href="{%  url "author:books" object.get_underscore_name %}">{% trans "View author's book" %}</a></strong></p>
       <hr>
       {%  if request.user.is_superuser %}
           <p class="text-primary description">

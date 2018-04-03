@@ -34,9 +34,11 @@ padding-right:0%;
 
                 <div class=" background-color">
                   {% if favourite_documents %}
-                    <h3 class="text-capatitalize">All featured items</h3>
+                    <h3 class="text-capatitalize mb-0">All featured items</h3>
+                   <small> <div class="text-secondary mb-2">Total favourite of items: {{ total_count }}</div></small>
 
                     <div class="row">
+
 
                       {% for doc in favourite_documents %}
 
