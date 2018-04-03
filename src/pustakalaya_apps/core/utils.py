@@ -49,7 +49,7 @@ def list_search_from_elastic(request, query_type="match", **kwargs):
     #  })
 
     # Pagination configuration before executing a query.
-    number_per_page = 25
+    number_per_page = 15
     paginator = Paginator(s, number_per_page)
 
     page_no = request.GET.get('page')
@@ -139,7 +139,7 @@ def list_search_from_elastic_work(request,author_name, query_type="match"):
     # })
 
     # Pagination configuration before executing a query.
-    number_per_page = 25
+    number_per_page = 15
     paginator = Paginator(s, number_per_page)
 
     page_no = request.GET.get('page')

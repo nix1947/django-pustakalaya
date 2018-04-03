@@ -68,7 +68,7 @@ def browse(request):
 
 
         # Pagination configuration before executing a query.
-        number_per_page = 25
+        number_per_page = 15
         paginator = Paginator(response, number_per_page)
         page_no = request.GET.get('page')
         try:

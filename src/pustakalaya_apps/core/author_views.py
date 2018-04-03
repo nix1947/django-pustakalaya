@@ -38,11 +38,12 @@ def author_list(request):
 
         new_list = []
         for item in author_list:
-            if item.getName is not "" or None:
+            if item.name is not None:
                 new_list.append(item)
 
+
         # Paginate the results
-        number_per_page = 25
+        number_per_page = 15
         # Get the page no.
 
         page_no = request.GET.get('page')
