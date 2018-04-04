@@ -405,9 +405,9 @@
                   <i class="fa fa-book text-dark"></i> <span class="text-dark bold">{{ book |truncatechars:15}}</span>
 
                 {% if  book.document_authors.first%}
-                <span class=" pl-3 author-name-size text-dark">By
+                <div class="author-name-size text-dark">By
                 <span class="text-secondary"> {{book.document_authors.first}}</span>
-                </span>
+                </div>
                 {% endif %}
                 </div>
               </a>
