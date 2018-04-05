@@ -29,7 +29,7 @@ def community_detail(request, community_name):
 
     for collection in collections:
 
-        item_count_per_collection = Search(index="pustakalaya").using(client).query("match",collections=collection.collection_name).count()
+        item_count_per_collection = Search(index="pustakalaya").using(client).query("match",collections_ids=collection.pk).count()
 
 
         all_total += item_count_per_collection

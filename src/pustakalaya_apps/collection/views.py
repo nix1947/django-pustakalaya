@@ -34,7 +34,7 @@ def collection_detail(request, name, pk):
     # And sort the result based on the sorting options.
     client = connections.get_connection()
     name = " ".join(name.split("-"))
-    s = Search(index="pustakalaya").using(client).query("match", collections=name).sort({
+    s = Search(index="pustakalaya").using(client).query("match", collections_ids=pk).sort({
         sort_by: {"order": sort_order}
     })
 
