@@ -540,11 +540,11 @@
 
                                   <p class="text-primary description lead bold" id="_itemTitle">
                                     <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}">
-                                      {{ hit.title|truncatechars:17}}
+                                      {{ hit.title|truncatewords:11}}
                                     </a>
                                     </p>
 
-                                    <div class="list-abstract text-secondary small-device-small-font ">{{ hit.abstract|truncatechars:150 }}
+                                    <div class="list-abstract text-secondary small-device-small-font ">{{ hit.abstract|truncatewords:40 }}
                                         <br>
                                         <strong class="text-black">{% trans "Views" %}:</strong>
                                         &nbsp;{{ hit.view_count }}
