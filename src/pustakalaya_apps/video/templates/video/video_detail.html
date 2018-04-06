@@ -103,64 +103,64 @@
         <div class="row">
           {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
+                     <div class="col-12 text-primary description">
                       <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
-                     </p>
+                     </div>
 
            {%  endif %}
             <!-- metadata section -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <p class="text-justify  tex-dark font-weight-normal"
-                        {% if not object.abstract %}
-                            style="..."
-                        {% endif %}>
-                    {{ object.abstract }}</p>
+            <div class="col-md-12 col-sm-12 col-xs-12"  style="overflow-wrap: break-word;">
+              {% if  object.abstract %}
+                <div class=" text-justify  tex-dark font-weight-normal">
+                    {{ object.abstract }}
+                </div>
+               {% endif %}
                 <!-- publisher section -->
                   {% if  object.publisher.all %}
-                            <div class="pb-1 border-line">
+                            <div class="row pb-1 border-line">
 
-                                <span class="text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</span>
-                                <span class="text-dark text-capitalize">
+                                <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
+                                <div class="col-lg-10 text-dark text-capitalize">
                                  {% for publisher in object.publisher.all %}
                                   {{ publisher.publisher_name }}
                                   {%  if not forloop.last %}
                                             ,
                                   {%  endif %}
                                  {% endfor %}
-                                </span>
+                                </div>
 
                             </div>
                            {% endif %}
                 <!-- place of publication -->
               {% if  object.place_of_publication %}
-                <div class="pb-1 border-line">
-                    <span class="capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.place_of_publication }}</span>
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
                 </div>
               {% endif %}
 
                 <!-- Publication year -->
               {% if object.publication_year_on_text %}
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.publication_year_on_text }}</span>
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.publication_year_on_text }}</div>
 
                 </div>
               {% endif %}
               {% if object.year_of_available_on_text %}
                 <!-- Available year -->
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
-                    <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
+                <div class="row  pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.year_of_available_on_text }}</div>
                 </div>
                 {% endif %}
                 <!-- Keywords -->
               {% if object.keywords.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
 
                     <!-- TODO pluralization -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</span>
-                    <span class="text-dark text-capitalize">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize">
                     {% for keyword in object.keywords.all %}
 
                             <a href="{% url 'keyword:keyword_detail' keyword.keyword %}">{{ keyword.keyword }}</a>
@@ -168,116 +168,118 @@
                                             ,
                       {%  endif %}
                     {% endfor %}
-                    </span>
+                    </div>
 
                 </div>
                 {% endif %}
 
                 {% if object.description  %}
                 <!-- Description -->
-                <div class="pb-1 border-line">
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
-                    <span class="text-capitalize"> {{ object.description }}</span>
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
+                    <div class="col-lg-10 text-capitalize"> {{ object.description }}</div>
                 </div>
               {% endif %}
 
                 {% if object.license.license %}
                 <!-- License type -->
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
-                    <span class="capitalize font-weight-normal text-dark">{% trans "License type:" %}</span>
-                    <span class="text-capitalize"> {{ object.license.license }}</span>
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
+                    <div class="col-lg-10 text-capitalize"> {{ object.license.license }}</div>
                 </div>
                 {% endif %}
 
                 <!-- video series -->
                {% if object.video_series %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="capitalize font-weight-normal text-dark">{% trans "Series:" %}</span>
-                    <span class="text-capitalize">{{ object.video_series }}</span>
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Series:" %}</div>
+                    <div class="col-lg-10 text-capitalize">{{ object.video_series }}</div>
                 </div>
               {% endif %}
 
                 <!-- video running time -->
               {% if  object.video_running_time %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "running time" %}</span>
-                    <span class="text-dark text-capitalize">{{ object.video_running_time }}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "running time" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize">{{ object.video_running_time }}</div>
                 </div>
                {% endif %}
 
                  <!-- video director time -->
                 {% if  object.video_director %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "video director" %}</span>
-                    <span class="text-dark text-capitalize">{{ object.video_director }}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "video director" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize">{{ object.video_director }}</div>
                 </div>
                 {% endif %}
 
                 <!-- Video producer -->
               {% if  object.video_producers.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
-                    <span class="text-capitalize hidden text-dark text-capitalize">{% trans "Video producer" %}:</span>
-                  <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "Video producer" %}:</div>
+                  <div class="col-lg-10 text-capitalize">
                   {% for producer in object.video_producers.all %}
                          {{ producer }}
                     {%  if not forloop.last %}
                     ,
                    {%  endif %}
                     {% endfor %}
-                  </span>
+                  </div>
                 </div>
                {% endif %}
 
                 <!-- video certificate license -->
               {% if  object.video_certificate_license %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "certificate license:" %}</span>
-                    <span class="text-capitalize">{{ object.video_certificate_license }}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "certificate license:" %}</div>
+                    <div class="col-lg-10 text-capitalize">{{ object.video_certificate_license }}</div>
                 </div>
               {% endif %}
 
                 <!-- video genre -->
-                <div class="pb-1 border-line">
+              {% if  object.video_genre %}
+                <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</span>
-                    <span class="text-capitalize">{{ object.video_genre }}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
+                    <div class="col-lg-10 text-capitalize">{{ object.video_genre }}</div>
                 </div>
+              {% endif %}
 
                 <!-- Language -->
                 {% if  object.languages.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
-                    <span class="text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</span>
-                  <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</div>
+                  <div class="col-lg-10 text-capitalize">
                   {% for language in object.languages.all %}
                          {{ language }}
                     {%  if not forloop.last %}
                     ,
                    {%  endif %}
                     {% endfor %}
-                  </span>
+                  </div>
                 </div>
                 {% endif %}
 
                 <!-- Education level -->
               {% if  object.education_levels.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
-                    <span class="text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
-                    <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</div>
+                    <div class="col-lg-10 text-capitalize">
                     {% for education_level in object.education_levels.all %}
                          {{ education_level }}
                       {%  if not forloop.last %}
                                             ,
                       {%  endif %}
                     {% endfor %}
-                    </span>
+                    </div>
 
 
                 </div>
@@ -285,30 +287,32 @@
 
                 <!-- Rights -->
                {% if  object.custom_license %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
 
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "right:" %}</span>
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
 
-                    <span class="text-capitalize"> {{ object.custom_license }} </span>
+                    <div class="col-lg-10 text-capitalize"> {{ object.custom_license }} </div>
                 </div>
                 {% endif %}
 
                 <!-- sponsor -->
                 {% if  object.sponsors.all %}
-                <div class="pb-1 border-line">
+                <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
-                    <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
-                  <span class="text-capitalize">
+                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
+                  <div class="col-lg-10 text-capitalize">
                   {% for sponsor in object.sponsors.all %}
                         {{ sponsor }}
                     {%  if not forloop.last %}
                                             ,
                       {%  endif %}
                     {% endfor %}
-                  </span>
+                  </div>
                 </div>
                 {% endif %}
             </div>
+
+
         </div>
        <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
