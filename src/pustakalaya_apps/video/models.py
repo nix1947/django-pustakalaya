@@ -77,7 +77,7 @@ class Video(AbstractItem):
     type = models.CharField(
         editable=False,
         default="video",
-        max_length=4
+        max_length=255
     )
     video_certificate_license = models.CharField(
         verbose_name=_("Certification"),
@@ -140,7 +140,7 @@ class Video(AbstractItem):
 
     video_running_time = models.CharField(
         verbose_name=_("Running time in minutes"),
-        max_length=3,
+        max_length=255,
         blank=True,
         default="0"
     )

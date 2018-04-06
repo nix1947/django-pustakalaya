@@ -41,12 +41,12 @@ class Audio(AbstractItem):
 
     type = models.CharField(
         default="audio",
-        max_length=5,
+        max_length=255,
         editable=False
     )
     audio_running_time = models.CharField(
         verbose_name=_("Running time in minutes"),
-        max_length=3,
+        max_length=255,
         blank=True,
     )
 
