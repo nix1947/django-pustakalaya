@@ -446,7 +446,7 @@ class DocumentIdentifier(AbstractTimeStampModel):
     identifier_id = models.CharField(
         _("Identifier ID"),
         blank=True,
-        max_length=10
+        max_length=30
     )
 
     document = models.OneToOneField(
