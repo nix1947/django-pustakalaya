@@ -76,6 +76,7 @@ class DocumentSearch(FacetedSearch):
             query=q,
             functions=[SF('field_value_factor', field='title')]
         )
+        #.filter("term", tags="python")
 
         return search
 

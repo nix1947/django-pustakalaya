@@ -99,7 +99,8 @@ class Sponsor(AbstractTimeStampModel):
     )
 
     description = models.TextField(
-        verbose_name=_("Description")
+        verbose_name=_("Description"),
+        blank=True
     )
 
     def __str__(self):
@@ -166,6 +167,9 @@ class LicenseType(models.Model):
     license = models.CharField(
         max_length=50,
         verbose_name=_("License"),
+        blank=True,
+        null=True,
+
     )
 
     class Meta:

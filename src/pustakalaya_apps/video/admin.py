@@ -4,7 +4,8 @@ from .models import (
     Video,
     VideoSeries,
     VideoFileUpload,
-    VideoLinkInfo
+    VideoLinkInfo,
+    VideoGenre
 )
 
 
@@ -88,3 +89,7 @@ class VideoAdmin(admin.ModelAdmin):
 class VideoSeriesAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(VideoGenre)
+class VideoGenreAdmin(admin.ModelAdmin):
+    pass

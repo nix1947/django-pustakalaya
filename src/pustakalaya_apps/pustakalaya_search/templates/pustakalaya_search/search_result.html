@@ -519,8 +519,8 @@
                         </div>
                         <ul class="list clearfix">
                             {% for hit in hits %}
-
-                           <li style="position: relative; cursor: pointer" onclick='window.location.href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}"'>
+                          {% if hit.published == "yes" %}
+                           <li style="position: relative; cursor: pointer;overflow:hidden;" onclick='window.location.href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}"'>
 
                           {% if hit.thumbnail  %}
 
@@ -539,12 +539,13 @@
                                             <!--<a href="#">-->
 
                                   <p class="text-primary description lead bold" id="_itemTitle">
-                                    <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}">
-                                      {{ hit.title|truncatewords:11}}
+                                    <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}" >
+                                      {{ hit.title|truncatewords:11 }}
                                     </a>
+
                                     </p>
 
-                                    <div class="list-abstract text-secondary small-device-small-font ">{{ hit.abstract|truncatewords:40 }}
+                                    <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">{{ hit.abstract|truncatewords:40 }}
                                         <br>
                                         <strong class="text-black">{% trans "Views" %}:</strong>
                                         &nbsp;{{ hit.view_count }}
@@ -552,6 +553,7 @@
 
 
                                 </li>
+                              {% endif %}
 
                             {% endfor %}
                         </ul>

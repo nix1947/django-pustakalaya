@@ -170,8 +170,10 @@
   }
 
  .pull-relative{
+    /* uncomment this to pull right
     float:left !important;
     margin-left:10% ! important;
+    */
  }
 
 }
@@ -180,22 +182,33 @@
 @media screen and (max-width:1100px) and (min-width:763px){
 
 .index-page-sidebar-section{
-
+  /*
   float:left!important;
   padding-left:300px!important;
   margin-top:-100px!important;
+  */
+  /*border: 1px solid red;*/
 
   }
   .index-page-sidebar-education-level{
+  /*
   margin-top:60px!important;
   position:absolute
+  */
+
+  /* border: 1px solid red;*/
   }
 
   .index-page-content{
+  /*
   padding-top:300px;
   margin-left:-24%!important;
   padding-left:5px;
   margin-right:-24%!important;
+  */
+  /*border: 1px solid red;*/
+
+
   }
 
 }
@@ -546,7 +559,7 @@
               <!-- Major partners -->
               <div class=" col-md-6 col-xs-12  md-height-same-as-container ipad-padding-left  sd-padding-left-right-zero lg-padding-left-zero">
                 <div class="container jumbotron mb-0 pt-3 content-box-shadow">
-                  <p class="description text-uppercase bold  text-dark text-uppercase ">{% trans "Major partners" %}</p>
+                  <p class="description text-uppercase bold  text-dark text-uppercase ">{% trans "Major partner" %}</p>
 
                 <a class="nav-link active" href="http://www.idrf.org/" target="_blank" title="IDRF">
                   <img class="list-hover-style-slider" src="{% static 'images/logos/idrf_new_logo.png' %}"

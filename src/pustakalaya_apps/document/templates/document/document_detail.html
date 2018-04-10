@@ -322,15 +322,7 @@
                              {%  endif  %}
 
 
-                            <!-- Description -->
-                          {% if  object.description %}
-                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
-                                      style="vertical-align: top;">{{ object.description }}</div>
 
-                            </div>
-                          {% endif %}
 
                             <!-- License type -->
                           {% if  object.license.license %}
@@ -434,16 +426,6 @@
                             {%  endif %}
                             {%  endif %}
 
-
-                            <!-- Rights -->
-                          {% if  object.custom_license %}
-                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
-                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
-                                      style="vertical-align: top;"> {{ object.custom_license }}</div>
-                            </div>
-                          {% endif %}
-
                             <!-- sponsor -->
                           {% if  object.sponsors.all %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
@@ -460,6 +442,48 @@
                                       </div>
                             </div>
                           {% endif %}
+
+
+                            <!-- Rights -->
+                          {% if  object.custom_license %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</div>
+                                <div class="col-lg-9 text-dark text-capitalize"
+                                      style="vertical-align: top;"> {{ object.custom_license }}</div>
+                            </div>
+                          {% endif %}
+
+                           <!-- additional_note -->
+                          {% if  object.additional_note %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</div>
+                                <div class="col-lg-9 text-dark text-capitalize"
+                                      style="vertical-align: top;"> {{ object.additional_note }}</div>
+                            </div>
+                          {% endif %}
+
+                           <!-- Description -->
+                          {% if  object.description %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
+                                <div class="col-lg-9 text-dark text-capitalize"
+                                      style="vertical-align: top;">{{ object.description }}</div>
+
+                            </div>
+                          {% endif %}
+
+
+                          <!-- link_name -->
+
+                          {% if  object.link_name %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                                <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "link name:" %}</div>
+                                <div class="col-lg-9 text-dark text-capitalize"
+                                      style="vertical-align: top;">{{ object.link_name }}</div>
+
+                            </div>
+                          {% endif %}
+
                         </div>
 
                     </div>

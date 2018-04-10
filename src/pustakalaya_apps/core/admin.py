@@ -35,6 +35,9 @@ class LicenseTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Keyword)
 class KeyWordAdmin(admin.ModelAdmin):
+    search_fields = (
+        'keyword',
+    )
     pass
 
 

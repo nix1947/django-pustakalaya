@@ -128,6 +128,7 @@ class Video(AbstractItem):
     license = models.ForeignKey(
         LicenseType,
         verbose_name=_("license"),
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )
@@ -177,6 +178,7 @@ class Video(AbstractItem):
             video_series=getattr(self.video_series, "series_name", ""),
             video_certificate_license=self.video_certificate_license,
             video_genre=getattr(self.video_genre, "genre", ""),
+            #video_genre=self.video_genre.genre if self.video_genre else None,
             author_list=self.getauthors,
             url = self.get_absolute_url()
 
@@ -282,7 +284,8 @@ class VideoGenre(AbstractTimeStampModel):
     )
 
     genre_description = models.TextField(
-        verbose_name=_("Genre description")
+        verbose_name=_("Genre description"),
+        blank=True
     )
 
     class Meta:
@@ -290,3 +293,4 @@ class VideoGenre(AbstractTimeStampModel):
 
     def __str__(self):
         return self.genre
+

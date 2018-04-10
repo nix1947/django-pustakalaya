@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from pustakalaya_apps.review_system.models import Review
 from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
+from pustakalaya_apps.core.abstract_models import LinkInfo
 
 
 def documents(request):
@@ -72,8 +73,13 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
         context["favourite_data"]= favourite_data
 
-        # print("favourite_data=",context["favourite_data"])
-        # print("context= ", context)
+        # for item in context:
+        #     print("context=",item)
+
+
+        # print("context doc= ", context["document"])
+        # print("object= ", context["object"])
+
         #print("user in the console= ",context["favourite_data"][0].user)
         return self.render_to_response(context)
 

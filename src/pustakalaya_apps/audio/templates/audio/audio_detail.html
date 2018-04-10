@@ -108,19 +108,7 @@
 
       <h4 class="text-capitalize h4 lead mt-0 pt-0 " style="overflow-wrap: break-word;"><b>{{ object.title }}</b></h4>
 
-       {% if  object.audio_read_by %}
-      <div class="row border-line " style="overflow-wrap: break-word;" >
-        <!-- Read by/Voice -->
-        <!-- TODO pluralization -->
-        <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Read by/Voice:" %}</div>
-        {%  if object.audio_read_by %}
-        <div class="col-lg-10 text-dark text-capitalize text-primary">
-        <a href="{% url 'author:author_detail' object.audio_read_by.getname|slugify object.audio_read_by.pk %}">
-          {{ object.audio_read_by.getname }}</a>
-        </div>
-        {% endif %}
-      </div>
-      {% endif %}
+
 
       {% if  object.abstract %}
       <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
@@ -132,6 +120,20 @@
 
       <!--Read by section-->
       <div class="read-section">
+
+        {% if  object.audio_read_by %}
+      <div class="row border-line " style="overflow-wrap: break-word;" >
+        <!-- Read by/Voice -->
+        <!-- TODO pluralization -->
+        <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Read/Voice by:" %}</div>
+        {%  if object.audio_read_by %}
+        <div class="col-lg-10 text-dark text-capitalize text-primary">
+        <a href="{% url 'author:author_detail' object.audio_read_by.getname|slugify object.audio_read_by.pk %}">
+          {{ object.audio_read_by.getname }}</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
 
         <!-- publisher section -->
        {% if  object.publisher.all %}
@@ -168,12 +170,12 @@
         {% endif %}
 
         <!-- audio read by -->
-        {% if  object.audio_read_by %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "read by:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_read_by.getname }}</div>
-        </div>
-        {% endif %}
+        <!--{# {% if  object.audio_read_by %}-->
+        <!--<div class="row pb-1 border-line" style="overflow-wrap: break-word;">-->
+          <!--<div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "read by:" %}</div>-->
+          <!--<div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_read_by.getname }}</div>-->
+        <!--</div>-->
+        <!--{% endif %} #}-->
         <!-- audio type -->
         {% if  object.audio_types.all %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
@@ -184,8 +186,16 @@
         </div>
         {% endif %}
 
+        <!-- audio running time -->
+         {% if  object.audio_running_time %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Running time:" %}</div>
+          <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_running_time }}</div>
+        </div>
+        {% endif %}
+
         <!-- audio genre -->
-         {% if not object.audio_genre %}
+         {% if  object.audio_genre %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
           <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_genre.genre }}</div>
@@ -200,6 +210,25 @@
         </div>
         {% endif %}
 
+        <!-- audio series -->
+        {% if  object.volume %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Volume:" %}</span>
+          <span class="col-lg-10 text-dark text-capitalize"> {{ object.volume }}</span>
+        </div>
+        {% endif %}
+
+        <!-- audio edition -->
+        {% if  object.edition %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "edition:" %}</span>
+          <span class="col-lg-10 text-dark text-capitalize"> {{ object.edition }}</span>
+        </div>
+        {% endif %}
+
+
+
+
         <!-- Available year -->
         {% if  object.year_of_available_on_text%}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
@@ -209,9 +238,11 @@
         {% endif %}
 
         <!-- Keywords -->
-         {% if not  keyword.keyword %}
+
+         {% if object.keywords.all %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <!-- TODO pluralization -->
+
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
            <div class="col-lg-10 text-dark text-capitalize">
           {% for keyword in object.keywords.all %}
@@ -224,13 +255,7 @@
         </div>
         {% endif %}
 
-        <!-- Description -->
-        {% if  object.description %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.description }}</div>
-        </div>
-        {% endif %}
+
 
         <!-- License type -->
         {% if  object.license.license %}
@@ -274,13 +299,7 @@
         </div>
         {% endif %}
 
-        <!-- Rights -->
-         {% if  object.custom_license %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.custom_license }}</div>
-        </div>
-        {% endif %}
+
 
         <!-- sponsor -->
         {% if  object.sponsors.all %}
@@ -299,7 +318,38 @@
         </div>
         {% endif %}
 
+        <!-- Rights -->
+         {% if  object.custom_license %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
+          <div class="col-lg-10 text-dark text-capitalize"> {{ object.custom_license }}</div>
+        </div>
+        {% endif %}
 
+         <!-- Description -->
+        {% if  object.description %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
+          <div class="col-lg-10 text-dark text-capitalize"> {{ object.description }}</div>
+        </div>
+        {% endif %}
+
+         <!-- audio edition -->
+        {% if  object.additional_note %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</span>
+          <span class="col-lg-10 text-dark text-capitalize"> {{ object.additional_note }}</span>
+        </div>
+        {% endif %}
+
+
+         <!-- audio edition -->
+        {% if  object.link_name %}
+        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Audio Link:" %}</span>
+          <span class="col-lg-10 text-dark text-capitalize"> {{ object.link_name }}</span>
+        </div>
+        {% endif %}
 
       </div>
     </div>

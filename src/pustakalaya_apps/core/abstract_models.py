@@ -301,12 +301,14 @@ class AbstractItem(AbstractTimeStampModel):
 
 class LinkInfo(AbstractTimeStampModel):
     link_name = models.URLField(
-        verbose_name=_("Link URL")
+        verbose_name=_("Link URL"),
+        max_length = 500,
     )
 
-    link_description = models.CharField(
+    link_description = models.TextField(
         max_length=500,
-        verbose_name=_("Link Description")
+        verbose_name=_("Link Description"),
+        blank=True
     )
 
     class Meta:

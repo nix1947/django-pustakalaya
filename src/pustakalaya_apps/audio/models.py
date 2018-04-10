@@ -85,6 +85,7 @@ class Audio(AbstractItem):
     license = models.ForeignKey(
         LicenseType,
         verbose_name=_("license"),
+        on_delete=models.SET_NULL,
         blank=True,
         null=True
 
@@ -218,7 +219,8 @@ class AudioGenre(AbstractTimeStampModel):
     )
 
     genre_description = models.TextField(
-        verbose_name=_("Genre description")
+        verbose_name=_("Genre description"),
+        blank=True,
     )
 
     class Meta:
@@ -235,7 +237,7 @@ class AudioSeries(AbstractSeries):
     class Meta:
         db_table = "audio_series"
 
-
+from django import forms
 class AudioFileUpload(AbstractTimeStampModel):
     """Class to upload the multiple document objects"""
 
@@ -243,6 +245,7 @@ class AudioFileUpload(AbstractTimeStampModel):
         _("File name"),
         max_length=255,
         blank=True,
+        #widget=forms.CharField(attrs={'placeholder': 'Less then 255 chars'})
 
 
     )
@@ -291,7 +294,8 @@ class AudioType(models.Model):
     )
 
     description = models.TextField(
-        verbose_name=_("Audio description")
+        verbose_name=_("Audio description"),
+        blank=True
     )
 
     def __str__(self):

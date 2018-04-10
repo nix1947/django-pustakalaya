@@ -32,8 +32,11 @@ def author_list(request):
 
         if not query_letter:
             author_list = Biography.objects.all()
+            author_list2 =""
         else:
-            author_list = Biography.objects.filter(name__startswith=query_letter or query_letter.upper())
+            #author_list = Biography.objects.filter(name__startswith=query_letter or query_letter.upper())
+            author_list = Biography.objects.filter(name__startswith=query_letter)
+            author_list2 = Biography.objects.filter(name__startswith=query_letter.upper())
             letter_exist = True
 
         new_list = []
@@ -41,6 +44,9 @@ def author_list(request):
             if item.name:
                 new_list.append(item)
 
+        for item in author_list2:
+            if item.name:
+                new_list.append(item)
 
         # Paginate the results
         number_per_page = 15

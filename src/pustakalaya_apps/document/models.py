@@ -96,7 +96,8 @@ class Document(AbstractItem, HitCountMixin):
     document_series = models.ForeignKey(
         "DocumentSeries",
         verbose_name=_("Series"),
-        on_delete=models.CASCADE,
+        #on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True
     )
@@ -194,9 +195,11 @@ class Document(AbstractItem, HitCountMixin):
 
     license = models.ForeignKey(
         LicenseType,
+        on_delete=models.SET_NULL,
         verbose_name=_("license"),
         blank=True,
         null=True,
+
     )
 
     thumbnail = models.ImageField(
@@ -215,6 +218,7 @@ class Document(AbstractItem, HitCountMixin):
 
     submitted_by = models.ForeignKey(
         User,
+        on_delete=models.SET_NULL,
         editable=False,
         null=True
     )
@@ -347,6 +351,9 @@ class Document(AbstractItem, HitCountMixin):
     def submited_by(self):
         return self.submitted_by
 
+    def document_link_name(self):
+        return self.link_name;
+
 class UnpublishedDocument(Document):
     """
     This is the proxy model of Document,
@@ -413,12 +420,14 @@ class DocumentLinkInfo(LinkInfo):
     document = models.ForeignKey(
         Document,
         verbose_name=_("Link"),
-        on_delete=models.CASCADE,
+        #on_delete=models.CASCADE,
 
     )
 
     def __str__(self):
-        return self.document.title
+        return self.link_name
+
+
 
 
 class DocumentIdentifier(AbstractTimeStampModel):
