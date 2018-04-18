@@ -12,7 +12,7 @@ from elasticsearch_dsl.connections import connections
 from elasticsearch_dsl import Q
 from pustakalaya_apps.core.utils import list_search_from_elastic
 from pustakalaya_apps.document.search import DocumentDoc
-
+#import time
 
 def browse(request):
     """
@@ -20,6 +20,7 @@ def browse(request):
     :param request: all, title, author
     :return: response
     """
+    # start_time = time.time()
 
     # browse_by options
     browse_by_type = "title", "author", "all"
@@ -66,9 +67,11 @@ def browse(request):
 
         response = s.execute()
 
+        # mid_time= time.time()
+        # print("Mid time=",mid_time-start_time)
 
         # Pagination configuration before executing a query.
-        number_per_page = 15
+        number_per_page = 35
         paginator = Paginator(response, number_per_page)
         page_no = request.GET.get('page')
         try:
@@ -79,6 +82,9 @@ def browse(request):
         except EmptyPage:
             # If page is out of range (e.g. 7777), deliver last page of results.
             books = paginator.page(paginator.num_pages)
+
+        # secon_mid_time= time.time()
+        # print("second mid= ",secon_mid_time-mid_time)
 
         # return render(request, "pustakalaya_search/browse.html", {
         #     "response": books,
@@ -99,6 +105,9 @@ def browse(request):
                     start_item_count = (int(page_no) - 1) * number_per_page
             else:
                 start_item_count = 0
+
+        # end_time = time.time()
+        # print("Time to execute browse=",end_time-start_time)
 
         return render(request, "pustakalaya_search/browse.html", {
             "response": books,

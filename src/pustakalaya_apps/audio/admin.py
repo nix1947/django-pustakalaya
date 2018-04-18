@@ -44,6 +44,8 @@ class DocumentAdmin(admin.ModelAdmin):
         "languages",
         "place_of_publication",
         "publisher",
+        "audio_original_document_authors",
+        "audio_release_date",
         "year_of_available_on_text",
         "publication_year_on_text",
         "audio_types",

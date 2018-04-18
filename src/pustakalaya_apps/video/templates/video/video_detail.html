@@ -131,10 +131,39 @@
 
                             </div>
                            {% endif %}
+
+
+                     {% if  object.video_original_document_authors.all %}
+                            <div class="row pb-1 border-line">
+
+                                <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Original author(s):" %}</div>
+                                <div class="col-lg-10 text-dark text-capitalize">
+                                 {% for author in object.video_original_document_authors.all %}
+                                  <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
+                                    {{ author }}
+                                  </a>
+                                  {%  if not forloop.last %}
+                                            ,
+                                  {%  endif %}
+                                 {% endfor %}
+                                </div>
+
+                            </div>
+                           {% endif %}
+
+
+              <!-- release date -->
+              {% if  object.video_release_date %}
+                <div class="row pb-1 border-line">
+                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Release date:" %}</div>
+                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.video_release_date }}</div>
+                </div>
+              {% endif %}
+
                 <!-- place of publication -->
               {% if  object.place_of_publication %}
                 <div class="row pb-1 border-line">
-                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</div>
+                    <div class="col-lg-2  font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
                     <div class="col-lg-10 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
                 </div>
               {% endif %}

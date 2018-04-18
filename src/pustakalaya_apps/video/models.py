@@ -37,6 +37,20 @@ class Video(AbstractItem):
 
     )
 
+    video_original_document_authors = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Original Author(s)"),
+        related_name="video_original_document_authors",
+        blank=True,
+
+    )
+
+    video_release_date = models.CharField(
+        verbose_name=_("Release date"),
+        max_length=25,
+        blank=True,
+    )
+
     video_director = models.ForeignKey(
         Biography,
         verbose_name=("Director"),

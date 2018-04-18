@@ -53,6 +53,20 @@ class Audio(AbstractItem):
     # TODO file size
     # Like that format the given no in MB, KB, GB for entered MB size
 
+    audio_original_document_authors = models.ManyToManyField(
+        Biography,
+        verbose_name=_("Original Author(s)"),
+        related_name="audio_original_document_authors",
+        blank=True,
+
+    )
+
+    audio_release_date = models.CharField(
+        verbose_name=_("Release date"),
+        max_length=25,
+        blank=True,
+    )
+
     audio_read_by = models.ForeignKey(
         Biography,
         verbose_name=_("Read / Voice by"),

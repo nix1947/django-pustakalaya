@@ -44,6 +44,8 @@ class VideoAdmin(admin.ModelAdmin):
         "languages",
         "place_of_publication",
         "publisher",
+        "video_original_document_authors",
+        "video_release_date",
         "publication_year_on_text",
         "year_of_available_on_text",
         "video_running_time",
