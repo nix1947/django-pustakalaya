@@ -5,6 +5,7 @@ from .models import Biography
 from django.shortcuts import (
     render,
 )
+import re
 
 
 def home(request):
@@ -35,9 +36,17 @@ def author_list(request):
             author_list2 =""
         else:
             #author_list = Biography.objects.filter(name__startswith=query_letter or query_letter.upper())
-            author_list = Biography.objects.filter(name__startswith=query_letter)
-            author_list2 = Biography.objects.filter(name__startswith=query_letter.upper())
+            # check if the letters are in alphabets
+            if re.match(r'^[a-zA-Z]+\Z', query_letter):
+                author_list = Biography.objects.filter(name__startswith=query_letter)
+                author_list2 = Biography.objects.filter(name__startswith=query_letter.upper())
+
+            else:
+                author_list = Biography.objects.filter(name__startswith=query_letter)
+                author_list2=""
+
             letter_exist = True
+
 
         new_list = []
         for item in author_list:

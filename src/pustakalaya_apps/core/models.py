@@ -69,6 +69,25 @@ class Keyword(AbstractTimeStampModel):
     class Meta:
         db_table = "keyword"
 
+class genre_audio_video(AbstractTimeStampModel):
+    custom_genre = models.CharField(
+        max_length=255,
+        verbose_name=_("genre name"),
+        unique=True
+    )
+
+    genre_description = models.TextField(
+        verbose_name=_("genre description"),
+        blank=True,
+        default=""
+    )
+
+    def __str__(self):
+        return self.custom_genre
+
+    class Meta:
+        db_table = "custom_genre"
+
 
 class Biography(AbstractBaseAuthor):
     """Biography class to create an instance of document author, editor, illustrator,

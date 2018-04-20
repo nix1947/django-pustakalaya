@@ -22,6 +22,7 @@ from pustakalaya_apps.core.models import (
     Language,
     EducationLevel,
     LicenseType,
+    genre_audio_video
 )
 
 
@@ -111,13 +112,21 @@ class Video(AbstractItem):
 
     )
 
-    video_genre = models.ForeignKey(
-        "VideoGenre",
+    # custom video genre inherit from genre_audio_video
+
+    # video_genre = models.ForeignKey(
+    #     "VideoGenre",
+    #     verbose_name=_("Video Genre"),
+    #     blank=True,
+    #     null=True
+    # )
+
+    video_genre = models.ManyToManyField(
+        genre_audio_video,
         verbose_name=_("Video Genre"),
         blank=True,
-        null=True
-    )
 
+    )
     # publisher = models.ForeignKey(
     #     Publisher,
     #     verbose_name=_("Publisher"),
@@ -191,7 +200,8 @@ class Video(AbstractItem):
             video_director=getattr(self.video_director, "getname", ""),
             video_series=getattr(self.video_series, "series_name", ""),
             video_certificate_license=self.video_certificate_license,
-            video_genre=getattr(self.video_genre, "genre", ""),
+            # video_genre=getattr(self.video_genre, "genre", ""),
+            video_genre=[video_genre.custom_genre for video_genre in self.video_genre.all()],
             #video_genre=self.video_genre.genre if self.video_genre else None,
             author_list=self.getauthors,
             url = self.get_absolute_url()

@@ -43,7 +43,7 @@
         <!--video title-->
     <h4 class="text-capitalize"><b>{{ object.title }}</b></h4>
         <h6 class="text-dark text-uppercase mb-4 description" id="video-title"
-            hidden>{{ object.videofileupload_set.first.file_name }}_nishant</h6>
+            hidden>{{ object.videofileupload_set.first.file_name }}</h6>
 
         <!-- video player -->
         <div class="row">
@@ -60,7 +60,7 @@
                  style="height: 360px; width:426px; overflow-y: scroll; margin-left: -15px;">
                 <div id="videoList">
                     {% for video in object.videofileupload_set.all %}
-                        <div class="pt-1 pb-1 pl-3 text-capitalize">
+                        <div class="pt-1 pb-1 pl-3  ">
                             <span style="cursor: pointer"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
                                   data-title="{{ video.file_name }}"
@@ -120,7 +120,7 @@
                             <div class="row pb-1 border-line">
 
                                 <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
-                                <div class="col-lg-10 text-dark text-capitalize">
+                                <div class="col-lg-10 text-dark  ">
                                  {% for publisher in object.publisher.all %}
                                   {{ publisher.publisher_name }}
                                   {%  if not forloop.last %}
@@ -137,7 +137,7 @@
                             <div class="row pb-1 border-line">
 
                                 <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Original author(s):" %}</div>
-                                <div class="col-lg-10 text-dark text-capitalize">
+                                <div class="col-lg-10 text-dark ">
                                  {% for author in object.video_original_document_authors.all %}
                                   <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
                                     {{ author }}
@@ -156,7 +156,7 @@
               {% if  object.video_release_date %}
                 <div class="row pb-1 border-line">
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Release date:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.video_release_date }}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.video_release_date }}</div>
                 </div>
               {% endif %}
 
@@ -164,7 +164,7 @@
               {% if  object.place_of_publication %}
                 <div class="row pb-1 border-line">
                     <div class="col-lg-2  font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.place_of_publication }}</div>
                 </div>
               {% endif %}
 
@@ -172,7 +172,7 @@
               {% if object.publication_year_on_text %}
                 <div class="row pb-1 border-line">
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.publication_year_on_text }}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.publication_year_on_text }}</div>
 
                 </div>
               {% endif %}
@@ -180,7 +180,7 @@
                 <!-- Available year -->
                 <div class="row  pb-1 border-line">
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.year_of_available_on_text }}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.year_of_available_on_text }}</div>
                 </div>
                 {% endif %}
                 <!-- Keywords -->
@@ -189,7 +189,7 @@
 
                     <!-- TODO pluralization -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize">
+                    <div class="col-lg-10 text-dark  ">
                     {% for keyword in object.keywords.all %}
 
                             <a href="{% url 'keyword:keyword_detail' keyword.keyword %}">{{ keyword.keyword }}</a>
@@ -209,7 +209,7 @@
                 <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
-                    <div class="col-lg-10 text-capitalize"> {{ object.license.license }}</div>
+                    <div class="col-lg-10  "> {{ object.license.license }}</div>
                 </div>
                 {% endif %}
 
@@ -218,7 +218,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Series:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.video_series }}</div>
+                    <div class="col-lg-10  ">{{ object.video_series }}</div>
                 </div>
               {% endif %}
 
@@ -227,7 +227,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Volume:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.volume }}</div>
+                    <div class="col-lg-10  ">{{ object.volume }}</div>
                 </div>
               {% endif %}
 
@@ -236,7 +236,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Edition:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.edition }}</div>
+                    <div class="col-lg-10  ">{{ object.edition }}</div>
                 </div>
               {% endif %}
 
@@ -245,7 +245,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "running time" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize">{{ object.video_running_time }}</div>
+                    <div class="col-lg-10 text-dark ">{{ object.video_running_time }}</div>
                 </div>
                {% endif %}
 
@@ -254,7 +254,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "video director" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize">{{ object.video_director }}</div>
+                    <div class="col-lg-10 text-dark  ">{{ object.video_director }}</div>
                 </div>
                 {% endif %}
 
@@ -263,7 +263,7 @@
                 <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
                     <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "Video producer" %}:</div>
-                  <div class="col-lg-10 text-capitalize">
+                  <div class="col-lg-10  ">
                   {% for producer in object.video_producers.all %}
                          {{ producer }}
                     {%  if not forloop.last %}
@@ -279,7 +279,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "certificate license:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.video_certificate_license }}</div>
+                    <div class="col-lg-10 ">{{ object.video_certificate_license }}</div>
                 </div>
               {% endif %}
 
@@ -288,25 +288,33 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Age group:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.age }}</div>
+                    <div class="col-lg-10 ">{{ object.age }}</div>
                 </div>
               {% endif %}
 
                 <!-- video genre -->
-              {% if  object.video_genre %}
-                <div class="row pb-1 border-line">
-                    <!-- Add 2px right margin in each -->
-                    <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.video_genre }}</div>
+                 {% if  object.video_genre.all %}
+                <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
+                  <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
+                  <div class="col-lg-10 text-dark  ">
+
+                  {% for genre in object.video_genre.all %}
+                    {{ genre.custom_genre }}
+                     {%  if not forloop.last %}
+                                                    ,
+                     {%  endif %}
+                  {% endfor %}
+                  </div>
                 </div>
-              {% endif %}
+                {% endif %}
+
 
                 <!-- Language -->
                 {% if  object.languages.all %}
                 <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
                     <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</div>
-                  <div class="col-lg-10 text-capitalize">
+                  <div class="col-lg-10 ">
                   {% for language in object.languages.all %}
                          {{ language }}
                     {%  if not forloop.last %}
@@ -322,7 +330,7 @@
                 <div class="row pb-1 border-line">
                     <!-- TODO: implement pluralization in total page -->
                     <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</div>
-                    <div class="col-lg-10 text-capitalize">
+                    <div class="col-lg-10  ">
                     {% for education_level in object.education_levels.all %}
                          {{ education_level }}
                       {%  if not forloop.last %}
@@ -340,7 +348,7 @@
                 <div class="row pb-1 border-line">
                     <!-- TODO pluralization -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
-                  <div class="col-lg-10 text-capitalize">
+                  <div class="col-lg-10  ">
                   {% for sponsor in object.sponsors.all %}
                         {{ sponsor }}
                     {%  if not forloop.last %}
@@ -357,7 +365,7 @@
 
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
 
-                    <div class="col-lg-10 text-capitalize"> {{ object.custom_license }} </div>
+                    <div class="col-lg-10 "> {{ object.custom_license }} </div>
                 </div>
                 {% endif %}
 
@@ -368,7 +376,7 @@
                 <!-- Description -->
                 <div class="row pb-1 border-line">
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-                    <div class="col-lg-10 text-capitalize"> {{ object.description }}</div>
+                    <div class="col-lg-10  "> {{ object.description }}</div>
                 </div>
                 {% endif %}
 
@@ -377,7 +385,7 @@
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</div>
-                    <div class="col-lg-10 text-capitalize">{{ object.additional_note }}</div>
+                    <div class="col-lg-10 ">{{ object.additional_note }}</div>
                 </div>
               {% endif %}
             </div>

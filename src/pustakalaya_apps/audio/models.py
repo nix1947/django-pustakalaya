@@ -17,7 +17,8 @@ from pustakalaya_apps.core.models import (
     Sponsor,
     Language,
     EducationLevel,
-    LicenseType
+    LicenseType,
+    genre_audio_video
 )
 from .search import AudioDoc
 
@@ -104,12 +105,19 @@ class Audio(AbstractItem):
         null=True
 
     )
+    #genre_audio_video
 
-    audio_genre = models.ForeignKey(
-        "AudioGenre",
+    # audio_genre = models.ForeignKey(
+    #     "AudioGenre",
+    #     verbose_name=_("Audio Genre"),
+    #     blank=True,
+    #     null=True
+    # )
+    audio_genre = models.ManyToManyField(
+        genre_audio_video,
         verbose_name=_("Audio Genre"),
         blank=True,
-        null=True
+
     )
 
     languages = models.ManyToManyField(
@@ -177,7 +185,8 @@ class Audio(AbstractItem):
             audio_running_time=self.audio_running_time,
             thumbnail=self.thumbnail.name,
             audio_read_by= self.audio_read_by.getname if self.audio_read_by else None,
-            audio_genre=self.audio_genre.genre if self.audio_genre else None,
+            # audio_genre=self.audio_genre.genre if self.audio_genre else None,
+            audio_genre=[audio_genre.custom_genre for audio_genre in self.audio_genre.all()],
             audio_series=self.audio_series.series_name if self.audio_series else None,
             author_list = self.getauthors,
             url = self.get_absolute_url()

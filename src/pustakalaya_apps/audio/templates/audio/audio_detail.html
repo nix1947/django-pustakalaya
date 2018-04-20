@@ -77,7 +77,7 @@
       <div id="audioList">
         <h6 class="text-primary text-uppercase mb-4 mt-3 ">{{ object.title }}</h6>
         {% for audio in object.audiofileupload_set.all reversed %}
-        <div class="text-dark pl-3 text-capitalize">
+        <div class="text-dark pl-3 ">
                             <span style="cursor: pointer"
                                   class=" {% if forloop.counter == 1 %} text-primary {% endif %}"
                                   data-src="{{ MEDIA_URL }}{{ audio.upload }}"
@@ -127,7 +127,7 @@
         <!-- TODO pluralization -->
         <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Read/Voice by:" %}</div>
         {%  if object.audio_read_by %}
-        <div class="col-lg-10 text-dark text-capitalize text-primary">
+        <div class="col-lg-10 text-dark  text-primary">
         <a href="{% url 'author:author_detail' object.audio_read_by.getname|slugify object.audio_read_by.pk %}">
           {{ object.audio_read_by.getname }}</a>
         </div>
@@ -140,7 +140,7 @@
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
 
             <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
-            <div class="col-lg-10 text-dark text-capitalize">
+            <div class="col-lg-10 text-dark  ">
              {% for publisher in object.publisher.all %}
               {{ publisher.publisher_name }}
               {%  if not forloop.last %}
@@ -157,7 +157,7 @@
                       <div class="row pb-1 border-line">
 
                           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Original author(s):" %}</div>
-                          <div class="col-lg-10 text-dark text-capitalize">
+                          <div class="col-lg-10 text-dark ">
                            {% for author in object.audio_original_document_authors.all %}
                             <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
                               {{ author }}
@@ -176,7 +176,7 @@
               {% if  object.audio_release_date %}
                 <div class="row pb-1 border-line">
                     <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Release date:" %}</div>
-                    <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_release_date }}</div>
+                    <div class="col-lg-10 text-dark  "> {{ object.audio_release_date }}</div>
                 </div>
               {% endif %}
 
@@ -184,7 +184,7 @@
         {% if   object.place_of_publication %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2  font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
+          <div class="col-lg-10 text-dark "> {{ object.place_of_publication }}</div>
         </div>
         {% endif %}
 
@@ -192,7 +192,7 @@
         {% if  object.publication_year_on_text %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.publication_year_on_text }}
+          <div class="col-lg-10 text-dark  "> {{ object.publication_year_on_text }}
 
           </div>
         </div>
@@ -210,7 +210,7 @@
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "type:" %}</div>
           {% for audio in object.audio_types.all %}
-          <div class="col-lg-10 text-dark text-capitalize"> {{ audio.name }}</div>
+          <div class="col-lg-10 text-dark "> {{ audio.name }}</div>
           {% endfor %}
         </div>
         {% endif %}
@@ -219,15 +219,23 @@
          {% if  object.audio_running_time %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Running time:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_running_time }}</div>
+          <div class="col-lg-10 text-dark  "> {{ object.audio_running_time }}</div>
         </div>
         {% endif %}
 
         <!-- audio genre -->
-         {% if  object.audio_genre %}
+         {% if  object.audio_genre.all %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_genre.genre }}</div>
+          <div class="col-lg-10 text-dark  ">
+
+          {% for genre in object.audio_genre.all %}
+            {{ genre.custom_genre }}
+             {%  if not forloop.last %}
+                                            ,
+             {%  endif %}
+          {% endfor %}
+          </div>
         </div>
         {% endif %}
 
@@ -235,7 +243,7 @@
         {% if  object.audio_series %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "series name:" %}</span>
-          <span class="col-lg-10 text-dark text-capitalize"> {{ object.audio_series.series_name }}</span>
+          <span class="col-lg-10 text-dark  "> {{ object.audio_series.series_name }}</span>
         </div>
         {% endif %}
 
@@ -243,7 +251,7 @@
         {% if  object.volume %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Volume:" %}</span>
-          <span class="col-lg-10 text-dark text-capitalize"> {{ object.volume }}</span>
+          <span class="col-lg-10 text-dark "> {{ object.volume }}</span>
         </div>
         {% endif %}
 
@@ -251,7 +259,7 @@
         {% if  object.edition %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "edition:" %}</span>
-          <span class="col-lg-10 text-dark text-capitalize"> {{ object.edition }}</span>
+          <span class="col-lg-10 text-dark  "> {{ object.edition }}</span>
         </div>
         {% endif %}
 
@@ -262,7 +270,7 @@
         {% if  object.year_of_available_on_text%}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.year_of_available_on_text }}</div>
+          <div class="col-lg-10 text-dark "> {{ object.year_of_available_on_text }}</div>
         </div>
         {% endif %}
 
@@ -273,7 +281,7 @@
           <!-- TODO pluralization -->
 
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
-           <div class="col-lg-10 text-dark text-capitalize">
+           <div class="col-lg-10 text-dark ">
           {% for keyword in object.keywords.all %}
           <a href="{% url 'keyword:keyword_detail' keyword.keyword %}"> {{ keyword.keyword }}</a>
              {%  if not forloop.last %}
@@ -291,7 +299,7 @@
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <!-- TODO pluralization -->
           <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.license.license }}</div>
+          <div class="col-lg-10 text-dark  "> {{ object.license.license }}</div>
         </div>
         {% endif %}
 
@@ -335,7 +343,7 @@
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <!-- TODO pluralization -->
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize">
+          <div class="col-lg-10 text-dark ">
           {% for sponsor in object.sponsors.all %}
           {{ sponsor }}
           {%  if not forloop.last %}
@@ -351,7 +359,7 @@
          {% if  object.custom_license %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.custom_license }}</div>
+          <div class="col-lg-10 text-dark "> {{ object.custom_license }}</div>
         </div>
         {% endif %}
 
@@ -359,7 +367,7 @@
         {% if  object.description %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-          <div class="col-lg-10 text-dark text-capitalize"> {{ object.description }}</div>
+          <div class="col-lg-10 text-dark  "> {{ object.description }}</div>
         </div>
         {% endif %}
 
@@ -367,7 +375,7 @@
         {% if  object.additional_note %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</span>
-          <span class="col-lg-10 text-dark text-capitalize"> {{ object.additional_note }}</span>
+          <span class="col-lg-10 text-dark  "> {{ object.additional_note }}</span>
         </div>
         {% endif %}
 
@@ -376,7 +384,7 @@
         {% if  object.link_name %}
         <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
           <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Audio Link:" %}</span>
-          <span class="col-lg-10 text-dark text-capitalize"> {{ object.link_name }}</span>
+          <span class="col-lg-10 text-dark  "> {{ object.link_name }}</span>
         </div>
         {% endif %}
 

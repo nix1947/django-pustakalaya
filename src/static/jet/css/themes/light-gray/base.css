@@ -67,6 +67,8 @@ color:#black!important;
 color:white!important;
 }
 
+
+
 /*#document_form>div>fieldset>div>div>span>span>ul{*/
 /*.select2-selection--multiple ,*/
 #select2-id_featured-container,#select2-id_published-container,#select2-id_document_file_type-container,#select2-id_document_interactivity-container,#select2-id_publisher-container,#select2-id_document_series-container,#select2-id_document_type-container,#select2-id_license_type-container{
@@ -90,4 +92,14 @@ span.related-widget-wrapper-icon{
 width:200%;
 }
 
+/* id= select2-id_license-container, for license */
 
+/*For license bigger one*/
+.related-widget-wrapper  span.select2-container--jet{
+min-width:60%!important;
+width:60%;
+}
+
+.vTextField{
+min-width:60%!important;
+}

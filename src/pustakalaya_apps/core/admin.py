@@ -6,7 +6,8 @@ from .models import (
     Publisher,
     EducationLevel,
     Language,
-    LicenseType
+    LicenseType,
+    genre_audio_video
 
 )
 from  django.utils.html import format_html
@@ -40,6 +41,13 @@ class KeyWordAdmin(admin.ModelAdmin):
     )
     pass
 
+
+@admin.register(genre_audio_video)
+class genre_audio_videoAdmin(admin.ModelAdmin):
+    search_fields = (
+        'custom_genre',
+    )
+    pass
 
 @admin.register(Biography)
 class BiographyAdmin(admin.ModelAdmin):

@@ -40,7 +40,8 @@ def browse(request):
         if sort_order not in sort_order_type:
             sort_order = "asc"
 
-        if sort_by not in sort_by_type:
+        if sort_by not in sort_by_typells\
+            :
             sort_by = "title.keyword"
 
         if browse_by == "author":

@@ -139,7 +139,7 @@
                 <div class="col-md-9 col-sm-12 col-xs-12">
                     <!-- title of a document -->
 
-                    <h4 class="text-capitalize h4 lead mt-0 pt-0 description text-dark" style="border-bottom: 1px dotted #ccccff; overflow-wrap: break-word;">
+                    <h4 class=" h4  mt-0 pt-0 description text-dark" style="border-bottom: 1px dotted #ccccff; overflow-wrap: break-word;">
 
                         {{ object.title }}
                     </h4>
@@ -153,7 +153,7 @@
                             <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
                              <div
                                     style="font-size: 16px;"
-                                    class="text-dark text-capitalize text-primary">
+                                    class="text-dark   text-primary">
                                 {{ author }}<br>
 
                             </div></a>
@@ -186,7 +186,7 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "Author(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for author in object.document_authors.all %}
                                    <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">{{ author }}</a>
                                   {%  if not forloop.last %}
@@ -203,7 +203,7 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "illustrators:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for illustrator in object.document_illustrators.all %}
                                   {{ illustrator }}
                                   {%  if not forloop.last %}
@@ -221,7 +221,7 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Editor(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                 {% for editor in object.document_editors.all %}
                                     {{ editor }}
                                   {%  if not forloop.last %}
@@ -240,7 +240,7 @@
                                 <!-- Authors -->
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Translator(s):" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark  ">
                                 {% for translator in object.document_translator.all %}
                                     {{ translator }}
                                   {%  if not forloop.last %}
@@ -258,7 +258,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
 
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">
+                                <div class="col-lg-9 text-dark ">
                                  {% for publisher in object.publisher.all %}
                                     {{ publisher.publisher_name }}
                                   {%  if not forloop.last %}
@@ -275,7 +275,7 @@
                           {% if  object.place_of_publication %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <div class="col-lg-3 font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.place_of_publication }}</div>
+                                <div class="col-lg-9 text-dark "> {{ object.place_of_publication }}</div>
 
                             </div>
                            {% endif %}
@@ -285,7 +285,7 @@
                           {% if  object.publication_year_on_text %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.publication_year_on_text }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.publication_year_on_text }}</div>
 
                             </div>
                           {% endif %}
@@ -295,7 +295,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
 
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.year_of_available_on_text }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.year_of_available_on_text }}</div>
 
                             </div>
                           {% endif %}
@@ -307,7 +307,7 @@
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark" style="vertical-align: top;">{% trans "keywords:" %}</div>
 
-                              <div class="col-lg-9 text-dark text-capitalize">
+                              <div class="col-lg-9 text-dark  ">
                                {% for keyword in object.keywords.all %}
 
                                       <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" class="mr-2">
@@ -329,7 +329,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"> {{ object.license.license }}</div>
+                                <div class="col-lg-9 text-dark  "> {{ object.license.license }}</div>
                             </div>
                           {% endif %}
 
@@ -338,7 +338,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- Add 2px right margin in each -->
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "Series:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize">{{ object.document_series }}</div>
+                                <div class="col-lg-9 text-dark  ">{{ object.document_series }}</div>
                             </div>
 
                             {%  endif %}
@@ -431,7 +431,7 @@
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <!-- TODO pluralization -->
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
-                               <div class="col-lg-9 text-dark text-capitalize">
+                               <div class="col-lg-9 text-dark ">
                                 {% for sponsor in object.sponsors.all %}
                                     {{ sponsor }}
                                     {%  if not forloop.last %}
@@ -448,7 +448,7 @@
                           {% if  object.custom_license %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "rights:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
+                                <div class="col-lg-9 text-dark "
                                       style="vertical-align: top;"> {{ object.custom_license }}</div>
                             </div>
                           {% endif %}
@@ -457,7 +457,7 @@
                           {% if  object.additional_note %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;" >
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
+                                <div class="col-lg-9 text-dark "
                                       style="vertical-align: top;"> {{ object.additional_note }}</div>
                             </div>
                           {% endif %}
@@ -466,7 +466,7 @@
                           {% if  object.description %}
                             <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                                 <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-                                <div class="col-lg-9 text-dark text-capitalize"
+                                <div class="col-lg-9 text-dark "
                                       style="vertical-align: top;">{{ object.description }}</div>
 
                             </div>
