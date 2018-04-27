@@ -824,11 +824,11 @@
         $('button').on('click', function (e) {
             if ($(this).hasClass('grid')) {
                 // In case of grid view. Trim the title
-                $('#container ul').removeClass('list').addClass('grid');
+                $('#container ul.list').removeClass('list').addClass('grid');
 
 
             } else if ($(this).hasClass('list')) {
-                $('#container ul').removeClass('grid').addClass('list');
+                $('#container ul.grid').removeClass('grid').addClass('list');
                 // In case of list view restore the title text.
                 $("#_itemTitle").text(itemTitle)
 

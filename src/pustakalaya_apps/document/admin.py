@@ -1,6 +1,7 @@
 from  django.utils.html import format_html
 from django.contrib import admin
 import datetime
+from django.utils.functional import curry
 
 from .models import (
     Document,
@@ -22,6 +23,23 @@ class DocumentLinkInfoAdminInline(admin.TabularInline):
     model = DocumentLinkInfo
     extra = 1
 
+    # # *************later added values******
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     """
+    #     Pre-populating formset using GET params
+    #     """
+    #     initial = []
+    #     if request.method == "GET":
+    #         #
+    #         # Populate initial based on request
+    #         #
+    #         initial.append({
+    #             'foo': 'bar',
+    #         })
+    #     formset = super(DocumentLinkInfo, self).get_formset(request, obj, **kwargs)
+    #     formset.__init__ = curry(formset.__init__, initial=initial)
+    #     return formset
+    # # ***********Remove later*********#
 
 class DocumentIdentifierAdmin(admin.StackedInline):
     model = DocumentIdentifier

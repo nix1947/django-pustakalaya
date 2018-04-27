@@ -26,6 +26,18 @@
 
         }
 
+     .page-link1{
+     border:1px solid blue;
+     border-radius:5px;
+     margin-left:5px;
+     margin-right:5px;
+     padding:5px 10px 5px 10px;
+     margin-top:25px;
+     }
+     .page-link1:hover{
+     background-color:#bdc3c7
+     }
+
     </style>
 {% endblock style %}
 {% block content %}
@@ -78,34 +90,85 @@
             <hr>
             {% endif %}
         {% endfor %}
+
         <!-- include pagination -->
         {% if authors.has_other_pages %}
 
            <div class="row">
            <div class="col-md-8 col-md-offset-2">
-                <nav>
+                <div>
                 <ul class="pagination pagination-primary">
+
+                  <!--Previous button-->
                     {% if authors.has_previous %}
-                        <li class="page-item"><a href="?page={{ authors.previous_page_number }}">&laquo;</a></li>
-                    {% else %}
-                        <li class="disabled page-item"><span>&laquo;</span></li>
+                  <li class="page-item">
+                   {% if letter %}
+                           <a href="?letter={{ letter }}&page={{ authors.previous_page_number }}" class="page-link1">&laquo;Previous</a>
+                          {% else %}
+                           <a href="?page={{ authors.previous_page_number }}" class="page-link1">&laquo;Previous</a>
+                          {% endif %}
+                  </li>
                     {% endif %}
+
+                    <!--Intermediate links-->
                     {% for i in authors.paginator.page_range %}
-                        {% if authors.number == i %}
-                            <li class="page-item active"><a class="page-link">{{ i }}</a></li>
-                        {% else %}
-                            <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
-                        {% endif %}
+                  {% if i <   authors.number|add:5 and i > authors.number|add:-5 %}
+                          <li class="page-item active">
+                          {% if letter %}
+                            <a href="?letter={{ letter }}&page={{ i }}"
+                             {% if   i  == authors.number %} class=" page-link" style="margin-top:-5px;"{% else %}
+                             class="page-link1" {% endif %}>{{ i }}</a>
+                          {% else %}
+                         <a href="?page={{ i }}"
+                         {% if   i  == authors.number %} class=" page-link" style="margin-top:-5px;"{% else %}
+                             class="page-link1" {% endif %}
+                         >{{ i }}</a>
+
+                          {% endif %}
+                           </li>
+                       {% endif %}
+
                     {% endfor %}
-                    {% if authors.has_next %}
-                        <li class="page-item"><a href="?page={{ authors.next_page_number }}"
-                                                 class="page-link">&raquo;</a>
-                        </li>
-                    {% else %}
-                        <li class="disabled page-item"><span>&raquo;</span></li>
+
+                  <!--last link-->
+
+                  {% if authors.has_next or  authors.has_previous%}
+                    {% if authors.number != authors.paginator.num_pages %}
+               {% if authors.number < authors.paginator.num_pages|add:-5 %}
+                    <li>...</li>
+                    <li class="page-item active" >
+
+                      {% if letter %}
+                      <a href="?letter={{ letter }}&page={{ authors.paginator.num_pages }}"
+                    class="page-link1"
+                        >{{ authors.paginator.num_pages }}</a>
+                      {% else %}
+                           <a href="?page={{ authors.paginator.num_pages }}"
+                    class="page-link1"
+                        >{{ authors.paginator.num_pages }}</a>
+                          {% endif %}
+
+                      </li>
+              {% endif %}
                     {% endif %}
+              {% endif %}
+
+                     <!--Next button-->
+                    {% if authors.has_next %}
+                        <li class="page-item">
+                           {% if letter %}
+                             <a href="?letter={{ letter }}&page={{ authors.next_page_number }}"
+                                                 class="page-link1">Next&raquo;</a>
+                          {% else %}
+                         <a href="?page={{ authors.next_page_number }}"
+                                                 class="page-link1">Next&raquo;</a>
+                          {% endif %}
+                        </li>
+                    {% endif %}
+
+
                 </ul>
-            </nav>
+            </div>
            </div>
            </div>
         {% endif %}

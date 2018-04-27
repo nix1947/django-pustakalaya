@@ -38,7 +38,7 @@ def author_list(request):
             #author_list = Biography.objects.filter(name__startswith=query_letter or query_letter.upper())
             # check if the letters are in alphabets
             if re.match(r'^[a-zA-Z]+\Z', query_letter):
-                author_list = Biography.objects.filter(name__startswith=query_letter)
+                author_list = Biography.objects.filter(name__startswith=query_letter.lower())
                 author_list2 = Biography.objects.filter(name__startswith=query_letter.upper())
 
             else:
@@ -88,7 +88,8 @@ def author_list(request):
         "authors": authors,
         "nepali_letters": nepali_letters,
         "page_number_count" : start_item_count,
-        "letter_exist":letter_exist
+        "letter_exist":letter_exist,
+        "letter":query_letter
     })
 
 

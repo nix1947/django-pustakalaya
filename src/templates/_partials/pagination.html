@@ -1,34 +1,68 @@
 <!-- pagination method 1 -->
-<nav>
+<div class="mt-3">
+   <style>
+     .page-link1{
+     border:1px solid blue;
+     border-radius:5px;
+     margin-left:5px;
+     margin-right:5px;
+     padding:5px 10px 5px 10px;
+     margin-top:25px;
+     }
+     .page-link1:hover{
+     background-color:#bdc3c7
+     }
+</style>
+<span class="step-links">
     <ul class="pagination pagination-primary">
 
         {% if page_obj.has_previous %}
-            <li class="page-item">
-                <!--<a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"-->
-                   <!--class="next disabled page-link m-0">&laquo; previous</a>-->
-              <a href="?page={{ page_obj.previous_page_number }}" class="next disabled page-link m-0">&laquo; previous</a>
+            <li class="">
+                <a href="?page={{ page_obj.previous_page_number }}" class=" page-link1">&laquo;previous</a>
             </li>
         {% endif %}
 
-        <!--
+        {% if page_obj.has_next or  page_obj.has_previous%}
         {% for p in paginator.page_range %}
-            <li class="page-item active">
-                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}=
-            {{ value }}{% endif %}{% endfor %}"{% ifequal p page_obj.number %} class="current page-link"{% endifequal %}
-            >{{ p }}</a>
-            </li>
-        {% endfor %}
 
-        -->
+            {% if p <   page_obj.number|add:5 and p > page_obj.number|add:-5 %}
+            <li class="page-item active" style="margin:0px">
+                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}=
+            {{ value }}{% endif %}{% endfor %}"{% ifequal p page_obj.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %}
+            class="page-link1"
+            >{{ p }}</a>
+              </li>
+            {% endif %}
+
+        {% endfor %}
+      {% endif %}
+
+      <!--last page-->
+          {% if page_obj.has_next or  page_obj.has_previous%}
+            {% if page_obj.number != paginator.num_pages %}
+       {% if page_obj.number < paginator.num_pages|add:-5 %}
+            <li>...</li>
+            <li class="page-item active" >
+                <a href="?page={{ paginator.num_pages }}"
+            class="page-link1"
+                >{{ paginator.num_pages }}</a>
+              </li>
+      {% endif %}
+            {% endif %}
+      {% endif %}
+
+
+
 
         {% if page_obj.has_next %}
             <li class="page-item">
                 <a href="?page={{ page_obj.next_page_number }}"
-                   class="next disabled page-link">next &raquo;</a>
+                   class="next disabled page-link1">next&raquo;</a>
             </li>
         {% endif %}
     </ul>
-</nav>
+  </span>
+</div>
 
 {% comment %}
     <nav>

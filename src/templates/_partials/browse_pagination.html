@@ -1,16 +1,64 @@
- <div class="pagination">
+ <div class="pagination" style="margin-top:15px;">
+   <style>
+     .page-link1{
+     border:1px solid blue;
+     border-radius:5px;
+     margin-left:5px;
+     margin-right:5px;
+     padding:5px 10px 5px 10px;
+     margin-top:25px;
+     }
+     .page-link1:hover{
+     background-color:#bdc3c7
+     }
+   </style>
    <span class="step-links">
+      <ul class="pagination pagination-primary">
+        <li>
                           {% if response.has_previous %}
-                          <a href="?page={{ response.previous_page_number }}">previous</a>
+                          <a href="?page={{ response.previous_page_number }}" class="next disabled page-link1 m-0">&laquo; previous</a>
                           {% endif %}
 
                           <!-- Showing the page numbers in Html Page -->
-                          <span class="current">
-                          Page {{ response.number }} of {{ response.paginator.num_pages }}.
-                        </span>
 
-                {% if response.has_next %}
-                <a href="?page={{ response.next_page_number }}">next</a>
-                {% endif %}
-             </span>
+
+          </li>
+
+
+        {% if response.has_next or  response.has_previous%}
+          {% for p in response.paginator.page_range %}
+
+            {% if p <   response.number|add:5 and p > response.number|add:-5 %}
+            <li class="page-item active" >
+                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}=
+            {{ value }}{% endif %}{% endfor %}"{% ifequal p response.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %}
+            class="page-link1"
+                >{{ p }}</a>
+              </li>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+
+
+       <!--last page-->
+          {% if response.has_next or  response.has_previous%}
+            {% if response.number < response.paginator.num_pages|add:-5 %}
+
+        <li>...</li>
+            <li class="page-item active" >
+                <a href="?page={{ response.paginator.num_pages }}"
+           class="page-link1"
+            >{{ response.paginator.num_pages }}</a>
+              </li>
+
+       {% endif %}
+      {% endif %}
+
+        <li>
+          {% if response.has_next %}
+          <a href="?page={{ response.next_page_number }}"  class="next disabled page-link1">next &raquo;</a>
+          {% endif %}
+        </li>
+        </ul>
+   </span>
  </div>

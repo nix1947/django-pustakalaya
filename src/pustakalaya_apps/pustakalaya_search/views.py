@@ -40,6 +40,8 @@ def search(request):
         # Search in elastic search
         search_obj = PustakalayaSearch(query=query_string, filters=filters)
 
+        # print(search_obj)
+
         # Pagination configuration before executing a query.
         paginator = Paginator(search_obj, 12)
 
@@ -52,7 +54,7 @@ def search(request):
             page = paginator.page(paginator.num_pages)
 
         response = page.object_list.execute()
-
+        # print(response)
         search_result["response"] = response
         search_result["hits"] = response.hits
         search_result["type"] = response.facets.type
