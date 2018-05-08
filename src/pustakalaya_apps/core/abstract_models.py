@@ -59,6 +59,13 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         blank=True,
         null=True
     )
+    place_of_birth = models.CharField(
+        verbose_name=_("Place of birth"),
+        max_length=255,
+        blank=True,
+        default=""
+    )
+
     pen_name = models.CharField(
         verbose_name=_("Pen name"),
         max_length=255,
@@ -275,9 +282,9 @@ class AbstractItem(AbstractTimeStampModel):
             id=self.id,
 
             title = self.title,
-            title_suggest={"input": [self.title]},
+            title_suggest={ "input": [self.title]  },
+            # published_suggest={"input": [self.published,self.published]},
             abstract=self.abstract,
-            license_type=self.license_type,
             description=self.description,
             year_of_available=self.year_of_available,
             publication_year=self.publication_year,

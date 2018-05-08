@@ -54,12 +54,13 @@
 
                     <!-- Logo -->
 
+
+
                     {% for document in object.documentfileupload_set.all %}
                            <div class="text-center">
                         <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank"
                            class="pull-left pr-5 pl-4 pt-2 pb-2 mt-2 mr-4 text-white bg-primary text-capitalize "
                         style="border-radius: 3px;"><span class="fa fa-download"></span>&nbsp;{% trans 'download ' %}</a>
-
 
 
                         {% if document.total_pages >= 1 %}
@@ -150,7 +151,7 @@
                         <!-- TODO pluralization -->
                         <!--strong class="text-capitalize font-weight-normal">{% trans "Authors:" %}</strong-->
                         {% for author in object.document_authors.all %}
-                            <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">
+                            <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
                              <div
                                     style="font-size: 16px;"
                                     class="text-dark   text-primary">
@@ -188,7 +189,7 @@
                                 <div class="col-lg-3 capitalize font-weight-normal text-dark">{% trans "Author(s):" %}</div>
                                 <div class="col-lg-9 text-dark ">
                                 {% for author in object.document_authors.all %}
-                                   <a href="{% url 'author:author_detail' author.getname|slugify author.pk %}">{{ author }}</a>
+                                   <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}"> {{  author }}</a>
                                   {%  if not forloop.last %}
                                             ,
                                   {%  endif %}
@@ -196,6 +197,9 @@
                                 </div>
                             </div>
                           {% endif %}
+
+                           <!--name in other langauage--->
+
 
                             <!-- Illustrator section -->
                            {% if  object.document_illustrators.all %}
@@ -473,16 +477,25 @@
                           {% endif %}
 
 
-                          <!-- link_name -->
+                          <!-- link_name and link description -->
 
-                          <!--{# {% if  object.link_name %}-->
-                            <!--<div class="row pb-1 border-line"  style="overflow-wrap: break-word;">-->
-                                <!--<div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "link name:" %}</div>-->
-                                <!--<div class="col-lg-9 text-dark text-capitalize"-->
-                                      <!--style="vertical-align: top;">{{ object.link_name }}</div>-->
+                           {% if object.documentlinkinfo_set.all %}
+                            <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                                <!-- Authors -->
+                                <!-- TODO pluralization -->
+                               {% for link in  object.documentlinkinfo_set.all %}
 
-                            <!--</div>-->
-                          <!--{% endif %} #}-->
+                               <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
+                              <div class="col-lg-9 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
+
+
+                               <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
+                                <div class="col-lg-9 text-dark ">{{ link.link_description }}</div>
+
+                               {% endfor %}
+                            </div>
+                           {% endif %}
+
 
                         </div>
 

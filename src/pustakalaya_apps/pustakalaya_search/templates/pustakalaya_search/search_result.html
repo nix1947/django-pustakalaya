@@ -342,14 +342,8 @@
                                 <p class="text-capitalize text-dark font-weight-bold mb-1 mt-3">{% trans "language" %}</p>
                                 {% for language, count, selected in languages %}
                                     <div class="checkbox">
-                                        <input id="{{ language }}" value="{{ language }}"
-                                                {% if selected %} checked {% endif %}
-                                               type="checkbox"
-                                               onclick="queryAndFilter()">
-                                        <label class="text-capitalize facet-element text-center" for="{{ language }}" l>
-                                            {{ language | get_language }} <span
-                                                class="text-muted">&nbsp;({{ count }})</span>
-                                        </label>
+                                        <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
+                                        <label class="text-capitalize facet-element text-center" for="{{ language }}" l>{{ language }}<span class="text-muted">&nbsp;({{ count }})</span></label>
                                     </div>
                                 {% endfor %}
                             </div><!-- end col-sm-12 -->

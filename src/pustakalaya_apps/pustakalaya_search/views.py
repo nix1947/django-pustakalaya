@@ -123,8 +123,8 @@ def search(request):
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
         #
         # for (license_type, count, selected) in response.facets.license_type:
-        #     print(license_type, ' (SELECTED):' if selected else ':', count)
-        #
+        #     print(len(license_type), ' (SELECTED):' if selected else ':', count)
+
         # for (month, count, selected) in response.facets.publication_year:
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
 
@@ -143,15 +143,16 @@ def completion(request):
         client = connections.get_connection()
         response = client.search(
             index=settings.ES_INDEX,
-            body={"_source": "suggest",
+            body={"_source":    "suggest",
                   "suggest": {
                       "title_suggest": {
                           "prefix": text,
                           "completion": {
-                              "field": "title_suggest"
-                          }
-                      }
-                  }
+                              "field": "title_suggest",
+
+                          },
+                      },
+                  },
                   })
 
         suggested_items = []

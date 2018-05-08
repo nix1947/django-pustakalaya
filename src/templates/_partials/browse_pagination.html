@@ -16,7 +16,7 @@
       <ul class="pagination pagination-primary">
         <li>
                           {% if response.has_previous %}
-                          <a href="?page={{ response.previous_page_number }}" class="next disabled page-link1 m-0">&laquo; previous</a>
+                          <a href="?page={{ response.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="next disabled page-link1 m-0">&laquo; previous</a>
                           {% endif %}
 
                           <!-- Showing the page numbers in Html Page -->
@@ -30,10 +30,7 @@
 
             {% if p <   response.number|add:5 and p > response.number|add:-5 %}
             <li class="page-item active" >
-                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}=
-            {{ value }}{% endif %}{% endfor %}"{% ifequal p response.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %}
-            class="page-link1"
-                >{{ p }}</a>
+                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"{% ifequal p response.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %} class="page-link1">{{ p }}</a>
               </li>
             {% endif %}
         {% endfor %}
@@ -46,9 +43,7 @@
 
         <li>...</li>
             <li class="page-item active" >
-                <a href="?page={{ response.paginator.num_pages }}"
-           class="page-link1"
-            >{{ response.paginator.num_pages }}</a>
+                <a href="?page={{ response.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="page-link1">{{ response.paginator.num_pages }}</a>
               </li>
 
        {% endif %}
@@ -56,7 +51,7 @@
 
         <li>
           {% if response.has_next %}
-          <a href="?page={{ response.next_page_number }}"  class="next disabled page-link1">next &raquo;</a>
+          <a href="?page={{ response.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"  class="next disabled page-link1">next &raquo;</a>
           {% endif %}
         </li>
         </ul>

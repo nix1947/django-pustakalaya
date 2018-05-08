@@ -26,6 +26,11 @@ from pustakalaya_apps.core.models import (
 )
 
 
+class FeaturedItemManager(models.Manager):
+    def get_queryset(self):
+        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+
+
 class Video(AbstractItem):
     """
     Video item class
@@ -80,6 +85,10 @@ class Video(AbstractItem):
         blank=True,
 
     )
+
+    # Manager to return the featured objects.
+    objects = models.Manager()
+    featured_objects = FeaturedItemManager()
 
     video_series = models.ForeignKey(
         "VideoSeries",
@@ -197,6 +206,8 @@ class Video(AbstractItem):
             languages=[language.language.lower() for language in self.languages.all()],
             video_running_time=self.video_running_time,
             thumbnail=self.thumbnail.name,
+            # License type
+            license_type=self.license.license if self.license else None,
             video_director=getattr(self.video_director, "getname", ""),
             video_series=getattr(self.video_series, "series_name", ""),
             video_certificate_license=self.video_certificate_license,
@@ -216,8 +227,12 @@ class Video(AbstractItem):
         """
         Call this method to index an instance to search server
         """
-        # Save video instance
-        self.doc().save()
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+           # save the doc
+            self.doc().save()
 
     def get_admin_url(self):
         return urlresolvers.reverse("admin:%s_%s_change" %(self._meta.app_label, self._meta.model_name), args=(self.pk,))
@@ -228,6 +243,8 @@ class Video(AbstractItem):
     def published_yes_no(self):
         return self.published
 
+    def featured_yes_no(self):
+        return self.featured
 
 
     def updated_date_string(self):

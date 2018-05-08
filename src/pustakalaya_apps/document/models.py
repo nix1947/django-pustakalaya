@@ -147,6 +147,13 @@ class Document(AbstractItem, HitCountMixin):
         blank=True,
     )
 
+    # document_authors_name_in_other_language = models.ManyToManyField(
+    #     Biography,
+    #     verbose_name=_("Author(s) Name in other language"),
+    #     related_name="authors_in_other_language",
+    #     blank=True,
+    # )
+
     document_editors = models.ManyToManyField(
         Biography,
         verbose_name=_("Editor(s)"),
@@ -263,6 +270,8 @@ class Document(AbstractItem, HitCountMixin):
             publisher=[publisher.publisher_name for publisher in self.publisher.all()],
             sponsors=[sponsor.name for sponsor in self.sponsors.all()],  # Multi value # TODO some generators
             keywords=[keyword.keyword for keyword in self.keywords.all()],
+            # License type
+            license_type=self.license.license if self.license else None,
             # Document type specific
             thumbnail=self.thumbnail.name,
             # document_identifier_type=self.document_identifier_type,
@@ -309,10 +318,22 @@ class Document(AbstractItem, HitCountMixin):
 
         return self.publisher.publisher_name
 
+
+    def delete_index(self):
+        try:
+            self.doc().delete()
+        except NotFoundError:
+            # TODO:
+            pass
+
     def index(self):
         """index or update a document instance to elastic search index server"""
         # Index to index server if any doc is not empty and published status is "yes"
-        if self.published == "yes":
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+            #save only when published is yes
             self.doc().save()
 
         # Print all the collections.
@@ -322,12 +343,7 @@ class Document(AbstractItem, HitCountMixin):
         # Do bulk index if doc item is not empty.
         return self.doc().to_dict(include_meta=True)
 
-    def delete_index(self):
-        try:
-            self.doc().delete()
-        except NotFoundError:
-            # TODO:
-            pass
+
 
     def get_absolute_url(self):
         from django.urls import reverse

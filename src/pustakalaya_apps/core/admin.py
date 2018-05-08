@@ -7,7 +7,7 @@ from .models import (
     EducationLevel,
     Language,
     LicenseType,
-    genre_audio_video
+    genre_audio_video,
 
 )
 from  django.utils.html import format_html

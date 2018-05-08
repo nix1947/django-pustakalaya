@@ -13,6 +13,8 @@ from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from pustakalaya_apps.core.abstract_models import LinkInfo
 from .admin import DocumentLinkInfoAdminInline
+from django.http import Http404, HttpResponse
+
 
 # from .forms import BaseDocumentFormSet
 
@@ -33,6 +35,13 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
     def get(self, request, **kwargs):
         self.object = self.get_object()
+        if self.object.published== "no":
+            # return HttpResponseRedirect("/")
+            # return Http404()
+            # msg = "Page not found"
+            # return HttpResponse(msg, status=404)
+            raise Http404
+
         hit_count = HitCount.objects.get_for_object(self.object)
 
 
@@ -42,8 +51,8 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         context = self.get_context_data(object=self.object)
 
 
-        form_set_resonse= {}
-        import pprint
+        # form_set_resonse= {}
+        # import pprint
 
         # linkinfo = BaseDocumentFormSet(pk=self.object.pk)
         # linkinfo = DocumentLinkInfoAdminInline(self,request.GET)

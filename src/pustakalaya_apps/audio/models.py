@@ -23,6 +23,13 @@ from pustakalaya_apps.core.models import (
 from .search import AudioDoc
 
 
+
+class FeaturedItemManager(models.Manager):
+    def get_queryset(self):
+        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+
+
+
 class Audio(AbstractItem):
     """Audio class to store audio"""
 
@@ -89,6 +96,10 @@ class Audio(AbstractItem):
         blank=True,
 
     )
+
+    # Manager to return the featured objects.
+    objects = models.Manager()
+    featured_objects = FeaturedItemManager()
 
     keywords = models.ManyToManyField(
         Keyword,
@@ -184,6 +195,9 @@ class Audio(AbstractItem):
             languages=[language.language.lower() for language in self.languages.all()],
             audio_running_time=self.audio_running_time,
             thumbnail=self.thumbnail.name,
+
+            # License type
+            license_type=self.license.license if self.license else None,
             audio_read_by= self.audio_read_by.getname if self.audio_read_by else None,
             # audio_genre=self.audio_genre.genre if self.audio_genre else None,
             audio_genre=[audio_genre.custom_genre for audio_genre in self.audio_genre.all()],
@@ -201,7 +215,12 @@ class Audio(AbstractItem):
 
     def index(self):
         """index an instance of audio to elastic search index server"""
-        self.doc().save()
+        if self.published == "no":
+            # delete this if the published is set to no form
+            self.delete_index()
+        else:
+            # save only when published is yes
+            self.doc().save()
 
     def bulk_index(self):
         return self.doc().to_dict(include_meta=True)
@@ -215,7 +234,8 @@ class Audio(AbstractItem):
     def published_yes_no(self):
         return self.published
 
-
+    def featured_yes_no(self):
+        return self.featured
 
     def updated_date_string(self):
         return self.updated_date

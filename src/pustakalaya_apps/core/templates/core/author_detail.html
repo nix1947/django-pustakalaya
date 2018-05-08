@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load pustakalaya_filters %}
 {% block content %}
 
 <div class="container min_height pt-4 min_height_author_detail"style="font-family:arial,sans-serif;" >
@@ -101,7 +102,30 @@
         </div>
         {% endif %}
 
+
+        {% if  object.authors_name_in_other_language.all %}
+        <div class="row">
+          <span class="col-md-2"><b>{% trans "Author(s) in other language:" %}</b></span>
+          <span class="col-md-10">
+
+              {% for author in object.authors_name_in_other_language.all %}
+
+                <!-- {# <a href="{% url 'author:author_detail' author.getname|slugify  author.pk %}">{{ author }}</a> #}-->
+            <a href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">{{ author }}</a>
+                {%  if not forloop.last %}
+                          ,
+                {%  endif %}
+              {% endfor %}
+          </span>
         </div>
+        {% endif %}
+
+
+
+
+
+        </div>
+
 
           <br>
 

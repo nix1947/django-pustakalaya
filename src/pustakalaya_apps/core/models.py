@@ -92,10 +92,18 @@ class genre_audio_video(AbstractTimeStampModel):
 class Biography(AbstractBaseAuthor):
     """Biography class to create an instance of document author, editor, illustrator,
     video director, video producer and audio recorder"""
+
     keywords = models.ManyToManyField(
         Keyword,
         verbose_name=_("Search Keywords"),
         blank=True
+    )
+
+    authors_name_in_other_language = models.ManyToManyField(
+        "self",
+        verbose_name=_("Author(s) name in other language"),
+        # related_name="authors_in_other_language",
+        blank=True,
     )
 
     def getName(self):
@@ -149,7 +157,7 @@ class EducationLevel(models.Model):
     level = models.CharField(
         _("Education Level"),
         max_length=255,
-        choices=EDUCATION_LEVEL,
+        # choices=EDUCATION_LEVEL,
         unique=True
 
     )
@@ -164,7 +172,6 @@ class EducationLevel(models.Model):
 
     class Meta:
         db_table = "education_level"
-
 
 class Language(models.Model):
     language = models.CharField(
@@ -186,7 +193,6 @@ class LicenseType(models.Model):
     license = models.CharField(
         max_length=50,
         verbose_name=_("License"),
-        blank=True,
         null=True,
 
     )

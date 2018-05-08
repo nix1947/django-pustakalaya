@@ -18,7 +18,7 @@
 
         {% if page_obj.has_previous %}
             <li class="">
-                <a href="?page={{ page_obj.previous_page_number }}" class=" page-link1">&laquo;previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class=" page-link1">&laquo;previous</a>
             </li>
         {% endif %}
 
@@ -27,10 +27,7 @@
 
             {% if p <   page_obj.number|add:5 and p > page_obj.number|add:-5 %}
             <li class="page-item active" style="margin:0px">
-                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}=
-            {{ value }}{% endif %}{% endfor %}"{% ifequal p page_obj.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %}
-            class="page-link1"
-            >{{ p }}</a>
+                <a href="?page={{ p }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"{% ifequal p page_obj.number %} class=" page-link" style="margin-top:-5px;"{% endifequal %} class="page-link1">{{ p }}</a>
               </li>
             {% endif %}
 
@@ -43,9 +40,7 @@
        {% if page_obj.number < paginator.num_pages|add:-5 %}
             <li>...</li>
             <li class="page-item active" >
-                <a href="?page={{ paginator.num_pages }}"
-            class="page-link1"
-                >{{ paginator.num_pages }}</a>
+                <a href="?page={{ paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="page-link1">{{ paginator.num_pages }}</a>
               </li>
       {% endif %}
             {% endif %}
@@ -56,8 +51,7 @@
 
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a href="?page={{ page_obj.next_page_number }}"
-                   class="next disabled page-link1">next&raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="next disabled page-link1">next&raquo;</a>
             </li>
         {% endif %}
     </ul>
