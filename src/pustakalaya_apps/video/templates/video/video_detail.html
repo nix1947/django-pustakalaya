@@ -60,7 +60,7 @@
             <div class="col-md-4 col-sm-12 col-xs-12 p-5 "
                  style="height: 360px; width:426px; overflow-y: scroll; margin-left: -15px;">
                 <div id="videoList">
-                    {% for video in object.videofileupload_set.all %}
+                    {% for video in object.videofileupload_set.all reversed %}
                         <div class="pt-1 pb-1 pl-3  ">
                             <span style="cursor: pointer"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
