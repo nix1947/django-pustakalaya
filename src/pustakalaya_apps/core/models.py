@@ -106,10 +106,21 @@ class Biography(AbstractBaseAuthor):
         blank=True,
     )
 
+    genre = models.ManyToManyField(
+        genre_audio_video,
+        verbose_name=_("Genre"),
+        blank=True,
+
+    )
+
+    @property
     def getName(self):
         return self.name
 
     def __str__(self):
+        return self.name
+    @property
+    def getname(self):
         return self.name
 
     class Meta:

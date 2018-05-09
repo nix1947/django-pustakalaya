@@ -63,7 +63,7 @@ class BiographyAdmin(admin.ModelAdmin):
     )
 
     def author(self,obj):
-        return format_html('<a href="%s">%s</a>' % (obj.get_absolute_url(), obj.getName()))
+        return format_html('<a href="%s">%s</a>' % (obj.get_absolute_url(), obj.getName))
 
     def edit_link(self, obj):
         return format_html("<a href='{url}'>Edit</a>", url=obj.get_admin_url())

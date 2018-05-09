@@ -75,11 +75,11 @@ class Audio(AbstractItem):
         blank=True,
     )
 
-    audio_read_by = models.ForeignKey(
+    audio_read_by = models.ManyToManyField(
         Biography,
         verbose_name=_("Read / Voice by"),
+        related_name="audio_read_by",
         blank=True,
-        null=True
 
     )
 
@@ -168,10 +168,11 @@ class Audio(AbstractItem):
 
     @property
     def getauthors(self):
-        if not self.audio_read_by:
+        if not self.audio_read_by.all():
             return None
-        author_list = [(author.getname, author.pk) for author in [self.audio_read_by]]
-        return author_list or [None]
+
+        return [author.getName for author in self.audio_read_by.all()] or None
+
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -198,7 +199,7 @@ class Audio(AbstractItem):
 
             # License type
             license_type=self.license.license if self.license else None,
-            audio_read_by= self.audio_read_by.getname if self.audio_read_by else None,
+            audio_read_by= self.getauthors,
             # audio_genre=self.audio_genre.genre if self.audio_genre else None,
             audio_genre=[audio_genre.custom_genre for audio_genre in self.audio_genre.all()],
             audio_series=self.audio_series.series_name if self.audio_series else None,
@@ -308,6 +309,7 @@ class AudioFileUpload(AbstractTimeStampModel):
 
     class Meta:
         db_table = "audio_file"
+        ordering = ["created_date"]
 
 
 class AudioLinkInfo(LinkInfo):
@@ -320,6 +322,9 @@ class AudioLinkInfo(LinkInfo):
 
     def __str__(self):
         return self.audio.title
+
+    class Meta:
+        ordering=["created_date"]
 
 
 class AudioType(models.Model):

@@ -431,6 +431,9 @@ class DocumentFileUpload(AbstractTimeStampModel):
     def __str__(self):
         return self.file_name
 
+    class Meta:
+        ordering=['created_date']
+
 
 class DocumentLinkInfo(LinkInfo):
     document = models.ForeignKey(
@@ -442,6 +445,9 @@ class DocumentLinkInfo(LinkInfo):
 
     def __str__(self):
         return self.link_name
+
+    class Meta:
+        ordering=['created_date']
 
 
 

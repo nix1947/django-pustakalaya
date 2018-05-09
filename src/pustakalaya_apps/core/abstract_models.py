@@ -9,6 +9,7 @@ from .constants import LANGUAGES
 from django.core import urlresolvers
 
 
+
 class AbstractTimeStampModel(models.Model):
     """TimeStampModel that holds created_date and updated_date field"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -24,6 +25,7 @@ class AbstractTimeStampModel(models.Model):
 
 class AbstractBaseAuthor(AbstractTimeStampModel):
     """Base author class that holds the common attributes for other author class."""
+
 
     first_name = models.CharField(
         _("First name"),
@@ -76,11 +78,13 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
         blank=True
     )
 
+    # this genre is not used instead it is inheriated in biography
     genre = models.CharField(
         verbose_name=_("Genre"),
         max_length=100,
         blank = True
     )
+
 
     thumbnail = models.ImageField(
         verbose_name=_("Creator image"),
@@ -129,8 +133,6 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
 class AbstractSeries(AbstractTimeStampModel):
     """Abstract Series models for data item"""
 
-    class Meta:
-        abstract = True
 
     series_name = models.CharField(
         _("Series name"),

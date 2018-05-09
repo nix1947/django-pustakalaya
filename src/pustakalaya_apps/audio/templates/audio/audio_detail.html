@@ -77,7 +77,7 @@
       </div>
       <div id="audioList">
         <h6 class="text-primary text-uppercase mb-4 mt-3 ">{{ object.title }}</h6>
-        {% for audio in object.audiofileupload_set.all reversed %}
+        {% for audio in object.audiofileupload_set.all %}
         <div class="text-dark pl-3 ">
                             <span style="cursor: pointer"
                                   class=" {% if forloop.counter == 1 %} text-primary {% endif %}"
@@ -122,6 +122,7 @@
       <!--Read by section-->
       <div class="read-section">
 
+
         {% if  object.audio_read_by %}
       <div class="row border-line " style="overflow-wrap: break-word;" >
         <!-- Read by/Voice -->
@@ -129,8 +130,18 @@
         <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Read/Voice by:" %}</div>
         {%  if object.audio_read_by %}
         <div class="col-lg-10 text-dark  text-primary">
-        <a href="{% url 'author:author_detail' object.audio_read_by.getname|slugify object.audio_read_by.pk %}">
-          {{ object.audio_read_by.getname }}</a>
+          {% for audio_author in object.audio_read_by.all %}
+          <a href="{% url 'author:author_detail' author.getname|slugify_unicode audio_author.pk %}">
+            {{audio_author.getName}}
+            {% if not forloop.last %}
+              , &nbsp;
+            {% endif%}
+          </a>
+
+
+          {% endfor %}
+
+
         </div>
         {% endif %}
       </div>
@@ -395,14 +406,14 @@
           <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
               <!-- Authors -->
               <!-- TODO pluralization -->
-             {% for link in  object.audiolinkinfo_set.all reversed %}
+             {% for link in  object.audiolinkinfo_set.all %}
 
-             <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
-            <div class="col-lg-9 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
+             <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
+            <div class="col-lg-10 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
 
 
-             <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
-              <div class="col-lg-9 text-dark ">{{ link.link_description }}</div>
+             <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
+              <div class="col-lg-10 text-dark ">{{ link.link_description }}</div>
 
              {% endfor %}
           </div>

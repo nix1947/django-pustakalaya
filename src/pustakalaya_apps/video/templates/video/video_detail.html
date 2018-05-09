@@ -60,7 +60,7 @@
             <div class="col-md-4 col-sm-12 col-xs-12 p-5 "
                  style="height: 360px; width:426px; overflow-y: scroll; margin-left: -15px;">
                 <div id="videoList">
-                    {% for video in object.videofileupload_set.all reversed %}
+                    {% for video in object.videofileupload_set.all %}
                         <div class="pt-1 pb-1 pl-3  ">
                             <span style="cursor: pointer"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
@@ -251,11 +251,22 @@
                {% endif %}
 
                  <!-- video director time -->
-                {% if  object.video_director %}
+                {% if  object.video_director.all %}
                 <div class="row pb-1 border-line">
                     <!-- Add 2px right margin in each -->
                     <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "video director" %}</div>
-                    <div class="col-lg-10 text-dark  ">{{ object.video_director }}</div>
+                    <div class="col-lg-10 text-dark  ">
+
+                     {% for author in object.video_director.all %}
+                      <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                        {{ author }}
+                      </a>
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                     {% endfor %}
+
+                    </div>
                 </div>
                 {% endif %}
 
@@ -396,14 +407,14 @@
                 <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
                     <!-- Authors -->
                     <!-- TODO pluralization -->
-                   {% for link in  object.videolinkinfo_set.all reversed %}
+                   {% for link in  object.videolinkinfo_set.all %}
 
-                   <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
-                  <div class="col-lg-9 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
+                   <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
+                  <span class="col-lg-10 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></span>
 
 
-                   <div class="col-lg-3 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
-                    <div class="col-lg-9 text-dark ">{{ link.link_description }}</div>
+                   <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
+                    <div class="col-lg-10 text-dark ">{{ link.link_description }}</div>
 
                    {% endfor %}
                 </div>

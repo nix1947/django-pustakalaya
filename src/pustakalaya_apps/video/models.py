@@ -57,12 +57,12 @@ class Video(AbstractItem):
         blank=True,
     )
 
-    video_director = models.ForeignKey(
+    video_director = models.ManyToManyField(
         Biography,
         verbose_name=("Director"),
         related_name="directors",
         blank=True,
-        null=True
+
     )
 
     video_producers = models.ManyToManyField(
@@ -182,7 +182,7 @@ class Video(AbstractItem):
     def getauthors(self):
         if not self.video_director:
             return None
-        author_list = [(author.getname, author.pk) for author in [self.video_director]]
+        author_list = [author.getName for author in self.video_director.all()] #[(author.getname, author.pk) for author in [self.video_director]]
         return author_list or [None]
 
     def get_absolute_url(self):
@@ -208,7 +208,7 @@ class Video(AbstractItem):
             thumbnail=self.thumbnail.name,
             # License type
             license_type=self.license.license if self.license else None,
-            video_director=getattr(self.video_director, "getname", ""),
+            video_director=self.getauthors,#getattr(self.video_director, "getname", ""),
             video_series=getattr(self.video_series, "series_name", ""),
             video_certificate_license=self.video_certificate_license,
             # video_genre=getattr(self.video_genre, "genre", ""),
@@ -278,6 +278,7 @@ class VideoSeries(AbstractSeries):
 
     class Meta:
         verbose_name_plural = _("Video series")
+        ordering = ["created_date"]
 
     def __str__(self):
         return "{}".format(self.series_name)
@@ -305,6 +306,9 @@ class VideoFileUpload(AbstractTimeStampModel):
     def __str__(self):
         return self.file_name
 
+    class Meta:
+        ordering = ["created_date"]
+
 
 class VideoLinkInfo(LinkInfo):
     video = models.ForeignKey(
@@ -316,6 +320,8 @@ class VideoLinkInfo(LinkInfo):
 
     def __str__(self):
         return self.video.title
+    class Meta:
+        ordering=["created_date"]
 
 
 class VideoGenre(AbstractTimeStampModel):

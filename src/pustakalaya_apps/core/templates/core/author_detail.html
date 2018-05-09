@@ -95,10 +95,17 @@
         {% endif %}
 
 
-        {% if object.genre %}
+        {% if object.genre.all %}
         <div class="row">
           <span class="col-md-2"><b>{% trans "Genre" %}:</b></span>
-          <span class="col-md-10">{{ object.genre }}</span>
+          <span class="col-md-10">
+          {% for genre in object.genre.all %}
+                    {{ genre.custom_genre }}
+                     {%  if not forloop.last %}
+                                                    ,
+                     {%  endif %}
+                  {% endfor %}
+          </span>
         </div>
         {% endif %}
 
