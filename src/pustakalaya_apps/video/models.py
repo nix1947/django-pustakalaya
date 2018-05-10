@@ -53,7 +53,7 @@ class Video(AbstractItem):
 
     video_release_date = models.CharField(
         verbose_name=_("Release date"),
-        max_length=25,
+        max_length=255,
         blank=True,
     )
 
@@ -175,7 +175,7 @@ class Video(AbstractItem):
         verbose_name=_("Running time in minutes"),
         max_length=255,
         blank=True,
-        default="0"
+       
     )
 
     @property

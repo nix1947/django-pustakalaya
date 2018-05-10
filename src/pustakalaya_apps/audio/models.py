@@ -71,7 +71,7 @@ class Audio(AbstractItem):
 
     audio_release_date = models.CharField(
         verbose_name=_("Release date"),
-        max_length=25,
+        max_length=255,
         blank=True,
     )
 

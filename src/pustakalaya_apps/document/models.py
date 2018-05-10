@@ -135,9 +135,8 @@ class Document(AbstractItem, HitCountMixin):
     document_total_page = models.CharField(
         verbose_name=_("Total Pages"),
         blank=True,
-        default=0,
         validators=[validate_number],
-        max_length=4
+        max_length=7
     )
 
     document_authors = models.ManyToManyField(

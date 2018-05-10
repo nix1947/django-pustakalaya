@@ -47,7 +47,7 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
 
     name = models.CharField(
         _("Name"),
-        max_length=50,
+        max_length=255,
         default=""
 
     )
@@ -57,7 +57,7 @@ class AbstractBaseAuthor(AbstractTimeStampModel):
     )
     dob = models.CharField(
         verbose_name=_("Date of birth"),
-        max_length=30,
+        max_length=255,
         blank=True,
         null=True
     )
@@ -213,7 +213,8 @@ class AbstractItem(AbstractTimeStampModel):
     year_of_available = models.DateField(
         _("Year of available on text"),
         blank=True,
-        null=True
+        null=True,
+
     )
 
     publication_year = models.DateField(
@@ -226,14 +227,14 @@ class AbstractItem(AbstractTimeStampModel):
         _("Year of available"),
         blank=True,
         null=True,
-        max_length=20
+        max_length=255
     )
 
     publication_year_on_text = models.CharField(
         _("Publication year"),
         blank=True,
         null=True,
-        max_length=20
+        max_length=255
     )
 
     place_of_publication = models.CharField(
