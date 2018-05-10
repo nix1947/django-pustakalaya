@@ -12,6 +12,7 @@
      .page-link1:hover{
      background-color:#bdc3c7
      }
+
 </style>
 <span class="step-links">
     <ul class="pagination pagination-primary">
@@ -21,6 +22,23 @@
                 <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class=" page-link1">&laquo;previous</a>
             </li>
         {% endif %}
+
+
+      <!--first page-->
+          {% if page_obj.has_next or  page_obj.has_previous%}
+            {% if page_obj.number != 1 %}
+       {% if page_obj.number >  10 %}
+
+            <li class="page-item active" >
+                <a href="?page={{ 1 }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="page-link1">{{ 1}}</a>
+              </li>
+            <li>...</li>
+      {% endif %}
+            {% endif %}
+      {% endif %}
+
+
+
 
         {% if page_obj.has_next or  page_obj.has_previous%}
         {% for p in paginator.page_range %}

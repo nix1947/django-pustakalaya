@@ -75,7 +75,9 @@
                type="audio/mp3" controlsList="nodownload">
         </audio>
       </div>
-      <div id="audioList">
+      <div id="audioList"
+      style="overflow-y: auto;max-height: 300px;"
+      >
         <h6 class="text-primary text-uppercase mb-4 mt-3 ">{{ object.title }}</h6>
         {% for audio in object.audiofileupload_set.all %}
         <div class="text-dark pl-3 ">
@@ -403,7 +405,7 @@
           <!-- link_name and link description -->
 
          {% if object.audiolinkinfo_set.all %}
-          <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+          <div class="row pb-1 border-line"  style="overflow-wrap: break-word; max-height: 250px;overflow-y: scroll;">
               <!-- Authors -->
               <!-- TODO pluralization -->
              {% for link in  object.audiolinkinfo_set.all %}

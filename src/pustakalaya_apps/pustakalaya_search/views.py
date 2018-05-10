@@ -40,6 +40,10 @@ def search(request):
         # Search in elastic search
         search_obj = PustakalayaSearch(query=query_string, filters=filters)
 
+        data = search_obj
+        results = data.execute()
+        # print(results.hits)
+
         # print(search_obj)
 
         # Pagination configuration before executing a query.

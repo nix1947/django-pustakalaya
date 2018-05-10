@@ -58,7 +58,7 @@
                 </video>
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 p-5 "
-                 style="height: 360px; width:426px; overflow-y: scroll; margin-left: -15px;">
+                 style="max-height: 450px; width:426px; overflow-y: scroll; margin-left: -15px;">
                 <div id="videoList">
                     {% for video in object.videofileupload_set.all %}
                         <div class="pt-1 pb-1 pl-3  ">
@@ -404,7 +404,9 @@
                <!-- link_name and link description -->
 
                {% if object.videolinkinfo_set.all %}
-                <div class="row pb-1 border-line"  style="overflow-wrap: break-word;">
+                <div class="row pb-1 border-line"
+                     style="overflow-wrap: break-word;max-height: 250px;overflow-y: scroll;"
+                >
                     <!-- Authors -->
                     <!-- TODO pluralization -->
                    {% for link in  object.videolinkinfo_set.all %}

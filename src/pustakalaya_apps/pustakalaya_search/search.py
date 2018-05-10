@@ -48,3 +48,4 @@ class PustakalayaSearch(FacetedSearch):
         # override methods to add custom pieces
         s = super().search().query("match", published="yes")
         return s
+
