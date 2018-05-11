@@ -51,25 +51,6 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         context = self.get_context_data(object=self.object)
 
 
-        # form_set_resonse= {}
-        # import pprint
-
-        # linkinfo = BaseDocumentFormSet(pk=self.object.pk)
-        # linkinfo = DocumentLinkInfoAdminInline(self,request.GET)
-        # linkinfo = LinkInfo(id=self.object.pk)
-
-
-        # linkinfo = BaseDocumentFormSet()
-        # print(linkinfo)
-        # pprint.pprint(linkinfo)
-
-
-
-        # if linkinfo:
-        #     print("link info = ",linkinfo)
-
-        #     pprint.pprint(linkinfo.link_name)
-
 
         data_review = Review.objects.filter(content_id=self.object.pk, content_type='document',published=True)
 

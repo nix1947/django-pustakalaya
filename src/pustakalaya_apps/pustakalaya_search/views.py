@@ -22,8 +22,8 @@ def search(request):
         query_string = request.GET.get('q')
 
         # To prevent empty search using url only
-        if query_string == "":
-            return HttpResponseRedirect("/")
+        # if query_string == "":
+        #     return HttpResponseRedirect("/")
 
 
 

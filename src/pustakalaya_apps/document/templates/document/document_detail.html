@@ -31,14 +31,40 @@
       }
     #added_to_favourite{
       background-color: #d63031 ;
+      }
+    .container-breadcrum{
+    display:left;
+
     }
+
+
     </style>
 
 
 {% endblock style %}
 
 {% block content %}
+
     <div>
+      {% if object.collections.all%}
+      <span class="container ml-5 pl-5 container-breadcrum bold">
+        <!-- Bread crums -->
+        In section(s):
+        {% for collection in object.collections.all %}
+        {% if forloop.first %}
+        <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
+        <span> >> </span>
+        {% endif %}
+
+        <a class="paragraph-font " href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        {{ collection.collection_name | transtolocal }}
+        </a>
+        {%  if not forloop.last %} ,{%  endif %}
+        {% endfor %}
+
+      </span>
+      {% endif %}
+
         <div class=" min_height_document_detail pt-4 large-device-padding padding-left-right">
             <div class="row">
 

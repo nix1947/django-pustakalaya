@@ -41,6 +41,25 @@
 
 {% block content %}
     <div class=" min_height pt-4" style="margin-left:8.0rem;margin-right:8.0rem;" >
+
+      {% if object.collections.all%}
+      <span class=" bold">
+        <!-- Bread crums -->
+        In section(s):
+        {% for collection in object.collections.all %}
+        {% if forloop.first %}
+        <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
+        <span> >> </span>
+        {% endif %}
+
+        <a class="paragraph-font " href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        {{ collection.collection_name | transtolocal }}
+        </a>
+        {%  if not forloop.last %} ,{%  endif %}
+        {% endfor %}
+
+      </span>
+      {% endif %}
         <!--video title-->
     <h4 class="text-capitalize"><b>{{ object.title }}</b></h4>
         <h6 class="text-dark text-uppercase mb-4 description" id="video-title"
