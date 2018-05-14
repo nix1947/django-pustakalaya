@@ -9,12 +9,11 @@
     <!-- Author Name -->
     <div class="col-md-2 col-xs-12 col-sm-12">
 
-      <p class="text-capitalize  text-dark description h5 mt-2 title-font ">{{ object.getname }}</p>
+      <p class="text-capitalize text-primary text-dark description h5 mt-2 title-font ">{{ object.getname }}</p>
       {% if object.thumbnail  %}
 
       <img src="{{ MEDIA_URL }}{{ object.thumbnail }}"
-           width="210px"
-           height="230px"
+           style="max-width:100%"
            title="{{ object }}"
            alt="{{ object }}" class="rounded img img-responsive">
 
