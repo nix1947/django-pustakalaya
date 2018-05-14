@@ -2,100 +2,123 @@
 {% load i18n %}
 {% block style %}
 <style>
-  .a-facebook{
-   color:white;
-   border-style:solid;
-   border-radius:5px;
-  }
-  .a-facebook:hover {
-   color:#2980b9;
-    background-color:white;
-  }
-  .a-twitter{
-   color:white;
-   border-style:solid;
-    border-radius:5px;
-  }
-  .a-twitter:hover {
-   color:#3498db;
-    background-color:white;
-  }
-  .a-android{
-   color:white;
-   border-style:solid;
-    border-radius:5px;
-  }
-  .a-android:hover{
-    background-color:white;
-   color:green;
-  }
+#olefooter a{
+ white-space: nowrap;
+ display:inline;
+
+}
+#olefooter a:link,
+#olefooter a:visited {
+    display: inline!important;
+
+}
 </style>
+
 {% endblock %}
 <!-- footer navigation -->
-<footer class=" section-padding mt-3" style="color:white !important;background-color:rgb(13,146,63)!important;">
+<footer style="padding-top:20px;">
+     <!-- footer starts here -->
+      <div id="olefooter">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>E-PUSTAKALAYA</h6>
+              <p>E-Pustakalaya is an education-focused digital library containing full-text documents, images, videos and audio files that can be accessed through an intranet or the internet. The user can either read documents, view videos, and listen to audio clips directly from the E-library server or she can download these materials to her personal computer and view them later.</p>
+            </div>
+            <div class="col-md-2">
+              <h6>SUPPORT</h6>
+              <ul class="">
+                  <li>
+                      <a href="#">Offline Access</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'about' %}">About</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'feedback' %}">Feedback</a>
+                  </li>
+                  <li>
+                      <a href="{% url 'help' %}">Help</a>
+                  </li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+              <h6>CONTACT US</h6>
+              <ul class="">
+                  <li>
+                      Sanepa, Lalitpur
+                  </li>
+                  <li>
+                      +977-1-5544441, 552-0075
+                  </li>
+                  <li>
+                      info@olenepal.org
+                  </li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+              <h6>FOLLOW US</h6>
+              <a href="https://twitter.com/olenepal/" target="_blank"><img class="social-ico" src="{%  static 'images/footer/twitter-ico.png' %}" alt="twitter" /></a>
+              <a href="https://www.facebook.com/olenepal/" target="_blank" ><img class="social-ico" src="{%  static 'images/footer/facebook-logo.png' %}" alt="facebook" /></a>
+
+            </div>
+            <div class="col-md-2">
+              <h6>DOWNLOAD APP</h6>
+              <a class="a-android pt-4 pb-1" href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><img class="social-ico" src="{%  static 'images/footer/android-logo.png' %}" alt="android" /></a>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <h6>DEVELOPED AND MAINTAINED BY</h6>
+              <img class="footer-logo" src="{%  static 'images/footer/ole_logo.png' %}" alt="OLE Nepal" />
+            </div>
+            <div class="col-md-2">
+              <h6>MAJOR PARTNER</h6>
+              <a href="http://www.idrf.org/" target="_blank" title="IDRF">
+                <img class="footer-logo" src="{%  static 'images/footer/idrf_new_logo.png' %}" alt="OLE Nepal" />
+              </a>
+            </div>
+            <div class="col-md-2">
+              <h6>PAST SUPPORTERS</h6>
+             <a  href="https://www.maitritrust.org.uk/" target="_blank" title="Maitri Trust">
+               <img class="footer-logo" src="{%  static 'images/footer/maitri-trust.png' %}" alt="OLE Nepal" />
+             </a>
+             <a class="nav-link active" href="http://www.nepallibrary.org/" target="_blank" title="Nepal Library Foundation">
+               <img class="footer-logo" src="{%  static 'images/footer/nepal-library-foundation.png' %}" alt="OLE Nepal" />
+             </a>
+            </div>
+            <div class="col-md-6">
+              <h6>CONTENT CONTRIBUTION</h6>
+              <a href="https://www.britishcouncil.org.np/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/bc.png' %}" alt="OLE Nepal" /></a>
+              <a href="http://www.digitalhimalaya.com/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/DH_logo_small.gif' %}" alt="Digital Himalaya" /></a>
+              <a href="http://www.e-learningforkids.org/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/e-learning-for-kids.png' %}" alt="E-Learning for Kids" /></a>
+              <a href="http://gorkhapatraonline.com/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/gorkhapatra.png' %}" alt="Madanpuraskar" title="Madan Puraskar" /></a>
+              <a href="http://madanpuraskar.org/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/madanpuraskar.gif' %}" alt="Gorkhapatra Sansthan" /></a>
+              <a href="http://nepalacademy.org.np" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/nepalacademy.png' %}" alt="Nepal academy" /></a>
+              <a href="http://onlinesahitya.com/content/nepalese-society-childrens-literature-neschil" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/neschil.png' %}" alt="Neschil" /></a>
+              <a href="https://practicalaction.org/nepal" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/practical-action-logo-highres-300dpi.png' %}" alt="Pritical Action" /></a>
+              <a href="https://www.roomtoread.org/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/roomtoread.png' %}" alt="Room to Read" /></a>
+              <a href="http://rbf.org.np/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/rtf.png' %}" alt="Rato Bangla Foundation" /></a>
+              <a href="http://www.savethechildren.org" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/stc.gif' %}" alt="Save The Children" /></a>
+              <a href="http://nepal.worlded.org/" target="_blank"><img class="concon-logo" src="{%  static 'images/footer/xworld.png' %}" alt="World Education Nepal" /></a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 footcc">
+              <img src="{%  static 'images/footer/creative-commons.png' %}" alt="OLE Nepal" />
+              Unless explicitly mentioned, all the contents on this website are licensed under Creative Commons
+            </div>
+          </div>
 
 
-  <div class="container">
-  <div class="row">
-    <div class="col-sm">
-
-      <div class="copyright">
-             {% trans "Developed and maintained By" %}
-            <a href="http://www.olenepal.org" target="_blank" style="color:white;font-weight:bold; " >{% trans "OLE Nepal" %}</a>.
+        </div>
       </div>
-
-      <h4>Follow us: </h4>
-      <a href="https://www.facebook.com/olenepal/" target="_blank" class="a-facebook pt-4 pb-1"><i class="fa fa-2x fa-facebook  p-3 "></i></a>
-      <a href="https://twitter.com/olenepal/" target="_blank" class="a-twitter pt-4 pb-1"><i class="fa fa-2x fa-twitter  p-3 "></i></a>
-      <h4>Download App:</h4>
-      <a class="a-android pt-4 pb-1" href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya" target="_blank"><i class="fa fa-2x fa-android  p-3 "></i></a>
-
-
-    </div>
-    <div class="col-sm">
-      Unless explicitly mentioned, all the contents
-      on this website are licensed under Creative Commons
-      See License Details
-      <br><br>
-      <img src="{%  static 'images/logos/creative-commons.png' %}" class="text-white" alt="Creative commons">
-    </div>
-    <div class="col-sm">
-
-      <div class="container text-white">
-
-            <ul style="list-style:none">
-                <li>
-                    <a href="{% url 'feedback' %}" class="text-white">
-                        {% trans "Feedback" %}
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'help' %}" class="text-white">
-                        {% trans "Help" %}
-                    </a>
-                </li>
-                <li>
-                    <a href="http://olenepal.org/blog" target="_blank" class="text-white">
-                        {% trans "Blog" %}
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="text-white">
-                        Terms and condition
-                    </a>
-                </li>
-            </ul>
-
-
-    </div>
-
-    </div>
-  </div>
-</div>
-
 
 </footer>
 
 <!--These tow div close is navbar.html page, closing of class="content" and "content-inside"-->
  </div>
 </div>
+
+
