@@ -1,0 +1,449 @@
+{% load i18n %}
+{% load static %}
+
+
+<div class="container">
+
+<script src="{%  static "base_assets/js/vue/vue.js" %}"></script>
+<script src="{% static "base_assets/js/plugins/vue-instant.browser.js" %}"></script>
+  <div id="home-page-search-bar" >
+    <label>{{selectedEvent}}</label>
+    <form action="/search" method="GET"
+     style="height:35px;"
+     class="searchbox sbx-custom"
+     id="searchForm" >
+      <div class="input-group bg-white">
+        <input type="hidden" id="filterData" name="form-filter"/>
+        <input type="hidden" value="" name="q" id="queryData"/>
+      </div>
+        <vue-instant :suggestion-attribute="suggestionAttribute"
+                   v-model="value" :disabled="false"
+                   name="qar"
+                   @input="changed" @click-input="clickInput"
+                   @click-button="clickButton" @selected="selected"
+                   @enter="enter" @key-up="keyUp" @key-down="keyDown"
+                   @key-right="keyRight" @clear="clear"
+                   @escape="escape" :show-autocomplete="true"
+                   :autofocus="false" :suggestions="suggestions"
+                   name="customName" placeholder="Search pustakalaya"
+                   type="google"></vue-instant>
+    </form>
+    <span id="burger-menu">
+            &#9776;
+    </span>
+  </div>
+</div>
+
+<script>
+ //Suggestion implementation.
+    new Vue({
+        el: '#home-page-search-bar',
+        data: {
+            value: '',
+            suggestionAttribute: 'original_title',
+            suggestions: [],
+            selectedEvent: ""
+        },
+        methods: {
+
+            clickInput: function() {
+                this.selectedEvent = 'click input'
+            },
+            clickButton: function() {
+                this.selectedEvent = 'click button'
+                // add value.
+                 $("#queryData").val($('.sbx-google__input').val().trim());
+                  if($('.sbx-google__input').val().trim()==""){return;}
+                 $("#searchForm").submit();
+            },
+            selected: function($event) {
+                this.selectedEvent = 'selection changed'
+
+            },
+            enter: function() {
+                this.selectedEvent = 'enter'
+
+
+            },
+            keyUp: function() {
+               this.selectedEvent = 'keyup pressed'
+
+
+            },
+            keyDown: function() {
+                this.selectedEvent = 'keyDown pressed'
+
+
+            },
+            keyRight: function() {
+                this.selectedEvent = 'keyRight pressed'
+
+
+
+            },
+            clear: function() {
+                this.selectedEvent = 'clear input'
+
+
+            },
+            escape: function() {
+                this.selectedEvent = 'escape'
+            },
+            changed: function() {
+                var that = this;
+                this.suggestions = [];
+
+
+
+               axios.get('/search/completion/?suggest_text=' + this.value)
+                    .then(function(response) {
+                        var response1 = JSON.parse(response.data)
+                        response1.forEach(function(a, i) {
+                            a =  {
+                            "title":a.text,
+                             "original_title":a.text,
+
+                             }
+                            that.suggestions.push(a);
+                        })
+                    })
+
+            }
+        },
+        components: {
+            'vue-instant': VueInstant.VueInstant
+        }
+    })
+
+
+</script>
+<script src="{% static "base_assets/js/plugins/axios.min.js" %}" defer></script>
+
+<style>
+  .main {
+  background-color: inherit;
+  margin-left: -20px;
+      margin-top: -18px;
+  }
+
+  .sbx-google{
+  width: 100% !important;
+  margin-right:-20px;
+  }
+
+
+@-webkit-keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+@keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+
+
+
+@-webkit-keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+@keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+
+/*  google */
+.sbx-google {
+  display: inline-block;
+  position: relative;
+  width: 500px;
+  height: 41px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.sbx-google__wrapper {
+  width: 100%;
+  height: 100%;
+}
+.sbx-google__input {
+  display: inline-block;
+  position: absolute !important;
+  left: 0 !important;
+  -webkit-transition: box-shadow .4s ease, background .4s ease;
+  transition: box-shadow .4s ease, background .4s ease;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px #CCCCCC;
+  background: rgba(255, 255, 255, 0);
+  padding: 0;
+  padding-right: 77px;
+  padding-left: 11px;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+  font-size: inherit;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.sbx-google__input-placeholder {
+  display: inline-block;
+  -webkit-transition: box-shadow .4s ease, background .4s ease;
+  transition: box-shadow .4s ease, background .4s ease;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px #CCCCCC;
+  background: #FFFFFF;
+  padding: 0;
+  padding-right: 77px;
+  padding-left: 11px;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  white-space: normal;
+  font-size: inherit;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.sbx-google__input::-webkit-search-decoration, .sbx-google__input::-webkit-search-cancel-button, .sbx-google__input::-webkit-search-results-button, .sbx-google__input::-webkit-search-results-decoration {
+  display: none;
+}
+.sbx-google__input:hover {
+  box-shadow: inset 0 0 0 1px #b3b3b3;
+}
+.sbx-google__input:focus, .sbx-google__input:active {
+  outline: 0;
+  box-shadow: inset 0 0 0 1px #00838F;
+  background: rgba(255, 255, 255, 0)
+}
+.sbx-google__input::-webkit-input-placeholder {
+  color: #AAAAAA;
+}
+.sbx-google__input::-moz-placeholder {
+  color: #AAAAAA;
+}
+.sbx-google__input:-ms-input-placeholder {
+  color: #AAAAAA;
+}
+.sbx-google__input::placeholder {
+  color: #AAAAAA;
+}
+.sbx-google__submit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: inherit;
+  margin: 0;
+  border: 0;
+  border-radius: 0 3px 3px 0;
+  background-color: #00838F;
+  padding: 0;
+  width: 49px;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  font-size: inherit;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.sbx-google__submit::before {
+  display: inline-block;
+  margin-right: -4px;
+  height: 100%;
+  vertical-align: middle;
+  content: '';
+}
+.sbx-google__submit:hover, .sbx-google__submit:active {
+  cursor: pointer;
+}
+.sbx-google__submit:focus {
+  outline: 0;
+}
+.sbx-google__submit svg {
+  width: 21px;
+  height: 21px;
+  vertical-align: middle;
+  fill: #FFFFFF;
+}
+.sbx-google__reset {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 56px;
+  margin: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  fill: rgba(0, 0, 0, 0.5);
+}
+.sbx-google__reset:focus {
+  outline: 0;
+}
+.sbx-google__reset svg {
+  display: block;
+  margin: 4px;
+  width: 13px;
+  height: 13px;
+}
+.sbx-google__input:valid ~ .sbx-google__reset {
+  display: block;
+  -webkit-animation-name: sbx-reset-in;
+          animation-name: sbx-reset-in;
+  -webkit-animation-duration: .15s;
+          animation-duration: .15s;
+}
+@-webkit-keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+@keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+
+
+
+
+
+@-webkit-keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+@keyframes sbx-reset-in {
+0% {
+    -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+    opacity: 0;
+}
+100% {
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+}
+}
+.vue-instant__suggestions {
+     position: absolute;
+     left: 0;
+     top: 110%;
+     margin: 0;
+     background-color: #fff;
+     border: 1px solid #D3DCE6;
+     width: 100%;
+     padding: 6px 0;
+     z-index: 10;
+     border-radius: 2px;
+     max-height: 280px;
+     box-sizing: border-box;
+     overflow: auto;
+     box-shadow: 0 0 6px 0 rgba(0,0,0,.04), 0 2px 4px 0 rgba(0,0,0,.12);
+     margin-top:3px;
+}
+.vue-instant__suggestions li {
+     list-style: none;
+     line-height: 36px;
+     padding: 0 10px;
+     margin: 0;
+     cursor: pointer;
+     color: #475669;
+     font-size: 14px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+}
+.vue-instant__suggestions li.highlighted__spotify {
+     background-color: black;
+     color: #fff;
+}
+.vue-instant__suggestions li.highlighted__twitter {
+     background-color: #20a0ff;
+     color: #fff;
+}
+.vue-instant__suggestions li.highlighted__google {
+     background-color: #EEEEEE;
+     color: black;
+}
+.vue-instant__suggestions li.highlighted__facebook {
+     background-color: #3e5da0;
+     color: #fff;
+}
+.vue-instant__suggestions li.highlighted__amazon {
+     background-color: #232F3E;
+     color: #fff;
+}
+.el-input-group__append {
+   border: 0px;
+}
+.sbx-custom__input {
+  position: absolute;
+  left: 0 !important;
+  background: rgba(255, 255, 255, 0) !important;
+}
+
+</style>
