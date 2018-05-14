@@ -244,8 +244,7 @@ class Document(AbstractItem, HitCountMixin):
     @property
     def getauthors(self):
         author_list = [(author.getname, author.pk) for author in self.document_authors.all()]
-        return author_list or [
-            None]  # If emtpy, return something otherwise it will break elastic index while searching.
+        return author_list or [None]  # If emtpy, return something otherwise it will break elastic index while searching.
 
     @property
     def get_view_count(self):
