@@ -45,11 +45,11 @@
 
 {% block content %}
 
-    <div>
+    <div class="container">
       {% if object.collections.all%}
       <span class="container ml-5 pl-5 container-breadcrum bold">
         <!-- Bread crums -->
-        In section(s):
+        {% trans "In section(s):" %}
         {% for collection in object.collections.all %}
         {% if forloop.first %}
         <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
