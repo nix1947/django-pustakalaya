@@ -144,10 +144,11 @@
             <div id="logo-cont" class="col-md-3  col-xs-12 col-sm-12">
                 <!-- logo get overflow here -->
                 
-                <img class="logo"
+               <a href="/">
+                    <img class="logo"
                 style="cursor:pointer"
-                onclick="window.open('/')"
                  src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
+               </a>
             </div>
 
             <!-- 4 column search and nav1 -->
@@ -173,15 +174,17 @@
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                              <button type="submit" class="sbx-custom__dd dropdown-btn">
+                              <!-- <button type="button" class="sbx-custom__dd dropdown-btn">
                                   All &#9662;
                               </button>
                               <div class="dropdown-all">
-                                <a href="#">E-Book</a>
-                                <a href="#">Audios</a>
-                                <a href="#">Videos</a>
-                              </div>
-                                <input type="search" name="search" placeholder="Search E-Pustakalaya" autocomplete="off" required="required" class="sbx-custom__input">
+                                <div>E-Book</div>
+                                <div>Audios</div>
+                                <div>Videos</div>
+                              </div> -->
+
+                              
+                                <input type="search" name="q" placeholder="Search E-Pustakalaya" autocomplete="off" required="required" class="sbx-custom__input">
                                 <button type="submit" title="Submit your search query." class="sbx-custom__submit">
                                     <svg role="img" aria-label="Search">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-search-13"></use>
@@ -360,7 +363,7 @@
                     {% if user.is_authenticated %}
 
                     <li>
-                        <a class="text-white"
+                        <a class="text-white text-capitalize"
                            href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
                            id="navbarDropdownMenuLink"
                            data-toggle="dropdown" 
