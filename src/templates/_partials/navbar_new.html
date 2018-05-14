@@ -5,7 +5,7 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 <!--THis 2 div closing is in the footer page-->
-<div class="" style="magrin:0px 0px 5px 0px;padding:0px;">
+<div class="" style="margin:0px 0px 5px 0px;padding:0px;">
 
   <div class=""  style="margin:0px;padding:0px;">
 
@@ -143,8 +143,11 @@
             <!-- 2 column logo -->
             <div id="logo-cont" class="col-md-3  col-xs-12 col-sm-12">
                 <!-- logo get overflow here -->
-               
-                <img class="logo" src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
+                
+                <img class="logo"
+                style="cursor:pointer"
+                onclick="window.open('/')"
+                 src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
             </div>
 
             <!-- 4 column search and nav1 -->
@@ -165,7 +168,10 @@
                             </symbol>
                         </svg>
 
-                        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+                        <form novalidate="novalidate" 
+                        method="GET"
+                        action="/search"
+                        class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
                               <button type="submit" class="sbx-custom__dd dropdown-btn">
                                   All &#9662;
@@ -210,45 +216,43 @@
                     <div class="col-md-12">
                         <ul id="menu">
                             <li>
-                                <a href="#">TITLES</a>
+                                <a href="/search/?form-filter=&q=">{% trans "TITLES" %}</a>
                             </li>
                             <li>
-                                <a href="#">AUTHOR</a>
+                                <a href="/authors">{% trans "AUTHOR" %}</a>
                             </li>
                             <li>
                                 <a href="#">CATEGORIES &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
-                                        <a href="#"><i class="fas fa-book"></i> Literature And Arts</a>
+                                        <a href="/community/literatures-and-arts/"><i class="fas fa-book"></i> Literature And Arts</a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fas fa-desktop"></i> Course Materials</a>
+                                        <a href="/community/course-materials/"><i class="fas fa-desktop"></i> Course Materials</a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fas fa-graduation-cap"></i> Teaching Materials</a>
+                                        <a href="/community/teaching-materials/"><i class="fas fa-graduation-cap"></i> Teaching Materials</a>
+                                    </li>
+                            
+                                    <li>
+                                        <a href="/community/reference-materials/"><i class="fas fa-briefcase"></i> Reference Materials</a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fas fa-graduation-cap"></i> Teaching Materials</a>
+                                        <a href="/community/other-educational-materials/"><i class="fas fa-flask"></i> Other Educational Materials</a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fas fa-briefcase"></i> Reference Materials</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fas fa-flask"></i> Other Educational Materials</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fas fa-newspaper"></i> Newspapers & Magazines</a>
+                                        <a href="/community/newspaper-and-magazines/"><i class="fas fa-newspaper"></i> Newspapers & Magazines</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">LEVELS &#9662;</a>
+                                <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level","Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{% trans "LEVEL" %} &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
-                                        <a href="#">Primary Level</a>
+                                        <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>Primary Level</a>
                                     </li>
                                     <li>
-                                        <a href="#">Secondary Level</a>
+                                        <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>Secondary Level</a>
                                     </li>
                                     </li>
                                 </ul>
@@ -270,18 +274,112 @@
                     <li>
                         <a href="{% url 'help' %}">{% trans "Help" %}</a>
                     </li>
+                    <!-- language selection section -->
                     <li>
-                        <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a>
+
+
+
+                            <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                                    {% get_current_language as LANGUAGE_CODE %}
+                                    {% csrf_token %}
+                                    <!-- Change value to current_url without language -->
+                                    <input name="next" type="hidden" value="/"/>
+                                    <!-- language value default is english -->
+                                    <input type="hidden" name="language" value="en" />
+                                    <!-- don't change the name language -->
+                                    {% if LANGUAGE_CODE == "en" %}
+                                        <!-- <i class="flag-icon flag-icon-gb"></i> -->
+                                        <a href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> {% trans "English" %} &#9662;</a>
+                                        
+                                    {% endif %}
+
+                                    {% if LANGUAGE_CODE == "ne" %}
+                                    <!-- <i class="flag-icon flag-icon-gb"></i> -->
+                                    <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
+                                    <a href="/"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> {% trans "नेपाली" %}</a>
+                                    
+                                    {% endif %}
+
+
+                                   
+                                </form>
+
+
+
+                        <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
 
                         <ul class="dropdown-items">
-                            <li>
-                                <a href="#"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> नेपाली</a>
+                                {% get_available_languages as LANGUAGES %}
+                                {% for lang in LANGUAGES %}
+                            <li style="padding-bottom: 5px; padding-top:5px; cursor:pointer;">
+                    
+                               
+                
+                                    <!-- detect on click on this a tag and post to server -->
+                                    <a
+                                    onclick="change_language(this)"
+                                    data-lang={{lang.0}}
+                                    >
+                                        <img class="oleflags" src="{% if lang.0 == "ne" %}
+                                        {% static 'images_new/nepal.png' %}
+                                        {% endif %}
+                                        {% if lang.0 == "en" %}
+                                        {% static 'images_new/gb.png' %}
+                                        {% endif %}
+                                        
+                                        
+                                        " alt="ole logo" /> 
+                                        {{ lang.1 }}
+                                    </a>
+                                
+                                
                             </li>
+                            {% endfor %}
+
+
+
                         </ul>
                     </li>
+                    <!-- end language selection form -->
+                    
+
+
+                        {% if not  user.is_authenticated %}
+                        <li>
+                            <a href="#" class="text-white" data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                <span class="icon-password"></span> {% trans "Log In" %} &#9662;
+                            </a>
+                            {% login_form %}
+    
+                        </li>
+                    {% endif %}
+
+
+                    {% if user.is_authenticated %}
+
                     <li>
-                        <a href="#">Log In</a>
+                        <a class="text-white"
+                           href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
+                           id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" 
+                           aria-haspopup="true" 
+                           aria-expanded="false">
+                            {{request.user}} &#9662;
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size:100%;">
+                            <a class="dropdown-item text-primary text-capitalize"
+                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
+                            <a class="dropdown-item text-primary text-capitalize"
+                               href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
+                            <a class="dropdown-item text-primary text-capitalize"
+                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
+                        </div>
                     </li>
+                {% endif %}
+                  
                 </ul>
             </div>
 
@@ -293,17 +391,37 @@
 </div>
 
 <!-- script to reload selected country -->
-<!-- <script>
-    (function () {
-        // Grab language selection form
-        var changeLanguageForm = document.getElementById("changeLanguageForm");
-        // Select language input
-        var languageInput = changeLanguageForm.elements.language;
-        // listen change event on select input
-        languageInput.onchange = function () {
-            // If there is change submit the form.
-            changeLanguageForm.submit();
-        }
-    })();
-</script> -->
+<script>
+    // (function () {
+    //     // Grab language selection form
+    //     var changeLanguageForm = document.getElementById("changeLanguageForm");
+    //     // Select language input
+    //     var languageInput = changeLanguageForm.elements.language;
+    //     // listen change event on select input
+    //     languageInput.onchange = function () {
+    //         // If there is change submit the form.
+    //         changeLanguageForm.submit();
+    //     }
+    // })();
+
+        (function (window) {
+
+            window.change_language = function (element) {
+    
+                // get the form. 
+                var changeLanguageForm = document.getElementById("changeLanguageForm");
+
+                // Select language input
+                var languageInputField = changeLanguageForm.elements.language;
+
+                // User selected language
+                var language_Code = element.getAttribute('data-lang') || "en"; // get selected language.
+
+                // set the user selected languge to input field
+                languageInputField.setAttribute('value', language_Code);
+                // submit the form.
+                changeLanguageForm.submit();
+            }
+        })(window);
+    </script>
 
