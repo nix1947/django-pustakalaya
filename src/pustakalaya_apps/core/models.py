@@ -68,6 +68,8 @@ class Keyword(AbstractTimeStampModel):
 
     class Meta:
         db_table = "keyword"
+        ordering = ['created_date']
+
 
 class genre_audio_video(AbstractTimeStampModel):
     custom_genre = models.CharField(

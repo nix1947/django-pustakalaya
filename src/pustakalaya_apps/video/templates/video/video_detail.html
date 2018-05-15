@@ -45,14 +45,14 @@
       {% if object.collections.all%}
       <span class=" bold">
         <!-- Bread crums -->
-        In section(s):
+
         {% for collection in object.collections.all %}
         {% if forloop.first %}
         <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
         <span> >> </span>
         {% endif %}
 
-        <a class="paragraph-font " href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+        <a   href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
         {{ collection.collection_name | transtolocal }}
         </a>
         {%  if not forloop.last %} ,{%  endif %}

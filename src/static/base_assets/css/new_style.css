@@ -79,8 +79,9 @@ body{
 }
 
 #menu .dropdown-items a:hover{
-  /* background: #00BCD4; */
-  color: #00838F;
+  background: #00838F !important;
+  color: #fff !important;
+
 }
 
 .oleflags {
