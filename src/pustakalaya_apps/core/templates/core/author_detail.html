@@ -68,6 +68,12 @@
         </div>
         {% endif %}
 
+        {% if object.place_of_birth %}
+        <div class="row">
+        <div class="col-md-2"><b>{% trans "Place of birth" %}: </b></div>
+        <div class="col-md-10">{{ object.place_of_birth }}</div>
+        </div>
+        {% endif %}
 
 
         {% if object.date_of_death %}

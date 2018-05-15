@@ -171,7 +171,9 @@ class Audio(AbstractItem):
         if not self.audio_read_by.all():
             return None
 
-        return [author.getName for author in self.audio_read_by.all()] or None
+        return [(author.getName, author.pk) for author in self.audio_read_by.all()] or [None]
+
+
 
 
     def get_absolute_url(self):

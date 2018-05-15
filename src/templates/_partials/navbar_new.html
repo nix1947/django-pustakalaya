@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load login_form %}
+{% load education_level %}
 {% load pustakalaya_filters %}
 {% get_language_info_list for LANGUAGES as languages %}
 
@@ -143,7 +144,7 @@
             <!-- 2 column logo -->
             <div id="logo-cont" class="col-md-3  col-xs-12 col-sm-12">
                 <!-- logo get overflow here -->
-                
+
                <a href="/">
                     <img class="logo"
                 style="cursor:pointer"
@@ -157,7 +158,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-10 col-xs-10">
                         <!-- search bar -->
-                         
+
                         <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
                             <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-13" viewBox="0 0 40 40">
                                 <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"
@@ -169,7 +170,7 @@
                             </symbol>
                         </svg>
 
-                        <form novalidate="novalidate" 
+                        <form novalidate="novalidate"
                         method="GET"
                         action="/search"
                         class="searchbox sbx-custom">
@@ -183,7 +184,7 @@
                                 <div>Videos</div>
                               </div> -->
 
-                              
+
                                 <input type="search" name="q" placeholder="Search E-Pustakalaya" autocomplete="off" required="required" class="sbx-custom__input">
                                 <button type="submit" title="Submit your search query." class="sbx-custom__submit">
                                     <svg role="img" aria-label="Search">
@@ -197,13 +198,13 @@
                                 </button>
                             </div>
                         </form>
-                       
+
 
                         <script type="text/javascript">
                             document.querySelector('.searchbox [type="reset"]').addEventListener('click', function () { this.parentNode.querySelector('input').focus(); });
                         </script>
 
-                        
+
                         <span id="burger-menu">
                           &#9776;
                         </span>
@@ -228,36 +229,34 @@
                                 <a href="#">CATEGORIES &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
-                                        <a href="/community/literatures-and-arts/"><i class="fas fa-book"></i> Literature And Arts</a>
+                                        <a href="/community/literatures-and-arts/"><i class="fa fa-book"></i> Literature And Arts</a>
                                     </li>
                                     <li>
-                                        <a href="/community/course-materials/"><i class="fas fa-desktop"></i> Course Materials</a>
+                                        <a href="/community/course-materials/"><i class="fa fa-desktop"></i> Course Materials</a>
                                     </li>
                                     <li>
-                                        <a href="/community/teaching-materials/"><i class="fas fa-graduation-cap"></i> Teaching Materials</a>
+                                        <a href="/community/teaching-materials/"><i class="fa fa-graduation-cap"></i> Teaching Materials</a>
                                     </li>
-                            
+
                                     <li>
-                                        <a href="/community/reference-materials/"><i class="fas fa-briefcase"></i> Reference Materials</a>
-                                    </li>
-                                    <li>
-                                        <a href="/community/other-educational-materials/"><i class="fas fa-flask"></i> Other Educational Materials</a>
+                                        <a href="/community/reference-materials/"><i class="fa fa-briefcase"></i> Reference Materials</a>
                                     </li>
                                     <li>
-                                        <a href="/community/newspaper-and-magazines/"><i class="fas fa-newspaper"></i> Newspapers & Magazines</a>
+                                        <a href="/community/other-educational-materials/"><i class="fa fa-flask"></i> Other Educational Materials</a>
+                                    </li>
+                                    <li>
+                                        <a href="/community/newspaper-and-magazines/"><i class="fa fa-newspaper-o"></i> Newspapers & Magazines</a>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level","Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{% trans "LEVEL" %} &#9662;</a>
-                                <ul class="dropdown-items">
-                                    <li>
-                                        <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>Primary Level</a>
-                                    </li>
-                                    <li>
-                                        <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>Secondary Level</a>
-                                    </li>
-                                    </li>
+                                <!--<a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level","Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{% trans "LEVEL" %} &#9662;</a>-->
+                              <a href='#'>{% trans "LEVEL" %} &#9662;</a>
+
+                              <ul class="dropdown-items" style="overflow-y: auto;max-height: 300px;">
+
+                                  {% show_results  %}
+
                                 </ul>
                             </li>
                         </ul>
@@ -293,18 +292,18 @@
                                     {% if LANGUAGE_CODE == "en" %}
                                         <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                         <a href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> {% trans "English" %} &#9662;</a>
-                                        
+
                                     {% endif %}
 
                                     {% if LANGUAGE_CODE == "ne" %}
                                     <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                     <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
                                     <a href="/"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> {% trans "नेपाली" %}</a>
-                                    
+
                                     {% endif %}
 
 
-                                   
+
                                 </form>
 
 
@@ -315,9 +314,9 @@
                                 {% get_available_languages as LANGUAGES %}
                                 {% for lang in LANGUAGES %}
                             <li style="padding-bottom: 5px; padding-top:5px; cursor:pointer;">
-                    
-                               
-                
+
+
+
                                     <!-- detect on click on this a tag and post to server -->
                                     <a
                                     onclick="change_language(this)"
@@ -329,13 +328,13 @@
                                         {% if lang.0 == "en" %}
                                         {% static 'images_new/gb.png' %}
                                         {% endif %}
-                                        
-                                        
-                                        " alt="ole logo" /> 
+
+
+                                        " alt="ole logo" />
                                         {{ lang.1 }}
                                     </a>
-                                
-                                
+
+
                             </li>
                             {% endfor %}
 
@@ -344,7 +343,7 @@
                         </ul>
                     </li>
                     <!-- end language selection form -->
-                    
+
 
 
                         {% if not  user.is_authenticated %}
@@ -355,7 +354,7 @@
                                 <span class="icon-password"></span> {% trans "Log In" %} &#9662;
                             </a>
                             {% login_form %}
-    
+
                         </li>
                     {% endif %}
 
@@ -366,8 +365,8 @@
                         <a class="text-white text-capitalize"
                            href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
                            id="navbarDropdownMenuLink"
-                           data-toggle="dropdown" 
-                           aria-haspopup="true" 
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
                            aria-expanded="false">
                             {{request.user}} &#9662;
                         </a>
@@ -382,7 +381,7 @@
                         </div>
                     </li>
                 {% endif %}
-                  
+
                 </ul>
             </div>
 
@@ -444,8 +443,8 @@
         (function (window) {
 
             window.change_language = function (element) {
-    
-                // get the form. 
+
+                // get the form.
                 var changeLanguageForm = document.getElementById("changeLanguageForm");
 
                 // Select language input
