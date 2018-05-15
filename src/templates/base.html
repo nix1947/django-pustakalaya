@@ -13,8 +13,24 @@
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="{% static 'base_assets/css/base.css' %}" type="text/css">
-  <link rel="stylesheet" href="{% static 'base_assets/css/pustakalaya.css' %}">
+  
   <link rel="stylesheet" href="{% static 'base_assets/css/new_style.css' %}">
+
+  <!-- slick css -->
+
+<link rel="stylesheet" href="{% static 'slick/slick.css' %}">
+<link rel="stylesheet" href="{% static 'slick/slick-theme.css' %}"> 
+
+  <!-- fonts -->
+  
+
+  <!-- font awesome need to check-->
+
+  <!-- load jquery -->
+  <script src="{% static 'base_assets/js/core/jquery.3.2.1.min.js' %}" type="text/javascript"></script> 
+
+  <script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+  <script src="{% static 'base_assets/js_new/script.js' %}" type="text/javascript"></script>
 
   <style>
     .socialaccount_providers {
@@ -28,6 +44,7 @@
   </style>
 
   {% endblock style %} {% google_analytics %}
+  
 </head>
 
 <body style="font-family: 'Roboto', sans-serif;">

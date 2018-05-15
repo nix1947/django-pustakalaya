@@ -202,3 +202,6 @@ books.json
 
 #ignore config.json file
 config.json
+
+# Vscode
+.vscode
