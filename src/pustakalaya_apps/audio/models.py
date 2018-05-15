@@ -26,7 +26,7 @@ from .search import AudioDoc
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(featured="yes", published="yes").order_by("-updated_date")[:5]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes").order_by("-updated_date")[:2]
 
 
 
