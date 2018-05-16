@@ -12,424 +12,10 @@
 
 
 {% block content %}
- {% comment %}
-<!--custom style backgound-color is in base.html body which includes for all-->
-<div class="for-bg-color-container background-color mt-1 ">
-  <!--search-->
-  <div class="pt-4" id="lg-index-page-spacing">
-    <!-- Search bar section -->
-    <!--<div class="row">-->
-    <!--<div class="col-md-12 col-xs-12 col-sm-12">-->
-
-    <!--</div>-->
-    <!--</div>-->
-
-    <!-- Browse by and books list section -->
-    <div class="row">
-      <!-- Browse by -->
-
-      <div class="col-md-3 col-xs-12 col-sm-12 row-first-width" id="browse">
-
-        <!-- Browse Pustakalaya -->
-        <div class="mt-0">
-          <!--pustakalaya browse by option-->
-          <!--p class="description text-uppercase  text-dark text-uppercase mb-2"> {% url 'browse:browse'%}?browse_by=all&sort_order=asc {% trans "Browse Pustakalaya" %}</p-->
-
-          <p></p>
-          <!--a href="#" class="text-capitalize"-->
-          <!--i class="fa text-secondary fa-book mr-2" aria-hidden="true"></i-->
-
-
-          <div class="box-model-new sm-sidebar-menu-content ">
-            <div class="row box-model-head-new ">
-              <p class="description text-uppercase "> {% trans "browse the library" %}</p>
-              </p>
-            </div>
-            <div class="row box-model-body-new  ">
-              <ul data-v-03b85949="" class="format-dd ">
-                <li data-v-1="" class="format-option pr-0 ">
-
-                  <a href="/search/?form-filter=&q=" class="text-capitalize  button-hover p-2 ">Titles</a>
-
-
-                </li>
-                <li data-v-1="" class="format-option m-0 p-0">
-                  |
-                </li>
-                <li data-v-1="" class="format-option pl-0 ml-0">
-                  <a href="/authors" class="text-capitalize  button-hover p-2">
-                    <span> Authors</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!--<br>-->
-
-          <!--p>
-  <a href="{% url 'browse:browse'%}?browse_by=author&sort_order=asc" class="text-capitalize">
-      <i class="fa  text-secondary fa-file-video-o mr-2"
-         aria-hidden="true"></i>{% trans "author" %}</a>
-</p-->
-
-        </div>
-
-        <!-- Browse by subjects -->
-        <!--<div class="container">-->
-        <div class="box-model-new sm-sidebar-menu-content index-page-sidebar-section">
-          <div class="row box-model-head-new">
-            <p class="description  text-uppercase ">sections</p>
-          </div>
-          <div class="row box-model-body-new">
-            <ul data-v-03b85949="" class="format-dd">
-              <li data-v-03b85949="" class="format-option">
-                <a href="/community/literatures-and-arts/" class="text-capitalize">
-                  <i class="fa fa-1x fa-book mr-2" aria-hidden="true"></i>literatures and Arts</a>
-              </li>
-              <li data-v-03b85949="" class="format-option">
-                <a href="/community/course-materials/" class="text-capitalize">
-                  <i class="fa fa-1x fa-desktop mr-2" aria-hidden="true"></i>Course Materials</a>
-              </li>
-              <li data-v-03b85949="" class="format-option">
-                <a href="/community/teaching-materials/" class="text-capitalize">
-                  <i class="fa fa-1x fa-graduation-cap mr-2" aria-hidden="true"></i>Teaching Materials</a>
-              </li>
-              <li data-v-03b85949="" class="format-option">
-                <a href="/community/reference-materials/" class="text-capitalize">
-                  <i class="fa fa-1x fa-briefcase mr-2" aria-hidden="true"></i>reference Materials</a>
-              </li>
-              <li data-v-03b85949="" class="format-option">
-                <a href="/community/other-educational-materials/" class="text-capitalize">
-                  <i class="fa fa-1x fa-flask mr-2" aria-hidden="true"></i>other educational Materials</a>
-              </li>
-              <li data-v-03b85949="" class="more-colors">
-                <a href="/community/newspaper-and-magazines/" class="text-capitalize">
-                  <i class="fa fa-1x fa-newspaper-o mr-2" aria-hidden="true"></i>Newspapers &amp; Magazines</a>
-              </li>
-            </ul>
-
-          </div>
-
-
-        </div>
-
-        <!--</div>-->
-
-
-        <!--<br>-->
-        <!-- Browse by level -->
-        <div class="box-model-new sm-sidebar-menu-content index-page-sidebar-education-level">
-          <div class="row box-model-head-new">
-            <p class="description  text-uppercase ">Education Level</p>
-          </div>
-          <div class="row box-model-body-new">
-            <ul data-v-03b85949="" class="format-dd">
-              <li data-v-03b85949="" class="format-option">
-                <a href="#" class="text-capitalize">
-                  <i class="fa fa-1x fa-book mr-2" aria-hidden="true"></i>Basic Level</a>
-              </li>
-              <li data-v-03b85949="" class="format-option">
-                <a href="#" class="text-capitalize">
-                  <i class="fa fa-1x fa-book mr-2" aria-hidden="true"></i>Secondary Level</a>
-              </li>
-            </ul>
-
-          </div>
-
-
-        </div>
-
-
-        <!--
-        <div class="android app sd-margin-botton mt-4 ">
-          <a href="https://play.google.com/store/apps/details?id=com.ole.epustakalaya&hl=en" target="_blank"
-             title="E-Pustakalaya Android App"><img class="img img-responsive   android-app"
-                                                    src="{% static 'images/logos/google-store.png' %}"
-                                                    alt="E-pustakalaya Android Application" style="height:65px; width:auto;"/></a>
-          <br><br>
-           <a href="#" target="_blank"
-             title="E-Pustakalaya apple App"><img class="img img-responsive   android-app"
-                                                    src="{% static 'images/logos/apple-store.png' %}"
-                                                    alt="E-pustakalaya Android Application" style="height:67px; width:auto;"/></a>
-
-        </div>
-       -->
-
-      </div>
-
-      <!-- Featured books -->
-      <div class="col-md-9 col-sm-12 col-xs-12 row-second-width index-page-content">
-        <!--<div class="search maximize-width-for-ipad">-->
-        <!--&lt;!&ndash; search &ndash;&gt;-->
-        <!--{# {% include '_partials/search_form.html' %} #}-->
-        <!--</div>-->
-
-        <p class="description bold text-uppercase text-dark  m-0 sm-sidebar-menu-content ">Books we love</p>
-        <div class="row maximize-width-for-ipad sm-margin-main-container small-device-margin-left-right">
-          {% for book in featured_books %}
-          <div class="col-md-2 col-sm-12  col-xs-12  p-0      thumbnail-box-shadow sm-margin-thumbnail-container lg-thumbnail-spacing"
-            title="{{ book.title }}">
-            <div class="pull-right" style="width:100%">
-              <a href="{% url 'document:detail_without_slug'  book.pk %}">
-
-
-
-                {% if book.thumbnail %}
-                <img class="img-responsive rounded" style="border-bottom:1px solid #ccc" src="{{ MEDIA_URL }}{{ book.thumbnail }}" width="100%"
-                  height="225px"> {% else %} {% if book.type == "document"%}
-                <img class="img-responsive rounded" style="border-bottom:1px solid #ccc" src="{% static 'base_assets/img/book_image_default.png' %}"
-                  width="100%" height="225px"> {% elif book.type == "audio"%}
-                <img class="img-responsive rounded" style="border-bottom:1px solid #ccc" src="{% static 'base_assets/img/audio_book.png' %}"
-                  width="100%" height="225px"> {% else %}
-                <img class="img-responsive rounded" style="border-bottom:1px solid #ccc" src="{% static 'base_assets/img/video_book.png' %}"
-                  width="100%" height="225px"> {% endif %} {% endif %}
-
-
-
-                <div class="pl-3 text-capitalize mt-3" style="min-height:45px!important;">
-
-                  <i class="fa fa-book text-dark"></i>
-                  <span class="text-dark bold">{{ book |truncatechars:15}}</span>
-
-                  {% if book.document_authors.first%}
-                  <div class="author-name-size text-dark">By
-                    <span class="text-secondary"> {{book.document_authors.first}}</span>
-                  </div>
-                  {% endif %}
-                </div>
-              </a>
-
-            </div>
-            {% if forloop.counter|divisibleby:"6" %}
-            <div class="mt-1"></div>
-            {% endif %}
-          </div>
-          {% endfor %}
-        </div>
-        <a href="{% url 'show_featured:show_all_featured_item' %}" class="pull-right pull-relative" style="color: #2a6496">Show all featured items</a>
-
-        <br>
-
-
-
-
-        <!-- Education section -->
-        <div class="row m-0 maximize-width-for-ipad mt-3" style="margin-left:-10px !important;">
-          <div class="rounded pt-3 pb-3 pl-4 pr-4 col-md-12 col-sm-12 col-xs-12 jumbotron mt-0 content-box-shadow ">
-            <p class="description text-uppercase rounded bold text-black    text-uppercase mb-1">
-              {% trans 'Interactive educational software' %}
-            </p>
-            <ul id="lightSlider">
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/epaath/" target="_blank">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/epaath.png' %}" width="auto" height="96px" alt="E-Paath"
-                    title="E-Paath">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/elkids.php" target="_blank">
-
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/partnerslogo/e-learning-for-kids.png' %}" width="auto"
-                    height="96px" alt="E-Learning for Kids" title="E-Learning for Kids">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="https://phet.colorado.edu/" target="_blank">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/simulations.png' %}" width="auto" height="96px" alt="Simulations"
-                    title="Simulations">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/sabdakosh.php" target="_blanks">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/nepal-dictionary.png' %}" width="auto" height="96px"
-                    alt="Nepali Dictionary" title="Nepali Dictionary">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/lekids.php" target="_blank">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/learn-english-for-kids.png' %}" width="auto" height="96px"
-                    alt="Learn English" title="Learn English">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/external-content/static/environmental-activities/" target="_blank">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/environment.png' %}" width="auto" height="96px" alt="Environmental Activity"
-                    title="Environmental Activity">
-                </a>
-              </li>
-              <li class="mr-2 list-hover-style-slider">
-                <a href="http://pustakalaya.org/audible.php" target="_blank">
-                  <img class="rounded img img-responsive" src="{% static 'base_assets/img/audiable-text-book.png' %}" width="auto" height="96px"
-                    alt="Audible Text Books" title="Audible Text Books">
-                </a>
-              </li>
-
-            </ul>
-
-
-          </div>
-        </div>
-
-
-      </div>
-
-    </div>
-    <!--<br>-->
-
-    <!-- Footer description -->
-    <div class="row m-0">
-      <div class="p-4 rounded jumbotron pb-4 pt-4 mt-4 mb-1 content-box-shadow">
-        <p class="description text-uppercase text-black text-uppercase bold mb-2">{% trans "About e-pustakalaya" %}</p>
-        <p class="paragraph-font">{% blocktrans %} E-Pustakalaya is an education-focused digital library containing full-text documents, images, videos
-          and audio files that can be accessed through an intranet or the internet. The user can either read documents, view
-          videos, and listen to audio clips directly from the E-library server or she can download these materials to her
-          personal computer and view them later. E-Pustakalaya holds collections in both Nepali and English languages. In
-          the future, we will also add materials in other national languages of Nepal. {% endblocktrans %}
-          <a href="{% url 'about' %}" class="text-primary ">{% trans "Read More" %}</a> ...
-        </p>
-      </div>
-    </div>
-
-    <div class="row  ">
-      <div class="col">
-        <!-- Major and past partners -->
-        <div class="section-padding bg-light">
-          <div class=" ">
-            <div class="row m-0  ">
-              <!-- Major partners -->
-              <div class=" col-md-6 col-xs-12  md-height-same-as-container ipad-padding-left  sd-padding-left-right-zero lg-padding-left-zero">
-                <div class="container jumbotron mb-0 pt-3 content-box-shadow">
-                  <p class="description text-uppercase bold  text-dark text-uppercase ">{% trans "Major partner" %}</p>
-
-                  <a class="nav-link active" href="http://www.idrf.org/" target="_blank" title="IDRF">
-                    <img class="list-hover-style-slider" src="{% static 'images/logos/idrf_new_logo.png' %}" width="150px" height="55px" alt="IRDF"
-                    />
-                  </a>
-                </div>
-
-              </div>
-              <!-- Past partners -->
-              <div class=" col-md-6 col-xs-12  ipad-padding-right sd-padding-left-right-zero ld-padding-right-zero">
-                <div class="container jumbotron mb-0 pt-3   sd-break-small-screen content-box-shadow">
-                  <p class="description text-uppercase bold  text-dark text-uppercase ">{% trans "Past supporters" %}</p>
-
-                  <!-- TODO: replace with sliding banner -->
-                  <ul class="nav">
-                    <li class="nav-item list-hover-style-slider m-1">
-                      <a class="nav-link active" href="https://www.maitritrust.org.uk/" target="_blank" title="Maitri Trust">
-                        <img class="img img-responsive" src="{% static 'images/logos/maitri-trust.png' %}" width="150px" height="50px" alt="Maitri Trust">
-                      </a>
-                    </li>
-
-                    <li class="nav-item list-hover-style-slider m-1">
-                      <a class="nav-link active" href="http://www.nepallibrary.org/" target="_blank" title="Nepal Library Foundation">
-                        <img class="img" src="{% static 'images/logos/nepal-library-foundation.png' %}" width="150px" height="50px" alt="British council">
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Contributed partners -->
-        <div class="section-padding mt-0 pt-0">
-          <div class=" jumbotron pb-4 pt-4 mt-0 mb-0 content-box-shadow">
-            <p class="description text-uppercase  bold text-dark text-uppercase mb-2">{% trans "Content contribution" %}</p>
-
-            <div class="text-center">
-              <ul class="nav text-center">
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="https://www.britishcouncil.org.np/" target="_blank" title="British Council">
-                    <img class=" img img-responsive" src="{% static 'images/logos/bc.png' %}" alt="British council" width="70px" height="30px;">
-                  </a>
-                </li>
-
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://gorkhapatraonline.com/" target="_blank" title="Gorkhapatra Sansthan">
-                    <img class="img img-responsive" src="{% static 'images/logos/gorkhapatra.png' %}" width="50px" height="30px" alt="Gorkhapatra Sansthan">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://madanpuraskar.org/" target="_blank">
-                    <img class="img img-responsive" src="{% static 'images/logos/madanpuraskar.gif' %}" alt="Madanpuraskar" title="Madan Puraskar"
-                      width="50px" height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="nepalacademy.org.np" target="_blank" title="Nepal Academy">
-                    <img class="img img-responsive" src="{% static 'images/logos/nepalacademy.png' %}" alt="Nepal academy" width="60px" height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://onlinesahitya.com/content/nepalese-society-childrens-literature-neschil" target="_blank"
-                    title="Neschil">
-                    <img class="img img-responsive" src="{% static 'images/logos/neschil.png' %}" alt="Neschil" width="50px" height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://www.e-learningforkids.org/" target="_blank" title="E-Learning For Kids">
-                    <img class="img img-responsive" src="{% static 'images/logos/e-learning-for-kids.png' %}" alt="E-Learning For Kids" width="80px"
-                      height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="https://www.roomtoread.org/" target="_blank" title="Room To Read">
-                    <img class="img img-responsive" src="{% static 'images/logos/roomtoread.png' %}" alt="Room to Read" width="60px" height="30px;">
-                  </a>
-                </li>
-
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://nepal.worlded.org/" target="_blank" title="World Education Nepal">
-                    <img class="img img-responsive" src="{% static 'images/logos/xworld.png' %}" alt="World Education Nepal" width="50px" height="30px;">
-                  </a>
-                </li>
-
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://rbf.org.np/" target="_blank" title="Rato Bangala Foundation">
-                    <img class="img img-responsive" src="{% static 'base_assets/img/partnerslogo/rtf.png' %}" alt="Rato Bangla Foundation" width="50px"
-                      height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://www.savethechildren.org" target="_blank" title="Save The Children">
-                    <img class="img img-responsive" src="{% static 'base_assets/img/partnerslogo/stc.gif' %}" alt="Save The Children" width="50px"
-                      height="30px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="https://practicalaction.org/nepal" target="_blank" title="Practical Action">
-                    <img class="img img-responsive" src="{% static 'images/logos/practical-action-logo-highres-300dpi.png' %}" alt="Pritical Action"
-                      height="30px;" width="60px;">
-                  </a>
-                </li>
-                <li class="nav-item list-hover-style-slider m-1">
-                  <a class="nav-link active" href="http://www.digitalhimalaya.com/" target="_blank" title="Digital Himalaya">
-                    <img class="img img-responsive" src="{% static 'images/logos/DH_logo_small.gif' %}" alt="Digital Himalaya" width="60px" height="30px;">
-                  </a>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-{% endcomment %}
-
-
-
 <!-- index page need following fonts and scripts -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-
-
 <!-- all elements of home page is here -->
 <div class="main-contain">
   <div class="container">
@@ -463,18 +49,9 @@
               </div>
             </div>
             <div class="row">
-
-
-
-              
-
-
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="your-class">
-
-        
                   {% for item in featured_books %}
-                  
                   <div class="slid-img-container">
                     <a href="
                     {% if item.type == 'document' %}
@@ -512,29 +89,6 @@
                   </div>
                   
                   {% endfor %}
-
-                
-                  <!-- 
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/6JOJtFgg2Ow8NlFm6fPHcXBwtXVxuD.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/fBvMd0MR1St2u8rFIMwUWyf4qvqMgE.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/MuGc8gnx8VCv3pVvo99XpwqyENNvBP.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/Oe1FugKfl3t4gPXncJbnbOUu0LswYA.png' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/oQJl3Mie7yejN5KD7GiYDGSiwfB8Vx.jpg' %}" alt="ole logo" />
-                  </div>
-
-                -->
               </div>
               </div>
             </div>
@@ -545,7 +99,7 @@
       <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-3">
           <div class="container ep-white-bg" style="height: 100%; background: #00D3DE;">
-            E-Paath
+            {% trans "E-Paath" %}
           </div>
         </div>
         <div class="col-md-9">
@@ -587,36 +141,46 @@
       <div class="row">
         <div class="col-md-3">
           <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-              Audio
+              {% trans "Audio" %}
         </div>
         <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-            Video
+            {% trans "Video" %}
       </div>
         </div>
         <div class="col-md-9">
           <div class="container ep-white-bg">
             <div class="row">
               <div class="col-md-12">
-                <h6 class="text-btn-lines"><span>Reference Sites</span></h6>
+                <h6 class="text-btn-lines"><span>{% trans "Reference Sites" %}</span></h6>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="reference-class">
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/osm_logo.png' %}" alt="ole logo" />
+                    <a href="#">
+                        <img class="slid-books" src="{% static 'images_new/references/osm_logo.png' %}" alt="ole logo" />
+                    </a>
                   </div>
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/schools-wikipedia-logo.png' %}" alt="ole logo" />
+                    <a href="#">
+                      <img class="slid-books" src="{% static 'images_new/references/schools-wikipedia-logo.png' %}" alt="ole logo" />
+                  </a>
                   </div>
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/wikipedia-logo-detail.gif' %}" alt="ole logo" />
+                    <a href="https://www.wikipedia.org/">
+                     <img class="slid-books" src="{% static 'images_new/references/wikipedia-logo-detail.gif' %}" alt="ole logo" />
+                   </a>
                   </div>
                     <div class="slid-ref-container">
-                      <img class="slid-books" src="{% static 'images_new/references/nepali_sabdakos.jpg' %}" alt="ole logo" />
+                      <a href="">
+                        <img class="slid-books" src="{% static 'images_new/references/nepali_sabdakos.jpg' %}" alt="ole logo" />
+                     </a>
                     </div>
                   <div class="slid-ref-container">
+                    <a href="">
                     <img class="slid-books" src="{% static 'images_new/references/Wiktionary-logo_wpstyle-en_with_transparency.png' %}" alt="ole logo" />
+                  </a>
                   </div>
               </div>
               </div>
