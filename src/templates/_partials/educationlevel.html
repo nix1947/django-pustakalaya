@@ -1,7 +1,7 @@
 
   <!--<ul style="list-style:none">-->
   {% for x in education_level %}
-   <li> <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["{{ x.level }}"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{{ x.level }}</a></li>
+   <a class="text-capitalize" href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["{{ x.level }}"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{{ x.level }}</a>
   {% endfor %}
   <!--</ul>-->
 
