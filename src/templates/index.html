@@ -1,17 +1,18 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
- {% load i18n %} 
- {% load pustakalaya_filters %} 
- {% block title %} 
+ {% load i18n %}
+ {% load pustakalaya_filters %}
+ {% block title %}
    {% trans "homepage"%}
-{% endblock title %} 
+{% endblock title %}
 
-{% block style %} 
-  {{ block.super }} 
+{% block style %}
+  {{ block.super }}
 {% endblock style %}
 
 
 {% block content %}
+
 <!-- index page need following fonts and scripts -->
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
@@ -49,15 +50,19 @@
               </div>
             </div>
             <div class="row">
+
+
+
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="your-class">
+
+
                   {% for item in featured_books %}
-                  <div class="slid-img-container">
-                    <a href="
+                  <a href="
                     {% if item.type == 'document' %}
                      {% url 'document:detail_without_slug'  item.pk %}
                     {% endif %}
-                 
+
                     {% if item.type == 'audio' %}
                       {% url 'audio:detail_without_slug'  item.pk %}
                     {% endif %}
@@ -66,7 +71,10 @@
                       {% url 'video:detail_without_slug'  item.pk %}
                     {% endif %}
 
-                    "><img class="slid-books" src="
+                    " >
+                  <div class="slid-img-container">
+
+                    <img class="slid-books" src="
                       {% if item.thumbnail %}
                           {{MEDIA_URL}}{{item.thumbnail}}
                       {% else %}
@@ -82,12 +90,14 @@
                      {% if item.type == 'video' %} 
                      {% static  'images_new/video_thumnail.png' %} 
                          
+
                      {% endif %}
                       {% endif %}
-                    
-                      " alt="ole logo" /></a>
+
+                      " alt="ole logo" />
                   </div>
-                  
+                  </a>
+
                   {% endfor %}
               </div>
               </div>
@@ -196,6 +206,5 @@
       </div>
     </div>
 </div>
-
 
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}
