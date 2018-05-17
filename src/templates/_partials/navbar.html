@@ -228,7 +228,7 @@ border-bottom: 5px solid #2980b9;
                             <a class="dropdown-item text-primary text-capitalize"
                                href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
                             <a class="dropdown-item text-primary text-capitalize"
-                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
+                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "settings" %}</a>
                         </div>
                     </li>
                 {% endif %}
