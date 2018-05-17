@@ -614,6 +614,15 @@ a.text-primary:focus, a.text-primary:hover {
     overflow: hidden;
 }
 
+.ols-links{
+   color: black;
+}
+
+.ols-links:hover{
+   color: black;
+   text-decoration: none !important;
+}
+
 .slid-img-container img, .slid-software-container img{
   width: 100%;
 }
@@ -1014,8 +1023,8 @@ a.text-primary:focus, a.text-primary:hover {
   left: 25%;
   width: 70%;
   height: 40%;
+  overflow: hidden;
 }
-
 
 .list-btn{
   position: absolute;
