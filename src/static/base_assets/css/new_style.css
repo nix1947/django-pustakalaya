@@ -501,7 +501,7 @@ body{
 .slid-img-container {
     height: 196px !important;
     overflow: hidden;
-    margin: 0 1% 15px; 1%;
+    margin: 0 5% 15px; 5%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
