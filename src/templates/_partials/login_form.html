@@ -15,7 +15,7 @@
 
 </style>
 <div class="dropdown-menu dropdown-menu-right  w-50 p-3 right" id="custom-login"
-     style="width: 325px!important; font-family:arial,sans-serif;">
+     style="width: 325px!important; font-family:Roboto, arial,sans-serif;font-size:14px;">
     <div class="mt-2 mb-1">
                 <span class="">
                     {% trans 'Login with your registered Email &amp; Password.' %}
@@ -56,7 +56,7 @@
 
     {% else %}
         <p>{% blocktrans %}If you have not created an account yet, then please
-            <a href="{{signup_url}}" class="bg-dark">sign up</a> first.{% endblocktrans %}</p>
+            <a href="{{signup_url}}" class="text-primary" style="text-decoration:underline!important;">sign up</a> first.{% endblocktrans %}</p>
     {% endif %}
 
 

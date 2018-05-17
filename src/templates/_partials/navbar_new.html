@@ -76,14 +76,14 @@
                             <!-- load autosuggestion script -->
                             <script src="{% static 'base_assets/js/core/jquery-ui.js' %}"></script>
                             <script>
-                            // script to query the data 
+                            // script to query the data
                             $( function($) {
 
 
                                     $.fn.getSuggestion = function (event) {
 
                                        $( "#project" ).autocomplete({
-                                    
+
                                             minLength: 0,
                                             source: function( request, response ) {
                                                  if(event.target.value.length <2) return true;
@@ -92,19 +92,11 @@
                                                 url:  '/search/completion/?suggest_text='+event.target.value,
                                                 dataType:"json",
                                                 success: function (data) {
-                                                // parse to json. 
-                                                console.log(data);
-                                                
+                    
                                                 data = JSON.parse(data);
 
-                                               
-
-                                                
-
-                                                
-
                                                 var projects = []; // array
-                                        
+
                                                 data.forEach(function (element) {
                                                     var item = {
                                                         "title": element.text,
@@ -112,11 +104,11 @@
                                                     };
                                                     // Add to projects
                                                     projects.push(item);
-                                                }); // end for each 
+                                                }); // end for each
 
                                                 response(projects);
                                             } // end success method
-                                            
+
                                             })// end ajax
                                           },
                                             focus: function( event, ui ) {
@@ -128,21 +120,21 @@
                                                 $( "#project-id" ).val( ui.item.value );
                                                 $( "#project-description" ).html( ui.item.desc );
                                                 $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
-                                        
+
                                                 return false;
                                             }
                                             })
                                             .autocomplete( "instance" )._renderItem = function( ul, item ) {
                                             return $( "<li>", {"onkeypress":'searchSuggestion(event);'} )
-                                                        
+
                                                 .append("<div><a href='/search/?form-filter=&q="+item.label +"'"+"><div>" + item.label  +   "</div></a></div>" )
                                                 .appendTo( ul );
                                             };
 
 
-                                      }  // getSuggestion End    
+                                      }  // getSuggestion End
 
-                                   
+
                                     });
                             </script>
                             <!-- <input id="project1" onkeypress="getSuggestion(event);"> -->
@@ -153,19 +145,19 @@
                             (function (window) {
                                     window.searchSuggestion = function (event) {
 
-                                       
-                                        
+
+
                                 if (event.keyCode == 13) {
-                                    
-                                
+
+
                                 }
-                            }   
+                            }
                             })(window);
-                            
+
                             </script>
 
-                                                
-                            <input type="search" name="q" 
+
+                            <input type="search" name="q"
                             placeholder="Search E-Pustakalaya"
                             id="project" 
                             value="{{q}}"
@@ -337,12 +329,12 @@
 
                         {% if not  user.is_authenticated %}
                         <li>
-                            <a href="#" class="text-white" data-toggle="dropdown"
+                            <a href="/accounts/login" class="text-white"
                                aria-haspopup="true"
                                aria-expanded="false">
-                                <span class="icon-password"></span> {% trans "Log In" %} &#9662;
+                                <span class="icon-password"></span> {% trans "Log In" %}
                             </a>
-                            {% login_form %}
+
 
                         </li>
                     {% endif %}
@@ -365,9 +357,7 @@
                                href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
                             <a class="dropdown-item text-primary text-capitalize"
                                href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
-                            <a class="dropdown-item text-primary text-capitalize"
-                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
-                        </div>
+                            </div>
                     </li>
                 {% endif %}
 
@@ -437,7 +427,6 @@
 
 
 
-                    <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
 
                     <ul class="dropdown-items" style="list-style:none;">
                             {% get_available_languages as LANGUAGES %}
@@ -472,11 +461,11 @@
                 </li>
         </div><!-- language close in mobile view-->
         <!-- <a href="#contact">Log In</a> -->
-         
-       
+
+
         {% if user.is_authenticated %}
 
-        <li class="nav-item dropdown small-device-small-font" style="margin-top:22px;">
+        <li class="nav-item dropdown small-device-small-font" >
             <a class="nav-link dropdown-toggle text-primary text-capitalize nav-item-hover"
 
                href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
@@ -492,27 +481,25 @@
                    href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
                 <a class="dropdown-item text-primary text-capitalize"
                    href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
-                <a class="dropdown-item text-primary text-capitalize"
-                   href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
-            </div>
+                </div>
         </li>
     {% endif %}
 
 
    {% if not  user.is_authenticated %}
-        <li class="nav-item dropdown small-device-small-font text-center" style=" margin-top:22px;" >
-            <a href="#" class="nav-link dropdown-toggle text-primary nav-item-hover text-white" data-toggle="dropdown"
+        <li class="nav-item dropdown small-device-small-font text-center" style="list-style:none" >
+            <a href="/accounts/login" class="nav-link  text-primary nav-item-hover text-white"
                aria-haspopup="true"
                aria-expanded="false">
-                <span class="icon-password text-white"> {% trans "Log In" %}   </span> 
+                <span class="icon-password text-white"> {% trans "Log In" %}   </span>
             </a>
-            {% login_form %}
+
 
         </li>
     {% endif %}
 </div>
-    
-    
+
+
 
 <!-- script to reload selected country -->
 <script>
@@ -534,5 +521,5 @@
             // submit the form.
             changeLanguageForm.submit();
         }
-    })(window);    
+    })(window);
 </script>
