@@ -71,16 +71,16 @@
                           {{MEDIA_URL}}{{item.thumbnail}}
                       {% else %}
                       {% if item.type == 'document' %} 
-                        {% static  'base_assets/img/book_image_default.png' %}     
+                        {% static  'images_new/book_thumnail.png' %}     
                        {% endif %}
 
                      {% if item.type == 'audio' %} 
-                     {% static  'base_assets/img/audio_book.png' %}
+                     {% static  'images_new/audio_thumnail.png' %} 
                    
                      {% endif %}
 
                      {% if item.type == 'video' %} 
-                     {% static  'base_assets/img/video_book.png' %}
+                     {% static  'images_new/video_thumnail.png' %} 
                          
                      {% endif %}
                       {% endif %}
@@ -98,9 +98,9 @@
       </div>
       <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-3">
-          <div class="container ep-white-bg" style="height: 100%; background: #00D3DE;">
-            {% trans "E-Paath" %}
-          </div>
+            <div class="container ep-white-bg" style="height: 100%; padding: 0px;">
+                <a href="http://epath.olenepal.org"><img style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
+                </div>
         </div>
         <div class="col-md-9">
           <div class="container ep-white-bg">
@@ -140,13 +140,19 @@
       </div>
       <div class="row">
         <div class="col-md-3">
-          <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-              {% trans "Audio" %}
+          <div class="container ep-white-bg" style="height: 50%; padding: 0px;">
+            <a href='/search/?q=&form-filter={"type":["audio"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
+                <img  src="{% static 'images_new/audio_books.png' %}" alt="ole logo">
+            </a>
+            
+          </div>
+          <div class="container ep-white-bg" style="height: 50%;  padding: 0px;">
+              <a href='/search/?q=&form-filter={"type":["video"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
+                  <img  src="{% static 'images_new/educational_video.png' %}" alt="ole logo">
+              </a>
+          </div>
         </div>
-        <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-            {% trans "Video" %}
-      </div>
-        </div>
+
         <div class="col-md-9">
           <div class="container ep-white-bg">
             <div class="row">
@@ -189,10 +195,7 @@
         </div>
       </div>
     </div>
-
 </div>
-
-
 
 
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}

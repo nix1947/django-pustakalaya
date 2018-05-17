@@ -12,7 +12,12 @@ from elasticsearch_dsl import (
 
 
 class PustakalayaSearch(FacetedSearch):
-    doc_types = [DocumentDoc, VideoDoc, AudioDoc]
+
+    def __init__(self, search_types, *args, **kwargs):
+        # Doc types to search
+        self.doc_types = search_types
+        super(PustakalayaSearch, self).__init__(*args, **kwargs)
+  
     index = settings.ES_INDEX
     # Boost values
     fields = [

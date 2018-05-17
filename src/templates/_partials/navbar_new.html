@@ -43,15 +43,19 @@
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                              <!-- TODO -->
-                              <button type="button" class="sbx-custom__dd dropdown-btn">
-                                  {% trans "All" %} &#9662;
-                              </button>
-                              <select class="dropdown-all ">
-                                <option>{% trans "E-Book" %}</option>
-                                <option>{% trans "Audios" %}</option>
-                                <option>{% trans Videos %}</option>
-                              </select>
+                             
+
+
+                              <div class="ole-custom-select">
+                                    <select name="searchIn">
+                                      <option value="all"> {% trans "All" %}</option>
+                                      <option value="document">{% trans "Document" %}</option>
+                                      <option value="audio">{% trans "Audio" %}</option>
+                                      <option value="video">{% trans "Video" %}</option>
+                                      
+                                    </select>
+                                </div>
+
                 
                             <style>
                             #project-label {
@@ -89,14 +93,21 @@
                                                 dataType:"json",
                                                 success: function (data) {
                                                 // parse to json. 
+                                                console.log(data);
+                                                
                                                 data = JSON.parse(data);
+
+                                               
+
+                                                
+
+                                                
 
                                                 var projects = []; // array
                                         
                                                 data.forEach(function (element) {
                                                     var item = {
                                                         "title": element.text,
-                                                        "thumbnail": "http://placehold.it/50x50",
                                                         "label":element.text
                                                     };
                                                     // Add to projects
@@ -157,6 +168,7 @@
                             <input type="search" name="q" 
                             placeholder="Search E-Pustakalaya"
                             id="project" 
+                            value="{{q}}"
                             onkeypress="searchSuggestion(event);" 
                             onkeyup="$.fn.getSuggestion(event)"
                             autocomplete="off" required="required" class="sbx-custom__input">
@@ -295,7 +307,10 @@
                                     <a
                                     onclick="change_language(this)"
                                     data-lang={{lang.0}}
+                                    class="lang-name"
+                                    style="padding-bottom: 5px; padding-top:5px; cursor:pointer; width:100%"
                                     >
+                        
                                         <img class="oleflags" src="{% if lang.0 == "ne" %}
                                         {% static 'images_new/nepal.png' %}
                                         {% endif %}

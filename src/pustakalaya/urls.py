@@ -118,7 +118,7 @@ urlpatterns += i18n_patterns(
     # /about/
     url(
         r'^about/$',
-        cache_page(CACHE_TTL)(TemplateView.as_view(template_name="static_pages/about.html")),
+        TemplateView.as_view(template_name="static_pages/about.html"),
         name="about"
     ),
 
