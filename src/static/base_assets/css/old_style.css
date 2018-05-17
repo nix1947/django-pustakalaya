@@ -1,45 +1,13 @@
 body{
     background-color: #FAFAFA;
     font-family: 'Roboto', sans-serif !important;
-    font-size: 14px;
+    font-size: 13px;
   }
-
-  @media only screen and (max-width: 1024px) {
-    body{
-      font-size: 13px;
-    }
-  }
-
-  .ole-btn {
-    background: #00BCD4;
-    padding: 6px 12px;
-    border-radius: 0.2em;
-    color: #fff !important;
-  }
-
-  .ole-btn:hover{
-    background: #2ADBF2;
-  }
-
-  .ole-btn-trans {
-    border: 1px solid #909090;
-    padding: 2px 9px;
-    border-radius: 0.2em;
-    color: #212529 !important;
-  }
-
-  .ole-btn-trans:hover{
-    background: #e4e4e4;
-  }
-
-  a.text-primary:focus, a.text-primary:hover {
-      color: #212529 !important;
-  }
-
+  
   .logo{
     width: 100%;
   }
-
+  
   #olenavbar{
     position: relative;
     z-index: 10;
@@ -47,24 +15,24 @@ body{
     width:100%;
     margin-bottom: 20px;
   }
-
+  
   #burger-menu{
     display: none;
   }
-
+  
   #menu,
   #menu ul {
       list-style: none;
       padding: 0 0 26px 0;
       margin: 0;
   }
-
+  
   #menu li {
       float: left;
       margin-right: 3px;
       position: relative;
   }
-
+  
   #menu ul {
       position: absolute;
       top: 25px;
@@ -75,14 +43,14 @@ body{
       white-space: nowrap;
       border: solid 1px #ccc;
   }
-
+  
   #menu ul li {
       float: none;
       margin: 0;
       padding: 0;
       line-height: 15px;
   }
-
+  
   #menu a:link,
   #menu a:visited {
       display: block;
@@ -91,40 +59,40 @@ body{
       color: #FFF;
       padding: 5px;
   }
-
+  
   #menu li:hover {
       /* background-color: #ffd98a; */
       color: black !important;
   }
-
+  
   #menu li:hover ul {
       display: block;
   }
-
+  
   #menu li a:hover {
     color: #00BCD4;
   }
-
-
+  
+  
   #menu .dropdown-items a{
     color: #3E3E3E;
     padding: 10px;
   }
-
+  
   #menu .dropdown-items a:hover{
-    background: #00838F;
-    color: #fff;
+    /* background: #00BCD4; */
+    color: #00838F;
   }
-
+  
   .oleflags {
       height: 15px;
   }
-
+  
   #primary-navbar {
     margin-top:21px;
   }
   /* Search bar style */
-
+  
   .sbx-custom {
       display: inline-block;
       position: relative;
@@ -134,12 +102,12 @@ body{
       box-sizing: border-box;
       font-size: 14px;
   }
-
+  
   .sbx-custom__wrapper {
       width: 100%;
       height: 100%;
   }
-
+  
   .sbx-custom__input {
       display: inline-block;
       -webkit-transition: box-shadow .4s ease, background .4s ease;
@@ -160,41 +128,41 @@ body{
       -moz-appearance: none;
       appearance: none;
   }
-
+  
   .sbx-custom__input::-webkit-search-decoration,
   .sbx-custom__input::-webkit-search-cancel-button,
   .sbx-custom__input::-webkit-search-results-button,
   .sbx-custom__input::-webkit-search-results-decoration {
       display: none;
   }
-
+  
   .sbx-custom__input:hover {
       box-shadow: inset 0 0 0 1px #b3b3b3;
   }
-
+  
   .sbx-custom__input:focus,
   .sbx-custom__input:active {
       outline: 0;
       box-shadow: inset 0 0 0 1px #00BCD4;
       background: #FFFFFF;
   }
-
+  
   .sbx-custom__input::-webkit-input-placeholder {
       color: #AAAAAA;
   }
-
+  
   .sbx-custom__input::-moz-placeholder {
       color: #AAAAAA;
   }
-
+  
   .sbx-custom__input:-ms-input-placeholder {
       color: #AAAAAA;
   }
-
+  
   .sbx-custom__input::placeholder {
       color: #AAAAAA;
   }
-
+  
   .sbx-custom__submit {
       position: absolute;
       top: 0;
@@ -215,7 +183,7 @@ body{
       -ms-user-select: none;
       user-select: none;
   }
-
+  
   .sbx-custom__submit::before {
       display: inline-block;
       margin-right: -4px;
@@ -223,23 +191,23 @@ body{
       vertical-align: middle;
       content: '';
   }
-
+  
   .sbx-custom__submit:hover,
   .sbx-custom__submit:active {
       cursor: pointer;
   }
-
+  
   .sbx-custom__submit:focus {
       outline: 0;
   }
-
+  
   .sbx-custom__submit svg {
       width: 21px;
       height: 21px;
       vertical-align: middle;
       fill: #FFFFFF;
   }
-
+  
   .sbx-custom__reset {
       display: none;
       position: absolute;
@@ -257,18 +225,18 @@ body{
       user-select: none;
       fill: rgba(0, 0, 0, 0.5);
   }
-
+  
   .sbx-custom__reset:focus {
       outline: 0;
   }
-
+  
   .sbx-custom__reset svg {
       display: block;
       margin: 4px;
       width: 13px;
       height: 13px;
   }
-
+  
   .sbx-custom__input:valid~.sbx-custom__reset {
       display: block;
       -webkit-animation-name: sbx-reset-in;
@@ -276,7 +244,7 @@ body{
       -webkit-animation-duration: .15s;
       animation-duration: .15s;
   }
-
+  
   @-webkit-keyframes sbx-reset-in {
       0% {
           -webkit-transform: translate3d(-20%, 0, 0);
@@ -289,7 +257,7 @@ body{
           opacity: 1;
       }
   }
-
+  
   @keyframes sbx-reset-in {
       0% {
           -webkit-transform: translate3d(-20%, 0, 0);
@@ -302,15 +270,15 @@ body{
           opacity: 1;
       }
   }
-
+  
   .secondary-navbar{
     float: right;
   }
-
+  
   .parent-cont{
     padding: 1% 0% 0.5% 0%;
   }
-
+  
   /* Fixed sidenav, full height */
   .sidenav {
       width: 100%;
@@ -318,9 +286,8 @@ body{
       background-color: #00BCD4;
       overflow-x: hidden;
       display: none;
-      margin-top: -20px;
   }
-
+  
   /* Style the sidenav links and the dropdown button */
   .sidenav a, .dropdown-btn {
       padding: 6px 8px 6px 16px;
@@ -335,36 +302,36 @@ body{
       cursor: pointer;
       outline: none;
   }
-
+  
   /* On mouse-over */
   .sidenav a:hover, .dropdown-btn:hover {
       color: #f1f1f1;
   }
-
+  
   /* Add an active class to the active dropdown button */
   .active {
       background-color: #00838F;
       color: white;
   }
-
+  
   /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
   .dropdown-container {
       display: none;
       background-color: #262626;
       padding-left: 8px;
   }
-
+  
   /* Optional: Style the caret down icon */
   .fa-caret-down {
       float: right;
       padding-right: 8px;
   }
-
+  
   .main-contain{
     width: 100%;
     padding-bottom: 50px;
   }
-
+  
   .dropdown-all {
       background: white;
       top: 100%;
@@ -373,7 +340,7 @@ body{
       display: none;
       z-index: 10;
   }
-
+  
   .dropdown-all a {
       padding: 6px 8px 6px 16px;
       text-decoration: none;
@@ -387,31 +354,31 @@ body{
       cursor: pointer;
       outline: none;
   }
-
+  
   #olefooter{
     color: #fff;
     background-color: #333839;
     width: 100%;
     padding: 2% 0% 2% 0%;
   }
-
+  
   #olefooter h6 {
     font-family: 'Roboto Slab', serif;
   }
-
+  
   #olefooter ul {
       width: 200px;
       padding: 0;
       list-style: none;
   }
-
+  
   #olefooter ul li {
       float: none;
       margin: 0;
       padding: 5px;
       line-height: 15px;
   }
-
+  
   #olefooter a:link,
   #olefooter a:visited {
       display: block;
@@ -419,29 +386,29 @@ body{
       text-decoration: none;
       color: #FFF;
   }
-
+  
   .social-ico, .footer-logo, .concon-logo{
     margin-bottom: 1rem;
   }
-
+  
   .footer-logo{
     height: 40px;
   }
-
+  
   .concon-logo{
     height: 40px;
     padding: 8px;
   }
-
+  
   .footcc{
     text-align: center;
   }
-
+  
   .footcc img{
     margin-right: 10px;
   }
-
-
+  
+  
   .sbx-custom__dd{
       position: absolute;
       top: 0;
@@ -463,16 +430,16 @@ body{
       -ms-user-select: none;
       user-select: none;
   }
-
+  
   .slid-books{
     position: relative;
     padding: 1%;
   }
-
+  
   .slick-prev::before, .slick-next::before {
       color: #00BCD4 !important;
   }
-
+  
   .text-btn-lines {
     width:100%;
     text-align:center;
@@ -480,18 +447,18 @@ body{
     line-height:0.1em;
     margin:25px 0 20px;
   }
-
+  
   .text-btn-lines span {
     background:#fff;
     padding:0 10px;
     font-family: 'Roboto Slab', serif;
   }
-
-  .ep-white-bg {
+  
+  .ep-white-bg{
     background: white;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-
+  
   .format-dd[data-v-03b85949] {
       background: #fff;
       z-index: 100;
@@ -502,7 +469,7 @@ body{
       color: #000;
       margin-bottom: auto;
   }
-
+  
   .format-dd li[data-v-03b85949]:first-child {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
@@ -516,40 +483,40 @@ body{
     letter-spacing: 1px;
     list-style: none;
   }
-
+  
   .format-dd li[data-v-03b85949] a {
     padding: 8px 0px 8px 0px;
       display: block;
       color: #576574;
       padding-left: 10px;
   }
-
+  
   .format-dd li[data-v-03b85949]:hover a {
       background: #00838F;
       color: #fff;
       text-decoration: none;
   }
-
-
-.slid-img-container {
-    height: 196px !important;
-    overflow: hidden;
-    margin: 0 5% 15px; 5%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-}
+  
+  .slid-img-container {
+      height: 196px !important;
+      overflow: hidden;
+      margin: 0 1% 15px 1%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  }
+  
   .slid-software-container {
       height: 169px !important;
       overflow: hidden;
       margin: 0 1% 15px 1%;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
   }
-
+  
   .slid-ref-container {
       height: 105px !important;
       overflow: hidden;
       margin: 0 1% 15px 1%;
   }
-
+  
   .slid-img-container img, .slid-software-container img{
     width: 100%;
   }
@@ -558,33 +525,33 @@ body{
     margin-left: auto;
     margin-right: auto;
   }
-
+  
   /* media queries for phone*/
-
-  @media only screen and (max-width: 576px) {
+  
+  @media only screen and (max-width: 600px) {
       #logo-cont {
         text-align: center;
         padding: 15%;
         margin-top: 15px;
       }
-
+  
       #primary-navbar {
           display: none;
       }
-
+  
       .secondary-navbar {
           display: none;
       }
-
+  
       .sec-menu-cont{
         margin-top: 20px;
       }
-
+  
       .sbx-custom {
       width: 77% !important;
       margin-left: 10px;
   }
-
+  
     #burger-menu {
       display: inline-block;
       background: white;
@@ -597,398 +564,37 @@ body{
       cursor: pointer;
       margin-bottom: 5px;
     }
-
+  
     .sbx-custom__submit {
         width: 35px;
     }
-
+  
     .sbx-custom__dd {
       width: 40px;
     }
-
+  
     .sbx-custom__input {
       padding-right: 45px;
     }
-
+  
     #olefooter h6 {
       margin-top: 20px;
     }
-
+  
     .cat-cont{
       display: none;
     }
-
-
+  
+  
     .slid-software-container {
       height: 184px !important;
     }
-
+  
     .slid-img-container {
       height: 235px !important;
     }
-
+  
     .slid-ref-container {
       height: 155px !important;
   }
-  }
-
-
-  /* title page css */
-
-  .title-heads{
-    font-weight: bold;
-    background: #00838F;
-    padding: 5px 15px;
-    color: white;
-    margin-bottom: 10px;
-  }
-
-  /* Customize the label (the container) */
-  .lab-cont {
-   display: block;
-   position: relative;
-   padding-left: 25px;
-   margin-bottom: 8px;
-   cursor: pointer;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-  }
-
-  /* Hide the browser's default checkbox */
-  .lab-cont input {
-   position: absolute;
-   opacity: 0;
-   cursor: pointer;
-  }
-
-  .checkbox{
-    margin-left: 10px;
-  }
-
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    height: 17px;
-    width: 17px;
-    background-color: #ccc;
-  }
-
-  /* On mouse-over, add a grey background color */
-  .lab-cont:hover input ~ .checkmark {
-   background-color: #b4b4b4;
-  }
-
-  /* When the checkbox is checked, add a blue background */
-  .lab-cont input:checked ~ .checkmark {
-   background-color: #00BCD4;
-  }
-
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-   content: "";
-   position: absolute;
-   display: none;
-  }
-
-  /* Show the checkmark when checked */
-  .lab-cont input:checked ~ .checkmark:after {
-   display: block;
-  }
-
-  /* Style the checkmark/indicator */
-  .lab-cont .checkmark::after {
-      left: 6px;
-      top: 2px;
-      width: 6px;
-      height: 10px;
-      border: solid white;
-          border-top-width: medium;
-          border-right-width: medium;
-          border-bottom-width: medium;
-          border-left-width: medium;
-      border-top-width: medium;
-      border-right-width: medium;
-      border-bottom-width: medium;
-      border-left-width: medium;
-      border-width: 0 2px 2px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-  }
-
-  .ep-bg-white {
-      width: 90%;
-      margin-left: 5%;
-      font-size: 14px;
-  }
-
-  .ole-gr-lt-icon{
-    font-size: 25px;
-  }
-
-  .ole-gr-ly-active{
-    color: #00BCD4;
-  }
-
-  .ole-gr-ly-inactive{
-    cursor: pointer;
-    color: #CCCCCC;
-  }
-
-  #tit-drpdn{
-    display: inline;
-    width: 40%;
-  }
-
-  .dd-pare{
-    text-align: right;
-  }
-
-  .tit-filter-btn{
-    text-align: center;
-    width: 100%;
-    margin-top: 15px;
-    display: none;
-  }
-
-  .tit-filter-btn p {
-    background: #00BCD4;
-    padding: 5px;
-    color: white;
-    width: 34%;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: pointer;
-    border-radius: 0.2em;
-    font-size: 1rem;
-  }
-
-  .tit-sid-lst{
-    margin-top: 20px;
-  }
-
-  .filter-badge {
-      font-weight: 500;
-      font-size: 14px;
-      border-radius: 2px;
-      background-color: #00838F;
-      color: #fff;
-      display: table;
-      float: left;
-      margin: 0 5px 10px 0;
-  }
-
-  .filter-badge__icon {
-      display: table-cell;
-      padding: 6px 0 6px 6px;
-      vertical-align: middle;
-  }
-
-  .filter-badge__description {
-      display: table-cell;
-      padding: 6px;
-      vertical-align: middle;
-  }
-
-  .filter-badge__remove-button {
-      display: table-cell;
-      color: #fff;
-      background: transparent;
-      border: 0;
-          border-left-width: 0px;
-          border-left-style: none;
-          border-left-color: currentcolor;
-      border-left: 1px solid hsla(0,0%,100%,.2);
-      padding: 6px;
-  }
-
-  .applied-filters__add-button {
-      display: none;
-  }
-
-  .filter-badge__remove-button:hover {
-      cursor: pointer;
-      color: #fff;
-      background-color: #00BCD4;
-  }
-
-  .table-pagignation{
-      display: table;   /* Allow the centering to work */
-      margin: 0 auto;
-  }
-
-  /* grid view */
-
-  .grid-book-cont{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  .grid-book-cont .img-cont{
-    margin-top: 20px;
-    height: 220px !important;
-    overflow: hidden;
-  }
-
-  .grid-book-cont .img-cont img{
-    width: 100%;
-  }
-
-  .grid-book-cont .page-link{
-    padding: 5px 10px 5px 10px !important;
-  }
-
-  .grid-book-cont .book-label{
-    padding: 5px 15px;
-  }
-
-  .grid-book-cont .book-label a{
-    color: #212529;
-    font-weight: bold;
-  }
-
-  .grid-book-cont .book-label a:hover{
-    text-decoration: none;
-    color: #212529;
-    font-weight: bold;
-  }
-
-  .grid-book-cont .list-abstract{
-    display: none;
-  }
-
-  .grid-book-cont .list-btn{
-    display: none;
-  }
-
-  /* list view */
-
-  .list-book-cont{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  .list-book-cont .img-cont{
-    margin-top: 20px;
-    height: 190px !important;
-    overflow: hidden;
-    width: 20%;
-  }
-
-  .list-book-cont .img-cont img{
-    width: 100%;
-  }
-
-  .page-link1 {
-    border-radius: 1px;
-    margin-left: 0.7em;
-    margin-right: 0.7em;
-    padding: 0.1em 0.2em;
-    margin-top: 25px;
-    border-radius: 0.2em;
-    font-size: 16px;
-  }
-
-  .page-link1{
-
-    color:#00838f;
-  }
-  .page-link1:hover{
-    color:#00BCD4;
-    text-decoration: none;
-  }
-  .page-item{
-    background-color: #FAFAFA;
-  }
-  .page-link{
-    background-color:#00838f!important;
-    color:#fff;
-    border-radius: 0.2em;
-    padding: 0.1em 0.2em !important;
-    font-size: 16px;
-  }
-
-  .list-book-cont .book-label{
-    position: absolute;
-    padding: 0px;
-    top: 18%;
-    left: 25%;
-  }
-
-  .list-book-cont .book-label a{
-    color: #212529;
-    font-weight: bold;
-  }
-
-  .list-book-cont .book-label a:hover{
-    text-decoration: none;
-    color: #212529;
-    font-weight: bold;
-  }
-
-  .list-book-cont .list-abstract{
-    display: inline;
-  }
-  .list-book-cont .list-btn{
-    display: inline;
-  }
-
-  .list-abstract {
-    display: inline-block;
-    position: absolute;
-    top: 35%;
-    left: 25%;
-    width: 70%;
-    height: 40%;
-    overflow: hidden;
-  }
-
-  .list-btn{
-    position: absolute;
-    bottom: 5%;
-    left: 25%;
-  }
-
-  @media only screen and (max-width: 576px) {
-    .grid-book-cont .img-cont {
-      height: 175px !important;
-    }
-
-    .tit-sid-lst{
-      margin-top: 0px;
-      display: none;
-    }
-
-    .ole-gr-lt-icon{
-      display: none !important;
-    }
-
-    .res-class{
-      text-align: center;
-    }
-
-    #tit-drpdn{
-      display: inline;
-      width: 80%;
-    }
-
-    .dd-pare{
-      text-align: center;
-    }
-
-    .tit-filter-btn{
-      display: block;
-    }
-
-    .grid-book-cont .img-cont{
-      margin-top: 0px;
-    }
-
-    .page-link1 {
-      margin-left: 0.3em;
-      margin-right: 0.3em;
-    }
-
-  }
+}

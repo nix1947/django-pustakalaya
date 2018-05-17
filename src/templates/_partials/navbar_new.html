@@ -5,138 +5,10 @@
 {% load pustakalaya_filters %}
 {% get_language_info_list for LANGUAGES as languages %}
 
+
 <!--THis 2 div closing is in the footer page-->
 <div class="" style="margin:0px 0px 5px 0px;padding:0px;">
-
-  <div class=""  style="margin:0px;padding:0px;">
-
-
-{% comment %}
-<nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-box-shadow  p-0 m-0">
-    <div class="container-fluid pr-5 pl-5  " >
-        <div class="navbar-translate  small-device-size navigation-width-full">
-            <a class="navbar-brand " href="/" id="sm-icon-small">
-                <img src="{% static 'images/logos/ep_logo.png' %}"
-                     height="50px"
-
-                     alt="Pustakalaya">
-            </a>
-            <button class="navbar-toggler navbar-toggler-right navigation-icon-pull-right-custom" type="button" data-toggle="collapse"
-                    data-target="#navigation" aria-controls="navigation-index" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <i class="fa fa-2x fa-bars text-primary" aria-hidden="true"></i>
-            </button>
-
-
-        </div>
-
-        <!-- navigation menu -->
-        <div class="collapse navbar-collapse  " id="navigation">
-            <ul class="navbar-nav  index_tpyo " id="lg-side-space" >
-
-              <li class="nav-item  " id="lg_large_searchbar">
-                <div   >
-                    <!-- search -->
-                    {% include '_partials/search_form.html' %}
-                  </div>
-              </li>
-                <li class="nav-item " style="margin-top:22px;">
-                    <a class="nav-link text-black text-primary small-device-small-font nav-item-hover" href="{% url 'about' %}" >
-                        {% trans "About" %}
-                    </a>
-                </li>
-                <!--li class="nav-item">
-                    <a class="nav-link text-primary" href="/authors">
-                        {% trans "Authors" %}
-                    </a>
-                </li-->
-                <li class="nav-item " style="margin-top:22px;">
-                    <a class="nav-link text-primary small-device-small-font nav-item-hover"  href="{% url 'help' %}">{% trans "Help" %}</a>
-                </li>
-                <li class="nav-item  " style="margin-top:22px;">
-
-                    <a class="nav-link text-primary small-device-small-font nav-item-hover" href="{% url 'feedback' %}">{% trans "Feedback" %}</a>
-                </li>
-
-
-
-
-                <!-- language selection button -->
-                <li class="nav-item small-device-small-font small-device-search-bar " style="margin-top:20px;">
-
-
-                    <a class="nav-link text-primary nav-item-hover nav-item-hover">
-                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
-                            {% get_current_language as LANGUAGE_CODE %}
-                            {% csrf_token %}
-                            <!-- Change value to current_url without language -->
-                            <input name="next" type="hidden" value="/"/>
-                            <!-- don't change the name language -->
-                            {% if LANGUAGE_CODE == "en" %}
-                                <i class="flag-icon flag-icon-gb"></i>
-                            {% else %}
-                                <i class="flag-icon flag-icon-{{ LANGUAGE_CODE }}"></i>
-                            {% endif %}
-                            <select name="language"
-                                    class="text-primary"
-                                    style="border: none; background:none; outline:none; ">
-                                {% get_available_languages as LANGUAGES %}
-                                {% for lang in LANGUAGES %}
-                                    <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}
-                                            selected="selected"{% endif %}
-                                            style="outline:none;"
-                                    >
-                                        {{ lang.1 }}
-
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </form>
-                    </a>
-                </li>
-
-
-                {% if user.is_authenticated %}
-
-                    <li class="nav-item dropdown small-device-small-font" style="margin-top:22px;">
-                        <a class="nav-link dropdown-toggle text-primary text-capitalize nav-item-hover"
-
-                           href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
-
-
-                           id="navbarDropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{request.user}}
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size:100%;">
-                            <a class="dropdown-item text-primary text-capitalize"
-                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
-                            <a class="dropdown-item text-primary text-capitalize"
-                               href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
-                            <a class="dropdown-item text-primary text-capitalize"
-                               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
-                        </div>
-                    </li>
-                {% endif %}
-
-
-               {% if not  user.is_authenticated %}
-                    <li class="nav-item dropdown small-device-small-font" style=" margin-top:22px;" >
-                        <a href="#" class="nav-link dropdown-toggle text-primary nav-item-hover" data-toggle="dropdown"
-                           aria-haspopup="true"
-                           aria-expanded="false">
-                            <span class="icon-password"></span> Log In
-                        </a>
-                        {% login_form %}
-
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
-{% endcomment %}
+<div class=""  style="margin:0px;padding:0px;">
 
 <div id="olenavbar">
     <div class="container parent-cont">
@@ -144,21 +16,18 @@
             <!-- 2 column logo -->
             <div id="logo-cont" class="col-md-3  col-xs-12 col-sm-12">
                 <!-- logo get overflow here -->
-
                <a href="/">
                     <img class="logo"
                 style="cursor:pointer"
                  src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
                </a>
             </div>
-
             <!-- 4 column search and nav1 -->
             <div class="col-md-5 col-xs-12 col-sm-12 sec-menu-cont">
                 <!-- first row -->
                 <div class="row">
                     <div class="col-md-12 col-sm-10 col-xs-10">
                         <!-- search bar -->
-
                         <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
                             <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-13" viewBox="0 0 40 40">
                                 <path d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z"
@@ -169,35 +38,140 @@
                                     fill-rule="evenodd" />
                             </symbol>
                         </svg>
-
                         <form novalidate="novalidate"
                         method="GET"
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                              <!-- <button type="button" class="sbx-custom__dd dropdown-btn">
-                                  All &#9662;
+                              <!-- TODO -->
+                              <button type="button" class="sbx-custom__dd dropdown-btn">
+                                  {% trans "All" %} &#9662;
                               </button>
-                              <div class="dropdown-all">
-                                <div>E-Book</div>
-                                <div>Audios</div>
-                                <div>Videos</div>
-                              </div> -->
+                              <select class="dropdown-all ">
+                                <option>{% trans "E-Book" %}</option>
+                                <option>{% trans "Audios" %}</option>
+                                <option>{% trans Videos %}</option>
+                              </select>
+                
+                            <style>
+                            #project-label {
+                                display: block;
+                                font-weight: bold;
+                                margin-bottom: 1em;
+                            }
+                            #project-icon {
+                                float: left;
+                                height: 32px;
+                                width: 32px;
+                            }
+                            #project-description {
+                                margin: 0;
+                                padding: 0;
+                            }
+                            </style>
+                            <!-- load autosuggestion script -->
+                            <script src="{% static 'base_assets/js/core/jquery-ui.js' %}"></script>
+                            <script>
+                            // script to query the data 
+                            $( function($) {
 
 
-                                <input type="search" name="q" placeholder="Search E-Pustakalaya" autocomplete="off" required="required" class="sbx-custom__input">
-                                <button type="submit" title="Submit your search query." class="sbx-custom__submit">
-                                    <svg role="img" aria-label="Search">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-search-13"></use>
-                                    </svg>
-                                </button>
-                                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
-                                    <svg role="img" aria-label="Reset">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-clear-3"></use>
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
+                                    $.fn.getSuggestion = function (event) {
+
+                                       $( "#project" ).autocomplete({
+                                    
+                                            minLength: 0,
+                                            source: function( request, response ) {
+                                                 if(event.target.value.length <2) return true;
+                                                 $.ajax({
+                                                type: 'GET',
+                                                url:  '/search/completion/?suggest_text='+event.target.value,
+                                                dataType:"json",
+                                                success: function (data) {
+                                                // parse to json. 
+                                                data = JSON.parse(data);
+
+                                                var projects = []; // array
+                                        
+                                                data.forEach(function (element) {
+                                                    var item = {
+                                                        "title": element.text,
+                                                        "thumbnail": "http://placehold.it/50x50",
+                                                        "label":element.text
+                                                    };
+                                                    // Add to projects
+                                                    projects.push(item);
+                                                }); // end for each 
+
+                                                response(projects);
+                                            } // end success method
+                                            
+                                            })// end ajax
+                                          },
+                                            focus: function( event, ui ) {
+                                                $( "#project" ).val( ui.item.label );
+                                                return false;
+                                            },
+                                            select: function( event, ui ) {
+                                                $( "#project" ).val( ui.item.label );
+                                                $( "#project-id" ).val( ui.item.value );
+                                                $( "#project-description" ).html( ui.item.desc );
+                                                $( "#project-icon" ).attr( "src", "images/" + ui.item.icon );
+                                        
+                                                return false;
+                                            }
+                                            })
+                                            .autocomplete( "instance" )._renderItem = function( ul, item ) {
+                                            return $( "<li>", {"onkeypress":'searchSuggestion(event);'} )
+                                                        
+                                                .append("<div><a href='/search/?form-filter=&q="+item.label +"'"+"><div>" + item.label  +   "</div></a></div>" )
+                                                .appendTo( ul );
+                                            };
+
+
+                                      }  // getSuggestion End    
+
+                                   
+                                    });
+                            </script>
+                            <!-- <input id="project1" onkeypress="getSuggestion(event);"> -->
+                            <input type="hidden" id="project-id">
+                            <!-- needed where suggested item are appened -->
+                            <p id="project-description"></p>
+                            <script>
+                            (function (window) {
+                                    window.searchSuggestion = function (event) {
+
+                                       
+                                        
+                                if (event.keyCode == 13) {
+                                    
+                                
+                                }
+                            }   
+                            })(window);
+                            
+                            </script>
+
+                                                
+                            <input type="search" name="q" 
+                            placeholder="Search E-Pustakalaya"
+                            id="project" 
+                            onkeypress="searchSuggestion(event);" 
+                            onkeyup="$.fn.getSuggestion(event)"
+                            autocomplete="off" required="required" class="sbx-custom__input">
+                            <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                                <svg role="img" aria-label="Search">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-search-13"></use>
+                                </svg>
+                            </button>
+                            <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                                <svg role="img" aria-label="Reset">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#sbx-icon-clear-3"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
 
 
                         <script type="text/javascript">
@@ -226,7 +200,7 @@
                                 <a href="/authors">{% trans "AUTHOR" %}</a>
                             </li>
                             <li>
-                                <a href="#">CATEGORIES &#9662;</a>
+                                <a href="">{% trans "CATEGORIES" %} &#9662;</a>
                                 <ul class="dropdown-items">
                                     <li>
                                         <a href="/community/literatures-and-arts/"><i class="fa fa-book"></i> Literature And Arts</a>
@@ -251,7 +225,7 @@
                             </li>
                             <li>
                                 <!--<a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":["Primary+Level","Secondary+Level"],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>{% trans "LEVEL" %} &#9662;</a>-->
-                              <a href='#'>{% trans "LEVEL" %} &#9662;</a>
+                              <a href=''>{% trans "LEVEL" %} &#9662;</a>
 
                               <ul class="dropdown-items" style="overflow-y: auto;max-height: 300px;">
 
@@ -394,70 +368,156 @@
 
 <!-- markup for mobile view -->
 <div class="sidenav">
-        <a href="#about">Titles</a>
-        <a href="#services">Author</a>
-        <button class="dropdown-btn">Categories
+        <a href="/search/?form-filter=&q=">{% trans "Titles" %}</a>
+        <a href="/authors">{% trans "Author" %}</a>
+        <button class="dropdown-btn">{% trans "Categories" %}
           ▾
         </button>
         <div class="dropdown-container">
-          <a href="#">Literature &amp; Arts</a>
-          <a href="#">Course Materials</a>
-          <a href="#">Teaching Materials</a>
-          <a href="#">Reference Materials</a>
-          <a href="#">Other Educational Materials</a>
-          <a href="#">Newspapers &amp; Magazines</a>
+          <a href="/community/literatures-and-arts/ ">{% trans "Literature &amp; Arts" %}</a>
+          <a href="/community/course-materials/">{% trans "Course Materials" %}</a>
+          <a href="/community/teaching-materials/">{% trans "Teaching Materials" %}</a>
+          <a href="/community/reference-materials/">{% trans "Reference Materials" %}</a>
+          <a href="/community/other-educational-materials/">{% trans "Other Educational Materials" %}</a>
+          <a href="/community/newspaper-and-magazines/">{% trans "Newspapers &amp; Magazines" %}</a>
         </div>
-        <button class="dropdown-btn">Level
+        <button class="dropdown-btn">{% trans "Level" %}
           ▾
         </button>
         <div class="dropdown-container">
-          <a href="#">Primary Level</a>
-          <a href="#">Secondary Level</a>
+          {% show_results  %}
         </div>
-        <button class="dropdown-btn">Language
+        <button class="dropdown-btn">{% trans "Language" %}
           ▾
         </button>
         <div class="dropdown-container">
-          <a href="#"><img class="oleflags" src="./images/gb.png" alt="ole logo"> English</a>
-          <a href="#"><img class="oleflags" src="./images/nepal.png" alt="ole logo"> नेपाली</a>
-        </div>
-        <a href="#contact">Log In</a>
-      </div>
+                <li>
+
+
+
+                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% csrf_token %}
+                                <!-- Change value to current_url without language -->
+                                <input name="next" type="hidden" value="/"/>
+                                <!-- language value default is english -->
+                                <input type="hidden" name="language" value="en" />
+                                <!-- don't change the name language -->
+                                {% if LANGUAGE_CODE == "en" %}
+                                    <!-- <i class="flag-icon flag-icon-gb"></i> -->
+                                    <a href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> {% trans "English" %} &#9662;</a>
+
+                                {% endif %}
+
+                                {% if LANGUAGE_CODE == "ne" %}
+                                <!-- <i class="flag-icon flag-icon-gb"></i> -->
+                                <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
+                                <a href="/"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> {% trans "नेपाली" %}</a>
+
+                                {% endif %}
+
+
+
+                            </form>
+
+
+
+                    <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
+
+                    <ul class="dropdown-items" style="list-style:none;">
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                        <li style="padding-bottom: 5px; padding-top:5px; cursor:pointer;">
+
+
+
+                                <!-- detect on click on this a tag and post to server -->
+                                <a
+                                onclick="change_language(this)"
+                                data-lang={{lang.0}}
+                                class="text-white"
+                                >
+                                    <img class="oleflags" src="{% if lang.0 == "ne" %}
+                                    {% static 'images_new/nepal.png' %}
+                                    {% endif %}
+                                    {% if lang.0 == "en" %}
+                                    {% static 'images_new/gb.png' %}
+                                    {% endif %}
+
+
+                                    " alt="ole logo" />
+                                    {{ lang.1 }}
+                                </a>
+
+
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+        </div><!-- language close in mobile view-->
+        <!-- <a href="#contact">Log In</a> -->
+         
+       
+        {% if user.is_authenticated %}
+
+        <li class="nav-item dropdown small-device-small-font" style="margin-top:22px;">
+            <a class="nav-link dropdown-toggle text-primary text-capitalize nav-item-hover"
+
+               href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}"
+
+
+               id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{request.user}}
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size:100%;">
+                <a class="dropdown-item text-primary text-capitalize"
+                   href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/{% endif %}">{% trans "profile" %}</a>
+                <a class="dropdown-item text-primary text-capitalize"
+                   href="{% if request.user.is_superuser %}/accounts/logout{% else %}/accounts/logout{% endif %}">{% trans "logout" %}</a>
+                <a class="dropdown-item text-primary text-capitalize"
+                   href="{% if request.user.is_superuser %}/admin/{% else %}/dashboard/settings{% endif %}">{% trans "settings" %}</a>
+            </div>
+        </li>
+    {% endif %}
+
+
+   {% if not  user.is_authenticated %}
+        <li class="nav-item dropdown small-device-small-font text-center" style=" margin-top:22px;" >
+            <a href="#" class="nav-link dropdown-toggle text-primary nav-item-hover text-white" data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <span class="icon-password text-white"> {% trans "Log In" %}   </span> 
+            </a>
+            {% login_form %}
+
+        </li>
+    {% endif %}
+</div>
     
     
 
 <!-- script to reload selected country -->
 <script>
-    // (function () {
-    //     // Grab language selection form
-    //     var changeLanguageForm = document.getElementById("changeLanguageForm");
-    //     // Select language input
-    //     var languageInput = changeLanguageForm.elements.language;
-    //     // listen change event on select input
-    //     languageInput.onchange = function () {
-    //         // If there is change submit the form.
-    //         changeLanguageForm.submit();
-    //     }
-    // })();
+    (function (window) {
 
-        (function (window) {
+        window.change_language = function (element) {
 
-            window.change_language = function (element) {
+            // get the form.
+            var changeLanguageForm = document.getElementById("changeLanguageForm");
 
-                // get the form.
-                var changeLanguageForm = document.getElementById("changeLanguageForm");
+            // Select language input
+            var languageInputField = changeLanguageForm.elements.language;
 
-                // Select language input
-                var languageInputField = changeLanguageForm.elements.language;
+            // User selected language
+            var language_Code = element.getAttribute('data-lang') || "en"; // get selected language.
 
-                // User selected language
-                var language_Code = element.getAttribute('data-lang') || "en"; // get selected language.
-
-                // set the user selected languge to input field
-                languageInputField.setAttribute('value', language_Code);
-                // submit the form.
-                changeLanguageForm.submit();
-            }
-        })(window);
-    </script>
-
+            // set the user selected languge to input field
+            languageInputField.setAttribute('value', language_Code);
+            // submit the form.
+            changeLanguageForm.submit();
+        }
+    })(window);    
+</script>

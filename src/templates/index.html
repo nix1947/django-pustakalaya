@@ -13,14 +13,10 @@
 
 {% block content %}
 
-
-
 <!-- index page need following fonts and scripts -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
-
-
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous"> -->
 <!-- all elements of home page is here -->
 <div class="main-contain">
   <div class="container">
@@ -54,9 +50,6 @@
               </div>
             </div>
             <div class="row">
-
-
-
 
 
 
@@ -105,29 +98,6 @@
                   </a>
 
                   {% endfor %}
-
-
-                  <!--
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/6JOJtFgg2Ow8NlFm6fPHcXBwtXVxuD.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/fBvMd0MR1St2u8rFIMwUWyf4qvqMgE.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/MuGc8gnx8VCv3pVvo99XpwqyENNvBP.jpg' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/Oe1FugKfl3t4gPXncJbnbOUu0LswYA.png' %}" alt="ole logo" />
-                  </div>
-                  <div class="slid-img-container">
-                    <img class="slid-books" src="{% static 'images_new/bookx/oQJl3Mie7yejN5KD7GiYDGSiwfB8Vx.jpg' %}" alt="ole logo" />
-                  </div>
-
-                -->
               </div>
               </div>
             </div>
@@ -138,7 +108,7 @@
       <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-3">
           <div class="container ep-white-bg" style="height: 100%; background: #00D3DE;">
-            E-Paath
+            {% trans "E-Paath" %}
           </div>
         </div>
         <div class="col-md-9">
@@ -180,36 +150,46 @@
       <div class="row">
         <div class="col-md-3">
           <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-              Audio
+              {% trans "Audio" %}
         </div>
         <div class="container ep-white-bg"  style="height: 50%; background: #00D3DE;">
-            Video
+            {% trans "Video" %}
       </div>
         </div>
         <div class="col-md-9">
           <div class="container ep-white-bg">
             <div class="row">
               <div class="col-md-12">
-                <h6 class="text-btn-lines"><span>Reference Sites</span></h6>
+                <h6 class="text-btn-lines"><span>{% trans "Reference Sites" %}</span></h6>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="reference-class">
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/osm_logo.png' %}" alt="ole logo" />
+                    <a href="#">
+                        <img class="slid-books" src="{% static 'images_new/references/osm_logo.png' %}" alt="ole logo" />
+                    </a>
                   </div>
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/schools-wikipedia-logo.png' %}" alt="ole logo" />
+                    <a href="#">
+                      <img class="slid-books" src="{% static 'images_new/references/schools-wikipedia-logo.png' %}" alt="ole logo" />
+                  </a>
                   </div>
                   <div class="slid-ref-container">
-                    <img class="slid-books" src="{% static 'images_new/references/wikipedia-logo-detail.gif' %}" alt="ole logo" />
+                    <a href="https://www.wikipedia.org/">
+                     <img class="slid-books" src="{% static 'images_new/references/wikipedia-logo-detail.gif' %}" alt="ole logo" />
+                   </a>
                   </div>
                     <div class="slid-ref-container">
-                      <img class="slid-books" src="{% static 'images_new/references/nepali_sabdakos.jpg' %}" alt="ole logo" />
+                      <a href="">
+                        <img class="slid-books" src="{% static 'images_new/references/nepali_sabdakos.jpg' %}" alt="ole logo" />
+                     </a>
                     </div>
                   <div class="slid-ref-container">
+                    <a href="">
                     <img class="slid-books" src="{% static 'images_new/references/Wiktionary-logo_wpstyle-en_with_transparency.png' %}" alt="ole logo" />
+                  </a>
                   </div>
               </div>
               </div>
