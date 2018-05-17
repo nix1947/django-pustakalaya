@@ -43,15 +43,20 @@
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                             
-
-
                               <div class="ole-custom-select">
                                     <select name="searchIn">
-                                      <option value="all"> {% trans "All" %}</option>
-                                      <option value="document">{% trans "Document" %}</option>
-                                      <option value="audio">{% trans "Audio" %}</option>
-                                      <option value="video">{% trans "Video" %}</option>
+                                      <option value="all"
+                                      {% if  selected_doc_type == "all" %} selected {% endif %}
+                                      > {% trans "All" %}</option>
+                                      <option value="document"
+                                      {% if  selected_doc_type == "document" %} selected {% endif %}
+                                      >{% trans "Document" %}</option>
+                                      <option value="audio"
+                                      {% if  selected_doc_type == "audio" %} selected {% endif %}
+                                      >{% trans "Audio" %}</option>
+                                      <option value="video"
+                                      {% if  selected_doc_type == "video" %} selected {% endif %}
+                                      >{% trans "Video" %}</option>
                                       
                                     </select>
                                 </div>
@@ -279,9 +284,6 @@
                                     <a href="/"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> {% trans "नेपाली" %}</a>
 
                                     {% endif %}
-
-
-
                                 </form>
 
 
@@ -522,4 +524,7 @@
             changeLanguageForm.submit();
         }
     })(window);
+
+
+    
 </script>

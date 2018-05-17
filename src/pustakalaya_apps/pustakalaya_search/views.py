@@ -86,6 +86,7 @@ def search(request):
         search_result["year_of_available"] = response.facets.year_of_available
         search_result["license_type"] = response.facets.license_type
         search_result["q"] = query_string or ""
+        search_result["selected_doc_type"] = request.GET.get('searchIn') or "all"
         search_result["time"] = response.took / float(1000)  # Convert time in msec
         search_result["page_obj"] = page
         search_result["paginator"] = paginator
