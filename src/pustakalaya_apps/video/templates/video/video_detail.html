@@ -123,8 +123,8 @@
         <div class="row">
           {%  if request.user.is_superuser %}
 
-                     <div class="col-12 text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <div class="col-12 text-primary description" style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </div>
 
            {%  endif %}

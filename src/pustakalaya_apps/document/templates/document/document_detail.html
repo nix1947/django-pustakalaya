@@ -26,11 +26,18 @@
     .jumbotron{
       padding:5px 15px!important;
     }
+     .add_to_favourite{
+        font-size:120%;
+        background-color: #000 !important;
+        color:white;
+      }
       .add_to_favourite:hover{
         background-color: #d63031 !important;
       }
     #added_to_favourite{
-      background-color: #d63031 ;
+      background-color: #d63031 !important;
+       font-size:120%;
+       color:#fff;
       }
     .container-breadcrum{
     display:left;
@@ -108,8 +115,8 @@
 
                  {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <p class="text-primary " style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </p>
                  {%  endif %}
 

@@ -126,8 +126,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
        {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <p class="text-primary description" style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </p>
 
            {%  endif %}
