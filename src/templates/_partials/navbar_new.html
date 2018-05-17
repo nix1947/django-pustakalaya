@@ -5,6 +5,7 @@
 {% load pustakalaya_filters %}
 {% get_language_info_list for LANGUAGES as languages %}
 
+
 <!--THis 2 div closing is in the footer page-->
 <div class="" style="margin:0px 0px 5px 0px;padding:0px;">
 <div class=""  style="margin:0px;padding:0px;">
@@ -43,14 +44,14 @@
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
                               <!-- TODO -->
-                              <!-- <button type="button" class="sbx-custom__dd dropdown-btn">
-                                  All &#9662;
+                              <button type="button" class="sbx-custom__dd dropdown-btn">
+                                  {% trans "All" %} &#9662;
                               </button>
-                              <div class="dropdown-all">
-                                <div>E-Book</div>
-                                <div>Audios</div>
-                                <div>Videos</div>
-                              </div> -->
+                              <select class="dropdown-all ">
+                                <option>{% trans "E-Book" %}</option>
+                                <option>{% trans "Audios" %}</option>
+                                <option>{% trans Videos %}</option>
+                              </select>
                 
                             <style>
                             #project-label {
@@ -81,7 +82,7 @@
                                     
                                             minLength: 0,
                                             source: function( request, response ) {
-                                                 if(event.target.value.length <2) return;
+                                                 if(event.target.value.length <2) return true;
                                                  $.ajax({
                                                 type: 'GET',
                                                 url:  '/search/completion/?suggest_text='+event.target.value,
@@ -520,7 +521,3 @@
         }
     })(window);    
 </script>
-
-
-<!-- Jquery UI css is needed for search suggestion lazy load this css -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" lazyload>
