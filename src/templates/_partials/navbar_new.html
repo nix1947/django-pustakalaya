@@ -44,7 +44,9 @@
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
                               <div class="ole-custom-select">
-                                    <select name="searchIn">
+                                    <select name="searchIn"
+                                    onchange="setPadding()"
+                                     id="searchIn">
                                       <option value="all"
                                       {% if  selected_doc_type == "all" %} selected {% endif %}
                                       > {% trans "All" %}</option>
@@ -523,8 +525,15 @@
             // submit the form.
             changeLanguageForm.submit();
         }
+
+        $(".sbx-custom__reset  svg").on('click', function(){
+            // console.log($("#project"));
+            $("#project").attr('value', '');
+
+        });
+
+
     })(window);
-
-
+    
     
 </script>
