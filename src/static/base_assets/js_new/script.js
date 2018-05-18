@@ -51,6 +51,10 @@ $(document).ready(function(){
         this.classList.toggle("select-arrow-active");
       });
   }
+  setPadding();
+
+
+
   function closeAllSelect(elmnt) {
     /*a function that will close all select boxes in the document,
     except the current select box:*/
@@ -195,3 +199,26 @@ $(".select-items div").click(function(){
 });
 
 });
+
+
+function setPadding() {
+    // script to set the padding of search bar 
+  var conceptName = $('#searchIn').find(":selected").val();
+  var searchBox =  $("#project");
+
+  var forPadd = 0;
+  forPadd = $(".ole-custom-select").width();
+  forPadd = forPadd + 10;
+
+  if (conceptName === "audio") {
+    searchBox.css("padding-left", forPadd);
+  }
+
+  if (conceptName === "document") {
+    searchBox.css("padding-left", forPadd);
+  }
+  if (conceptName === "video") {
+    searchBox.css("padding-left", forPadd);
+  }
+} 
+
