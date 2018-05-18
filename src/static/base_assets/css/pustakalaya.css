@@ -164,12 +164,13 @@ a:hover, a:active, a:focus {
   outline: 0;
 }
 
-
+/*
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
+*/
 body {
   margin: 0;
 }
@@ -1055,6 +1056,8 @@ html {
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+/*
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -1062,6 +1065,7 @@ body {
   color: #333;
   background-color: #fff;
 }
+*/
 input,
 button,
 select,
@@ -1498,12 +1502,15 @@ address {
   font-style: normal;
   line-height: 1.42857143;
 }
+
+/*
 code,
 kbd,
 pre,
 samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+*/
 code {
   padding: 2px 4px;
   font-size: 90%;
@@ -5985,7 +5992,7 @@ button.myId_close {
   width: 20px;
   height: 20px;
   margin-top: -10px;
-  font-family: serif;
+ /* font-family: serif; */
 }
 .myId_carousel-control .myId_icon-prev:before {
   content: '\2039';
