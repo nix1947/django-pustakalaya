@@ -50,13 +50,8 @@
               </div>
             </div>
             <div class="row">
-
-
-
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="your-class">
-
-
                   {% for item in featured_books %}
                   <a href="
                     {% if item.type == 'document' %}
@@ -122,26 +117,46 @@
             <div class="row">
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="your-class">
+                  <a class="ols-links" href="http://www.e-learningforkids.org/" target="_blank">
                   <div class="slid-software-container">
-                    <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
+                    <div class="slid-book-container">
+                      <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
+                    </div>
                     <span style="margin-left: 10px;">{% trans "E-Learning for Kids" %}</span>
                   </div>
+                  </a>
+                  <a class="ols-links" href="http://learnenglishkids.britishcouncil.org/en" target="_blank">
                   <div class="slid-software-container">
-                    <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
-                    <span style="margin-left: 10px;">{% trans "E-Learning for Kids" %}</span>
+                    <div class="slid-book-container">
+                      <img class="slid-books" src="{% static 'images_new/oth_softwares/f2ceddb2956d3e048d13b2cdcc4e2a16.jpg' %}" alt="ole logo" />
+                    </div>
+                    <span style="margin-left: 10px;">{% trans "Learn English" %}</span>
                   </div>
+                </a>
+                  <a class="ols-links" href="https://phet.colorado.edu/" target="_blank">
                   <div class="slid-software-container">
-                    <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
-                    <span style="margin-left: 10px;">{% trans "E-Learning for Kids" %}</span>
+                    <div class="slid-book-container">
+                      <img class="slid-books" src="{% static 'images_new/oth_softwares/phet.jpg' %}" alt="ole logo" />
+                    </div>
+                    <span style="margin-left: 10px;">{% trans "PhET Simulations" %}</span>
                   </div>
+                </a>
+                  <a class="ols-links" href="https://pustakalaya.org/external-content/static/environmental-activities/" target="_blank">
                   <div class="slid-software-container">
-                    <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
-                    <span style="margin-left: 10px;">E-Learning for Kids</span>
+                    <div class="slid-book-container">
+                      <img class="slid-books" src="{% static 'images_new/oth_softwares/EnvironmentaActivities.png' %}" alt="ole logo" />
+                    </div>
+                    <span style="margin-left: 10px;">{% trans "Environmental Activities" %}</span>
                   </div>
+                </a>
+                  <a class="ols-links" href="https://www.khanacademy.org/" target="_blank">
                   <div class="slid-software-container">
-                    <img class="slid-books" src="{% static 'images_new/oth_softwares/case-study-elearning-for-kids-8-728.jpg' %}" alt="ole logo" />
-                    <span style="margin-left: 10px;">{% trans "E-Learning for Kids" %}</span>
+                    <div class="slid-book-container">
+                      <img class="slid-books" src="{% static 'images_new/oth_softwares/khan-academy-tn1-470x310@2x.jpg' %}" alt="ole logo" />
+                    </div>
+                    <span style="margin-left: 10px;">{% trans "Khan Academy" %}</span>
                   </div>
+                </a>
               </div>
               </div>
             </div>
@@ -206,6 +221,4 @@
       </div>
     </div>
 </div>
-
-
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}
