@@ -78,18 +78,18 @@
                       {% if item.thumbnail %}
                           {{MEDIA_URL}}{{item.thumbnail}}
                       {% else %}
-                      {% if item.type == 'document' %} 
-                        {% static  'images_new/book_thumnail.png' %}     
+                      {% if item.type == 'document' %}
+                        {% static  'images_new/book_thumnail.png' %}
                        {% endif %}
 
-                     {% if item.type == 'audio' %} 
-                     {% static  'images_new/audio_thumnail.png' %} 
-                   
+                     {% if item.type == 'audio' %}
+                     {% static  'images_new/audio_thumnail.png' %}
+
                      {% endif %}
 
-                     {% if item.type == 'video' %} 
-                     {% static  'images_new/video_thumnail.png' %} 
-                         
+                     {% if item.type == 'video' %}
+                     {% static  'images_new/video_thumnail.png' %}
+
 
                      {% endif %}
                       {% endif %}
@@ -109,7 +109,7 @@
       <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-3">
             <div class="container ep-white-bg" style="height: 100%; padding: 0px;">
-                <a href="http://epath.olenepal.org"><img style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
+                <a href="https://pustakalaya.org/epaath/" target="_blank"><img style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
                 </div>
         </div>
         <div class="col-md-9">
@@ -154,7 +154,7 @@
             <a href='/search/?q=&form-filter={"type":["audio"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
                 <img  src="{% static 'images_new/audio_books.png' %}" alt="ole logo">
             </a>
-            
+
           </div>
           <div class="container ep-white-bg" style="height: 50%;  padding: 0px;">
               <a href='/search/?q=&form-filter={"type":["video"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
@@ -174,27 +174,27 @@
               <div class="col-md-12" style="padding: 0px 30px 0px 30px;">
                 <div class="reference-class">
                   <div class="slid-ref-container">
-                    <a href="#">
+                    <a href="#" target="_blank">
                         <img class="slid-books" src="{% static 'images_new/references/osm_logo.png' %}" alt="ole logo" />
                     </a>
                   </div>
                   <div class="slid-ref-container">
-                    <a href="#">
+                    <a href="#" target="_blank">
                       <img class="slid-books" src="{% static 'images_new/references/schools-wikipedia-logo.png' %}" alt="ole logo" />
                   </a>
                   </div>
                   <div class="slid-ref-container">
-                    <a href="https://www.wikipedia.org/">
+                    <a href="https://www.wikipedia.org/" target="_blank">
                      <img class="slid-books" src="{% static 'images_new/references/wikipedia-logo-detail.gif' %}" alt="ole logo" />
                    </a>
                   </div>
                     <div class="slid-ref-container">
-                      <a href="">
+                      <a href="#" target="_blank">
                         <img class="slid-books" src="{% static 'images_new/references/nepali_sabdakos.jpg' %}" alt="ole logo" />
                      </a>
                     </div>
                   <div class="slid-ref-container">
-                    <a href="">
+                    <a href="#" target="_blank">
                     <img class="slid-books" src="{% static 'images_new/references/Wiktionary-logo_wpstyle-en_with_transparency.png' %}" alt="ole logo" />
                   </a>
                   </div>

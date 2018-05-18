@@ -26,11 +26,18 @@
     .jumbotron{
       padding:5px 15px!important;
     }
+     .add_to_favourite{
+        font-size:120%;
+        background-color: #000 !important;
+        color:white;
+      }
       .add_to_favourite:hover{
         background-color: #d63031 !important;
       }
     #added_to_favourite{
-      background-color: #d63031 ;
+      background-color: #d63031 !important;
+       font-size:120%;
+       color:#fff;
       }
     .container-breadcrum{
     display:left;
@@ -108,15 +115,15 @@
 
                  {%  if request.user.is_superuser %}
 
-                     <p class="text-primary description">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     <p class="text-primary " style="font-size:120%;">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
                      </p>
                  {%  endif %}
 
                   <!-- Rating -->
                     {% ratings object %}
 
-
+                  <br><br>
                   <!--For favourite collection-->
                   <span id="favourite_hanging_place">
                     {% if  request.user.is_authenticated %}
@@ -126,15 +133,16 @@
                        <button type="button" class="btn btn-sm" value="{{object.pk }}" id="added_to_favourite">Added to favourite <i class="fa fa-check-circle"></i></button>
 
                       {% else %}
-                      <button type="button" value="{{ object.pk  }}" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
+                      <button type="button" value="{{ object.pk  }}" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
 
                       {% endif %}
                   {% else %}
-                  <button type="button" value="{{ object.pk  }}" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
+                  <button type="button" value="{{ object.pk  }}" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>
 
                   {% endif %}
                     {% endif %}
                 </span>
+                  <br><br>
                     <!-- share buttons section -->
                     <section class="pull-left share-buttons text-center">
                         <a class="share-facebook p-1 btn btn-md bg-white"
@@ -872,7 +880,7 @@
           $("#favourite_hanging_place")
 
            $("#favourite_hanging_place").append(''+
-                           '<button type="button" value="'+ content_id +'" class="btn  bg-dark btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>'
+                           '<button type="button" value="'+ content_id +'" class="btn   btn-sm add_to_favourite" >Add to favourite <i class="fa fa-heart"></i></button>'
                +'');
 
         },
