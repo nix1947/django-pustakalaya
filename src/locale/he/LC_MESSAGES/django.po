@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pustakalaya\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-23 13:44+0545\n"
+"POT-Creation-Date: 2018-05-18 15:58+0545\n"
 "PO-Revision-Date: 2017-10-02 23:42-0400\n"
 "Last-Translator: nix1947 <openpy.manoj@gmail.com>\n"
 "Language-Team: Hebrew\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Crowdin-Language: he\n"
 "X-Crowdin-File: /master/src/locale/ne/LC_MESSAGES/django.po\n"
 
-#: pustakalaya/forms.py:8
+#: pustakalaya/forms.py:8 pustakalaya_apps/core/abstract_models.py:49
 msgid "Name"
 msgstr ""
 
@@ -37,8 +37,8 @@ msgstr ""
 msgid "Your country"
 msgstr ""
 
-#: pustakalaya/forms.py:37 pustakalaya_apps/core/abstract_models.py:48
-#: pustakalaya_apps/core/templates/core/author_detail.html:36
+#: pustakalaya/forms.py:37 pustakalaya_apps/core/abstract_models.py:77
+#: pustakalaya_apps/core/templates/core/author_detail.html:58
 msgid "Address"
 msgstr ""
 
@@ -54,190 +54,259 @@ msgstr ""
 msgid "Your Message"
 msgstr ""
 
-#: pustakalaya/settings/base.py:239 pustakalaya_apps/core/constants.py:20
+#: pustakalaya/settings/base.py:300 pustakalaya_apps/core/constants.py:20
+#: templates/_partials/navbar_new.html:284
+#: templates/_partials/navbar_new.html:422
 msgid "English"
 msgstr ""
 
-#: pustakalaya/settings/base.py:240 pustakalaya_apps/core/constants.py:64
+#: pustakalaya/settings/base.py:301 pustakalaya_apps/core/constants.py:64
 msgid "Nepali"
 msgstr ""
 
 #: pustakalaya_apps/audio/apps.py:9
-#: pustakalaya_apps/core/abstract_models.py:110
+#: pustakalaya_apps/core/abstract_models.py:166
+#: templates/_partials/navbar_new.html:58
 msgid "Audio"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:29
+#: pustakalaya_apps/audio/models.py:38
 msgid "Audio types"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:34
+#: pustakalaya_apps/audio/models.py:45
 msgid "Add this audio to these collection"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:43 pustakalaya_apps/video/models.py:115
+#: pustakalaya_apps/audio/models.py:56 pustakalaya_apps/video/models.py:175
 msgid "Running time in minutes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:53
+#: pustakalaya_apps/audio/models.py:66 pustakalaya_apps/video/models.py:48
+msgid "Original Author(s)"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:73 pustakalaya_apps/video/models.py:55
+msgid "Release date"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:80
 msgid "Read / Voice by"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:61
+#: pustakalaya_apps/audio/models.py:95
 msgid "Audio publisher"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:66 pustakalaya_apps/document/models.py:160
+#: pustakalaya_apps/audio/models.py:106 pustakalaya_apps/document/models.py:195
 msgid "Select list of keywords"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:71
+#: pustakalaya_apps/audio/models.py:113 pustakalaya_apps/document/models.py:205
+#: pustakalaya_apps/video/models.py:162
+msgid "license"
+msgstr ""
+
+#: pustakalaya_apps/audio/models.py:129
 msgid "Audio Genre"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:78 pustakalaya_apps/video/models.py:58
+#: pustakalaya_apps/audio/models.py:136 pustakalaya_apps/video/models.py:84
 msgid "Languages"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:88
-msgid "Audio Series / Volume"
+#: pustakalaya_apps/audio/models.py:150 pustakalaya_apps/document/models.py:98
+msgid "Series"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:95 pustakalaya_apps/document/models.py:170
-#: pustakalaya_apps/video/models.py:87
+#: pustakalaya_apps/audio/models.py:157 pustakalaya_apps/document/models.py:220
+#: pustakalaya_apps/video/models.py:119
 msgid "Sponsor"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:166 pustakalaya_apps/video/models.py:226
+#: pustakalaya_apps/audio/models.py:263 pustakalaya_apps/video/models.py:331
 msgid "Genre name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:171 pustakalaya_apps/video/models.py:231
+#: pustakalaya_apps/audio/models.py:268 pustakalaya_apps/video/models.py:336
 msgid "Genre description"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:193 pustakalaya_apps/document/models.py:283
-#: pustakalaya_apps/video/models.py:194
+#: pustakalaya_apps/audio/models.py:291 pustakalaya_apps/document/models.py:403
+#: pustakalaya_apps/video/models.py:293
 msgid "File name"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:217 pustakalaya_apps/document/models.py:315
-#: pustakalaya_apps/video/models.py:215
+#: pustakalaya_apps/audio/models.py:320 pustakalaya_apps/document/models.py:439
+#: pustakalaya_apps/video/models.py:318
 msgid "Link"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:229
+#: pustakalaya_apps/audio/models.py:335
 msgid "Rhymes"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:230
+#: pustakalaya_apps/audio/models.py:336
 msgid "Novel"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:231
+#: pustakalaya_apps/audio/models.py:337
 msgid "Short Story"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:232
+#: pustakalaya_apps/audio/models.py:338
 msgid "Children Song"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:236
+#: pustakalaya_apps/audio/models.py:342
 msgid "Audio type"
 msgstr ""
 
-#: pustakalaya_apps/audio/models.py:241
+#: pustakalaya_apps/audio/models.py:347
 msgid "Audio description"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:87
-msgid "Read by/Voice:"
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:130
+#: pustakalaya_apps/core/templates/core/author_detail.html:37
+#: pustakalaya_apps/document/templates/document/document_detail.html:119
+#: pustakalaya_apps/video/templates/video/video_detail.html:127
+#: templates/_partials/list_display.html:71
+msgid "Edit"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:106
-#: pustakalaya_apps/document/templates/document/document_detail.html:186
-#: pustakalaya_apps/video/templates/video/video_detail.html:103
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:155
+msgid "Read/Voice by:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:179
+#: pustakalaya_apps/document/templates/document/document_detail.html:298
+#: pustakalaya_apps/video/templates/video/video_detail.html:142
 msgid "Publisher:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:115
-#: pustakalaya_apps/document/templates/document/document_detail.html:196
-#: pustakalaya_apps/video/templates/video/video_detail.html:112
-msgid "Place of publication:"
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:196
+#: pustakalaya_apps/video/templates/video/video_detail.html:159
+msgid "Original author(s):"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:124
-#: pustakalaya_apps/document/templates/document/document_detail.html:207
-#: pustakalaya_apps/video/templates/video/video_detail.html:118
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:215
+#: pustakalaya_apps/video/templates/video/video_detail.html:178
+msgid "Release date:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:223
+#: pustakalaya_apps/document/templates/document/document_detail.html:315
+#: pustakalaya_apps/video/templates/video/video_detail.html:186
+msgid "Place of Publication:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:231
+#: pustakalaya_apps/document/templates/document/document_detail.html:325
+#: pustakalaya_apps/video/templates/video/video_detail.html:194
 msgid "publication year:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:130
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:241
 msgid "read by:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:136
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:248
 msgid "type:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:144
-#: pustakalaya_apps/video/templates/video/video_detail.html:190
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:258
+msgid "Running time:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:266
+#: pustakalaya_apps/video/templates/video/video_detail.html:329
 msgid "genre:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:150
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:282
 msgid "series name:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:159
-#: pustakalaya_apps/document/templates/document/document_detail.html:219
-#: pustakalaya_apps/video/templates/video/video_detail.html:125
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:290
+#: pustakalaya_apps/video/templates/video/video_detail.html:249
+msgid "Volume:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:298
+#: pustakalaya_apps/document/templates/document/document_detail.html:387
+msgid "edition:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:309
+#: pustakalaya_apps/document/templates/document/document_detail.html:335
+#: pustakalaya_apps/video/templates/video/video_detail.html:202
 msgid "available year:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:166
-#: pustakalaya_apps/document/templates/document/document_detail.html:228
-#: pustakalaya_apps/video/templates/video/video_detail.html:136
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:320
+#: pustakalaya_apps/document/templates/document/document_detail.html:346
+#: pustakalaya_apps/video/templates/video/video_detail.html:211
 msgid "keywords:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:178
-#: pustakalaya_apps/document/templates/document/document_detail.html:247
-#: pustakalaya_apps/video/templates/video/video_detail.html:149
-msgid "description:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:185
-#: pustakalaya_apps/document/templates/document/document_detail.html:256
-#: pustakalaya_apps/video/templates/video/video_detail.html:156
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:338
+#: pustakalaya_apps/document/templates/document/document_detail.html:369
+#: pustakalaya_apps/video/templates/video/video_detail.html:231
 msgid "License type:"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:192
-#: pustakalaya_apps/document/templates/document/document_detail.html:310
-#: pustakalaya_apps/video/templates/video/video_detail.html:197
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:347
+#: pustakalaya_apps/video/templates/video/video_detail.html:347
 msgid "languages"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:201
-#: pustakalaya_apps/document/templates/document/document_detail.html:319
-#: pustakalaya_apps/video/templates/video/video_detail.html:206
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:363
+#: pustakalaya_apps/document/templates/document/document_detail.html:440
+#: pustakalaya_apps/video/templates/video/video_detail.html:363
 msgid "education levels"
 msgstr ""
 
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:212
-#: pustakalaya_apps/document/templates/document/document_detail.html:337
-#: pustakalaya_apps/video/templates/video/video_detail.html:220
-msgid "right:"
-msgstr ""
-
-#: pustakalaya_apps/audio/templates/audio/audio_detail.html:222
-#: pustakalaya_apps/document/templates/document/document_detail.html:348
-#: pustakalaya_apps/video/templates/video/video_detail.html:230
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:382
+#: pustakalaya_apps/document/templates/document/document_detail.html:471
+#: pustakalaya_apps/video/templates/video/video_detail.html:381
 msgid "sponsors:"
 msgstr ""
 
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:398
+#: pustakalaya_apps/video/templates/video/video_detail.html:397
+msgid "right:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:406
+#: pustakalaya_apps/document/templates/document/document_detail.html:506
+#: pustakalaya_apps/video/templates/video/video_detail.html:409
+msgid "description:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:414
+#: pustakalaya_apps/document/templates/document/document_detail.html:497
+#: pustakalaya_apps/video/templates/video/video_detail.html:418
+msgid "Additional note:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:423
+msgid "Audio Link:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:436
+#: pustakalaya_apps/document/templates/document/document_detail.html:522
+#: pustakalaya_apps/video/templates/video/video_detail.html:433
+msgid "Link:"
+msgstr ""
+
+#: pustakalaya_apps/audio/templates/audio/audio_detail.html:440
+#: pustakalaya_apps/document/templates/document/document_detail.html:526
+#: pustakalaya_apps/video/templates/video/video_detail.html:437
+msgid "Link Description:"
+msgstr ""
+
 #: pustakalaya_apps/collection/apps.py:7
+#: templates/_partials/navbar_new.html:387
 msgid "Categories"
 msgstr ""
 
@@ -262,12 +331,13 @@ msgid "Reference materials"
 msgstr ""
 
 #: pustakalaya_apps/collection/models.py:22
-#: pustakalaya_apps/community/models.py:15
-msgid "Other educational materials"
+#: pustakalaya_apps/community/models.py:14
+msgid "Newpapers and magazines"
 msgstr ""
 
 #: pustakalaya_apps/collection/models.py:23
-msgid "newspaper and magazines"
+#: pustakalaya_apps/community/models.py:15
+msgid "Other educational materials"
 msgstr ""
 
 #: pustakalaya_apps/collection/models.py:29
@@ -298,171 +368,187 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: pustakalaya_apps/community/models.py:14
-msgid "Newpapers and magazines"
-msgstr ""
-
 #: pustakalaya_apps/community/models.py:25
 msgid "Community description"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:14
+#: pustakalaya_apps/core/abstract_models.py:16
 msgid "Created date"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:15
+#: pustakalaya_apps/core/abstract_models.py:17
 msgid "Updated date"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:28
+#: pustakalaya_apps/core/abstract_models.py:31
 #: pustakalaya_apps/pustakalaya_account/models.py:12
 msgid "First name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:31
+#: pustakalaya_apps/core/abstract_models.py:37
 msgid "Middle name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:32
+#: pustakalaya_apps/core/abstract_models.py:42
 #: pustakalaya_apps/pustakalaya_account/models.py:18
 msgid "Last name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:34
-#: pustakalaya_apps/core/abstract_models.py:88
-#: pustakalaya_apps/core/abstract_models.py:142
-#: pustakalaya_apps/core/models.py:91
+#: pustakalaya_apps/core/abstract_models.py:55
+#: pustakalaya_apps/core/abstract_models.py:143
+#: pustakalaya_apps/core/abstract_models.py:198
+#: pustakalaya_apps/core/models.py:142
 msgid "Description"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:38
-#: pustakalaya_apps/core/templates/core/author_detail.html:37
+#: pustakalaya_apps/core/abstract_models.py:59
+#: pustakalaya_apps/core/templates/core/author_detail.html:66
 msgid "Date of birth"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:43
-#: pustakalaya_apps/core/templates/core/author_detail.html:38
+#: pustakalaya_apps/core/abstract_models.py:65
+#: pustakalaya_apps/core/templates/core/author_detail.html:73
+msgid "Place of birth"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:72
+#: pustakalaya_apps/core/templates/core/author_detail.html:97
 msgid "Pen name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:53
-#: pustakalaya_apps/core/templates/core/author_detail.html:39
+#: pustakalaya_apps/core/abstract_models.py:83
+#: pustakalaya_apps/core/models.py:113
+#: pustakalaya_apps/core/templates/core/author_detail.html:105
 msgid "Genre"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:59
+#: pustakalaya_apps/core/abstract_models.py:90
 msgid "Creator image"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:83
+#: pustakalaya_apps/core/abstract_models.py:96
+#: pustakalaya_apps/core/templates/core/author_detail.html:89
+msgid "Place of death"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:102
+#: pustakalaya_apps/core/templates/core/author_detail.html:81
+msgid "Date of death"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:138
 msgid "Series name"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:99
-#: pustakalaya_apps/core/abstract_models.py:102
+#: pustakalaya_apps/core/abstract_models.py:155
+#: pustakalaya_apps/core/abstract_models.py:158
 msgid "Creative commons"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:100
+#: pustakalaya_apps/core/abstract_models.py:156
 msgid "Copyright retained"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:101
+#: pustakalaya_apps/core/abstract_models.py:157
 msgid "Apache license 2.0"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:103
+#: pustakalaya_apps/core/abstract_models.py:159
 msgid "MIT License"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:104
+#: pustakalaya_apps/core/abstract_models.py:160
 msgid "Custom License"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:105
+#: pustakalaya_apps/core/abstract_models.py:161
 msgid "Not available"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:109
-#: pustakalaya_apps/document/apps.py:7
+#: pustakalaya_apps/core/abstract_models.py:165
+#: pustakalaya_apps/document/apps.py:7 templates/_partials/navbar_new.html:55
 msgid "Document"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:111
-#: pustakalaya_apps/video/apps.py:7
+#: pustakalaya_apps/core/abstract_models.py:167
+#: pustakalaya_apps/video/apps.py:7 templates/_partials/navbar_new.html:61
 msgid "Video"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:112
+#: pustakalaya_apps/core/abstract_models.py:168
 msgid "Image"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:113
+#: pustakalaya_apps/core/abstract_models.py:169
 msgid "Wikipedia"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:114
+#: pustakalaya_apps/core/abstract_models.py:170
 msgid "Map"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:118
+#: pustakalaya_apps/core/abstract_models.py:174
 #: templates/_partials/sorting_form.html:8
 msgid "Title"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:123
+#: pustakalaya_apps/core/abstract_models.py:179
 msgid "Abstract/Summary"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:135
+#: pustakalaya_apps/core/abstract_models.py:191
 msgid "Additional Note"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:147
+#: pustakalaya_apps/core/abstract_models.py:203
 msgid "License type"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:153
+#: pustakalaya_apps/core/abstract_models.py:209
 msgid "Rights"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:158
-msgid "Year of available"
+#: pustakalaya_apps/core/abstract_models.py:214
+msgid "Year of available on text"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:164
+#: pustakalaya_apps/core/abstract_models.py:221
+#: pustakalaya_apps/core/abstract_models.py:234
 msgid "Publication year"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:170
+#: pustakalaya_apps/core/abstract_models.py:227
+msgid "Year of available"
+msgstr ""
+
+#: pustakalaya_apps/core/abstract_models.py:241
 msgid "Place of publication"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:188
+#: pustakalaya_apps/core/abstract_models.py:259
 msgid "Featured"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:192
-#: pustakalaya_apps/core/abstract_models.py:202
-#: pustakalaya_apps/document/models.py:48
+#: pustakalaya_apps/core/abstract_models.py:263
+#: pustakalaya_apps/core/abstract_models.py:273
+#: pustakalaya_apps/document/models.py:52
 msgid "Yes"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:193
-#: pustakalaya_apps/core/abstract_models.py:203
-#: pustakalaya_apps/document/models.py:49
+#: pustakalaya_apps/core/abstract_models.py:264
+#: pustakalaya_apps/core/abstract_models.py:274
 msgid "No"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:198
+#: pustakalaya_apps/core/abstract_models.py:269
 msgid "published"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:242
+#: pustakalaya_apps/core/abstract_models.py:314
 msgid "Link URL"
 msgstr ""
 
-#: pustakalaya_apps/core/abstract_models.py:247
+#: pustakalaya_apps/core/abstract_models.py:320
 msgid "Link Description"
 msgstr ""
 
@@ -826,7 +912,7 @@ msgstr ""
 msgid "Category description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:155
+#: pustakalaya_apps/core/models.py:30 pustakalaya_apps/document/models.py:186
 msgid "Publisher name"
 msgstr ""
 
@@ -834,69 +920,98 @@ msgstr ""
 msgid "Publisher description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:51
+#: pustakalaya_apps/core/models.py:56
 msgid "Keyword"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:56
+#: pustakalaya_apps/core/models.py:61
 msgid "Keyword description"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:71
+#: pustakalaya_apps/core/models.py:77
+msgid "genre name"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:82
+msgid "genre description"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:100
 msgid "Search Keywords"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:79
+#: pustakalaya_apps/core/models.py:106
+msgid "Author(s) name in other language"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:130 templates/_partials/navbar_new.html:386
 msgid "Author"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:86
+#: pustakalaya_apps/core/models.py:137
 msgid "Sponsor Name"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:105
-msgid "Early primary level"
+#: pustakalaya_apps/core/models.py:161
+msgid "Basic school"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:106
-msgid "Primary level"
+#: pustakalaya_apps/core/models.py:162
+msgid "Early grade reading"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:107
-msgid "Middle school level"
-msgstr ""
-
-#: pustakalaya_apps/core/models.py:108
-msgid "Highschool level"
-msgstr ""
-
-#: pustakalaya_apps/core/models.py:109
+#: pustakalaya_apps/core/models.py:163
 msgid "Intermediate level"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:113 pustakalaya_apps/video/models.py:54
+#: pustakalaya_apps/core/models.py:164
+msgid "Middle school"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:165
+msgid "Primary school"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:166
+msgid "Secondary school"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:167
+msgid "University level"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:171 pustakalaya_apps/video/models.py:78
 msgid "Education Level"
 msgstr ""
 
-#: pustakalaya_apps/core/models.py:136
+#: pustakalaya_apps/core/models.py:192 templates/_partials/navbar_new.html:404
 msgid "Language"
+msgstr ""
+
+#: pustakalaya_apps/core/models.py:208
+msgid "License"
 msgstr ""
 
 #: pustakalaya_apps/core/templates/core/author_books.html:13
 msgid "Books by"
 msgstr ""
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:16
+#: pustakalaya_apps/core/templates/core/author_detail.html:33
 msgid "View author's book"
 msgstr ""
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:19
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:185
+#: pustakalaya_apps/core/templates/core/author_detail.html:41
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:257
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:257
 msgid "keywords"
 msgstr ""
 
-#: pustakalaya_apps/core/templates/core/author_detail.html:30
-#: templates/_partials/navbar.html:46 templates/_partials/navbar1.html:48
+#: pustakalaya_apps/core/templates/core/author_detail.html:120
+msgid "Author(s) in other language:"
+msgstr ""
+
+#: pustakalaya_apps/core/templates/core/author_detail.html:147
+#: templates/_partials/navbar.html:158 templates/_partials/navbar_new.html:261
 msgid "About"
 msgstr ""
 
@@ -914,6 +1029,11 @@ msgstr ""
 
 #: pustakalaya_apps/core/templatetags/pustakalaya_filters.py:97
 msgid "GB"
+msgstr ""
+
+#: pustakalaya_apps/core/validators.py:12
+#, python-format
+msgid "%(value)s is not a number"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/footer.html:9
@@ -941,12 +1061,12 @@ msgid "stat"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:40
-#: templates/_partials/navbar.html:117 templates/_partials/navbar1.html:119
+#: templates/_partials/navbar.html:231
 msgid "settings"
 msgstr ""
 
 #: pustakalaya_apps/dashboard/templates/dashboard/_partials/navbar.html:44
-#: templates/account/password_reset_from_key.html:18
+#: templates/account/password_reset_from_key.html:19
 msgid "change password"
 msgstr ""
 
@@ -958,289 +1078,344 @@ msgstr ""
 msgid "Social accounts"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:50
-msgid "Not applicable"
+#: pustakalaya_apps/dashboard/templates/dashboard/dashboard_base.html:47
+msgid "trending books"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/document/document_add.html:29
+msgid "upload file"
+msgstr ""
+
+#: pustakalaya_apps/dashboard/templates/dashboard/document/user_submitted_books.html:78
+msgid "You haven't submitted any item"
 msgstr ""
 
 #: pustakalaya_apps/document/models.py:54
-msgid "Book"
-msgstr ""
-
-#: pustakalaya_apps/document/models.py:55
-msgid "Working paper"
-msgstr ""
-
-#: pustakalaya_apps/document/models.py:56
-msgid "Thesis"
-msgstr ""
-
-#: pustakalaya_apps/document/models.py:57
-msgid "Journal paper"
+msgid "Not applicable"
 msgstr ""
 
 #: pustakalaya_apps/document/models.py:58
-msgid "Technical report"
+msgid "Book"
 msgstr ""
 
 #: pustakalaya_apps/document/models.py:59
+msgid "Working paper"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:60
+msgid "Thesis"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:61
+msgid "Journal paper"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:62
+msgid "Technical report"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:63
 msgid "Article"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:64
+#: pustakalaya_apps/document/models.py:68
 msgid "PPT"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:65
+#: pustakalaya_apps/document/models.py:69
 msgid "Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:66
+#: pustakalaya_apps/document/models.py:70
 msgid "Docx"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:67
+#: pustakalaya_apps/document/models.py:71
 msgid "PDF"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:68
+#: pustakalaya_apps/document/models.py:72
 msgid "Excel"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:69
+#: pustakalaya_apps/document/models.py:73
 msgid "Epub"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:70
+#: pustakalaya_apps/document/models.py:74
 msgid "Rtf"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:71
+#: pustakalaya_apps/document/models.py:75
 msgid "Mobi"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:76
+#: pustakalaya_apps/document/models.py:80
 msgid "Add to these collections"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:80
+#: pustakalaya_apps/document/models.py:84
 msgid "Document type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:86
+#: pustakalaya_apps/document/models.py:90
 msgid "Document file type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:94
-msgid "Series"
-msgstr ""
-
-#: pustakalaya_apps/document/models.py:100
+#: pustakalaya_apps/document/models.py:107
 msgid "Education Levels"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:106
+#: pustakalaya_apps/document/models.py:113
 msgid "Language(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:110
+#: pustakalaya_apps/document/models.py:117
 msgid "Interactive"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:127
+#: pustakalaya_apps/document/models.py:136
 msgid "Total Pages"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:134
+#: pustakalaya_apps/document/models.py:144
 msgid "Author(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:141
+#: pustakalaya_apps/document/models.py:158
 msgid "Editor(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:148
-msgid "Document Illustrator"
+#: pustakalaya_apps/document/models.py:165
+msgid "Translator(s)"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:326
+#: pustakalaya_apps/document/models.py:172
+msgid "Illustrator"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:215
+msgid "maximum size of thumbnail should be 255px by 300px"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:383
+msgid "Document series"
+msgstr ""
+
+#: pustakalaya_apps/document/models.py:455
 msgid "Identifier Type"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:329
+#: pustakalaya_apps/document/models.py:459
 msgid "ISSN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:330
+#: pustakalaya_apps/document/models.py:460
 msgid "ISMN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:331
+#: pustakalaya_apps/document/models.py:461
 msgid "Gov't Doc"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:332
+#: pustakalaya_apps/document/models.py:462
 msgid "URI"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:333
+#: pustakalaya_apps/document/models.py:463
 msgid "ISBN"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:337
+#: pustakalaya_apps/document/models.py:467
 msgid "Identifier ID"
 msgstr ""
 
-#: pustakalaya_apps/document/models.py:344
+#: pustakalaya_apps/document/models.py:474
 msgid "document"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:44
+#: pustakalaya_apps/document/templates/document/document_detail.html:96
 msgid "download "
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:48
+#: pustakalaya_apps/document/templates/document/document_detail.html:101
 msgid "read"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:54
+#: pustakalaya_apps/document/templates/document/document_detail.html:107
 msgid "File size: "
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:98
-#: pustakalaya_apps/document/templates/document/document_detail.html:146
+#: pustakalaya_apps/document/templates/document/document_detail.html:186
 msgid "Authors:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:114
-msgid "Illustrators:"
+#: pustakalaya_apps/document/templates/document/document_detail.html:223
+msgid "Author(s):"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:160
+#: pustakalaya_apps/document/templates/document/document_detail.html:243
 msgid "illustrators:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:172
-msgid "Editors:"
+#: pustakalaya_apps/document/templates/document/document_detail.html:261
+msgid "Editor(s):"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:263
-#: pustakalaya_apps/video/templates/video/video_detail.html:163
+#: pustakalaya_apps/document/templates/document/document_detail.html:280
+msgid "Translator(s):"
+msgstr ""
+
+#: pustakalaya_apps/document/templates/document/document_detail.html:378
+#: pustakalaya_apps/video/templates/video/video_detail.html:240
 msgid "Series:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:272
-msgid "edition:"
-msgstr ""
-
-#: pustakalaya_apps/document/templates/document/document_detail.html:283
+#: pustakalaya_apps/document/templates/document/document_detail.html:397
 msgid "volume:"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:303
+#: pustakalaya_apps/document/templates/document/document_detail.html:415
 msgid "total pages"
 msgstr ""
 
-#: pustakalaya_apps/document/templates/document/document_detail.html:330
+#: pustakalaya_apps/document/templates/document/document_detail.html:424
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:350
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:350
+msgid "language"
+msgstr ""
+
+#: pustakalaya_apps/document/templates/document/document_detail.html:461
 msgid "interactivity"
+msgstr ""
+
+#: pustakalaya_apps/document/templates/document/document_detail.html:488
+msgid "rights:"
 msgstr ""
 
 #: pustakalaya_apps/pustakalaya_account/models.py:22
 msgid "Phone no"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:161
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:234
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:234
 msgid "Media type"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:170
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:279
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:345
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:243
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:373
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:439
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:243
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:373
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:439
 #, python-format
 msgid " %(type)s "
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:238
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:311
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:311
 msgid "more"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:240
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:313
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:313
 msgid "less"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:250
-msgid "language"
-msgstr ""
-
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:271
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:365
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:365
 msgid "education level"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:292
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:386
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:386
 msgid "communities"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:314
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:408
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:408
 msgid "collections"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:336
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:430
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:430
 msgid "license type"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:418
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:512
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:512
 msgid "results found in "
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:419
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:513
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:513
 msgid "sec"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:440
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:553
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:553
 msgid "Views"
 msgstr ""
 
-#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:509
-msgid "result not found"
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result.html:624
+#: pustakalaya_apps/pustakalaya_search/templates/pustakalaya_search/search_result_old.html:624
+msgid "result not found for"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:33
+#: pustakalaya_apps/video/models.py:41
 msgid "Add this video to these collection"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:46
+#: pustakalaya_apps/video/models.py:70
 msgid "Producer"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:63
+#: pustakalaya_apps/video/models.py:95 pustakalaya_apps/video/models.py:282
 msgid "Video series"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:75
+#: pustakalaya_apps/video/models.py:107
 msgid "Certification"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:80
+#: pustakalaya_apps/video/models.py:112
 msgid "Age group"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:94
+#: pustakalaya_apps/video/models.py:135
 msgid "Video Genre"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:101
+#: pustakalaya_apps/video/models.py:148
 msgid "Publisher"
 msgstr ""
 
-#: pustakalaya_apps/video/models.py:106
+#: pustakalaya_apps/video/models.py:155
 msgid "Keywords"
 msgstr ""
 
-#: pustakalaya_apps/video/templates/video/video_detail.html:173
+#: pustakalaya_apps/video/templates/video/video_detail.html:258
+msgid "Edition:"
+msgstr ""
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:267
 msgid "running time"
 msgstr ""
 
-#: pustakalaya_apps/video/templates/video/video_detail.html:183
+#: pustakalaya_apps/video/templates/video/video_detail.html:276
+msgid "video director"
+msgstr ""
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:296
+msgid "Video producer"
+msgstr ""
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:312
 msgid "certificate license:"
+msgstr ""
+
+#: pustakalaya_apps/video/templates/video/video_detail.html:321
+msgid "Age group:"
 msgstr ""
 
 #: templates/404.html:5
@@ -1251,79 +1426,134 @@ msgstr ""
 msgid "Some server error :("
 msgstr ""
 
-#: templates/_partials/footer.html:11 templates/_partials/navbar.html:55
-#: templates/_partials/navbar1.html:57
-msgid "Help"
+#: templates/_partials/footer_old.html:43
+msgid "Developed and maintained By"
 msgstr ""
 
-#: templates/_partials/footer.html:16
-msgid "Blog"
-msgstr ""
-
-#: templates/_partials/footer.html:31
-msgid "Developed By"
-msgstr ""
-
-#: templates/_partials/footer.html:32
+#: templates/_partials/footer_old.html:44
 msgid "OLE Nepal"
 msgstr ""
 
-#: templates/_partials/login_form.html:20
-msgid "Login with your registered Email &amp; Password."
-msgstr ""
-
-#: templates/_partials/login_form.html:34 templates/account/login.html:45
-msgid "Forgot Password?"
-msgstr ""
-
-#: templates/_partials/login_form.html:35 templates/account/login.html:7
-#: templates/account/login.html:11 templates/account/login.html:46
-msgid "Sign In"
-msgstr ""
-
-#: templates/_partials/login_form.html:41
-#, python-format
-msgid ""
-"Please sign in with one\n"
-"            of your existing third party accounts. Or, <a href="
-"\"%(signup_url)s\">sign up</a>\n"
-"            for a %(site_name)s account and sign in below:"
-msgstr ""
-
-#: templates/_partials/login_form.html:57
-#, python-format
-msgid ""
-"If you have not created an account yet, then please\n"
-"            <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
-
-#: templates/_partials/navbar.html:39 templates/_partials/navbar1.html:41
-msgid "Home"
-msgstr ""
-
-#: templates/_partials/navbar.html:51 templates/_partials/navbar1.html:53
-msgid "Authors"
-msgstr ""
-
-#: templates/_partials/navbar.html:59 templates/_partials/navbar1.html:61
+#: templates/_partials/footer_old.html:69 templates/_partials/navbar.html:171
+#: templates/_partials/navbar_new.html:264
 #: templates/static_pages/feedback.html:10
 msgid "Feedback"
 msgstr ""
 
-#: templates/_partials/navbar.html:108 templates/_partials/navbar1.html:110
-msgid "dashboard"
+#: templates/_partials/footer_old.html:74 templates/_partials/navbar.html:167
+#: templates/_partials/navbar_new.html:267
+msgid "Help"
 msgstr ""
 
-#: templates/_partials/navbar.html:113 templates/_partials/navbar1.html:115
+#: templates/_partials/footer_old.html:79
+msgid "Blog"
+msgstr ""
+
+#: templates/_partials/login_form.html:21
+msgid "Login with your registered Email &amp; Password."
+msgstr ""
+
+#: templates/_partials/login_form.html:35 templates/account/login.html:45
+msgid "Forgot Password?"
+msgstr ""
+
+#: templates/_partials/login_form.html:36 templates/account/login.html:7
+#: templates/account/login.html:11 templates/account/login.html:46
+msgid "Sign In"
+msgstr ""
+
+#: templates/_partials/login_form.html:42
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"            of your existing third party accounts. Or, <a class=\"text-"
+"primary\" href=\"%(signup_url)s\">sign up</a>\n"
+"            for a %(site_name)s account or sign in below:"
+msgstr ""
+
+#: templates/_partials/login_form.html:58
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"            <a href=\"%(signup_url)s\" class=\"text-primary\" style=\"text-"
+"decoration:underline!important;\">sign up</a> first."
+msgstr ""
+
+#: templates/_partials/navbar.html:163
+msgid "Authors"
+msgstr ""
+
+#: templates/_partials/navbar.html:227 templates/_partials/navbar_new.html:366
+#: templates/_partials/navbar_new.html:490
 msgid "profile"
 msgstr ""
 
-#: templates/_partials/navbar.html:115 templates/_partials/navbar1.html:117
+#: templates/_partials/navbar.html:229 templates/_partials/navbar_new.html:368
+#: templates/_partials/navbar_new.html:492
 msgid "logout"
 msgstr ""
 
-#: templates/_partials/search_form.html:13
-msgid "Search pustakalaya"
+#: templates/_partials/navbar_new.html:52
+msgid "All"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:213
+msgid "TITLES"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:216
+msgid "AUTHOR"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:219
+msgid "CATEGORIES"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:243
+#: templates/_partials/navbar_new.html:244
+msgid "LEVEL"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:291
+#: templates/_partials/navbar_new.html:429
+msgid "नेपाली"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:344
+#: templates/_partials/navbar_new.html:503
+msgid "Log In"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:385
+msgid "Titles"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:391
+msgid "Literature &amp; Arts"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:392 templates/index.html:32
+msgid "Course Materials"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:393 templates/index.html:34
+msgid "Teaching Materials"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:394
+msgid "Reference Materials"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:395
+msgid "Other Educational Materials"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:396 templates/index.html:40
+msgid "Newspapers &amp; Magazines"
+msgstr ""
+
+#: templates/_partials/navbar_new.html:398
+msgid "Level"
 msgstr ""
 
 #: templates/_partials/sorting_form.html:12
@@ -1554,12 +1784,12 @@ msgid "Your primary e-mail address must be verified."
 msgstr ""
 
 #: templates/account/password_change.html:6
-#: templates/account/password_change.html:9
-#: templates/account/password_change.html:14
+#: templates/account/password_change.html:10
+#: templates/account/password_change.html:15
 #: templates/account/password_reset_from_key.html:5
-#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key.html:9
 #: templates/account/password_reset_from_key_done.html:4
-#: templates/account/password_reset_from_key_done.html:7
+#: templates/account/password_reset_from_key_done.html:8
 msgid "Change Password"
 msgstr ""
 
@@ -1590,11 +1820,11 @@ msgid ""
 "within a few minutes."
 msgstr ""
 
-#: templates/account/password_reset_from_key.html:8
+#: templates/account/password_reset_from_key.html:9
 msgid "Bad Token"
 msgstr ""
 
-#: templates/account/password_reset_from_key.html:12
+#: templates/account/password_reset_from_key.html:13
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -1602,13 +1832,13 @@ msgid ""
 "a>."
 msgstr ""
 
-#: templates/account/password_reset_from_key.html:21
-#: templates/account/password_reset_from_key_done.html:8
+#: templates/account/password_reset_from_key.html:22
+#: templates/account/password_reset_from_key_done.html:9
 msgid "Your password is now changed."
 msgstr ""
 
-#: templates/account/password_set.html:6 templates/account/password_set.html:9
-#: templates/account/password_set.html:14
+#: templates/account/password_set.html:6 templates/account/password_set.html:10
+#: templates/account/password_set.html:15
 msgid "Set Password"
 msgstr ""
 
@@ -1635,11 +1865,11 @@ msgstr ""
 msgid "Log in with"
 msgstr ""
 
-#: templates/account/signup.html:34 templates/static_pages/sign_up.html:98
+#: templates/account/signup.html:38 templates/static_pages/sign_up.html:98
 msgid "Already have Pustakalaya account"
 msgstr ""
 
-#: templates/account/signup.html:35 templates/static_pages/sign_up.html:98
+#: templates/account/signup.html:39 templates/static_pages/sign_up.html:98
 msgid "Log in"
 msgstr ""
 
@@ -1700,64 +1930,84 @@ msgid ""
 "            ."
 msgstr ""
 
-#: templates/base.html:14
+#: templates/base.html:10 templates/base_backup.html:14
 msgid "Pustakalaya"
 msgstr ""
 
-#: templates/base.html:14 templates/index.html:7 templates/index_new.html:7
+#: templates/base.html:10 templates/base_backup.html:14 templates/index.html:6
+#: templates/index_old.html:7
 msgid "homepage"
 msgstr ""
 
-#: templates/index.html:38 templates/index_new.html:38
-msgid "Browse Pustakalaya"
+#: templates/index.html:26
+msgid "Browse By Categories"
 msgstr ""
 
-#: templates/index.html:46 templates/index_new.html:46
-msgid "browse the library"
-msgstr ""
-
-#: templates/index.html:64 templates/index_new.html:64
-msgid "author"
-msgstr ""
-
-#: templates/index.html:72 templates/index_new.html:72
-msgid "sections"
-msgstr ""
-
-#: templates/index.html:80 templates/index_new.html:80
+#: templates/index.html:30
 msgid "literatures and Arts"
 msgstr ""
 
-#: templates/index.html:86 templates/index_new.html:86
-msgid "Course Materials"
-msgstr ""
-
-#: templates/index.html:92 templates/index_new.html:92
-msgid "Teaching Materials"
-msgstr ""
-
-#: templates/index.html:98 templates/index_new.html:98
+#: templates/index.html:36
 msgid "reference Materials"
 msgstr ""
 
-#: templates/index.html:104 templates/index_new.html:104
+#: templates/index.html:38
 msgid "other educational Materials"
 msgstr ""
 
-#: templates/index.html:110 templates/index_new.html:110
-msgid "Newspapers & Magazines"
+#: templates/index.html:49
+msgid "Popular Titles"
 msgstr ""
 
-#: templates/index.html:175 templates/index_new.html:166
+#: templates/index.html:112
+msgid "Other Learning Softwares"
+msgstr ""
+
+#: templates/index.html:123
+msgid "E-Learning for Kids"
+msgstr ""
+
+#: templates/index.html:131
+msgid "Learn English"
+msgstr ""
+
+#: templates/index.html:139
+msgid "PhET Simulations"
+msgstr ""
+
+#: templates/index.html:147
+msgid "Environmental Activities"
+msgstr ""
+
+#: templates/index.html:155
+msgid "Khan Academy"
+msgstr ""
+
+#: templates/index.html:181
+msgid "Reference Sites"
+msgstr ""
+
+#: templates/index_old.html:260
+msgid "Browse Pustakalaya"
+msgstr ""
+
+#: templates/index_old.html:269
+msgid "browse the library"
+msgstr ""
+
+#: templates/index_old.html:297
+msgid "author"
+msgstr ""
+
+#: templates/index_old.html:448
 msgid "Interactive educational software"
 msgstr ""
 
-#: templates/index.html:259 templates/index_new.html:250
-#: templates/static_pages/about.html:13
-msgid "About epustakalaya"
+#: templates/index_old.html:538
+msgid "About e-pustakalaya"
 msgstr ""
 
-#: templates/index.html:260 templates/index_new.html:251
+#: templates/index_old.html:539
 msgid ""
 "\n"
 "          E-Pustakalaya is an education-focused digital library containing "
@@ -1777,20 +2027,24 @@ msgid ""
 "          Nepal. "
 msgstr ""
 
-#: templates/index.html:271 templates/index_new.html:262
+#: templates/index_old.html:550
 msgid "Read More"
 msgstr ""
 
-#: templates/index.html:285 templates/index_new.html:276
-msgid "Major partners"
+#: templates/index_old.html:564
+msgid "Major partner"
 msgstr ""
 
-#: templates/index.html:299 templates/index_new.html:290
-msgid "Past supporter"
+#: templates/index_old.html:578
+msgid "Past supporters"
 msgstr ""
 
-#: templates/index.html:334 templates/index_new.html:325
+#: templates/index_old.html:613
 msgid "Content contribution"
+msgstr ""
+
+#: templates/static_pages/about.html:13
+msgid "About epustakalaya"
 msgstr ""
 
 #: templates/static_pages/about.html:15
@@ -1934,7 +2188,8 @@ msgstr ""
 msgid ""
 "\n"
 "          There are seven major sections in E-Pustakalaya:\n"
-"        <ol class=\"paragraph-font\">\n"
+"        <ol class=\"paragraph-font\" style=\"font-family:sans-serif,arial"
+"\">\n"
 "          <li>\n"
 "            <b>Literature</b> – This section includes Nepali and English "
 "literature\n"
@@ -2029,7 +2284,8 @@ msgstr ""
 #: templates/static_pages/help.html:140
 msgid ""
 "\n"
-"        <ol type=\"a\" class=\"paragraph-font\">\n"
+"        <ol type=\"a\" class=\"paragraph-font\" style=\"font-family:sans-"
+"serif,arial\">\n"
 "          E-Pustakalaya has four powerful features that make it easy for the "
 "user to access books,\n"
 "          documents, videos, audio files, and images:\n"
