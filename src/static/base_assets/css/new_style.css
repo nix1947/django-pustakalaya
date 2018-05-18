@@ -632,6 +632,13 @@ a.text-primary:focus, a.text-primary:hover {
   margin-right: auto;
 }
 
+.hom-par-for-mar{
+  margin-bottom: 15px;
+}
+
+.av-books{
+  width: 100%;
+}
 /* media queries for phone*/
 
 @media only screen and (max-width: 576px) {
