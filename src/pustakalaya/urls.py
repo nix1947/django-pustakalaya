@@ -70,7 +70,7 @@ urlpatterns = [
 # API Version1 endpoint url. 
 # API V1 URL endpoint. 
 urlpatterns += [
-    url('^api/v1/', include('pustakalaya.api_v1_urls'), name="api_v1"),
+    url('^api/v1/', include('pustakalaya.api_v1_urls', namespace="api_v1")),
     # API authentication
     url(r'^api-auth/', include('rest_framework.urls'))
 ]

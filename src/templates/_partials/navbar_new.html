@@ -281,14 +281,20 @@
                                     <!-- don't change the name language -->
                                     {% if LANGUAGE_CODE == "en" %}
                                         <!-- <i class="flag-icon flag-icon-gb"></i> -->
-                                        <a href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> {% trans "English" %} &#9662;</a>
+                                        <a href="/"
+                                        onclick="change_language(this)"
+                                        data-lang="ne"
+                                        ><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" />&nbsp;नेपाली</a>
 
                                     {% endif %}
 
                                     {% if LANGUAGE_CODE == "ne" %}
                                     <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                     <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
-                                    <a href="/"><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" /> {% trans "नेपाली" %}</a>
+                                    <a
+                                    onclick="change_language(this)"
+                                    data-lang="en"
+                                     href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" />&nbsp; English</a>
 
                                     {% endif %}
                                 </form>
@@ -297,6 +303,7 @@
 
                         <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
 
+                        {% comment %}
                         <ul class="dropdown-items">
                                 {% get_available_languages as LANGUAGES %}
                                 {% for lang in LANGUAGES %}
@@ -331,6 +338,9 @@
 
 
                         </ul>
+                        {% endcomment %}
+
+
                     </li>
                     <!-- end language selection form -->
 
@@ -525,8 +535,11 @@
             // User selected language
             var language_Code = element.getAttribute('data-lang') || "en"; // get selected language.
 
+            console.log("Button clicked with current language", language_Code)
+
             // set the user selected languge to input field
             languageInputField.setAttribute('value', language_Code);
+            
             // submit the form.
             changeLanguageForm.submit();
         }
