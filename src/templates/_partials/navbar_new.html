@@ -280,21 +280,24 @@
                                     <input type="hidden" name="language" value="en" />
                                     <!-- don't change the name language -->
                                     {% if LANGUAGE_CODE == "en" %}
+                                        <!-- display nepali flag -->
                                         <!-- <i class="flag-icon flag-icon-gb"></i> -->
-                                        <a href="/"
+                                        <span
+                                        class= "lang-swi"
                                         onclick="change_language(this)"
                                         data-lang="ne"
-                                        ><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" />&nbsp;नेपाली</a>
+                                        ><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" />&nbsp;नेपाली</span>
 
                                     {% endif %}
 
                                     {% if LANGUAGE_CODE == "ne" %}
                                     <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                     <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
-                                    <a
+                                    <span
+                                   class= "lang-swi"
                                     onclick="change_language(this)"
                                     data-lang="en"
-                                     href="/"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" />&nbsp; English</a>
+                                    ><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" />&nbsp; English</span>
 
                                     {% endif %}
                                 </form>
