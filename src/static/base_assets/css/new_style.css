@@ -61,6 +61,13 @@ body{
 .select-items div:hover, .same-as-selected {
  background-color: rgba(0, 0, 0, 0.1);
 }
+.home-stats{
+  font-size: 40px;
+  color: #00838F;
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
 
 /* ========================= NAVBAR SELECT DROPDOWN ENDS ===================== */
 
@@ -97,7 +104,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .logo{
-  width: 100%;
+  width: 84%;
 }
 
 #olenavbar{
@@ -121,7 +128,7 @@ a.text-primary:focus, a.text-primary:hover {
 
 #menu li {
     float: left;
-    margin-right: 3px;
+    margin-right: 8px;
     position: relative;
 }
 
@@ -181,7 +188,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 #primary-navbar {
-  margin-top:21px;
+  margin-top:5px;
 }
 /* Search bar style */
 
@@ -422,7 +429,7 @@ a.text-primary:focus, a.text-primary:hover {
 
 .main-contain{
   width: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .dropdown-all {
@@ -537,13 +544,26 @@ a.text-primary:focus, a.text-primary:hover {
   text-align:center;
   border-bottom: 1px solid #c6c6c6;
   line-height:0.1em;
-  margin:25px 0 20px;
+  margin:15px 0 15px;
 }
 
 .text-btn-lines span {
-  background:#fff;
+  background:#FAFAFA;
   padding:0 10px;
   font-family: 'Roboto Slab', serif;
+}
+
+.row.make-columns {
+    -moz-column-width: 19em;
+    -webkit-column-width: 19em;
+    -moz-column-gap: 1em;
+    -webkit-column-gap:1em;
+}
+
+.row.make-columns > div {
+    display: inline-block;
+    padding:  .5rem;
+    width:  100%;
 }
 
 .ep-white-bg {
@@ -577,7 +597,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .format-dd li[data-v-03b85949] a {
-  padding: 8px 0px 8px 0px;
+  padding: 6px 0px 6px 0px;
     display: block;
     color: #576574;
     padding-left: 10px;
@@ -593,14 +613,13 @@ a.text-primary:focus, a.text-primary:hover {
     height: 196px !important;
     overflow: hidden;
     margin: 0 4% 15px 4%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .slid-software-container {
-    height: 169px !important;
     overflow: hidden;
     margin: 0 4% 15px 4%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .slid-ref-container {
@@ -610,7 +629,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .slid-book-container {
-    height: 134px !important;
+    height: 100px !important;
     overflow: hidden;
 }
 
@@ -633,18 +652,19 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .hom-par-for-mar{
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.av-books{
+.av-books {
   width: 100%;
 }
+
 /* media queries for phone*/
 
 @media only screen and (max-width: 576px) {
     #logo-cont {
       text-align: center;
-      padding: 15%;
+      padding: 0% 15%;
       margin-top: 15px;
     }
 
@@ -698,11 +718,6 @@ a.text-primary:focus, a.text-primary:hover {
     display: none;
   }
 
-
-  .slid-software-container {
-    height: 184px !important;
-  }
-
   .slid-img-container {
     height: 235px !important;
   }
@@ -725,7 +740,7 @@ a.text-primary:focus, a.text-primary:hover {
 
 .title-heads{
   font-weight: bold;
-  background: #00838F;
+  background: #4D4D4D;
   padding: 5px 15px;
   color: white;
   margin-bottom: 10px;
@@ -856,18 +871,18 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .tit-sid-lst{
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .filter-badge {
-    font-weight: 500;
-    font-size: 14px;
-    border-radius: 2px;
-    background-color: #00838F;
-    color: #fff;
-    display: table;
-    float: left;
-    margin: 0 5px 10px 0;
+  font-weight: 500;
+  font-size: 14px;
+  display: table;
+  float: left;
+  margin: 0 5px 10px 0;
+  background-color: #00838F;
+  border-radius: 4em;
+  color: white;
 }
 
 .filter-badge__icon {
@@ -900,13 +915,16 @@ a.text-primary:focus, a.text-primary:hover {
 
 .filter-badge__remove-button:hover {
     cursor: pointer;
-    color: #fff;
-    background-color: #00BCD4;
+    color: #00BCD4;
 }
 
 .table-pagignation{
 	display: table;   /* Allow the centering to work */
 	margin: 0 auto;
+}
+
+.book-type{
+  color: #4D4D4D;
 }
 
 /* grid view */
@@ -929,16 +947,21 @@ a.text-primary:focus, a.text-primary:hover {
   padding: 5px 10px 5px 10px !important;
 }
 
-.grid-book-cont .book-label{
-  padding: 5px 15px;
+.grid-book-cont p {
+  padding: 1px 15px;
+  margin-bottom: 0px;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.grid-book-cont .book-label a{
+.grid-book-cont p a{
   color: #212529;
   font-weight: bold;
 }
 
-.grid-book-cont .book-label a:hover{
+.grid-book-cont p a:hover{
   text-decoration: none;
   color: #212529;
   font-weight: bold;
@@ -998,19 +1021,35 @@ a.text-primary:focus, a.text-primary:hover {
   font-size: 16px;
 }
 
-.list-book-cont .book-label{
+.list-book-cont p {
   position: absolute;
   padding: 0px;
-  top: 18%;
+  top: 13%;
   left: 25%;
+  overflow: visible;
+  text-overflow: clip;
+  width: auto;
 }
 
-.list-book-cont .book-label a{
+.book-type {
+    top: 24% !important;
+}
+
+/* .list-book-cont p {
+  padding: 3px 15px;
+  margin-bottom: 0px;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+} */
+
+.list-book-cont p a{
   color: #212529;
   font-weight: bold;
 }
 
-.list-book-cont .book-label a:hover{
+.list-book-cont p a:hover{
   text-decoration: none;
   color: #212529;
   font-weight: bold;
@@ -1068,10 +1107,6 @@ a.text-primary:focus, a.text-primary:hover {
 
   .tit-filter-btn{
     display: block;
-  }
-
-  .grid-book-cont .img-cont{
-    margin-top: 0px;
   }
 
   .page-link1 {
