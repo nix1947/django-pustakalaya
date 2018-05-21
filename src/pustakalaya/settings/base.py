@@ -67,6 +67,7 @@ THIRDPARTY_APPS = [
     'bootstrap_pagination',
     'admin_reorder',
     'django_cleanup',
+    'rest_framework',
 ]
 
 PUSTAKALAYA_APPS = [
