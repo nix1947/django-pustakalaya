@@ -216,6 +216,32 @@
           </div>
         </div>
       </div>
+
+      <div class="row" style="text-align: center;">
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_document}}</p>
+            <span>{% trans "Collection of Books" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_audio}}</p>
+            <span>{% trans "Collection of Audiobooks" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_video}}</p>
+            <span>{% trans "Collection of Videos" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_authors}}</p>
+            <span></span>{% trans "Number of Authors" %}</span>
+          </div>
+          
+        </div>
+
+        
     </div>
 </div>
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}

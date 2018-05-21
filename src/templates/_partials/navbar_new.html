@@ -18,7 +18,7 @@
                 <!-- logo get overflow here -->
                <a href="/">
                     <img class="logo"
-                style="cursor:pointer"
+                style="cursor:pointer; outline:none;"
                  src="{% static 'images_new/pustlogo.png' %}" alt="ole logo" />
                </a>
             </div>
@@ -545,7 +545,6 @@
         }
 
         $(".sbx-custom__reset  svg").on('click', function(){
-            // console.log($("#project"));
             $("#project").attr('value', '');
 
         });
