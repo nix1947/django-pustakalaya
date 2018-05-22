@@ -43,7 +43,7 @@
                         action="/search"
                         class="searchbox sbx-custom">
                             <div role="search" class="sbx-google__wrapper"  style="height:35px;">
-                              <div class="ole-custom-select">
+                                <div class="ole-custom-select">
                                     <select name="searchIn"
                                     onchange="setPadding()"
                                      id="searchIn">
@@ -59,11 +59,13 @@
                                       <option value="video"
                                       {% if  selected_doc_type == "video" %} selected {% endif %}
                                       >{% trans "Video" %}</option>
-                                      
+
                                     </select>
                                 </div>
 
-                
+
+
+
                             <style>
                             #project-label {
                                 display: block;
@@ -99,7 +101,7 @@
                                                 url:  '/search/completion/?suggest_text='+event.target.value,
                                                 dataType:"json",
                                                 success: function (data) {
-                    
+
                                                 data = JSON.parse(data);
 
                                                 var projects = []; // array
@@ -111,11 +113,11 @@
                                                     };
                                                     // Add to projects
 
-                                            
 
-                                                   projects.push(item);    
 
-                                                    
+                                                   projects.push(item);
+
+
                                                 }); // end for each
 
                                                 response(projects);
@@ -161,7 +163,7 @@
 
                                 if (event.keyCode === 13) {
 
-                                   
+
                                 }
                             }
                             })(window);
@@ -171,9 +173,9 @@
 
                             <input type="search" name="q"
                             placeholder="Search E-Pustakalaya"
-                            id="project" 
+                            id="project"
                             value="{{q}}"
-                            onkeypress="searchSuggestion(event);" 
+                            onkeypress="searchSuggestion(event);"
                             onkeyup="$.fn.getSuggestion(event)"
                             autocomplete="off" required="required" class="sbx-custom__input">
                             <button type="submit" title="Submit your search query." class="sbx-custom__submit">
@@ -321,7 +323,7 @@
                                     class="lang-name"
                                     style="padding-bottom: 5px; padding-top:5px; cursor:pointer; width:100%"
                                     >
-                        
+
                                         <img class="oleflags" src="{% if lang.0 == "ne" %}
                                         {% static 'images_new/nepal.png' %}
                                         {% endif %}
@@ -542,7 +544,7 @@
 
             // set the user selected languge to input field
             languageInputField.setAttribute('value', language_Code);
-            
+
             // submit the form.
             changeLanguageForm.submit();
         }
@@ -554,6 +556,6 @@
 
 
     })(window);
-    
-    
+
+
 </script>

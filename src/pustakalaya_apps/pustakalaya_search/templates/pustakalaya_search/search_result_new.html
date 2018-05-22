@@ -592,8 +592,12 @@
        elem.click();
        }
 
-      var  urlParams = parseURLParams(window.location.href);
+      var urlString = window.location.href;
+      var  urlParams = parseURLParams(urlString);
+      //console.log(JSON.parse(urlParams["form-filter"]))
+
       loopSelectedOption(JSON.parse(urlParams["form-filter"]));
+
 
 
     </script>
