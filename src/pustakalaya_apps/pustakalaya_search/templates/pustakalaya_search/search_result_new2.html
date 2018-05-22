@@ -1,0 +1,773 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load pustakalaya_filters %}
+{% load i18n %}
+
+
+{% block style %}
+
+    {{ block.super }}
+    <style>
+        .facet-element {
+            cursor: pointer;
+        }
+
+        label {
+            font-weight: normal !important;
+        }
+
+    </style>
+
+
+    <!-- css for grid view and list view-->
+    <style type="text/css">
+
+        .search_sidebar_style{
+        background-color: #00838f;
+        color: #fff;
+        }
+
+        #container ul {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container .buttons {
+            margin-bottom: 20px;
+        }
+
+        .list li, .grid li {
+            margin: 0px 0px 5px 5px;
+            /* here I can control the spacing */
+            padding: 5px;
+            color: #006596 !important;
+        }
+
+        .grid li {
+            float: left;
+            width: 22%;
+            background-color: #ececec;
+            margin-bottom: 10px;
+            border-radius: 2px;
+            margin-right: 19px;
+        }
+
+       /* li img {
+            width: 100%;
+        }
+        */
+
+
+        div > ul.list > li {
+            height: 130px;
+            margin-bottom: 5px !important;
+            background: #fafafa !important;
+            border: 1px dotted #999999;
+
+        }
+
+        .list > li > img {
+            height: 120px !important;
+            width: 120px;
+            border-radius: 5px;
+            padding-right: 15px;
+
+        }
+
+        .grid > li > img {
+            box-shadow: 4px 4px 4px #888;
+            height: 224px !important;
+            border-radius: 3px;
+
+        }
+
+        .grid > li > p {
+
+            padding: 5px;
+            padding-top:15px;
+            text-overflow: ellipsis;
+            width: 10px;
+            width: 170px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #006596 !important;
+        }
+
+        .grid > li > p:hover {
+            text-decoration: underline;
+        }
+
+        .list > li > p {
+            display: inline-block !important;
+            vertical-align: top;
+            color: #006596 !important;
+
+        }
+
+        .grid > li > span.view-count {
+            display: none;
+        }
+
+        .list-abstract {
+            display: inline-block;
+            position: absolute;
+            top: 30px;
+            left: 130px;
+        }
+
+        .grid > li > div.list-abstract {
+            display: none;
+        }
+ @media screen and (max-width: 765px)
+    {   /*small device (sd)*/
+
+    .small-device-hide-button{
+     display:none !important;
+    }
+    .small-device-hide-content{
+       display:none !important;
+      }
+      .small-device-full-width{
+      margin:5px!important;
+      padding:10px!important;
+
+      }
+
+     }/*close of small device*/
+@media screen and (min-width: 765px){
+
+    .medium-large-spacing{
+    margin-left:8.0rem;
+    margin-right:8.0rem;
+    }
+
+  }
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 310px) and (max-device-width : 480px) {
+
+.small-device-small-font{
+    font-size:80%;
+}
+
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+
+}
+
+    </style>
+
+{% endblock style %}
+
+
+{% block content %}
+
+
+
+<!--New design code-->
+
+<!-- all elements of home page is here -->
+<div class="main-contain">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 res-class">
+        <h5>Showing 1-24 of
+        {{ response.hits.total }} {% trans "results  in " %}
+              {{ time }} {% trans "sec" %}</h5>
+      </div>
+      <div class="col-md-5 offset-md-3 dd-pare">
+        <i class="fas fa-th-large ole-gr-lt-icon ole-gr-ly-active" style="margin-right: 15px;"></i>
+        <i class="fas fa-list ole-gr-lt-icon ole-gr-ly-inactive" style="margin-right: 35px;"></i>
+
+        <div class="form-group" style="display: inline;">
+          <label for="exampleSelect1" style="display: inline;">Sort By: </label>
+          <select class="form-control" id="tit-drpdn">
+            <option>Date Added</option>
+            <option>Popularity</option>
+            <option>Title</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 tit-filter-btn">
+        <p class="">Filter <i class="fas fa-filter" style="margin-left:10px;"></i></p>
+      </div>
+
+      <div class="col-md-3 tit-sid-lst">
+        <!-- category media type -->
+        <form class="" action="index.html" method="post">
+          {% if type %}
+          <div class="ep-white-bg" style="padding-bottom: 5px;">
+
+            <p class="title-heads">{% trans "Media type" %}</p>
+
+             {% for type, count, selected in response.facets.type %}
+            <div class="checkbox">
+              <label class="lab-cont" for="{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input type="checkbox">
+                <input id="{{ type }}" value="{{ type }}"
+                       {% if selected %} checked {% endif %}
+                       type="checkbox"
+                       onclick="queryAndFilter()">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+             {% endfor %}
+
+
+
+          </div>
+
+          {% endif %}
+
+          <!-- category keywords -->
+          {% if keywords %}
+          <div class="ep-white-bg"  id="keywords" style="margin-top: 15px; padding-bottom: 10px;">
+                  <p class="title-heads">{% trans "keywords" %}</p>
+                  <script>
+                     var keywords = "{{keywords_js|escapejs}}"
+                   </script>
+                  <!--<input placeholder="Filter keywords" class="form-control mb-2  ep-bg-white" type="text">-->
+                  <div id="keywords-filter" class="mr-5">
+                   <input type="text" v-model="search"
+                          placeholder="Filter keywords"
+                          class="form-control mb-2  ep-bg-white" />
+
+
+                  <div v-for="keyword in filteredKeywords">
+                        <!-- vuejs syntax to render name -->
+
+                        <div class="checkbox" id="myList">
+
+                            <label class="text-capitalize facet-element" :for="keyword.keyword">
+                                <%keyword.keyword %>
+                              <span class="text-muted">&nbsp;(<%keyword.count %>)</span>
+                              <input type="checkbox"
+                                    {% if selected %} checked {% endif %}
+                                   v-model="keyword.selected"
+                                   :id="keyword.keyword"
+                                   :value="keyword.keyword"
+                                   onclick="queryAndFilter()">
+
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                  </div>
+                  </div>
+
+          <!-- some script above here -->
+                          <!-- vue js implement -->
+              <script src="{% static 'base_assets/js/vue/vue.js' %}"></script>
+              <!-- vuejs app -->
+              <script>
+                  var app = new Vue({
+                      el: "#keywords-filter",
+                      delimiters: ["<%", "%>"],
+                      data: function () {
+                          return {
+                              search: '',
+                              keywords: JSON.parse(keywords).keywords
+                          };
+                      },
+                      computed: {
+                          filteredKeywords: function () {
+                              var self = this;
+                              return this.keywords.filter(function (keyword) {
+                                  return keyword.keyword.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
+                              });
+                              //return this.customers;
+                          },
+                      }
+                  });
+
+              </script>
+
+
+
+
+                  {% if keywords|length > 4 %}
+                  <a class="text-primary text-capitalize ole-btn-trans" style="cursor:pointer; margin-left: 10px; display: inline-block; margin-top: 10px;" id="loadMore">{% trans "more" %}</a>
+                  <a class="text-primary text-capitalize ole-btn-trans" style="cursor:pointer; margin-left: 10px;" id="loadMore">{% trans "less" %}</a>
+                  {% endif %}
+
+
+
+
+          </div>
+
+          {% endif %}
+
+          <!-- category language -->
+           <!-- Language facets -->
+          {% if languages %}
+          <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
+            <p class="title-heads">{% trans "language" %}</p>
+            {% for language, count, selected in languages %}
+            <div class="checkbox">
+              <label class="lab-cont" for="{{ language }}">{{ language }}
+                <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+
+          <!-- category education level -->
+          {% if education_levels %}
+          <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
+              <p class="title-heads">{% trans "Education Level" %}</p>
+
+              {% for type, count, selected in education_levels %}
+              <div class="checkbox">
+                <label class="lab-cont" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+                  <span class="text-muted">&nbsp;({{ count }})</span>
+                  <input id="{{ type }}" value="{{ type }}"
+                         {% if selected %} checked {% endif %}
+                         type="checkbox"
+                         onclick="queryAndFilter()">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              {% endfor %}
+          </div>
+          {% endif %}
+
+
+
+          <!-- category Communities -->
+          {% if collections %}
+          <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
+            <p class="title-heads">{% trans "Collections" %}</p>
+
+            {% for type, count, selected in collections %}
+            <div class="checkbox">
+              <label class="lab-cont"  for="{{ type }}">{{ type | transtolocal }}
+                <span class="text-muted">&nbsp;({{ count }})</span>
+                 <input id="{{ type }}" type="checkbox"
+                        {% if selected %} checked {% endif %}
+                        value="{{ type }}"
+                        onclick="queryAndFilter()">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            {% endfor %}
+          </div>
+
+          {% endif %}
+
+
+
+
+          <!-- category Liscene Type -->
+          {% if license_type %}
+          <div class="ep-white-bg" style=" margin-top: 15px; padding-bottom: 5px;">
+            <p class="title-heads">{% trans "License Type" %}</p>
+
+          {% for type, count, selected in license_type %}
+            <div class="checkbox">
+                <label class="lab-cont">{% blocktrans %} {{ type }} {% endblocktrans %}
+                  <span class="text-muted">&nbsp;({{ count }})</span>
+                   <input id="{{ type }}" type="checkbox"
+                          {% if selected %} checked {% endif %}
+                         value="{{ type }}"
+                         onclick="queryAndFilter()">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+
+        </form>
+
+      </div>
+
+
+      <div class="col-md-9">
+
+        {% if hits %}
+        <div class="row">
+
+          <!--Top section filter , grid list, -->
+          <div class="col-md-12 applied-filters" style="margin-top: 15px;">
+
+
+            <div class="filter-badge">
+              <input name="c" value="Framework :: AsyncIO" type="hidden">
+              <span class="filter-badge__icon">
+                <span class="sr-only">Filter</span>
+              </span>
+              <span class="filter-badge__description">Media Type :: Documents</span>
+              <button type="button" class="filter-badge__remove-button">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+                <span class="sr-only">Close</span>
+              </button>
+            </div>
+
+            <div class="filter-badge">
+              <input name="c" value="Framework :: AsyncIO" type="hidden">
+              <span class="filter-badge__icon">
+                <span class="sr-only">Filter</span>
+              </span>
+              <span class="filter-badge__description">Keywords :: Non-Fiction</span>
+              <button type="button" class="filter-badge__remove-button">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+                <span class="sr-only">Close</span>
+              </button>
+            </div>
+
+            <div class="filter-badge">
+              <input name="c" value="Framework :: AsyncIO" type="hidden">
+              <span class="filter-badge__icon">
+                <span class="sr-only">Filter</span>
+              </span>
+              <span class="filter-badge__description">Language :: English</span>
+              <button type="button" class="filter-badge__remove-button">
+                <i class="fas fa-times-circle" aria-hidden="true"></i>
+                <span class="sr-only">Close</span>
+              </button>
+            </div>
+
+
+            <span class="applied-filters__add-button">
+              <button type="button" class="-js-add-filter button button--small">Add filter</button>
+            </span>
+          </div>
+
+          <!-- this is for searchForm1 not used-->
+            <div>
+              <!-- include search form -->
+              <form method="GET" action="/search" id="searchForm1">
+
+                  <div class="input-group bg-white" style="display:none;">
+                      <input class="form-control" id="search_input"
+                             autocomplete="off"
+                             maxlength="200"
+                             value="{{ q }}"
+                             type="text" name="q" , placeholder="Search pustakalaya.."/>
+
+                      <!-- hidden type is very important don't remove it -->
+                      <input type="hidden" id="filterData"
+                             name="form-filter"/>
+
+                      <input type="submit" value="Search" class="input-group-addon paragraph-font pr-3 pl-3"
+                             id="search-icon"/>
+                  </div>
+              </form>
+
+            </div>
+          <!--end of searchForm1 -->
+
+          {% for hit in hits %}
+          {% if hit.published == "yes" %}
+          <div class="col-md-3 col-sm-6 col-6">
+            <div class="grid-book-cont">
+                  <div class="img-cont">
+
+                    {% if hit.thumbnail  %}
+
+                    <img class="shadow" src="{{ MEDIA_URL }}{{ hit.thumbnail }}"/>
+                    {% else %}
+                     {% if hit.type == "document"%}
+                      <img  src="{% static 'base_assets/img/book_image_default.png' %}"/>
+                     {% elif hit.type == "audio"%}
+                      <img  src="{% static 'base_assets/img/audio_book.png' %}"/>
+
+                     {% else %}
+                      <img class="shadow" src="{% static 'base_assets/img/video_book.png' %}"/>
+                    {% endif %}
+                    {% endif %}
+
+                  </div>
+                  <p class="book-label" id="_itemTitle">
+                      <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}" >
+                        {{ hit.title|truncatewords:11 }}
+                      </a>
+                  </p>
+                    <p class="book-type">
+                      {% if hit.type == "document"%}
+                        <i class="fa fa-book"></i> Document
+                      {% elif hit.type == "audio"%}
+                        <i class="fa fa-headphones"></i> Audiobook
+                       {% else %}
+                        <i class="fa fa-video"></i> Video
+                      {% endif %}
+                    </p>
+
+
+                  <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">
+                    {{ hit.abstract|truncatewords:40 }}
+                    <br>
+                    <strong class="text-black">{% trans "Views" %}:</strong>
+                    &nbsp;{{ hit.view_count }}
+                  </div>
+
+                <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}" style="cursor:pointer;">Read</a>
+
+            </div>
+          </div>
+          {% endif %}
+           {% endfor %}
+
+        </div>
+
+        {% else %}
+        <div>
+              <div class="row min_height">
+                  <div class="col-md-2"></div>
+                  <div class=" col-md-8 search">
+                      <p class="text-capitalize text-danger text-center">{% trans "result not found for" %}&nbsp; <span class="text-primary">{{q}}<span></span></p>
+                      <!--{% include "_partials/search_form.html" %}-->
+
+                  </div>
+                  <div class="col-md-2"></div>
+              </div>
+
+          </div>
+
+      {% endif %}
+      </div>
+
+    </div>
+
+
+<!--end of new design -->
+
+{% endblock content %}
+
+
+<!-- script blocks -->
+{% block script %}
+    <!-- Inherit base scripts -->
+    {{ block.super }}
+    <!-- inject custom script for this page -->
+    <script>
+        function queryAndFilter() {
+
+            // Grab the input field
+            var q = $("#search_input").val() || " ";
+            var type = [];
+            var languages = [];
+            var education_levels = [];
+            var communities = [];
+            var collections = [];
+            var keywords = [];
+            var license_type = [];
+            // var publication_year = []
+            // var year_of_available = []
+
+            // grab type fields
+            $('#filter, #type input:checked').each(function () {
+                type.push($(this).val());
+            });
+
+            // grab language fields
+            $('#filter, #languages input:checked').each(function () {
+                languages.push($(this).val());
+            });
+
+            // grab education levels
+            $('#filter, #education_levels input:checked').each(function () {
+                education_levels.push($(this).val());
+                console.log($(this).val());
+            });
+
+            // grab communities
+            $('#filter, #communities input:checked').each(function () {
+                communities.push($(this).val());
+            });
+
+            // grab collections
+            $('#filter, #collections input:checked').each(function () {
+                collections.push($(this).val());
+            });
+
+            // grab keywords
+            $('#filter, #keywords input:checked').each(function () {
+                keywords.push($(this).val());
+            });
+
+            // grab license type
+            $('#filter, #license_type input:checked').each(function () {
+                license_type.push($(this).val());
+            });
+
+
+            // Filters
+            filters = {
+                "type": type,
+                "languages": languages,
+                "education_levels": education_levels,
+                "communities": communities,
+                "collections": collections,
+                "keywords": keywords,
+                "license_type": license_type,
+
+            }
+
+            // construct the query
+            var query = {
+                'q': q,
+                'filters': filters
+            }
+
+            // set the hidden field value
+            $('#searchForm1, #filterData').val(JSON.stringify(filters));
+
+            // Submit the form.
+
+            $("#searchForm1").submit();
+
+
+        }
+
+    </script>
+
+
+    <script>
+
+        /*Showing and hiding element*/
+
+        $(document).ready(function () {
+            var size_li = $('#keywords-filter #myList').length;
+            x = 5;
+            //console.log('x: '+x);
+            //console.log('size: '+size_li);
+
+
+            /* assume two classes hideItem and showItem */
+            var i = 0;
+            HideShow(x, i);
+
+            $('#loadMore').click(function () {
+                x = (x + 5 <= size_li) ? x + 5 : size_li;
+                i = 0;
+                HideShowMoreLessClick(x, i, size_li);
+            });
+            $('#showLess').click(function () {
+                x = (x - 5 <= 0) ? 3 : x - 5;
+                i = 0;
+                HideShowMoreLessClick(x, i, size_li);
+            });
+
+            function HideShow(x, i) {
+                /* Initially hide item */
+                if (x == 5) {
+                    $('#showLess').hide();
+                }
+                $('#keywords-filter #myList').each(function () {
+                    return $(this).addClass('hideItem')
+                })
+                $('#keywords-filter #myList').each(function () {
+                    if (i < x) {
+                        i++;
+                        return $(this).removeClass('hideItem');
+                    }
+                })
+
+                $('#keywords-filter .showItem').show();
+                $('#keywords-filter .hideItem').hide();
+
+            }
+
+            function HideShowMoreLessClick(x, i, actual_size) {
+                /* Initially hide item */
+                $('#keywords-filter #myList').each(function () {
+                    return $(this).removeClass('hideItem')
+                })
+                $('#keywords-filter #myList').each(function () {
+                    return $(this).removeClass('showItem')
+                })
+                $('#keywords-filter #myList').each(function () {
+                    return $(this).addClass('hideItem')
+                })
+                /* remove some of the hide */
+                $('#keywords-filter #myList').each(function () {
+                    if (i < x) {
+                        i++;
+                        return $(this).removeClass('hideItem');
+                    }
+                })
+                //add the show item form filter element
+                i = 0;
+                $('#keywords-filter #myList').each(function () {
+                    if (i < x) {
+                        i++;
+                        return $(this).addClass('showItem');
+                    }
+                })
+                $('#keywords-filter .showItem').show();
+                $('#keywords-filter .hideItem').hide();
+
+                //for show less
+                if (x <= 3) {
+                    $('#showLess').hide();
+                } else {
+                    $('#showLess').show();
+                }
+
+                //for show more
+                if (x == actual_size) {
+                    $('#loadMore').hide();
+                } else {
+                    $('#loadMore').show();
+                }
+
+            }
+
+        });
+
+
+    </script>
+
+    <!--Script for list view and grid view-->
+    <script type="text/javascript">
+        $('button').on('click', function (e) {
+            if ($(this).hasClass('grid')) {
+                // In case of grid view. Trim the title
+                $('#container ul.list').removeClass('list').addClass('grid');
+
+
+            } else if ($(this).hasClass('list')) {
+                $('#container ul.grid').removeClass('grid').addClass('list');
+                // In case of list view restore the title text.
+                $("#_itemTitle").text(itemTitle)
+
+            }
+        });
+
+    </script>
+
+<script>
+
+$('.sbx-google__wrapper ').children('input.sbx-google__input-placeholder').attr("placeholder","");
+$('.sbx-google__wrapper ').children('input[name="qar"]').val("{{q|safe}}");
+</script>
+
+
+{% endblock script %}
+
+

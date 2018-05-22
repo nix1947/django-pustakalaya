@@ -202,7 +202,7 @@ $(".select-items div").click(function(){
 
 
 function setPadding() {
-    // script to set the padding of search bar 
+    // script to set the padding of search bar
   var conceptName = $('#searchIn').find(":selected").val();
   var searchBox =  $("#project");
 
@@ -220,5 +220,4 @@ function setPadding() {
   if (conceptName === "video") {
     searchBox.css("padding-left", forPadd);
   }
-} 
-
+}

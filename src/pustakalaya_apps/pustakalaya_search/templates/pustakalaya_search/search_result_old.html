@@ -444,43 +444,7 @@
                         </div>
                     {% endif %}
 
-                    <!-- year of available -->
-                    {% comment %}
-                        {% if year_of_available %}
-                            <div class="row" id="checkRadios">
-                                <div class="col-sm-12 col-lg-12">
-                                    <p class="text-capitalize font-weight-bold text-dark">{% trans "year of available" %}</p>
-                                    {% for type, count, selected in year_of_available %}
-                                        <div class="checkbox">
-                                            <input id="{{ type }}" type="checkbox">
-                                            <label class="text-capitalize" for="{{ type }}">
-                                                {% blocktrans %} {{ type }} {% endblocktrans %} <span
-                                                    class="badge badge-default">{{ count }}</span>
-                                            </label>
-                                        </div>
-                                    {% endfor %}
-                                </div><!-- end col-sm-12 -->
-                            </div>
-                        {% endif %}
 
-
-                        <!-- publication year -->
-                        {% if publication_year %}
-                            <div class="row" id="checkRadios">
-                                <div class="col-sm-12 col-lg-12">
-                                    <p class="text-capitalize font-weight-bold text-dark">{% trans "publication year" %}</p>
-                                    {% for type, count, selected in publication_year %}
-                                        <div class="checkbox">
-                                            <input id="{{ type }}" type="checkbox">
-                                            <label class="text-capitalize" for="{{ type }}">
-                                                {% blocktrans %} {{ type }} {% endblocktrans %}
-                                            </label>
-                                        </div>
-                                    {% endfor %}
-                                </div>&lt;!&ndash; end col-sm-12 &ndash;&gt;
-                            </div>
-                        {% endif %}
-                    {% endcomment %}
 
                 </div>
 
@@ -558,59 +522,17 @@
 
                             {% endfor %}
                         </ul>
+
+                        <!--This is for pagination inside container-->
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
                                 {% include '_partials/pagination.html' %}
                             </div>
                         </div>
+                      <!--End of pagination-->
                     </div>
 
-                    <!-- Result container -->
-                    {% comment %}
-                        <div class="row">
-                            <div class="col-md-9"></div>
-                            <div class="col-md-3 mb-3">
-                                <a href="#" id="list" class="myId_btn text-primary myId_btn-default myId_btn-sm">
-                                    <i class="fa fa-list text-primary">
-                                    </i>&nbsp;List</a>
-                                <a href="#" id="grid" class="myId_btn myId_btn-default text-primary myId_btn-sm">
-                                    <i class="fa fa-th text-primary"></i>&nbsp;Grid</a>
-                            </div>
 
-                        </div>
-                        <div class="row">
-                            <div id="products" class="myId_row myId_list-group">
-                                {% for hit in hits %}
-                                    <a href="{% url hit.type|add:':detail' hit.title|slugify hit.id %}"
-                                       style="text-decoration:none;" class="text-dark">
-                                        <div class="myId_item  myId_col-md-4 myId_col-xs-12">
-                                            <div class="myId_thumbnail">
-                                                <img class="myId_group myId_list-group-image"
-                                                     src="{{ MEDIA_URL }}{{ hit.thumbnail }}"
-                                                     title="{{ hit.title }}"
-                                                     style="height:230px !important;"
-                                                     alt="{{ hit.title }}"/>
-                                                <div class="myId_caption ">
-                                                    <h4 class="myId_group myId_inner  text-primary text-center">
-                                                      {{ hit.title }}</h4>
-                                                    <p class="myId_group myId_inner text-justify myId_list-group-item-text">
-                                                        {{ hit.abstract |truncatechars:"200" }}</p>
-                                                    <div class="myId_row">
-                                                        <div class="myId_col-xs-12 myId_col-md-6">
-
-                                                        </div>
-                                                        <div class="myId_col-xs-12 myId_col-md-6">
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endcomment %}
                 </div>
 
             {% else %}
