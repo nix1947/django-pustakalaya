@@ -51,10 +51,6 @@ $(document).ready(function(){
         this.classList.toggle("select-arrow-active");
       });
   }
-  setPadding();
-
-
-
   function closeAllSelect(elmnt) {
     /*a function that will close all select boxes in the document,
     except the current select box:*/
@@ -191,34 +187,23 @@ $(".tit-filter-btn").click(function(){
   $(".tit-sid-lst").toggle();
 });
 
+$( ".select-items div:eq(0)" ).trigger( "click" );
+
+setTimeout(function(){
+  changePadding();
+
+},2000);
+
 $(".select-items div").click(function(){
-  var forPadd;
-  forPadd = $(".ole-custom-select").width();
-  forPadd = forPadd + 10;
-  $(".sbx-custom__input").css("padding-left", forPadd + "px");
+  changePadding();
 });
 
-});
-
-
-function setPadding() {
-    // script to set the padding of search bar 
-  var conceptName = $('#searchIn').find(":selected").val();
-  var searchBox =  $("#project");
-
+function changePadding(){
   var forPadd = 0;
   forPadd = $(".ole-custom-select").width();
   forPadd = forPadd + 10;
+  console.log(forPadd);
+  $(".sbx-custom__input").css("padding-left", forPadd + "px");
+}
 
-  if (conceptName === "audio") {
-    searchBox.css("padding-left", forPadd);
-  }
-
-  if (conceptName === "document") {
-    searchBox.css("padding-left", forPadd);
-  }
-  if (conceptName === "video") {
-    searchBox.css("padding-left", forPadd);
-  }
-} 
-
+});

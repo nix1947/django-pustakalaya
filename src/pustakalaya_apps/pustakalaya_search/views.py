@@ -15,30 +15,30 @@ def search(request):
     # Query string from user input
     query_string = " "
 
-    # default item types 
+    # default item types
     item_types = ["document", "audio", "video"]
 
     if request.method == "GET":
         # Grab query from form.
         query_string = request.GET.get('q')
 
-        # Grab the default search index. 
+        # Grab the default search index.
         item_type_to_search = request.GET.get('searchIn', 'all')
 
         if item_type_to_search == "document":
             search_in = ["document"]
-        
+
         elif item_type_to_search == "audio":
             search_in = ["audio"]
-        
+
         elif item_type_to_search == "video":
             search_in = ["video"]
-        
+
         else:
             # Default is search
             search_in = item_types
 
-    
+
         # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
@@ -49,11 +49,11 @@ def search(request):
 
             }
 
-        # Search in elastic search 
+        # Search in elastic search
         search_obj = PustakalayaSearch(search_in,query=query_string, filters=filters)
 
-        
-       
+
+
 
         data = search_obj
         results = data.execute()
@@ -148,7 +148,7 @@ def search(request):
         # for (month, count, selected) in response.facets.publication_year:
         #     print(month.strftime('%B %Y'), ' (SELECTED):' if selected else ':', count)
 
-        return render(request, "pustakalaya_search/search_result.html", search_result)
+        return render(request, "pustakalaya_search/search_result_new.html", search_result)
 
 
 def completion(request):
