@@ -6,7 +6,8 @@ class FeedBackForm(forms.Form):
     name = forms.CharField(
         max_length=50,
         label=_("Name"),
-        widget=forms.TextInput(attrs={
+        required=False,
+        widget=forms.HiddenInput(attrs={
             'autocomplete': 'off',
             'class': 'form-control',
             'placeholder': _("Your name")
@@ -24,7 +25,7 @@ class FeedBackForm(forms.Form):
     country = forms.CharField(
         label=_("Country"),
         required=False,
-        widget=forms.TextInput(
+        widget=forms.HiddenInput(
             attrs={
                 'autocomplete': 'off',
                 'class': 'form-control',
@@ -36,7 +37,7 @@ class FeedBackForm(forms.Form):
     address = forms.CharField(
         label=_("Address"),
         required=False,
-        widget=forms.TextInput(
+        widget=forms.HiddenInput(
             attrs={
                 'autocomplete': 'off',
                 'class': 'form-control',

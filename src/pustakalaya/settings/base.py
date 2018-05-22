@@ -67,6 +67,7 @@ THIRDPARTY_APPS = [
     'bootstrap_pagination',
     'admin_reorder',
     'django_cleanup',
+    'rest_framework',
 ]
 
 PUSTAKALAYA_APPS = [
@@ -370,6 +371,12 @@ CELERY_TIMEZONE = 'Asia/Kathmandu'
 
 # Django logging settings
 LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
+
+# Django restframework  settings
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 1
+}
 
 # LOGGING = {
 #     'version': 1,

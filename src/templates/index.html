@@ -21,9 +21,9 @@
 <div class="main-contain">
   <div class="container">
       <div class="row" style="margin-bottom: 20px;">
-        <div class="col-md-3">
+        <div class="col-md-3 hom-par-for-mar">
           <div class="container-fluid ep-white-bg cat-cont" style="padding: 0px !important;">
-            <h6 style="background:#4D4D4D; color:#fff; font-family: 'Roboto Slab', serif; padding: 10px 10px 10px 15px;">Browse By Categories</h6>
+            <h6 style="background:#4D4D4D; color:#fff; font-family: 'Roboto Slab', serif; padding: 10px 10px 10px 15px;">{% trans "Browse By Categories" %}</h6>
 
             <ul data-v-03b85949="" class="format-dd">
               <li data-v-03b85949="" class="format-option"><a href="/community/literatures-and-arts/" class="text-capitalize">
@@ -42,11 +42,11 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="container ep-white-bg">
+        <div class="col-md-9 hom-par-for-mar">
+          <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <h6 class="text-btn-lines"><span>{% trans "Popular Titles" %}</span></h6>
+                <h6 class="text-btn-lines"><span>{% trans "Featured Titles" %}</span></h6>
               </div>
             </div>
             <div class="row">
@@ -100,18 +100,17 @@
           </div>
 
         </div>
-      </div>
-      <div class="row" style="margin-bottom: 20px;">
-        <div class="col-md-3">
-            <div class="container ep-white-bg" style="height: 100%; padding: 0px;">
-                <a href="https://pustakalaya.org/epaath/" target="_blank"><img style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
+        <div class="col-md-3 hom-par-for-mar">
+            <div class="container " style="padding: 0px;">
+                <p class="title-heads" style="margin-bottom: 0px;">E-Paath</p>
+                <a href="https://pustakalaya.org/epaath/" target="_blank"><img  style="width: 100%;" src="{% static 'images_new/sliding-images.gif' %}" alt="ole logo"></a>
                 </div>
         </div>
-        <div class="col-md-9">
-          <div class="container ep-white-bg">
+        <div class="col-md-9 hom-par-for-mar">
+          <div class="container ">
             <div class="row">
               <div class="col-md-12">
-                <h6 class="text-btn-lines"><span>{% trans "Other Learning Softwares" %}</span></h6>
+                <h6 class="text-btn-lines"><span>{% trans "Educational Softwares" %}</span></h6>
               </div>
             </div>
             <div class="row">
@@ -162,24 +161,22 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="container ep-white-bg" style="height: 50%; padding: 0px;">
+        <div class="col-md-3 hom-par-for-mar">
+          <div class="container" style="padding: 0px;">
             <a href='/search/?q=&form-filter={"type":["audio"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
-                <img  src="{% static 'images_new/audio_books.png' %}" alt="ole logo">
+                <img class="av-books"  src="{% static 'images_new/audio_books.png' %}" alt="ole logo">
             </a>
 
           </div>
-          <div class="container ep-white-bg" style="height: 50%;  padding: 0px;">
+          <div class="container " style="padding: 0px;">
               <a href='/search/?q=&form-filter={"type":["video"],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":[],"license_type":[]}'>
-                  <img  src="{% static 'images_new/educational_video.png' %}" alt="ole logo">
+                  <img class="av-books"  src="{% static 'images_new/educational_video.png' %}" alt="ole logo">
               </a>
           </div>
         </div>
 
-        <div class="col-md-9">
-          <div class="container ep-white-bg">
+        <div class="col-md-9 hom-par-for-mar">
+          <div class="container ">
             <div class="row">
               <div class="col-md-12">
                 <h6 class="text-btn-lines"><span>{% trans "Reference Sites" %}</span></h6>
@@ -219,6 +216,32 @@
           </div>
         </div>
       </div>
+
+      <div class="row" style="text-align: center;">
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_document}}</p>
+            <span>{% trans "Collection of Books" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_audio}}</p>
+            <span>{% trans "Collection of Audiobooks" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_video}}</p>
+            <span>{% trans "Collection of Videos" %}</span>
+          </div>
+
+          <div class="col-md-3 col-12">
+            <p class="home-stats">{{total_authors}}</p>
+            <span></span>{% trans "Number of Authors" %}</span>
+          </div>
+          
+        </div>
+
+        
     </div>
 </div>
 {% endblock content %} {% block script %} {{ block.super }} {% endblock script %}

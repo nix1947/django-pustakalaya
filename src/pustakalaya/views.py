@@ -2,8 +2,12 @@ import os
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import FeedBackForm
 from django.conf import settings
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
+from rest_framework.response import Response
+from .forms import FeedBackForm
+
 
 
 def change_language(request):
@@ -32,9 +36,6 @@ def feedback(request):
                 </b>
 
             """.format(name, location, email, country, suggestion)
-
-            print(name, location, email, country, suggestion)
-
             try:
                 # send_mail(
                 #     subject="Feedback Message",
@@ -59,3 +60,13 @@ def feedback(request):
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect("/")
     return render(request, "static_pages/feedback.html", {'form': form})
+
+
+@api_view(['GET'])
+def api_v1_root_view(request, format=None):
+     return Response({
+       'documents':reverse('api_v1:document_list', request=request, format=format),
+       'audios': reverse('api_v1:audio_list', request=request, format=format),
+       'videos': reverse('api_v1:video_list', request=request, format=format),
+       'collections': reverse('api_v1:collection-list', request=request, format=format),
+    })

@@ -40,7 +40,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes").order_by("hit_count_generic__hits")[:4]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")
 
 
 class Document(AbstractItem, HitCountMixin):
