@@ -314,13 +314,14 @@
                     <img   src="{{ MEDIA_URL }}{{ hit.thumbnail }}"/>
                     {% else %}
                      {% if hit.type == "document"%}
-                      <img  src="{% static 'base_assets/img/book_image_default.png' %}"/>
+                      <img  src="{% static 'images_new/book_thumnail.png' %}"/>
                      {% elif hit.type == "audio"%}
-                      <img  src="{% static 'base_assets/img/audio_book.png' %}"/>
+                      <img  src="{% static 'images_new/audio_thumnail.png' %}"/>
                      {% else %}
-                      <img  src="{% static 'base_assets/img/video_book.png' %}"/>
+                      <img  src="{% static 'images_new/video_thumnail.png' %}"/>
                       {% endif %}
                       {% endif %}
+
 
                   </div>
                   <p class="book-label"> <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
