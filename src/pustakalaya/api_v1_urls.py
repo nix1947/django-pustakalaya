@@ -25,6 +25,7 @@ from pustakalaya_apps.collection.api.v1.views import (
     collection_detail
 )
 
+
 # All API v1 based urls goes here. 
 urlpatterns = [
     # Entry point for urls 
@@ -79,8 +80,6 @@ urlpatterns += [
 
 
 # Endpoints for api .
-
-
 schema_view = get_schema_view(title='Pustakalaya API')
 
 urlpatterns += [

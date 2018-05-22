@@ -7,7 +7,7 @@ from rest_framework import renderers
 
 class CollectionViewSet(viewsets.ModelViewSet):
     """
-    This viewset automatically provides `list`, `create`, `retrieve`,
+     Collection endpoint to  `list`, `create`, `retrieve`,
     `update` and `destroy` actions for Collection model
     """
     queryset = Collection.objects.all()

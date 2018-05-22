@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from pustakalaya_apps.audio.models import Audio
 from rest_framework.views import APIView
+from rest_framework.pagination import PageNumberPagination
 from .serializers import AudioSerializers
 
 
@@ -11,10 +12,14 @@ class AudioList(APIView):
     List all audio, or create a new audio.
     """
     def get(self, request, format=None):
+        pagination_class = PageNumberPagination 
+        paginator = PageNumberPagination()
+        paginator.page_size = 1
         audios = Audio.objects.all()
-        serializer = AudioSerializers(audios, many=True)
-        return Response(serializer.data)
-
+        page = paginator.paginate_queryset(audios, request)
+        serializer = AudioSerializers(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+        
 
     def post(self, request, format=None):   
         serializer = AudioSerializers(data=request.data)

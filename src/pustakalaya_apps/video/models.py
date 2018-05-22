@@ -28,7 +28,7 @@ from pustakalaya_apps.core.models import (
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:2]
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes").order_by("-updated_date")[:3]
 
 
 class Video(AbstractItem):

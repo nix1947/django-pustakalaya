@@ -40,7 +40,7 @@ def __file_upload_path(instance, filepath):
 
 class FeaturedItemManager(models.Manager):
     def get_queryset(self):
-        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")
+        return super(FeaturedItemManager, self).get_queryset().filter(published="yes", featured="yes")[:3]
 
 
 class Document(AbstractItem, HitCountMixin):
@@ -446,8 +446,6 @@ class DocumentLinkInfo(LinkInfo):
 
     class Meta:
         ordering=['created_date']
-
-
 
 
 class DocumentIdentifier(AbstractTimeStampModel):

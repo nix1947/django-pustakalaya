@@ -1,20 +1,31 @@
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
 from .serializers import DocumentSerializer
-from pustakalaya_apps.document.models import Document
+from pustakalaya_apps.document.models import (
+    Document,
+    DocumentFileUpload,
+    DocumentLinkInfo
+)
 
 @api_view(['GET', "POST"])
 def document_lists(request, format=None):
     """
-    Return list of documents
+    Endpoint to get list of documents and 
+    to create a document
     """
-    if request.method == 'GET':
-        documents = Document.objects.all()
-        serializer = DocumentSerializer(documents,many=True)
-        return Response(serializer.data)
     
+    if request.method == 'GET':
+        pagination_class = PageNumberPagination 
+        paginator = PageNumberPagination()
+        paginator.page_size = 1
+        documents = Document.objects.all()
+        page = paginator.paginate_queryset(documents, request)
+        serializer = DocumentSerializer(page, many=True)
 
+        return paginator.get_paginated_response(serializer.data)
+    
     elif request.method == 'POST':
         serializer = DocumentSerializer(data=request.data)
     if serializer.is_valid():
@@ -26,7 +37,7 @@ def document_lists(request, format=None):
 @api_view(['GET', 'PUT', 'DELETE'])
 def document_detail(request, pk, format=None):
     """
-    Retrieve document 
+    API endpoint to retrive and update a document. 
     """
     try:
         document = Document.objects.get(pk=pk)
