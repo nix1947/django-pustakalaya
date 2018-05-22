@@ -25,7 +25,6 @@ from pustakalaya_apps.collection.api.v1.views import (
     collection_detail
 )
 
-
 # All API v1 based urls goes here. 
 urlpatterns = [
     # Entry point for urls 

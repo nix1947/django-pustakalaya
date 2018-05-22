@@ -69,4 +69,5 @@ def api_v1_root_view(request, format=None):
        'audios': reverse('api_v1:audio_list', request=request, format=format),
        'videos': reverse('api_v1:video_list', request=request, format=format),
        'collections': reverse('api_v1:collection-list', request=request, format=format),
+       'search': 'elasticsearch/pustakalaya/_search'
     })
