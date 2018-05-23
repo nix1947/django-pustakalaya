@@ -6,6 +6,7 @@ body{
 
 a:hover {
   color: #00BCD4;
+  text-decoration: none;
 }
 a {
   color: #00838F;
@@ -89,6 +90,7 @@ a {
   padding: 6px 12px;
   border-radius: 0.2em;
   color: #fff !important;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .ole-btn:hover{
@@ -100,6 +102,7 @@ a {
   padding: 2px 9px;
   border-radius: 0.2em;
   color: #212529 !important;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .ole-btn-trans:hover{
@@ -158,7 +161,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 #menu a:link,
-#menu a:visited, #menu .lang-swi {
+#menu a:visited , #menu .lang-swi {
     display: block;
     text-align: left;
     text-decoration: none;
@@ -176,9 +179,10 @@ a.text-primary:focus, a.text-primary:hover {
     display: block;
 }
 
-#menu li a:hover, #menu .lang-swi:hover {
+#menu li a:hover , #menu .lang-swi:hover {
   color: #00BCD4 !important;
 }
+
 
 
 #menu .dropdown-items a{
@@ -431,7 +435,6 @@ a.text-primary:focus, a.text-primary:hover {
 
 .main-contain{
   width: 100%;
-
 }
 
 .dropdown-all {
@@ -623,6 +626,7 @@ a.text-primary:focus, a.text-primary:hover {
     overflow: hidden;
     margin: 0 4% 15px 4%;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
 }
 
 .slid-ref-container {
@@ -661,7 +665,9 @@ a.text-primary:focus, a.text-primary:hover {
 .av-books {
   width: 100%;
   height: 76px;
-
+}
+.col-md-3.det-img-cont {
+    text-align: center;
 }
 
 /* media queries for phone*/
@@ -839,7 +845,7 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .ole-gr-lt-icon{
-  font-size: 25px;
+  font-size: 25px !important;
 }
 
 .ole-gr-ly-active{
@@ -1128,6 +1134,7 @@ a.text-primary:focus, a.text-primary:hover {
 
 .det-img-cont img{
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 /* details page */
@@ -1142,4 +1149,48 @@ a.text-primary:focus, a.text-primary:hover {
 
 .container-breadcrum a{
   color: inherit;
+}
+
+._1dlNCg {
+    margin-bottom: 1rem;
+}
+
+._1MVZfW ._1dlNCg {
+  cursor: pointer;
+  display: inline-block;
+}
+
+._2beYZw {
+  background-color: #FFAF25;
+}
+.hGSR34 {
+  line-height: normal;
+  display: inline-block;
+  color: #fff;
+  padding: 2px 4px 2px 4px;
+  border-radius: 3px;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.niH0FQ ._38sUEc {
+  padding-left: 8px;
+  font-weight: 500;
+  color: #878787;
+}
+
+.det-fav-active{
+  color: #D65A49;
+}
+
+.det-rev-active{
+  color: #0FB15B;
+}
+
+.det-fav-added{
+  background: #D65A49 !important;
+  color: white !important;
+}
+.det-fav-added .det-fav-active{
+  color: white;
 }

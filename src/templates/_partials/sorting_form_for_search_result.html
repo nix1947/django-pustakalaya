@@ -1,0 +1,94 @@
+{% load static %}
+{% load i18n %}
+<form action="" id="sortingForm" style="display:inline-block" method="GET">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
+          <select class="form-control form-control-sm" name="sort_by">
+              <option class="text-capitalize" value="title.keyword" readonly
+                      {% if sort_by == "title.keyword" %} selected {% endif %}>{% trans "Title" %}
+              </option>
+              <option class="text-capitalize"
+                      value="updated_date" readonly
+                      {% if sort_by == "updated_date" %} selected {% endif %}>{% trans "updated date" %}
+              </option>
+              <option class="text-capitalize" value="view_count" readonly
+                      {% if sort_by == "view_count" %} selected {% endif %}>{% trans "Popularity" %}
+              </option>
+
+        </select>
+      <input type="hidden" name = "form-filter" id="filter_form">
+      <input type="hidden" name = "q" id="q_filter">
+
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12 pr-1">
+        <select class="form-control form-control-sm form-control-xs" name="sort_order">
+            <option class="text-capitalize" value="asc"
+                    {% if sort_order == "asc" %} selected {% endif %} >{% trans "Ascending" %}
+            </option>
+            <option class="text-capitalize" value="desc" {% if sort_order == "desc" %} selected {% endif %} >
+            {% trans "Descending" %}
+            </option>
+      </select>
+    </div>
+  </div>
+  <!-- sort based on descendingascending -->
+
+</form>
+
+
+<script>
+    // Script to send the request to controller
+    (function (window) {
+
+          /*For decoding the url into dictionary parameter */
+        function parseURLParamsForSort(url) {
+            var queryStart = url.indexOf("?") + 1,
+                queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+                query = url.slice(queryStart, queryEnd - 1),
+                pairs = query.replace(/\+/g, " ").split("&"),
+                parms = {}, i, n, v, nv;
+
+            if (query === url || query === "") return;
+
+            for (i = 0; i < pairs.length; i++) {
+                nv = pairs[i].split("=", 2);
+                n = decodeURIComponent(nv[0]);
+                v = decodeURIComponent(nv[1]);
+
+                    if (!parms.hasOwnProperty(n)) parms[n] = [];
+                    parms[n].push(nv.length === 2 ? v : null);
+                }
+                return parms;
+            }  // END parseURLParams
+
+
+
+        var sortForm = document.getElementById("sortingForm");
+        var sort_by = sortForm.elements.sort_by;
+        var sort_order = sortForm.elements.sort_order;
+
+        var vform =document.getElementById("filter_form");
+        var vq =document.getElementById("q_filter");
+
+
+        var url = window.location.href;
+        var filteredValue = parseURLParamsForSort(url);
+
+        var form_filter_value = filteredValue["form-filter"] || JSON.stringify({});
+
+        var q_val =filteredValue["q"] || "";
+
+        vform.setAttribute("value",form_filter_value);
+        vq.setAttribute("value",q_val);
+
+
+        sortForm.onchange = function () {
+            // OnChange sort_by or sort_order reload the pag
+            sortForm.submit();
+        }
+
+
+    })(window);
+
+</script>
+

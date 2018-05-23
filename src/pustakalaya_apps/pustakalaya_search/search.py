@@ -13,11 +13,13 @@ from elasticsearch_dsl import (
 
 class PustakalayaSearch(FacetedSearch):
 
-    def __init__(self, search_types, *args, **kwargs):
+    def __init__(self, search_types, sort_values, *args, **kwargs):
         # Doc types to search
         self.doc_types = search_types
+        self.sort_values = sort_values
+        self.filter_values = kwargs.get('filters')
         super(PustakalayaSearch, self).__init__(*args, **kwargs)
-  
+
     index = settings.ES_INDEX
     # Boost values
     fields = [
@@ -51,6 +53,11 @@ class PustakalayaSearch(FacetedSearch):
 
     def search(self):
         # override methods to add custom pieces
-        s = super().search().query("match", published="yes")
+        s = super(PustakalayaSearch,self).search().query("match", published="yes")
+        s.filter(**self.filter_values)
+        # s.sort({'title.keyword': {"order": "asc"}})
         return s
 
+
+    # def sort(self, search):
+    #     return self.search().sort(*self.sort_values)

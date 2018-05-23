@@ -22,6 +22,7 @@ def search(request):
         # Grab query from form.
         query_string = request.GET.get('q')
 
+
         # Grab the default search index.
         item_type_to_search = request.GET.get('searchIn', 'all')
 
@@ -42,6 +43,7 @@ def search(request):
         # Get Form filters.
         try:
             filters = json.loads(request.GET.get("form-filter", {}))
+            print(filters)
 
         except (TypeError, JSONDecodeError):
             # Query all the published data only
@@ -49,11 +51,27 @@ def search(request):
 
             }
 
+        order_by = request.GET.get('sort_order') or 'asc'
+        # print(order_by)
+        sort_by = request.GET.get('sort_by') or 'title.keyword'
+        # print(sort_by)
+
+
+
+        sort_values = [
+            {sort_by: {"order": order_by}},
+            {"updated_date": {"order": order_by}},
+            {"view_count": {"order": order_by}},
+            'updated_date',
+            'view_count',
+        ]
+
         # Search in elastic search
-        search_obj = PustakalayaSearch(search_in,query=query_string, filters=filters)
+        search_obj = PustakalayaSearch(search_in, sort_values,
 
-
-
+                                       query=query_string, filters=filters,
+                                       sort=sort_values
+                                       )
 
         data = search_obj
         results = data.execute()
@@ -62,7 +80,7 @@ def search(request):
         # print(search_obj)
 
         # Pagination configuration before executing a query.
-        paginator = Paginator(search_obj, 12)
+        paginator = Paginator(search_obj, 16)
 
         page_no = request.GET.get('page')
         try:
@@ -90,6 +108,8 @@ def search(request):
         search_result["time"] = response.took / float(1000)  # Convert time in msec
         search_result["page_obj"] = page
         search_result["paginator"] = paginator
+        search_result["sort_by"] = sort_by
+        search_result["sort_order"] = order_by
 
         # Implement keywords filter.
         keyword_list = []
