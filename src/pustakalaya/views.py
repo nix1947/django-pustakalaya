@@ -7,6 +7,9 @@ from rest_framework.decorators import api_view
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from .forms import FeedBackForm
+from django.conf import settings
+
+
 
 
 
@@ -62,6 +65,12 @@ def feedback(request):
     return render(request, "static_pages/feedback.html", {'form': form})
 
 
+# Get the elastic search url
+ES_HOST = settings.ES_HOST
+ES_PORT  =settings.ES_PORT
+
+elastic_search_endpoint = "http://{}:{}/pustakalaya/_search?pretty                                                                                                                                                                                                                                                                                                                                                                                                              ".format(ES_HOST, ES_PORT)
+
 @api_view(['GET'])
 def api_v1_root_view(request, format=None):
      return Response({
@@ -69,5 +78,6 @@ def api_v1_root_view(request, format=None):
        'audios': reverse('api_v1:audio_list', request=request, format=format),
        'videos': reverse('api_v1:video_list', request=request, format=format),
        'collections': reverse('api_v1:collection-list', request=request, format=format),
-       'search': 'elasticsearch/pustakalaya/_search'
+       'search': elastic_search_endpoint,
+       'suggestion': "{}?suggest_text=".format(reverse("search:completion", request=request, format=format)),
     })
