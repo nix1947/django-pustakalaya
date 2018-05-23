@@ -43,11 +43,13 @@
 
               <div class="form-group" style="display: inline;">
                 <label for="exampleSelect1" style="display: inline;">Sort By: </label>
-                <select class="form-control" id="tit-drpdn">
-                  <option>Date Added</option>
-                  <option>Popularity</option>
-                  <option>Title</option>
-                </select>
+                <!--<select class="form-control" id="tit-drpdn">-->
+                  <!--<option>Date Added</option>-->
+                  <!--<option>Popularity</option>-->
+                  <!--<option>Title</option>-->
+                <!--</select>-->
+                {% include "_partials/sorting_form_for_search_result.html" %}
+
               </div>
           </div>
 
@@ -282,6 +284,9 @@
                               <input type="hidden" id="filterData"
                                      name="form-filter"/>
 
+                            <input type="hidden" id="search_in"
+                                     name="searchIn" value="document"/>
+
                               <input type="submit" value="Search" class="input-group-addon paragraph-font pr-3 pl-3"
                                      id="search-icon"/>
                           </div>
@@ -394,8 +399,12 @@
     <script>
         function queryAndFilter() {
 
+
             // Grab the input field
             var q = $("#search_input").val() || " ";
+
+            var search_in= $("#search_in").val() || "all";
+
             var type = [];
             var languages = [];
             var education_levels = [];
@@ -443,6 +452,14 @@
             });
 
 
+              // for preserving searchIn in the url
+              var url1 = window.location.href;
+              var searchedInURL = parseURLParams(url1);
+              var value = searchedInURL["searchIn"] || "all";
+
+             $("#search_in").val(value);
+            // end of preserving searchIn
+
             // Filters
             filters = {
                 "type": type,
@@ -460,7 +477,8 @@
             // construct the query
             var query = {
                 'q': q,
-                'filters': filters
+                'filters': filters,
+                'searchIn':"document"
             }
 
             // set the hidden field value
@@ -597,7 +615,8 @@
       var  urlParams = parseURLParams(urlString);
       //console.log(JSON.parse(urlParams["form-filter"]))
 
-      loopSelectedOption(JSON.parse(urlParams["form-filter"]));
+      loopSelectedOption(urlParams["form-filter"]);
+
 
 
 
