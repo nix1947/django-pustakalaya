@@ -1,10 +1,16 @@
 from django.http import Http404
 from rest_framework.response import Response
-from rest_framework import status
-from pustakalaya_apps.audio.models import Audio
+from rest_framework import status, viewsets
+from pustakalaya_apps.audio.models import (
+    Audio,
+    AudioFileUpload
+)
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
-from .serializers import AudioSerializers
+from .serializers import (
+    AudioSerializers,
+    AudioFileSerializer,
+)
 
 
 class AudioList(APIView):
@@ -57,3 +63,25 @@ class AudioDetail(APIView):
         audio = self.get_object(pk)
         audio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+ 
+class AudioFileUploadViewSet(viewsets.ModelViewSet):
+    """
+     Audio Fileupload endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Audio Files 
+    """
+    queryset = AudioFileUpload.objects.all()
+    serializer_class = AudioFileSerializer
+
+
+audiofile_list = AudioFileUploadViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+audiofile_detail = AudioFileUploadViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+

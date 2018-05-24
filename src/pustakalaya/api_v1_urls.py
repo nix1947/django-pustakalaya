@@ -2,7 +2,12 @@
 from django.conf.urls import url, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
-from pustakalaya_apps import collection
+from pustakalaya_apps import (
+    collection,
+    document,
+    audio,
+    video
+)
 from rest_framework.urlpatterns import format_suffix_patterns
 from pustakalaya.views import api_v1_root_view
 from pustakalaya_apps.document.api.v1.views import (
@@ -71,6 +76,16 @@ urlpatterns = format_suffix_patterns(urlpatterns)
 # Define a viewsets for collections 
 router = DefaultRouter()
 router.register(r'collections', collection.api.v1.views.CollectionViewSet)
+
+# routers for documentfileupload
+router.register(r'documentfileuploads', document.api.v1.views.DocumentFileUploadViewSet)
+
+# router for audiofileupload
+router.register(r'audiofileuploads', audio.api.v1.views.AudioFileUploadViewSet)
+
+# router for video fileupload
+router.register(r'videofileuploads', video.api.v1.views.VideoFileUploadViewSet)
+
 
 # The API URLs are now determined automatically by the router.
 urlpatterns += [

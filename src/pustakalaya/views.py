@@ -40,14 +40,6 @@ def feedback(request):
 
             """.format(name, location, email, country, suggestion)
             try:
-                # send_mail(
-                #     subject="Feedback Message",
-                #     message=html_message,
-                #     from_email=email,
-                #     recipient_list=os.getenv("FEEDBACK_EMAIL"),
-                #     fail_silently=False,
-                # )
-
                 send_mail(
                     'Feedback message',
                     """
@@ -57,8 +49,6 @@ def feedback(request):
                     settings.FEEDBACK_MESSAGE_TO,
                     fail_silently=False
                 )
-
-
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return HttpResponseRedirect("/")
@@ -75,8 +65,11 @@ elastic_search_endpoint = "http://{}:{}/pustakalaya/_search?pretty              
 def api_v1_root_view(request, format=None):
      return Response({
        'documents':reverse('api_v1:document_list', request=request, format=format),
+       'documentfiles': reverse('api_v1:documentfileupload-list', request=request, format=format),
        'audios': reverse('api_v1:audio_list', request=request, format=format),
+       'audiofiles': reverse('api_v1:audiofileupload-list', request=request, format=format),
        'videos': reverse('api_v1:video_list', request=request, format=format),
+       'videofiles': reverse('api_v1:videofileupload-list', request=request, format=format),
        'collections': reverse('api_v1:collection-list', request=request, format=format),
        'search': elastic_search_endpoint,
        'suggestion': "{}?suggest_text=".format(reverse("search:completion", request=request, format=format)),

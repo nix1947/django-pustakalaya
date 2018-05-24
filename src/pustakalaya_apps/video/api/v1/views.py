@@ -1,7 +1,14 @@
-from pustakalaya_apps.video.models import Video
-from .serializers import VideoSerializers
+from pustakalaya_apps.video.models import (
+    Video,
+    VideoFileUpload
+)
+from .serializers import (
+    VideoSerializers,
+    VideoFileSerializer
+)
 from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import generics, viewsets
+
 
 
 class VideoList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
@@ -13,8 +20,6 @@ class VideoList(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAP
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
-
-
 
 class VideoDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,generics.GenericAPIView):
     queryset = Video.objects.all()
@@ -28,3 +33,33 @@ class VideoDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Des
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+
+
+
+class VideoFileUploadViewSet(viewsets.ModelViewSet):
+    """
+     Document Fileupload endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Document Files 
+    """
+    queryset = VideoFileUpload.objects.all()
+    serializer_class = VideoFileSerializer
+
+
+
+videofile_list = VideoFileUploadViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+videofile_detail = VideoFileUploadViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
+

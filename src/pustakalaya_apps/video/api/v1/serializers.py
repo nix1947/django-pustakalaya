@@ -15,7 +15,7 @@ class VideoFileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = VideoFileUpload
-        fields = ('file_name', 'video', 'upload',)
+        fields = '__all__'
 
 class VideoSerializers(serializers.ModelSerializer):
     videofileupload_set = VideoFileSerializer(many=True)

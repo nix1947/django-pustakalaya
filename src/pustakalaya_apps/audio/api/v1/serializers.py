@@ -15,7 +15,7 @@ class AudioFileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = AudioFileUpload
-        fields = ('file_name', 'audio', 'upload',)
+        fields = '__all__'
         
 
 

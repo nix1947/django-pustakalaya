@@ -15,7 +15,7 @@ class DocumentFileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = DocumentFileUpload
-        fields = ('file_name', 'document', 'upload',)
+        fields = '__all__'
 
 class DocumentSerializer(serializers.ModelSerializer):
     """

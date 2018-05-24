@@ -1,8 +1,12 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
-from .serializers import DocumentSerializer
+from .serializers import (
+    DocumentSerializer,
+    DocumentFileSerializer
+)
 from pustakalaya_apps.document.models import (
     Document,
     DocumentFileUpload,
@@ -58,3 +62,26 @@ def document_detail(request, pk, format=None):
     elif request.method == 'DELETE':
         document.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class DocumentFileUploadViewSet(viewsets.ModelViewSet):
+    """
+     Document Fileupload endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Document Files 
+    """
+    queryset = DocumentFileUpload.objects.all()
+    serializer_class = DocumentFileSerializer
+
+
+documentfile_list = DocumentFileUploadViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+documentfile_detail = DocumentFileUploadViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
