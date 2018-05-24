@@ -68,6 +68,7 @@ THIRDPARTY_APPS = [
     'admin_reorder',
     'django_cleanup',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 PUSTAKALAYA_APPS = [
@@ -375,7 +376,14 @@ LOG_DIR = os.path.join(os.path.dirname(BASE_DIR), 'logs')
 # Django restframework  settings
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 1
+    'PAGE_SIZE': 10,    
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser', # Only staff are allowed to access an API
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 # LOGGING = {
@@ -394,7 +402,7 @@ REST_FRAMEWORK = {
 #             'level':'DEBUG',
 #             'class':'logging.StreamHandler',
 #             'formatter': 'verbose'
-#         },
+#         },    
 #         'logfile': {
 #             'level':'DEBUG',
 #             'class':'logging.handlers.RotatingFileHandler',
@@ -440,3 +448,11 @@ REST_FRAMEWORK = {
 # STAR_RATINGS_RATING_MODEL = 'pustakalaya_rating.PustakalayaRating'
 
 
+# Security mitigation settings.
+X_FRAME_OPTIONS = 'DENY'
+# CSRF_COOKIE_SECURE = True # Need ssl support 
+# SESSION_COOKIE_SECURE = True # Need ssl support 
+# SECURE_SSL_REDIRECT = True # Need https support. 
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_HSTS_SECONDS = 3600 # Need ssl
