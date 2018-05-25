@@ -5,12 +5,17 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from .serializers import (
     DocumentSerializer,
-    DocumentFileSerializer
+    DocumentFileSerializer,
+    DocumentLinkInfoSerializer,
+    DocumentSeriesSerializer,
+    DocumentIdentifierSerializer
 )
 from pustakalaya_apps.document.models import (
     Document,
     DocumentFileUpload,
-    DocumentLinkInfo
+    DocumentLinkInfo,
+    DocumentSeries,
+    DocumentIdentifier
 )
 
 @api_view(['GET', "POST"])
@@ -85,3 +90,69 @@ documentfile_detail = DocumentFileUploadViewSet.as_view({
     'delete': 'destroy'
 })
 
+
+class DocumentLinkInfoViewSet(viewsets.ModelViewSet):
+    """
+     Document DocumentLinkInfo endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for document links
+    """
+    queryset = DocumentLinkInfo.objects.all()
+    serializer_class = DocumentLinkInfoSerializer
+
+
+documentlinkinfo_list = DocumentLinkInfoViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+documentlinkinfo_detail = DocumentLinkInfoViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
+class DocumentSeriesViewSet(viewsets.ModelViewSet):
+    """
+    DocumentSeries endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for  DocumentSeries
+    """
+    queryset = DocumentSeries.objects.all()
+    serializer_class = DocumentSerializer
+
+
+documentseries_list = DocumentSeriesViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+documentseries_detail = DocumentSeriesViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+# DocumentIdentifierSerializer viewsets
+class DocumentIdentifierViewSet(viewsets.ModelViewSet):
+    """
+    DocumentIdentifier endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for  DocumentIdentifier
+    """
+    queryset = DocumentIdentifier.objects.all()
+    serializer_class = DocumentIdentifierSerializer
+
+
+documentIdentifier_list = DocumentSeriesViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+documentIdentifier_detail = DocumentSeriesViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})

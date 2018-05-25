@@ -2,8 +2,25 @@ from rest_framework import serializers
 from pustakalaya_apps.video.models import (
     Video,
     VideoFileUpload,
-    VideoLinkInfo
+    VideoLinkInfo,
+    VideoSeries,
+    VideoGenre
 ) 
+
+
+
+
+class VideoSeriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoSeries
+        fields = '__all__'
+
+
+
+class VideoGenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VideoGenre
+        fields = '__all__'
 
 
 class VideoLinkInfoSerializer(serializers.ModelSerializer):

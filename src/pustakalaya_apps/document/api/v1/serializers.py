@@ -2,7 +2,9 @@ from rest_framework import serializers
 from pustakalaya_apps.document.models import (
     Document, 
     DocumentFileUpload,
-    DocumentLinkInfo
+    DocumentLinkInfo,
+    DocumentSeries,
+    DocumentIdentifier
 ) 
 
 
@@ -27,4 +29,22 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = '__all__'
+
+
+class DocumentSeriesSerializer(serializers.ModelSerializer):
+    """
+    Class to serialize document Series data types. 
+    """
+    class Meta:
+        model = DocumentSeries
+        fields = '__all__'
     
+
+
+class DocumentIdentifierSerializer(serializers.ModelSerializer):
+    """
+    Class to serialize DocumentIdentifier data types. 
+    """
+    class Meta:
+        model = DocumentIdentifier
+        fields = '__all__'  

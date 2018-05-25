@@ -3,13 +3,15 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 from pustakalaya_apps.audio.models import (
     Audio,
-    AudioFileUpload
+    AudioFileUpload,
+    AudioLinkInfo
 )
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from .serializers import (
     AudioSerializers,
     AudioFileSerializer,
+    AudioLinkInfoSerializer
 )
 
 
@@ -84,4 +86,28 @@ audiofile_detail = AudioFileUploadViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+
+
+class AudioLinkInfoViewSet(viewsets.ModelViewSet):
+    """
+     Audio AudioLinkInfo endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Audio links
+    """
+    queryset = AudioLinkInfo.objects.all()
+    serializer_class = AudioLinkInfoSerializer
+
+
+audiolinkinfo_list = AudioLinkInfoViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+audiolinkinfo_detail = AudioLinkInfoViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
 

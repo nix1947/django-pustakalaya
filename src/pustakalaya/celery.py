@@ -6,7 +6,7 @@ from django.conf import settings
 
 # Set the default environ module
 # Use base settings.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', "pustakalaya.settings.production")
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', "pustakalaya.settings.base")
 app = Celery('pustakalaya')
 
 # Using a string here means the worker will not have to

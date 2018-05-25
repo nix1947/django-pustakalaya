@@ -1,10 +1,16 @@
 from pustakalaya_apps.video.models import (
     Video,
-    VideoFileUpload
+    VideoFileUpload,
+    VideoLinkInfo,
+    VideoSeries,
+    VideoGenre
 )
 from .serializers import (
     VideoSerializers,
-    VideoFileSerializer
+    VideoFileSerializer,
+    VideoLinkInfoSerializer,
+    VideoGenreSerializer,
+    VideoSeriesSerializer
 )
 from rest_framework import mixins
 from rest_framework import generics, viewsets
@@ -61,5 +67,71 @@ videofile_detail = VideoFileUploadViewSet.as_view({
 })
 
 
+class VideoLinkInfoViewSet(viewsets.ModelViewSet):
+    """
+     Video VideoLinkInfo endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Video links
+    """
+    queryset = VideoLinkInfo.objects.all()
+    serializer_class = VideoLinkInfoSerializer
 
 
+videolinkinfo_list = VideoLinkInfoViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+videolinkinfo_detail = VideoLinkInfoViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
+# Video series 
+class VideoSeriesViewSet(viewsets.ModelViewSet):
+    """
+     VideoSeries endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Video Series
+    """
+    queryset = VideoSeries.objects.all()
+    serializer_class = VideoSeriesSerializer
+
+
+videoseries_list = VideoSeriesViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+videoseries_detail = VideoSeriesViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
+# Video Genre
+class VideoGenreViewSet(viewsets.ModelViewSet):
+    """
+     VideoGenre endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for VideoGenre
+    """
+    queryset = VideoGenre.objects.all()
+    serializer_class = VideoGenreSerializer
+
+
+videogenre_list = VideoGenreViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+videogenre_detail = VideoGenreViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})

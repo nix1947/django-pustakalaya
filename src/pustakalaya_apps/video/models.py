@@ -305,6 +305,15 @@ class VideoFileUpload(AbstractTimeStampModel):
         max_length=255
     )
 
+
+    thumbnail = models.ImageField(
+        upload_to="uploads/thumbnails/videofile/%Y/%m/%d",
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("maximum size of thumbnail should be 165px by 93px")
+    )
+
     def __str__(self):
         return self.file_name
 
