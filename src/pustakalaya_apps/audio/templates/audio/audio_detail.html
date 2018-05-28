@@ -14,10 +14,10 @@
             {% for collection in object.collections.all %}
             {% if forloop.first %}
             <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>
-            <span style="color: #00838F;">&nbsp;<i class="fa fa-angle-double-right"></i></span>&emsp;
+            <span style="color: #00838F;">&nbsp;<i class="fa fa fa-caret-right"></i></span>&emsp;
             {% endif %}
             <a  href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"
-            style="color:#00838F;"
+
             >
             {{ collection.collection_name | transtolocal }}
             </a>
@@ -43,7 +43,8 @@
      
   
         <div class="ratings-container">
-          <button type="button" class="btn ole-btn" style="margin-bottom: 1rem;"><i class="fas fa-book"></i> Document Available</button>
+         
+         {# <button type="button" class="btn ole-btn" style="margin-bottom: 1rem;"><i class="fas fa-book"></i> Document Available</button> #}
           {%  if request.user.is_superuser %}
 
           <p class="text-primary description">
@@ -54,11 +55,15 @@
 
 {%  endif %}
 
+          {% comment %}
           <p>Rate this book:</p>
           <p>This is the star container</p>
+          {% endcomment %}
         </div>
 
-        <button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fas fa-heart det-fav-active"></i> Add to Favorite</button>
+
+        
+        {# <button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fas fa-heart det-fav-active"></i> Add to Favorite</button> #}
         <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fas fa-comment-alt det-rev-active"></i> Leave a Review</button>
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -374,9 +379,9 @@
       <h5 id="det-book-title">{% trans "Similar Audio Books" %}</h5>
     </div>
 
+
     {% for similar_object in object.get_similar_items %}
-
-
+    <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
@@ -390,19 +395,11 @@
            {% endif %}
 
           </div>
-          <p class="book-label text-capitalize"> <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">{{similar_object.title}}</a></p>
+          <p class="book-label text-capitalize"> <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}"></a>{{similar_object.title}}</p>
           <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
-  
-          <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-            <br>
-            <strong class="text-black">Views:</strong>
-            &nbsp;1
-          </div>
-  
-          <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-  
         </div>
       </div>
+      </a>
         
     {% endfor %}
   </div>

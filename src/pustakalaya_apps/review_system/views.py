@@ -14,24 +14,26 @@ def review_system_view(request):
     # 4. return the ajax response.
     if request.method == "POST":
         data = request.POST["input"]
+        data_title = request.POST["input_title"]
         content_id = request.POST["content_id"]
         content_type = request.POST["content_type"]
 
         if request.user.is_authenticated:
-            if data is not None and content_type is not None and content_id is not None:
+            if data is not None and data_title is not None and content_type is not None and content_id is not None:
                 p = Review()
                 p.post = data
+                p.title = data_title
                 p.content_type = content_type
                 p.content_id = content_id
                 p.user = request.user
                 p.save()
-                return JsonResponse({'response': data, "content_id": content_id, "content_type": content_type,"pk_value":p.pk })
+                return JsonResponse({'response': data, "response_title": data_title, "content_id": content_id, "content_type": content_type, "pk_value": p.pk })
             else:
-                return JsonResponse({'response':data,"content_id":content_id,"content_type":content_type})
+                return JsonResponse({'response': data, "response_title": data_title, "content_id":content_id,"content_type": content_type})
         else:
-            return JsonResponse({'response':"user_not_logged_in","content_id":content_id,"content_type":content_type})
+            return JsonResponse({'response': "user_not_logged_in", "response_title": data_title, "content_id":content_id, "content_type": content_type})
 
-        return JsonResponse({'response': data,"content_id":content_id,"content_type":content_type})
+        return JsonResponse({'response': data, "response_title": data_title, "content_id": content_id, "content_type": content_type})
     else:
         form = ReviewForm()
     return JsonResponse({'response':'Review system'})
@@ -52,6 +54,7 @@ def edit(request):
 
     if request.method == "POST":
         data = request.POST["input"]
+        data_title = request.POST["input_title"]
         content_id = request.POST["content_id"]
         content_type = request.POST["content_type"]
         pk_val = request.POST["pk_val"]
@@ -60,18 +63,19 @@ def edit(request):
 
             if data is not None and content_type is not None and content_id is not None:
 
-                p = Review.objects.get(pk=pk_val,content_type=content_type,content_id=content_id)
+                p = Review.objects.get(pk=pk_val,content_type=content_type, content_id=content_id)
                 p.post = data
+                p.title = data_title
                 p.updated = datetime.datetime.now()
                 p.save()
 
-                return JsonResponse({'response': data, "content_id": content_id, "content_type": content_type,"pk_value":p.pk })
+                return JsonResponse({'response': data,'response_title': data_title, "content_id": content_id, "content_type": content_type,"pk_value":p.pk })
             else:
-                return JsonResponse({'response':data,"content_id":content_id,"content_type":content_type})
+                return JsonResponse({'response':data, 'response_title': data_title, "content_id":content_id,"content_type":content_type})
         else:
             return JsonResponse({'response':"user_not_logged_in","content_id":content_id,"content_type":content_type})
 
-        return JsonResponse({'response': data,"content_id":content_id,"content_type":content_type})
+        return JsonResponse({'response': data, 'response_title': data_title, "content_id":content_id,"content_type":content_type})
 
     else:
         form = ReviewForm()

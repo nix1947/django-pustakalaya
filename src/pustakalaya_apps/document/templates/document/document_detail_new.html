@@ -1,0 +1,1088 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load ratings %}
+{% load pustakalaya_filters %}
+{% load hitcount_tags %}
+{% load crispy_forms_tags %}
+
+<!-- override some css -->
+{% block style %}
+    {{ block.super }}
+
+{% endblock style %}
+
+{% block content %}
+
+
+<!--REMOVE THIS LATER-->
+ <input type="hidden" name="content_type" value="document"/>
+ <input type="hidden" name="content_id" value="{{ object.pk }}">
+ {% if user %}
+  <input type="hidden" name="user" value="{{ user }}">
+  {% endif %}
+
+<!--End of remove this later-->
+
+
+
+<div class="main-contain">
+  <div class="container">
+    <div class="row" style="margin: 15px 0px;">
+      <div class="col-md-12" style="padding: 0px;">
+
+        {% if object.collections.all%}
+        <span class="container-breadcrum bold">
+          <!-- Bread crums -->
+          {% for collection in object.collections.all %}
+          {% if forloop.first %}
+          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>&emsp;
+
+          <span style="color: #00838F;"> <i class="fa fa-caret-right"></i></span>&emsp;
+          {% endif %}
+
+          <a href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+          {{ collection.collection_name | transtolocal }}
+          </a>
+          {%  if not forloop.last %} ,{%  endif %}
+          {% endfor %}
+        </span>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-3 det-img-cont">
+            {% if object.thumbnail  %}
+                  <img  src="{{ MEDIA_URL }}{{ object.thumbnail }}"
+                         alt="{{ object.title }}" title="{{ object.title }}">
+            {% else %}
+                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
+                         alt="{{ object.title }}" title="{{ object.title }}">
+            {% endif %}
+
+        <div class="ratings-container">
+        {% for document in object.documentfileupload_set.all %}
+          <p>{% trans "File size: " %}{{ document.upload.size | file_size_format }}</p>
+        {% endfor %}
+
+          <p>Rate this book:</p>
+          <p><!-- Rating -->
+            {% ratings object %}</p>
+        </div>
+
+
+        <!--Favourite button-->
+        <!--<button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fa fa-heart det-fav-active"></i> Add to Favorite</button>-->
+
+        <p id="favourite_hanging_place">
+          {% if  request.user.is_authenticated %}
+           {% if favourite_data.first.user != "" %}
+
+            {% if request.user == favourite_data.first.user %}
+             <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="added_to_favourite"><i class="fa fa-check-circle"> Added to favourite </i></button>
+
+            {% else %}
+            <button type="button" value="{{ object.pk  }}"class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite </button>
+
+            {% endif %}
+        {% else %}
+        <button type="button" value="{{ object.pk  }}" class="btn ole-btn-trans add_to_favourite"><i class="fa fa-heart det-fav-active"> Add to favourite </i></button>
+
+        {% endif %}
+          {% endif %}
+        </p>
+
+
+
+
+
+        <!--End Favourite button-->
+
+
+
+        <!--Review btn for model button-->
+        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> Leave a Review</button>
+        <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!--<form>-->
+              <div class="modal-header">
+                <h4 class="modal-title">Write a Review</h4>
+                <button type="button" id="close_model_box" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="pwd">Title:</label>
+                    <input type="text" class="form-control" id="pwd1" name="title_input" maxlength="255" autofocus>
+                    <label for="comment">Message:</label>
+                    <textarea type="text" name="input" class="form-control bg-white" placeholder="Your review message"></textarea>
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+               <button type="button" value="Submit" id="submitButton" class ="btn btn-primary"  >Add your review</button>
+              </div>
+            <!--</form>-->
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Different models used in this document-->
+        <!--User info model-->
+
+        <!--User info  Modal -->
+          <button type="button" style="display: none;"  value="Submit" id="info_message_display"  data-toggle="modal" data-target="#myModalUserInfo" ></button>
+          <div class="modal fade" id="myModalUserInfo" role="dialog">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                  <h4 class="modal-title">Information</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="information_message_p_tag">Info message</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--close of user info model-->
+
+        <!-- Edit review model  -->
+        <button type="button" id="edit_hidden_btn"  data-toggle="modal" data-target="#myModalForEdit" style="display:none"></button>
+        <div class="modal fade" id="myModalForEdit" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!--<form>-->
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Review</h4>
+                <!--<button type="button" id="close_model_box" class="close" data-dismiss="modal">&times;</button>-->
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <input type="hidden" id="edited_message_id" value="" >
+                    <label for="pwdEdit">Title:</label>
+                    <input type="text" class="form-control" id="edited_title_input" name="edited_title_input" maxlength="255" autofocus>
+                    <label for="commentEdit">Message:</label>
+                    <textarea type="text" name="edited_message_input" id="edited_message_input" class="form-control bg-white" placeholder="Your review message"></textarea>
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button"  class="btn btn-primary" id="edited_cancel_button" data-dismiss="modal">Cancel</button>
+               <button type="button" value="Submit" id="submitButtonForEdit" class ="btn btn-primary" onclick="sendButtonClick()" ><i class="fa fa-telegram"></i> Send</button>
+              </div>
+            <!--</form>-->
+            </div>
+          </div>
+        </div>
+
+        <!--End Edit review model  -->
+
+        <!--Yes no   Modal -->
+          <button type="button" style="display: none;"  value="Submit" id="yes_no_message_display"  data-toggle="modal" data-target="#myModalYesNo" ></button>
+          <div class="modal fade" id="myModalYesNo" role="dialog">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <input type="hidden" id="message_delete_id" value="">
+                  <h4 class="modal-title">Information</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="yes_no_message_p_tag">Are you sure you want to delete this message?</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="DeleteButtonYes()"  data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--close of user info model-->
+
+        <!--End of  Different models used in this document-->
+
+
+
+
+      </div>
+      <div class="col-md-9">
+        <h5 id="det-book-title" class="text-capitalize">{{ object.title }}</h5>
+        {% if object.document_authors.all %}
+        <p>By:
+          <span>
+            {% for author in object.document_authors.all %}
+            <a  href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize" >{{ author }}</a>
+             {%  if not forloop.last %},{%  endif %}
+            {% endfor %}
+          </span>
+
+        </p>
+        {% endif %}
+
+
+        <div class="_1dlNCg"><div class="niH0FQ">
+          <span id="productRating_undefined_MOBFF5ZG7HCKHJCS_" class="_2_KrJI">
+            <div id="ole-rating-avg">{{ rating_average }} ★</div>
+          </span><span class="_38sUEc">
+            <span><span id="ole-rating-count">{{ rating_total }} Ratings&nbsp;</span><span>{{ hitcount.total_hits }} {% trans "Views" %}&nbsp;</span><span class="_1VpSqZ">&amp;</span><span>&nbsp;{{ total_review_count }} Reviews</span></span>
+          </span>
+        </div>
+      </div>
+
+        {% for document in object.documentfileupload_set.all %}
+          <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}{{ document.upload.size | file_size_format }}'>
+            <button type="button" class="btn ole-btn">
+          {% trans 'Read Book ' %}
+          </button>
+          </a>
+        {% endfor %}
+
+
+      <br>
+      <br>
+
+      <p>
+        {% if  object.abstract %}
+          {{ object.abstract }}
+        {% endif %}
+
+      </p>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#details" role="tab" data-toggle="tab">{% trans "Details" %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#reviews" role="tab" data-toggle="tab">{% trans "Reviews" %}</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active in" id="details">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              </thead>
+              <tbody>
+
+
+               {% if  object.document_authors.all %}
+                  <tr>
+                    <th scope="col">{% trans "Author(s)" %}:</th>
+                    <td class="text-capitalize">
+                      {% for author in object.document_authors.all %}
+                         <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize"> {{  author }}</a>
+                        {%  if not forloop.last %}
+                                  ,
+                        {%  endif %}
+                      {% endfor %}
+                    </td>
+                  </tr>
+               {% endif %}
+
+                <!-- Illustrator section -->
+               {% if  object.document_illustrators.all %}
+                <tr>
+                  <th scope="col">{% trans "Illustrators:" %}</th>
+                  <td class="text-capitalize">
+                    {% for illustrator in object.document_illustrators.all %}
+                      {{ illustrator }}
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+               {% endif %}
+
+
+              <!-- editor section -->
+               {% if  object.document_editors.all %}
+                <tr>
+                  <th scope="col">{% trans "Editor(s):" %}</th>
+                  <td class="text-capitalize">{% for editor in object.document_editors.all %}
+                        {{ editor }}
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+               {% endif %}
+
+
+
+               <!-- editor section -->
+               {% if  object.document_translator.all %}
+                <tr>
+                  <th scope="col">{% trans "Translator(s):" %}</th>
+                  <td class="text-capitalize">
+                    {% for translator in object.document_translator.all %}
+                        {{ translator }}
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endif %}
+
+
+
+
+              {% if  object.publisher.all %}
+               <tr>
+                  <th scope="col">{% trans "Publisher:" %}</th>
+                  <td class="text-capitalize">
+                    {% for publisher in object.publisher.all %}
+                        {{ publisher.publisher_name }}
+                      {%  if not forloop.last %}
+                                ,
+                      {%  endif %}
+                     {% endfor %}
+                  </td>
+                </tr>
+              {% endif %}
+
+
+               <!-- place of publication -->
+                {% if  object.place_of_publication %}
+               <tr>
+                  <th scope="col">{% trans "Place of Publication:" %}</th>
+                  <td class="text-capitalize">{{ object.place_of_publication }}</td>
+                </tr>
+               {% endif %}
+
+
+                <!-- Publication year -->
+                {% if  object.publication_year_on_text %}
+               <tr>
+                  <th scope="col">{% trans "Publication year:" %}</th>
+                  <td class="text-capitalize">{{ object.publication_year_on_text }}</td>
+                </tr>
+               {% endif %}
+
+
+               <!-- Available year -->
+               {% if  object.year_of_available_on_text %}
+               <tr>
+                  <th scope="col">{% trans "Available year:" %}</th>
+                  <td class="text-capitalize"> {{ object.year_of_available_on_text }}</td>
+                </tr>
+               {% endif %}
+
+
+               <!-- Keywords -->
+                {%  if object.keywords.all  %}
+               <tr>
+                  <th scope="col">{% trans "Keywords:" %}</th>
+                  <td class="text-capitalize">
+                    {% for keyword in object.keywords.all %}
+                    <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" >
+                        {{ keyword.keyword| transtolocal }}&nbsp;{%  if not forloop.last %}
+                          ,
+                      {%  endif %}
+
+                    </a>
+                   {% endfor %}
+                </td>
+                </tr>
+                {%  endif  %}
+
+
+              <!-- License type -->
+              {% if  object.license.license %}
+               <tr>
+                  <th scope="col">{% trans "License type:" %}</th>
+                  <td class="text-capitalize">{{ object.license.license }}</td>
+                </tr>
+               {%  endif %}
+
+
+               {%  if  object.document_series  %}
+                <!-- document series -->
+               <tr>
+                  <th scope="col">{% trans "Series:" %}</th>
+                  <td class="text-capitalize">{{ object.document_series }}</td>
+                </tr>
+               {%  endif %}
+
+               <!-- document edition -->
+                {% if  object.edition %}
+               <tr>
+                  <th scope="col">{% trans "Edition:" %}</th>
+                  <td class="text-capitalize">{{ object.edition }}</td>
+                </tr>
+               {% endif %}
+
+               <!-- document volume -->
+                  {% if  object.volume %}
+               <tr>
+                  <th scope="col">{% trans "Volume:" %}</th>
+                  <td>{{ object.volume }}</td>
+                </tr>
+                {% endif %}
+
+               <!-- isbn -->
+                <!-- document isb -->
+               {% if  object.documentidentifier.identifier_id %}
+               <tr>
+                  <th scope="col">{{ object.documentidentifier.identifier_type }}:</th>
+                  <td class="text-capitalize">{{ object.documentidentifier.identifier_id }}</td>
+                </tr>
+               {% endif %}
+
+
+                <!-- total page -->
+                {% if  object.document_total_page %}
+                <tr>
+                  <th scope="col">{% trans "Total pages" %}:</th>
+                  <td class="text-capitalize">{{ object.document_total_page }}</td>
+                </tr>
+                {% endif %}
+
+
+               <!-- Language -->
+                {% if object.languages.all %}
+                <tr>
+                  <th scope="col">{% trans "Language" %}:</th>
+                  <td class="text-capitalize">{% for language in object.languages.all %}
+                        {{ language }}
+                      {%  if not forloop.last %},{%  endif %}
+                    {% endfor %}</td>
+                </tr>
+               {% endif %}
+
+              <!-- Education level -->
+                {% if  object.education_levels.all %}
+               <tr>
+                  <th scope="col">{% trans "Education Levels" %}:</th>
+                  <td class="text-capitalize">
+                    {% for education_level in object.education_levels.all %}
+                        {{ education_level }}
+                        {%  if not forloop.last %}
+                                ,
+                            {%  endif %}
+
+                    {% endfor %}
+                  </td>
+                </tr>
+               {% endif %}
+
+              <!-- Interactivity -->
+
+              {%  if  object.document_interactivity  %}
+              {%  if  object.document_interactivity != "NA"     %}
+               <tr>
+                  <th scope="col">{% trans "Interactivity" %}:</th>
+                  <td class="text-capitalize">{{ object.document_interactivity }}</td>
+                </tr>
+               {%  endif %}
+               {%  endif %}
+
+
+
+              <!-- sponsor -->
+              {% if  object.sponsors.all %}
+               <tr>
+                  <th scope="col">{% trans "Sponsors:" %}</th>
+                  <td class="text-capitalize">
+                    {% for sponsor in object.sponsors.all %}
+                        {{ sponsor }}
+                        {%  if not forloop.last %}
+                                ,
+                            {%  endif %}
+
+                    {% endfor %}
+                  </td>
+                </tr>
+              {% endif %}
+
+
+                 <!-- Rights -->
+              {% if  object.custom_license %}
+               <tr>
+                  <th scope="col">{% trans "Rights:" %}</th>
+                  <td class="text-capitalize">{{ object.custom_license }}</td>
+                </tr>
+               {% endif %}
+
+
+
+               <!-- additional_note -->
+              {% if  object.additional_note %}
+               <tr>
+                  <th scope="col">{% trans "Additional note:" %}</th>
+                  <td class="text-capitalize">{{ object.additional_note }}</td>
+                </tr>
+               {% endif %}
+
+
+               <!-- Description -->
+              {% if  object.description %}
+                <tr>
+                  <th scope="col">{% trans "Description:" %}</th>
+                  <td class="text-capitalize">{{ object.description }}</td>
+                </tr>
+              {% endif %}
+
+
+
+              <!-- link_name and link description -->
+             {% if object.documentlinkinfo_set.all %}
+               {% for link in  object.documentlinkinfo_set.all %}
+               <tr>
+                  <th scope="col">{% trans "Link:" %}</th>
+                  <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
+                </tr>
+
+               <tr>
+                  <th scope="col">{% trans "Link Description:" %}</th>
+                  <td class="text-capitalize">{{ link.link_description }}</td>
+                </tr>
+               {% endfor %}
+             {% endif %}
+
+
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!--**************Start review comment*****************-->
+        <div role="tabpanel" class="tab-pane fade" id="reviews">
+
+          {% if data_review %}
+          {% for v in data_review %}
+
+            {% if v.published == True %}
+                <div class="review-container" id="comment_{{ v.pk }}">
+                  <!--This one is for published-->
+                  <br>
+                  <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                  <p>By: <span>{{  v.user }}</span></p>
+                  <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                    {% if user == v.user %}
+
+                   <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                   <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+                    {% else %}
+
+                      <!--<p>Welcome,  user. Please log in.</p>-->
+
+                    {% endif %}
+              <hr>
+             </div>
+            {% else %}
+                   {% if user == v.user %}
+                        <!--This one is for unpublished-->
+                           <div class="review-container" id="comment_{{ v.pk }}" >
+                              <br>
+                              <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                              <p>By: <span>{{  v.user }}</span></p>
+                              <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                              <p>status=unpublished</p>
+                                 <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                           <hr>
+                           </div>
+                   {% endif %}
+             {% endif %}
+
+           {% endfor %}
+
+
+
+          {% elif paginated_data %}
+                        <!--Pagination links starts here-->
+
+              {% for v in paginated_data %}
+                        {% if v.published == True %}
+                            <div class="review-container" id="comment_{{ v.pk }}">
+                              <!--This one is for published-->
+                              <br>
+                              <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                              <p>By: <span>{{  v.user }}</span></p>
+                              <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                                {% if user == v.user %}
+
+                               <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                               <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+                                {% else %}
+
+                                  <!--<p>Welcome,  user. Please log in.</p>-->
+
+                                {% endif %}
+                          <hr>
+                         </div>
+                        {% else %}
+                               {% if user == v.user %}
+                                    <!--This one is for unpublished-->
+                                       <div class="review-container" id="comment_{{ v.pk }}" >
+                                          <br>
+                                          <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                                          <p>By: <span>{{  v.user }}</span></p>
+                                          <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                                          <p>status=unpublished</p>
+                                             <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                                             <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                                       <hr>
+                                       </div>
+                               {% endif %}
+                         {% endif %}
+                          {% endfor %}
+                       <div class="pagination">
+                        <span class="step-links">
+                          {% if paginated_data.has_previous %}
+                          <a href="?page={{ users.previous_page_number }}">previous</a>
+                          {% endif %}
+
+                          <!-- Showing the page numbers in Html Page -->
+                          <span class="current">
+                          Page {{ paginated_data.number }} of {{ paginated_data.paginator.num_pages }}.
+                        </span>
+
+                      {% if paginated_data.has_next %}
+                      <a href="?page={{ paginated_data.next_page_number }}">next</a>
+                      {% endif %}
+                      </span>
+                      </div>
+
+            <!--This is end of paginated links-->
+           {% endif %}
+
+
+
+
+
+
+        </div>
+        <!--**************End of review comment*****************-->
+
+      </div>
+    </div>
+  </div>
+
+   <hr>
+  
+  <!-- start of similar books -->
+  <div class="row">
+    <div class="col-md-12">
+      <h5 id="det-book-title">{% trans "Similar Books" %}</h5>
+    </div>
+    {% for similar_object in object.get_similar_items %}
+
+    <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
+    <div class="col-md-2 col-sm-6 col-6">
+        <div class="grid-book-cont">
+          <div class="img-cont">
+            {% if similar_object.thumbnail  %}
+            <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% else %}
+     
+            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% endif %}
+
+          </div>
+          <p class="book-label text-capitalize"> <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">{{similar_object.title}}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>&nbsp;{{similar_object.type}}</p>
+        </div>
+      </div>
+    </a>
+
+
+
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+<!-- css scripts for book rating -->
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+{% endblock content %}
+
+
+
+
+{% block script %}
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+{{ block.super }}
+<script>
+
+/***************************Review code****************************/
+
+    //--for the review system
+    $("#submitButton").click(function (e){
+      e.preventDefault();
+      var user_title = $("input[type='text'][name='title_input']").val().trim();
+      var user_input = $("textarea[type='text'][name='input']").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      //alert("title="+ user_title);
+      //alert("detail="+ user_input);
+      //return;
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        //alert("Login to post you message");
+
+        //$("#close_model_box").click();
+        $("#information_message_p_tag").text('Login to post you message');
+        $("#info_message_display").click();
+
+
+        return;
+      }else if(user_input == "" || user_title == "" ){
+        //alert("Please enter you title and message properly!");
+
+        //$("#close_model_box").click();
+        $("#information_message_p_tag").text('Please enter the title and message properly!');
+        $("#info_message_display").click();
+
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+          "input_title":user_title,
+        },
+        success: function (data) {
+          $("textarea[type='text'][name='input']").val('');
+          $("input[type='text'][name='title_input']").val('');
+          //alert("Your review message has been sent. It will be display here after approval from moderator");
+          var pk_value = data.pk_value;
+
+          //close_model_box
+           $("#information_message_p_tag").text('Your review has been sent to the moderator. It will be available to the general public after the approval. However, you still can edit or delete your review.');
+           $("#close_model_box").click();
+           $("#info_message_display").click();
+             //when success we need to append the data to the comment section
+             $("#reviews").prepend('<div class="review-container" id="comment_'+pk_value+'">' +
+                  '<br><h5 id="posted_title_'+pk_value+'">'+user_title+'</h5>'+
+                  '<p>By: <span>' +user_name+'</span></p>'+
+                  '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
+                  '<p>status:unpublished</p>'+
+                  '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+                   '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
+             '</div>');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+     //Method to EditComment
+     $("#reviews").delegate("button.EditComment","click",function (e){
+
+      var id_value = $(this).val();
+      posted_title= $("#posted_title_"+id_value).text().trim();
+      posted_message= $("#posted_message_"+id_value).text().trim();
+
+      //alert("title="+posted_title+ "message"+posted_message);
+      //alert("element="+element[0]+"id="+element_class);
+
+      //return;
+      $("#edited_title_input").val(posted_title);
+      $("#edited_message_id").val(id_value);
+      $("textarea#edited_message_input").val(posted_message);
+       $("#edit_hidden_btn").click();
+
+     });
+
+
+    /*This is triggered when editing and sending item*/
+    function sendButtonClick(){
+
+      //data capture
+      var user_input = $("textarea#edited_message_input").val().trim();
+      var user_input_title =$("#edited_title_input").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      var pk_value = $("#edited_message_id").val();
+      //alert("pk="+pk_value);
+      //return;
+
+
+
+      if(user_input_title.trim() == "" || user_input.trim() == "" ){
+        $("#information_message_p_tag").text('Please enter the title and message properly!');
+        $("#info_message_display").click();
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/edit/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "input_title":user_input_title,
+          "content_type" : content_type,
+          "content_id" : content_id,
+          "pk_val":pk_value,
+        },
+        success: function (data) {
+
+        //alert("update successful")
+
+        //close_model_box
+         $("#information_message_p_tag").text('Your message has been edited successfully!');
+         $("#edited_cancel_button").click();
+         $("#info_message_display").click();
+
+         var pk_value = data.pk_value;
+         var id_div = "comment_"+pk_value;
+         $("#"+id_div).empty(); //Remove child element in a div
+
+         /* 1. Delete the item first and append the new edited item in the list */
+
+         $("#"+id_div).append('<br><h5 id="posted_title_'+pk_value+'">'+user_input_title+'</h5>'+
+              '<p>By: <span>' +user_name+'</span></p>'+
+              '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
+              '<p>status:unpublished</p>'+
+              '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+              '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
+         '');
+
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+
+
+    }//CLose of sendButtonClick
+
+    //Function delete
+    $("#reviews").delegate("button.DeleteComment","click",function (e){
+
+      //alert("delete btn clicked")
+      var pk_value = $(this).val();
+
+      $("#message_delete_id").val(pk_value);
+      $("#yes_no_message_display").click()
+
+
+
+   }); //Close of delete container
+
+   function DeleteButtonYes(){
+     // alert("inside delete buton yes");
+     //var pk_value = $(this).val();
+         var pk_value = $("#message_delete_id").val()
+
+
+          //alert(pk_value)
+          //return;
+         //console.log(pk_value);
+       $.ajax({
+        type:'post',
+        url: '/review_system/delete/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input_pk": pk_value,
+        },
+        success: function (data) {
+          //if (data.is_taken) {
+          //alert('SUCCESS');
+
+          $("#information_message_p_tag").text('Your message has been deleted !');
+         $("#edited_cancel_button").click();
+         $("#info_message_display").click();
+
+
+         // Lets remove the element here
+         $("#comment_"+pk_value).remove();
+
+
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+
+
+
+   }
+
+
+/***************************Close of review code****************************/
+
+
+/***************************Add to favourite****************************/
+
+
+  /*Add to favourite code don't touch it works*/
+
+  //for favourite likes #favourite_hanging_place
+  $("#favourite_hanging_place").delegate("button.add_to_favourite","click",function (e){
+      e.preventDefault();
+      var user_input = "checked";
+
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      //alert("some value");
+      //return;
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        alert("Login to add to your favourite");
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/favourite_collection/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+        },
+        success: function (data) {
+          $('.add_to_favourite').remove();
+           $("#favourite_hanging_place").append(''+
+                           '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="added_to_favourite"><i class="fa fa-check-circle"></i> Added to favourite</button>'
+                      +'');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+  //Added_favourite , remove form favourite now
+   $("#favourite_hanging_place").delegate(" #added_to_favourite","click",function (e){
+      e.preventDefault();
+      var user_input = "unchecked";
+
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        alert("Login to add to your favourite");
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/favourite_collection/favourite_remove/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+        },
+        success: function (data) {
+          $("#added_to_favourite").remove();
+          $("#favourite_hanging_place")
+
+           $("#favourite_hanging_place").append(''+
+                           '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite</button>'
+               +'');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+/***************************Close of Add to favourite****************************/
+/***************************Star rating change detection****************************/
+
+
+    // 1. hide the rating object
+
+      var d1= $("div.star-ratings .star-ratings-rating-average");
+      var d2= $("div.star-ratings .star-ratings-rating-count");
+      var d3= $("div.star-ratings .star-ratings-rating-user");
+      var d4= $("div.star-ratings .star-ratings-errors");
+      d1.css("display","none")
+      d2.css("display","none")
+      d3.css("display","none")
+      d4.css("display","none")
+
+    //2. show another rating with trigger
+   //****************Mutation observer*********
+
+
+   var observer = new MutationObserver(fnHandler),
+        elTarget = document.querySelector(".star-ratings"),
+        objConfig = {
+
+
+            attributes:true,
+                    };
+
+      //then actually do some observing
+      observer.observe(elTarget, objConfig);
+
+      function fnHandler () {
+          //alert("DETECTED_VARIATION");
+         var avg = $('.star-ratings div.star-ratings-rating-average .star-ratings-rating-value').text();
+         var ratings = $('.star-ratings div.star-ratings-rating-count .star-ratings-rating-value').text();
+
+          var rounded =parseFloat(avg).toFixed(1);
+
+          //alert("avg="+avg+"rat="+ratings)
+          $('#ole-rating-avg').text(rounded+" ★")
+          $('#ole-rating-count').text(ratings+" Ratings ")
+
+      }
+
+
+
+
+/***************************End of Star rating change detection****************************/
+
+
+</script>
+
+
+{% endblock script %}

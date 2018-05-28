@@ -1,20 +1,17 @@
 import json
 from django.shortcuts import render
 from .models import Document
-from django.http import HttpResponse
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from hitcount.views import HitCountDetailView
-from .models import DocumentFileUpload,DocumentLinkInfo
+from .models import DocumentFileUpload
 from django.core.exceptions import ValidationError
-#from pustakalaya_apps.review_system.forms import ReviewForm
 from pustakalaya_apps.review_system.models import Review
 from pustakalaya_apps.favourite_collection.models import Favourite
 from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
-from pustakalaya_apps.core.abstract_models import LinkInfo
-from .admin import DocumentLinkInfoAdminInline
 from django.http import Http404, HttpResponse
-
+from star_ratings.models import Rating
+from django.contrib.contenttypes.models import ContentType
 
 # from .forms import BaseDocumentFormSet
 
@@ -35,7 +32,7 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
     def get(self, request, **kwargs):
         self.object = self.get_object()
-        if self.object.published== "no":
+        if self.object.published == "no":
             # return HttpResponseRedirect("/")
             # return Http404()
             # msg = "Page not found"
@@ -52,11 +49,12 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
 
 
-        data_review = Review.objects.filter(content_id=self.object.pk, content_type='document',published=True)
+        data_review = Review.objects.filter(content_id=self.object.pk, content_type='document')
 
         #************Review pagination add************#
 
         length = len(data_review)
+        print("len=",length)
         number_per_page =15
         if length > number_per_page:
             #print("inside pagination")
@@ -87,18 +85,23 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
 
 
         context["favourite_data"]= favourite_data
+        context["total_review_count"]=length
 
-        # for item in context:
-        #     print("context=",item)
+        # Rating average,total,and user_rating
+        # Get the rating of current object
+        # Get content type
+        content_type = ContentType.objects.get(model="document")
+        rating_obj = Rating.objects.get(content_type=content_type, object_id=self.object.pk)
 
+        # Average rating
+        context["rating_average"] = round(rating_obj.average, 1)
 
-        # print("context doc= ", context["document"])
-        # print("object= ", context["object"])
+        # Total ratings
+        context["rating_total"]=rating_obj.total
 
-        #print("user in the console= ",context["favourite_data"][0].user)
         return self.render_to_response(context)
 
-    template_name = "document/document_detail.html"
+    template_name = "document/document_detail_new.html"
 
 
 def document_page_view(request, pk):
