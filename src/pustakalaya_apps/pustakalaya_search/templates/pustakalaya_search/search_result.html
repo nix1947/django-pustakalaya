@@ -614,18 +614,32 @@
                 </div>
 
             {% else %}
-                <div>
-                    <div class="row min_height">
-                        <div class="col-md-2"></div>
-                        <div class=" col-md-8 search">
-                            <p class="text-capitalize text-danger text-center">{% trans "result not found for" %}&nbsp; <span class="text-primary">{{q}}<span></span></p>
-                            <!--{% include "_partials/search_form.html" %}-->
-
+            <style>
+                    .sad_container{
+                        text-align: center;
+                      }
+                      
+                      .sad_container > .sadface{
+                        font-size: 100px;
+                      }
+            </style>
+            <div class="main-contain">
+                <div class="container">
+                    <div class="sad_container">
+            
+                        <div class="sadface">
+                            <i class="fa fa-frown"></i>
                         </div>
-                        <div class="col-md-2"></div>
+                        <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found" %}</h5>
+                        <br>
+                        {% blocktrans %}
+                        <p>Your search - <b>{{q}}</b> did not match any documents.</p>
+                        <p>Make sure you spelled the words correctly or try a different keyword.</p>
+                        {% endblocktrans %}
                     </div>
-
+            
                 </div>
+            </div>
 
             {% endif %}
             </div>
