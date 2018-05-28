@@ -1,0 +1,605 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block style %}
+{{ block.super }}
+<style>
+        /* Some css to override styles */
+        /* TODO: move this css to pustakalaya.css */
+        .border-line {
+            padding-top: 5px;
+            padding-bottom: 5px !important;
+            padding-left: 3px;
+            border-top: 1px solid #dddddd;
+        }
+
+        .border-line span {
+            display: inline-block;
+            width: 300px;
+
+        }
+
+  .jumbotron{
+    padding:5px 15px!important;
+  }
+
+</style>
+{% endblock style %}
+{% block content %}
+<div class=" min_height pt-4" style="margin-left:8.0rem;margin-right:8.0rem;">
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <!-- Logo -->
+
+
+
+      {% if object.thumbnail  %}
+       <img class="img-responsive rounded w-100" height="280px" src="{{ MEDIA_URL }}{{ object.thumbnail }}"
+           alt="{{ object.title }}" title="{{ object.title }}">
+      {% else %}
+
+       <img class="img-responsive rounded w-100" height="280px" src="{% static 'base_assets/img/audio_book.png' %}"
+           alt="{{ object.title }}" title="{{ object.title }}">
+      {% endif %}
+
+
+
+      <!-- share buttons -->
+      <!--<div class="text-center">
+          <a href="http://www.facebook.com/E-pustakalaya" class="btn btn-primary btn-icon btn-round">
+              <i class="fa fa-facebook-square"></i>
+          </a>
+          <a href="http://www.twitter.com/E-pustakalaya" class="btn btn-info btn-icon btn-round">
+              <i class="fa fa-twitter"></i>
+          </a>
+          <a href="http://www.google.com/E-pustakalaya" class="btn btn-default btn-icon btn-round">
+              <i class="fa fa-google-plus"></i>
+          </a>
+          <a href="http://www.linkedin.com/E-pustakalaya" class="btn btn-info btn-icon btn-round">
+              <i class="fa fa-linkedin"></i>
+          </a>
+      </div>-->
+    </div>
+
+    <div class="col-md-9 col-sm-12 col-xs-12">
+      <!--Audio section -->
+      <!-- audio player -->
+     <h4 class="text-capitalize h4 lead mt-0 pt-0 "><b>{{ object.title }}</b></h4>
+      <p id="audio-title"
+         class="text-left  pl-3 text-dark text-capitalize" hidden>{{ object.audiofileupload_set.first.file_name }}</p>
+      <div>
+        <audio id="selectedAudio" preload="auto" tabindex="0" controls type="audio/mpeg"
+               title="{{ object.title }}" about="{{ object.title }}"
+               src="{{ MEDIA_URL }}{{ object.audiofileupload_set.first.upload }}"
+               type="audio/mp3" controlsList="nodownload">
+        </audio>
+      </div>
+      <div id="audioList">
+        <h6 class="text-primary text-uppercase mb-4 mt-3 ">{{ object.title }}</h6>
+        {% for audio in object.audiofileupload_set.all reversed %}
+        <div class="text-dark pl-3 text-capitalize">
+                            <span style="cursor: pointer"
+                                  class=" {% if forloop.counter == 1 %} text-primary {% endif %}"
+                                  data-src="{{ MEDIA_URL }}{{ audio.upload }}"
+                                  data-title="{{ audio.file_name }}"
+                                  onclick="playAudio(this)" class="text-dark text-capitalize ">
+                                 {{ forloop.counter }}&nbsp;.&nbsp;
+                              {% if audio.file_name %}
+                               {{ audio.file_name }}
+                              {% else %}
+                              Audio{{forloop.counter}}
+                              {% endif %}
+                            </span>
+        </div>
+        <hr/>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+       {%  if request.user.is_superuser %}
+
+                     <p class="text-primary description">
+                      <a href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+                     </p>
+
+           {%  endif %}
+
+      <h4 class="text-capitalize h4 lead mt-0 pt-0 "><b>{{ object.title }}</b></h4>
+
+      <div class="border-line"
+           {% if not object.audio_read_by %}
+              style="display: none;"
+           {% endif %}
+        >
+        <!-- Read by/Voice -->
+        <!-- TODO pluralization -->
+        <span class="capitalize font-weight-normal text-dark">{% trans "Read by/Voice:" %}</span>
+        {%  if object.audio_read_by %}
+        <a href="{% url 'author:author_detail' object.audio_read_by.getname|slugify object.audio_read_by.pk %}">
+
+
+          <span class="text-dark text-capitalize text-primary">{{ object.audio_read_by.getname }}</span></a>
+        {% endif %}
+      </div>
+
+
+      <div>
+        <p class="text-justify  tex-dark font-weight-normal"
+           {% if not object.abstract %} style="display: none" {% endif %}>{{ object.abstract }}</p>
+      </div>
+
+      <!--Read by section-->
+      <div class="read-section">
+
+        <!-- publisher section -->
+       {% if  object.publisher.all %}
+        <div class="pb-1 border-line">
+
+            <span class="text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</span>
+            <span class="text-dark text-capitalize">
+             {% for publisher in object.publisher.all %}
+              {{ publisher.publisher_name }}
+              {%  if not forloop.last %}
+                        ,
+              {%  endif %}
+             {% endfor %}
+            </span>
+
+        </div>
+        {% endif %}
+        <!-- place of publication -->
+        <div class="pb-1 border-line"
+        {% if not  object.place_of_publication %}
+        style="display: none"
+        {% endif %}>
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "Place of publication:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.place_of_publication }}</span>
+        </div>
+
+        <!-- Publication year -->
+        <div class="pb-1 border-line"
+        {% if not object.publication_year %}
+        style="display: none"
+        {% endif %}>
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.publication_year }}</span>
+        </div>
+
+        <!-- audio read by -->
+        <div class="pb-1 border-line"
+        {% if not object.audio_read_by %}
+        style="display: none"
+        {% endif %}
+        >
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "read by:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.audio_read_by.getname }}</span>
+        </div>
+
+        <!-- audio type -->
+        <div class="pb-1 border-line"
+        {% if not object.audio_types.all %}
+        style="display: none"
+        {% endif %}
+        >
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "type:" %}</span>
+          {% for audio in object.audio_types.all %}
+          <span class="text-dark text-capitalize"> {{ audio.name }}</span>
+          {% endfor %}
+        </div>
+
+        <!-- audio genre -->
+        <div class="pb-1 border-line"
+          {% if not object.audio_genre %}
+        style="display: none"
+        {% endif %}
+        >
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.audio_genre.genre }}</span>
+        </div>
+
+        <!-- audio series -->
+        <div class="pb-1 border-line"
+        {% if not object.audio_series %}
+        style="display: none"
+        {% endif %}
+        >
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "series name:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.audio_series.series_name }}</span>
+        </div>
+
+        <!-- Available year -->
+        <div class="pb-1 border-line"
+        {% if not  object.year_of_available_on_text%}
+        style="display: none"
+        {% endif %}>
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.year_of_available_on_text }}</span>
+        </div>
+
+        <!-- Keywords -->
+        <div class="pb-1 border-line"
+        {% if not  keyword.keyword %}
+        style="display: none"
+        {% endif %}
+        >
+          <!-- TODO pluralization -->
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</span>
+           <span class="text-dark text-capitalize">
+          {% for keyword in object.keywords.all %}
+         <a href="{% url 'keyword:keyword_detail' keyword.keyword %}"> {{ keyword.keyword }}</a>
+             {%  if not forloop.last %}
+                                            ,
+             {%  endif %}
+          {% endfor %}
+           </span>
+        </div>
+
+        <!-- Description -->
+        <div class="pb-1 border-line"
+                {% if not object.description %}
+             style="display: none"
+                {% endif %}>
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "description:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.description }}</span>
+        </div>
+
+        <!-- License type -->
+        <div class="pb-1 border-line"
+         {% if not  object.license.license %}
+             style="display: none"
+         {% endif %}
+        >
+          <!-- TODO pluralization -->
+          <span class="capitalize font-weight-normal text-dark">{% trans "License type:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.license.license }}</span>
+        </div>
+
+        <!-- Language -->
+        <div class="pb-1 border-line"
+        {% if not  object.languages.all %}
+             style="display: none"
+         {% endif %}
+        >
+          <!-- TODO: implement pluralization in total page -->
+          <span class="text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</span>
+          <span class="text-dark">
+          {% for language in object.languages.all %}
+           {{ language }}
+            {%  if not forloop.last %}
+            ,
+             {%  endif %}
+          {% endfor %}
+          </span>
+        </div>
+
+        <!-- Education level -->
+        <div class="pb-1 border-line"
+        {% if not  object.education_levels.all %}
+             style="display: none"
+         {% endif %}
+        >
+          <!-- TODO: implement pluralization in total page -->
+          <span class="text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</span>
+          {% for education_level in object.education_levels.all %}
+          <span class="text-dark"> {{ education_level }}</span>
+          {% endfor %}
+        </div>
+
+        <!-- Rights -->
+        <div class="pb-1 border-line"
+                {% if not object.custom_license %}
+             style="display: none"
+                {% endif %}>
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "right:" %}</span>
+          <span class="text-dark text-capitalize"> {{ object.custom_license }}</span>
+        </div>
+
+        <!-- sponsor -->
+        <div class="pb-1 border-line"
+                {% if not object.sponsors.all %}
+             style="display: none"
+                {% endif %}>
+          <!-- TODO pluralization -->
+          <span class="text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</span>
+          {% for sponsor in object.sponsors.all %}
+          <span class="text-dark text-capitalize"> {{ sponsor }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+      <br><br>
+            <!--Review system added-->
+                   <div class="container"  style="margin-left:-27px;">
+
+                     <div class="form-group">
+                       <div class="container" >
+
+                         <input type="hidden" name="content_type" value="audio"/>
+                         <input type="hidden" name="content_id" value="{{ object.pk }}">
+
+                         <label>Your review message:</label>
+                         <textarea type="text" name="input" class="form-control bg-white" placeholder="Your review message"></textarea>
+                         <button type="button" value="Submit" id="submitButton" class ="btn btn-primary" >Add your review</button>
+
+                       </div>
+                     </div>
+
+                     <div class="container"  style="margin-left:-40px !important;" id="commentContainer">
+                       <!--comment system views -->
+                       <ul>
+                       {% if user %}
+                       <input type="hidden" name="user" value="{{ user }}">
+                       {% endif %}
+
+                       {% if data_review %}
+
+                         {% for v in data_review %}
+                         <li style="list-style: none" id ="comment_{{ v.pk }}">
+
+                           <div class="jumbotron" id="div_comment_{{ v.pk }}">
+                              <p class="font-weight-bold input_post" style="word-wrap: break-word;">
+                                {{ v.post }}
+                                </p>
+                              <p>
+                                <small class="text-capitalize"> by: {{  v.user }}</small>
+                              </p>
+
+                               {% if user == v.user %}
+                                <!--<p>Welcome, {{ user.get_username }}. Thanks for logging <in class=""></in></p>-->
+
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+                                  {% else %}
+                                    <!--<p>Welcome,  user. Please log in.</p>-->
+                              {% endif %}
+                           </div>
+                         </li>
+                         {% endfor %}
+
+                        {% elif paginated_data %}
+                        <!--Pagination links starts here-->
+
+
+                         {% for v in paginated_data %}
+                         <li style="list-style: none" id ="comment_{{ v.pk }}">
+
+                           <div class="jumbotron" id="div_comment_{{ v.pk }}">
+                              <p class="font-weight-bold input_post" style="word-wrap: break-word;">
+                                {{ v.post }}
+                                </p>
+                              <p>
+                                <small class="text-capitalize"> by: {{  v.user }}</small>
+                              </p>
+
+                               {% if user == v.user %}
+                                <!--<p>Welcome, {{ user.get_username }}. Thanks for logging <in class=""></in></p>-->
+
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+
+                                  {% else %}
+                                    <!--<p>Welcome,  user. Please log in.</p>-->
+                              {% endif %}
+                           </div>
+                         </li>
+                          {% endfor %}
+
+                       <div class="pagination">
+                        <span class="step-links">
+                          {% if paginated_data.has_previous %}
+                          <a href="?page={{ users.previous_page_number }}">previous</a>
+                          {% endif %}
+
+                          <!-- Showing the page numbers in Html Page -->
+                          <span class="current">
+                          Page {{ paginated_data.number }} of {{ paginated_data.paginator.num_pages }}.
+                        </span>
+
+                {% if paginated_data.has_next %}
+                <a href="?page={{ paginated_data.next_page_number }}">next</a>
+                {% endif %}
+                </span>
+                </div>
+
+                        <!--This is end of paginated links-->
+                        {% endif %}
+
+                        </ul>
+                     </div>
+                    <!--model for login message -->
+                   </div>
+
+
+    </div>
+  </div>
+
+</div>
+{% endblock content %}
+{% block script %}
+{{ block.super }}
+<script>
+        (function (window) {
+            window.playAudio = function (event) {
+                // get the url of selected audio.
+                var selectedURL = event.getAttribute('data-src');
+                var title = event.getAttribute("data-title");
+                // Remove all active class and add the selected class.
+                $("#audioList").children("div").children("span").removeClass('text-primary');
+                // Add class to this audio
+                $(event).addClass('text-primary');
+                // Now change the audio src
+                var audioPlayer = document.getElementById("selectedAudio");
+                audioPlayer.setAttribute("src", selectedURL);
+                $("#audio-title").text(title);
+                // Play the audio
+                audioPlayer.play();
+            }
+        })(window);
+
+
+</script>
+
+<script>
+
+    $("#submitButton").click(function (e){
+      e.preventDefault();
+      var user_input = $("textarea[type='text'][name='input']").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        alert("Login to post you message");
+        return;
+      }else if(user_input == "" ){
+        alert("Please enter you message first");
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+        },
+        success: function (data) {
+          $("textarea[type='text'][name='input']").val('');
+          var pk_value = data.pk_value;
+          //when success we need to append the data to the comment section
+      $("#commentContainer ul").append(''+
+                          '<li style="list-style: none" id ="comment_'+ pk_value +'">'+
+                          ' <div class="jumbotron" id="div_comment_'+ pk_value +'"> '+
+                          ' <p class="font-weight-bold input_post" style="word-wrap: break-word;"> '+
+                            user_input +
+                            '</p>'+
+                            '<p>' +
+                            '<small class="text-capitalize"> by:' +  user_name +'</small>'+
+                            '</p>'+
+                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>'+
+                            '</div>'+
+                            '</li>');
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+    $("#commentContainer ul").delegate("button.EditComment","click",function (e){
+      if($("#editSection").length){
+        return;
+      }
+      var pk_value = $(this).val();
+      //lets grab the editing values first
+      var idval= "#comment_"+pk_value +"  .jumbotron .input_post";
+      var editText =  $(idval).text();
+      $(idval).append('<div id="editSection">'+
+        '<p>Edited Message is: </p>'+
+        '<textarea type="text" name="editedContent" placeholder="'+ $.trim(editText) +'" value="'+$.trim(editText)+'" class="form-control bg-white">'+$.trim(editText)+'</textarea>'+
+        '<button type="submit"  class="btn btn-sm btn-primary editButtonGo" value="'+ pk_value +'" style="color:white;background:blue;">Go</button>'+
+        '<button type="submit"  class="btn btn-sm btn-primary editButtonCancel" style="color:white;background:blue;">Cancel</button>'+
+        '</div>'
+      );
+    });
+
+    //this one is for delete
+  $("#commentContainer ul").delegate("button.DeleteComment","click",function (e){
+      var pk_value = $(this).val();
+      console.log(pk_value);
+       $.ajax({
+        type:'post',
+        url: '/review_system/delete/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input_pk": pk_value,
+        },
+        success: function (data) {
+          //if (data.is_taken) {
+          //alert('SUCCESS');
+            //alert("data = "+ data);
+          //}
+          var id = "#comment_"+pk_value
+          $(id).remove();
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+  //cancel button click
+  $("#commentContainer ul").delegate("button.editButtonCancel","click",function (e){
+    $("#editSection").remove();
+  });
+
+  //button go
+  $("#commentContainer ul").delegate("button.editButtonGo","click",function (e){
+
+   //data capture
+      var user_input = $("textarea[type='text'][name='editedContent']").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      var pk_value = $(".editButtonGo").val();
+      //alert("pk="+pk_value);
+      //return;
+      if(user_name == "" || user_input == "" ){
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/edit/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+          "pk_val":pk_value,
+        },
+        success: function (data) {
+          $("textarea[type='text'][name='input']").val('');
+
+          var pk_value = data.pk_value;
+          var id_div = "div_comment_"+pk_value ;
+          $("#"+id_div).remove();
+          //when success we need to append the data to the comment section
+         var id_list = "#comment_"+pk_value;
+        $("#commentContainer ul li"+ id_list).append(''+
+                          ' <div class="jumbotron " id="'+id_div+'" > '+
+                          ' <p class="font-weight-bold input_post" style="word-wrap: break-word;"> '+
+                            user_input +
+                            '</p>'+
+                            '<p>' +
+                            '<small class="text-capitalize"> by:' +  user_name +'</small>'+
+                            '</p>'+
+                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>'+
+                            '</div>'+
+                            '');
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+  });
+  </script>
+{% endblock script %}

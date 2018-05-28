@@ -453,7 +453,7 @@ REST_FRAMEWORK = {
 
 
 # Security mitigation settings.
-X_FRAME_OPTIONS = 'DENY'
+# X_FRAME_OPTIONS = 'DENY'
 # CSRF_COOKIE_SECURE = True # Need ssl support 
 # SESSION_COOKIE_SECURE = True # Need ssl support 
 # SECURE_SSL_REDIRECT = True # Need https support. 

@@ -1139,6 +1139,8 @@ a.text-primary:focus, a.text-primary:hover {
 
 /* details page */
 
+/* details page */
+
 #det-book-title{
   font-family: 'Roboto Slab', serif;
 }
@@ -1179,6 +1181,10 @@ a.text-primary:focus, a.text-primary:hover {
   color: #878787;
 }
 
+.ole-read-more{
+  display: none;
+}
+
 .det-fav-active{
   color: #D65A49;
 }
@@ -1193,4 +1199,95 @@ a.text-primary:focus, a.text-primary:hover {
 }
 .det-fav-added .det-fav-active{
   color: white;
+}
+
+.modal-content{
+  text-align: left;
+}
+
+#audioList > div{
+  background-color: #4D4D4D;
+  padding: 10px;
+  color: #fff;
+}
+
+#audioList > div > span{
+  margin-left: 20px;
+}
+
+#audioList > div:nth-of-type(odd){
+  background-color: #6E6E6E;
+}
+
+#audioList > div:hover{
+  color: #00BCD4;
+  cursor: pointer;
+}
+
+.curr-playing-audio{
+  background-color: #00838F !important;
+}
+
+.ole-vdo-cont{
+  padding-right: 0px !important;
+}
+
+.ole-playlist-cont{
+  background: #4D4D4D;
+  border: 5px solid #4D4D4D;
+}
+
+.video-elems {
+    position: relative;
+    float: left;
+    color: #fff;
+}
+
+.video-thumb.video-elems {
+    width: 45%;
+}
+
+.video-elems img{
+  width: 100%;
+}
+
+.video-elems.text-capitalize {
+  width: 55%;
+  display: block;
+  padding-left: 10px;
+}
+
+.indv-play {
+    float: left;
+    padding: 7px 0px;
+    cursor: pointer;
+}
+
+.indv-play:hover > .text-capitalize{
+  color: #00BCD4;
+}
+
+.vid-duration {
+  position: absolute;
+  background: #1d1d1d;
+  top: 0px;
+  left: 0px;
+  padding: 1px 5px;
+}
+
+.now-playing {
+  position: absolute;
+  background: rgba(0,0,0,0.5);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.now-playing p{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  text-align: center;
 }
