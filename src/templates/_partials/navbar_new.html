@@ -273,7 +273,7 @@
 
 
 
-                            <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                            <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm-web" >
                                     {% get_current_language as LANGUAGE_CODE %}
                                     {% csrf_token %}
                                     <!-- Change value to current_url without language -->
@@ -286,7 +286,7 @@
                                         <!-- <i class="flag-icon flag-icon-gb"></i> -->
                                         <span
                                         class= "lang-swi"
-                                        onclick="change_language(this)"
+                                        onclick="change_language(this, 'changeLanguageForm-web')"
                                         data-lang="ne"
                                         ><img class="oleflags" src="{% static 'images_new/nepal.png' %}" alt="ole logo" />&nbsp;नेपाली</span>
 
@@ -297,7 +297,7 @@
                                     <!-- <a href="#"><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" /> English &#9662;</a> -->
                                     <span
                                    class= "lang-swi"
-                                    onclick="change_language(this)"
+                                    onclick="change_language(this, 'changeLanguageForm-web')"
                                     data-lang="en"
                                     ><img class="oleflags" src="{% static 'images_new/gb.png' %}" alt="ole logo" />&nbsp; English</span>
 
@@ -424,7 +424,7 @@
 
 
 
-                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm" >
+                        <form action="{% url 'set_language' %}" method="post" id="changeLanguageForm-mobile" >
                                 {% get_current_language as LANGUAGE_CODE %}
                                 {% csrf_token %}
                                 <!-- Change value to current_url without language -->
@@ -461,7 +461,7 @@
 
                                 <!-- detect on click on this a tag and post to server -->
                                 <a
-                                onclick="change_language(this)"
+                                onclick="change_language(this, 'changeLanguageForm-mobile')"
                                 data-lang={{lang.0}}
                                 class="text-white"
                                 >
@@ -529,10 +529,12 @@
 <script>
     (function (window) {
 
-        window.change_language = function (element) {
+        window.change_language = function (element, id) {
 
             // get the form.
-            var changeLanguageForm = document.getElementById("changeLanguageForm");
+           //  var changeLanguageForm = document.getElementById("changeLanguageForm");
+
+           var changeLanguageForm = document.getElementById(id);
 
             // Select language input
             var languageInputField = changeLanguageForm.elements.language;

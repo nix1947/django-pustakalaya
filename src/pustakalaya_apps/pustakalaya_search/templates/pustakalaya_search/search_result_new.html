@@ -523,9 +523,7 @@
           // check if the property/key is defined in the object itself, not in parent
           if (dictionary.hasOwnProperty(key)) {
 
-
-          if (key == "type"){
-
+          if (key === "type"){
            for(var i =0;i<dictionary[key].length;i++){
             RenderSelectedItem(key,dictionary[key][i]);
            }
@@ -575,6 +573,7 @@
         var mainElement = document.getElementById('selected-badges');
 
          var type_full_text = type;
+         console.log("string=",type)
 
          if (type == "type"){
          type_full_text="Media Type";
@@ -614,8 +613,10 @@
       var urlString = window.location.href;
       var  urlParams = parseURLParams(urlString);
       //console.log(JSON.parse(urlParams["form-filter"]))
+      //console.log(urlParams["form-filter"])
 
-      loopSelectedOption(urlParams["form-filter"]);
+
+      loopSelectedOption(JSON.parse(urlParams["form-filter"]));
 
 
 
