@@ -255,9 +255,6 @@ class Audio(AbstractItem):
     class Meta:
         db_table = "audio"
 
-
-
-
 class AudioGenre(AbstractTimeStampModel):
     genre = models.CharField(
         _("Genre name"),
@@ -274,7 +271,6 @@ class AudioGenre(AbstractTimeStampModel):
 
     def __str__(self):
         return self.genre
-
 
 class AudioSeries(AbstractSeries):
     def __str__(self):
@@ -313,7 +309,6 @@ class AudioFileUpload(AbstractTimeStampModel):
         db_table = "audio_file"
         ordering = ["created_date"]
 
-
 class AudioLinkInfo(LinkInfo):
     audio = models.ForeignKey(
         Audio,
@@ -327,7 +322,6 @@ class AudioLinkInfo(LinkInfo):
 
     class Meta:
         ordering=["created_date"]
-
 
 class AudioType(models.Model):
     """DB to store type of audios"""

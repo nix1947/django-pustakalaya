@@ -1,9 +1,18 @@
 from django.http import Http404
 from rest_framework.response import Response
-from rest_framework import status
-from pustakalaya_apps.audio.models import Audio
+from rest_framework import status, viewsets
+from pustakalaya_apps.audio.models import (
+    Audio,
+    AudioFileUpload,
+    AudioLinkInfo
+)
 from rest_framework.views import APIView
-from .serializers import AudioSerializers
+from rest_framework.pagination import PageNumberPagination
+from .serializers import (
+    AudioSerializers,
+    AudioFileSerializer,
+    AudioLinkInfoSerializer
+)
 
 
 class AudioList(APIView):
@@ -11,10 +20,14 @@ class AudioList(APIView):
     List all audio, or create a new audio.
     """
     def get(self, request, format=None):
+        pagination_class = PageNumberPagination 
+        paginator = PageNumberPagination()
+        paginator.page_size = 1
         audios = Audio.objects.all()
-        serializer = AudioSerializers(audios, many=True)
-        return Response(serializer.data)
-
+        page = paginator.paginate_queryset(audios, request)
+        serializer = AudioSerializers(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
+        
 
     def post(self, request, format=None):   
         serializer = AudioSerializers(data=request.data)
@@ -52,3 +65,49 @@ class AudioDetail(APIView):
         audio = self.get_object(pk)
         audio.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+ 
+class AudioFileUploadViewSet(viewsets.ModelViewSet):
+    """
+     Audio Fileupload endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Audio Files 
+    """
+    queryset = AudioFileUpload.objects.all()
+    serializer_class = AudioFileSerializer
+
+
+audiofile_list = AudioFileUploadViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+audiofile_detail = AudioFileUploadViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+class AudioLinkInfoViewSet(viewsets.ModelViewSet):
+    """
+     Audio AudioLinkInfo endpoint to  `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Audio links
+    """
+    queryset = AudioLinkInfo.objects.all()
+    serializer_class = AudioLinkInfoSerializer
+
+
+audiolinkinfo_list = AudioLinkInfoViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+audiolinkinfo_detail = AudioLinkInfoViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+

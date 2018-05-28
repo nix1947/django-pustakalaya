@@ -1,20 +1,19 @@
 from __future__ import absolute_import
 import os
-import subprocess
+import logging
+from django.conf import settings
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from celery.decorators import task
-from celery import shared_task
-from wand.image import Image, Color
+from celery import (
+    shared_task,
+    task
+)
+from django.core.mail import send_mail
 from celery.contrib import rdb
 from pustakalaya_apps.document.models import DocumentFileUpload
 
 logger = get_task_logger(__name__)
-
-
-@task(name="sub two numbers")
-def add(x, y):
-    return x + y
 
 
 @shared_task(name="pdf to image conversion")
@@ -42,6 +41,7 @@ def convert_pdf(file_path, instance_id=None):
     # Start to convert pdf to jpej
     # success = subprocess.call(['pdftocairo', '-png', file_path, file_dir])
     success = subprocess.call("pdftocairo -png {} {}/".format(file_path, file_dir), shell=True)
+    # TODO: Replace with log
     print("conversion finished")
 
     if success == 0:  #
@@ -59,3 +59,18 @@ def convert_pdf(file_path, instance_id=None):
         file_document.total_pages = total_converted_page
         # Update the total pages and save this instance.
         file_document.save()
+
+
+
+@shared_task(name="send feedback message")
+def send_feedback_email_task(title, message):
+    """sends an email when feedback form is filled successfully"""
+    logger.info("Sent feedback email")
+    send_mail(
+         title,
+         message,
+         settings.EMAIL_HOST_USER,
+         settings.FEEDBACK_MESSAGE_TO,
+         fail_silently=False
+         )
+

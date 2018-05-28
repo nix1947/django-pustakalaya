@@ -12,7 +12,7 @@ from .models import (
 class VideoFileUploadAdmin(admin.TabularInline):
     model = VideoFileUpload
     extra = 1
-    fields = ["file_name","upload"]
+    fields = ["file_name","upload", 'thumbnail']
 
 
 class AudioLinkInfoAdminInline(admin.StackedInline):

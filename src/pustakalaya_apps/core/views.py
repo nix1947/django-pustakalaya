@@ -21,10 +21,8 @@ def home(request):
         pass
 
     featured_audio = Audio.featured_objects.all() # Provide only top 2 items
-    # print("Total audio", len(featured_audio))
     featured_video = Video.featured_objects.all() # Provide only top 2 items
-    # print("Total video", len(featured_video))
-
+    
     if not featured_books:
         featured_books = Document.objects.filter(featured="yes", published="yes").order_by('-updated_date')[:3]
 

@@ -30,6 +30,8 @@ from pustakalaya_apps.core.models import (
 )
 from .search import DocumentDoc
 
+from django.contrib.contenttypes.models import ContentType
+from star_ratings.models import Rating
 
 def __file_upload_path(instance, filepath):
     # Should return itemtype/year/month/filename
@@ -249,6 +251,11 @@ class Document(AbstractItem, HitCountMixin):
     @property
     def get_view_count(self):
         return self.hit_count_generic.count() or 0
+    
+    @property
+    def get_avg_ratings(self):
+        # Query the document and return the avg rating.        
+        return rating_obj.averge
 
     def __str__(self):
         return self.title
@@ -367,6 +374,7 @@ class Document(AbstractItem, HitCountMixin):
 
     def document_link_name(self):
         return self.link_name;
+    
 
 class UnpublishedDocument(Document):
     """
@@ -446,8 +454,6 @@ class DocumentLinkInfo(LinkInfo):
 
     class Meta:
         ordering=['created_date']
-
-
 
 
 class DocumentIdentifier(AbstractTimeStampModel):

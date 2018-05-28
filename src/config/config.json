@@ -15,8 +15,7 @@
     "EMAIL_HOST_PASSWORD": "Colleges123",
     "EMAIL_USE_TLS": "True",
     "FEEDBACK_MESSAGE_TO": [
-      "manojit.gautam@gmail.com",
-      "manoj.gautam@olenepal.org"
+      "manojit.gautam@gmail.com"
     ],
     "ADMIN_EMAILS": [
       [
