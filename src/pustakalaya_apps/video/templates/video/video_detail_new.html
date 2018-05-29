@@ -46,7 +46,7 @@
     <div class="row">
       <div class="col-md-12">
 
-          <h5 id="det-book-title">{{ object.title }}</h5>
+          <h5 id="det-book-title" class="text-capitalize">{{ object.title }}</h5>
           <!--<p>By: <span><a href="#">Antone Checov</a></span> </p>-->
       </div>
     </div>
@@ -698,7 +698,7 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+            <img  src="{% static 'base_assets/img/video_book.png' %}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% endif %}
 
