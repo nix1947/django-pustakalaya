@@ -5,6 +5,7 @@ from .models import Biography
 from django.shortcuts import (
     render,
 )
+from pustakalaya_apps.document.models import Document
 import re
 
 
@@ -15,7 +16,30 @@ def home(request):
 class AuthorDetail(DetailView):
     model = Biography
 
-    template_name = "core/author_detail.html"
+
+    # def get_similar_items(self):
+    #     return Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
+    # books = Document.objects.filter(document_authors=object.pk)
+    # context = {}
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        books = Document.objects.filter(document_authors=self.object.pk)
+        context["books"]= books
+
+        print("authors in = ",self.object.authors_name_in_other_language.all())
+
+        author_other_books = []
+
+        for author in self.object.authors_name_in_other_language.all():
+            author_other_books.append(Document.objects.filter(document_authors=author.pk))
+        context["author_other_books"] = author_other_books
+
+
+        return self.render_to_response(context)
+
+    template_name = "core/author_detail_new.html"
 
 
 def author_list(request):

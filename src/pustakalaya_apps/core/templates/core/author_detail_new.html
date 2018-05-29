@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load pustakalaya_filters %}
+{% block content %}
+
+
+
+<div class="main-contain">
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="col-md-3 auth-img-cont">
+        {% if object.thumbnail  %}
+        <img src="{{ MEDIA_URL }}{{ object.thumbnail }}"
+             title="{{ object }}"
+             alt="{{ object }}" />
+        {% else %}
+        <img src="{% static 'base_assets/img/author.png' %}"
+             title="{{ object }}"
+             alt="{{ object }}" />
+        {% endif %}
+        {%  if request.user.is_superuser %}
+          <a href="{{ object.get_admin_url }}" class="btn-primary btn btn-sm">{%  trans "Edit" %}</a>
+        {%  endif %}
+      </div>
+      <div class="col-md-9">
+        <h5 id="det-book-title">{{ object.getname }}<span>
+          (
+           {% if  object.authors_name_in_other_language.all %}
+
+              {% for author in object.authors_name_in_other_language.all %}
+
+                <!-- {# <a href="{% url 'author:author_detail' author.getname|slugify  author.pk %}">{{ author }}</a> #}-->
+            <a href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">{{ author }}</a>
+                {%  if not forloop.last %}
+                          ,
+                {%  endif %}
+              {% endfor %}
+          {% endif %}
+          )
+        </span></h5>
+
+        <!-- <h5 id="det-book-title">About Author</h5> -->
+        {% if object.description %}
+        <p id="author-detail">
+         {{ object.description }}
+        </p>
+       {% endif %}
+
+        <hr>
+
+    <table class="table table-borderless author-table">
+
+      {% if object.address %}
+        <tr>
+          <th>{% trans "Address" %}:</th>
+          <td>
+            <p>{{ object.address }}</p>
+          </td>
+        </tr>
+       {% endif %}
+
+
+      {% if object.dob %}
+        <tr>
+          <th>{% trans "Born" %}:</th>
+          <td>
+            <p>{{ object.dob }}</p>
+          </td>
+        </tr>
+      {% endif %}
+
+      {% if object.place_of_birth %}
+        <tr>
+        <th>{% trans "Place of birth" %}:</th>
+        <td>
+          <p>{{ object.place_of_birth }}</p>
+          </td>
+      </tr>
+       {% endif %}
+
+
+
+
+        {% if object.date_of_death %}
+        <tr>
+          <th>{% trans "Demise" %}:</th>
+          <td>
+            <p>{{ object.date_of_death }}</p>
+        </tr>
+       {% endif %}
+
+      {% if object.place_of_death %}
+        <tr>
+        <th>{% trans "Place of death" %}:</th>
+        <td><p>{{ object.place_of_death }}</p></td>
+      </tr>
+      {% endif %}
+
+      {% if object.pen_name %}
+       <tr>
+          <th>{% trans "Pen name" %}:</th>
+          <td>
+            <p>{{ object.pen_name }}</p>
+        </tr>
+      {% endif %}
+
+
+      {% if object.genre.all %}
+       <tr>
+          <th>{% trans "Genre" %}:</th>
+          <td>
+            <p>
+              {% for genre in object.genre.all %}
+                    {{ genre.custom_genre }}
+                     {%  if not forloop.last %},{%  endif %}
+                  {% endfor %}
+            </p>
+        </tr>
+       {% endif %}
+
+
+
+      {% if  object.keywords.all %}
+      <tr>
+          <th>{% trans "Keywords" %}:</th>
+          <td>
+             {% for keyword in object.keywords.all %}
+            <a href="{% url 'keyword:keyword_detail' keyword.keyword %}"
+                     style="text-decoration: none;">{{ keyword }}</a>
+                {%  if not forloop.last %},{%  endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endif %}
+
+
+  </table>
+    </div>
+  </div>
+
+  <!-- <hr> -->
+  <!-- start of similar books -->
+  <div class="row">
+    <div class="col-md-12">
+      <h5 id="det-book-title">Author's Publications</h5>
+    </div>
+
+
+    {% for book in books %}
+     <div class="col-md-2 col-sm-6 col-6">
+        <div class="grid-book-cont">
+             <a href=" {% url 'document:detail_without_slug'  book.pk %}">
+          <div class="img-cont">
+             {% if book.thumbnail  %}
+                  <img  src="{{ MEDIA_URL }}{{ book.thumbnail }}"
+                         alt="{{ book.title }}" title="{{ book.title }}">
+            {% else %}
+                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
+                         alt="{{ book.title }}" title="{{ book.title }}">
+            {% endif %}
+
+           </div>
+          <p class="book-label text-capitalize"> {{ book.title }}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>Document</p>
+          </a>
+      </div>
+       </div>
+    {% endfor %}
+
+
+    {% for books in author_other_books %}
+    {% for book in books %}
+     <div class="col-md-2 col-sm-6 col-6">
+        <div class="grid-book-cont">
+             <a href=" {% url 'document:detail_without_slug'  book.pk %}">
+          <div class="img-cont">
+             {% if book.thumbnail  %}
+                  <img  src="{{ MEDIA_URL }}{{ book.thumbnail }}"
+                         alt="{{ book.title }}" title="{{ book.title }}">
+            {% else %}
+                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
+                         alt="{{ book.title }}" title="{{ book.title }}">
+            {% endif %}
+
+           </div>
+          <p class="book-label text-capitalize"> {{ book.title }}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>Document</p>
+          </a>
+      </div>
+       </div>
+    {% endfor %}
+    {% endfor %}
+
+
+
+  </div>
+</div>
+
+</div>
+
+
+
+
+{% endblock content %}

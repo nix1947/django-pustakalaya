@@ -161,13 +161,16 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 #menu a:link,
-#menu a:visited {
+#menu a:visited, #menu .lang-swi {
     display: block;
     text-align: left;
     text-decoration: none;
     color: #FFF;
     padding: 5px;
+    cursor: pointer;
 }
+
+
 
 #menu li:hover {
     /* background-color: #ffd98a; */
@@ -178,9 +181,10 @@ a.text-primary:focus, a.text-primary:hover {
     display: block;
 }
 
-#menu li a:hover {
-  color: #00BCD4;
+#menu li a:hover, #menu .lang-swi:hover {
+  color: #00BCD4 !important;
 }
+
 
 
 #menu .dropdown-items a{
