@@ -4,6 +4,16 @@
 {% load pustakalaya_filters %}
 
 {% block content %}
+
+<!--REMOVE THIS LATER-->
+ <input type="hidden" name="content_type" value="audio"/>
+ <input type="hidden" name="content_id" value="{{ object.pk }}">
+ {% if user %}
+  <input type="hidden" name="user" value="{{ user }}">
+  {% endif %}
+
+<!--End of remove this later-->
+
 <div class="main-contain">
   <div class="container">
     <div class="row" style="margin: 15px 0px;">
@@ -40,10 +50,10 @@
         alt="{{ object.title }}" />
      {% endif %}
 
-     
-  
+
+
         <div class="ratings-container">
-         
+
          {# <button type="button" class="btn ole-btn" style="margin-bottom: 1rem;"><i class="fas fa-book"></i> Document Available</button> #}
           {%  if request.user.is_superuser %}
 
@@ -62,7 +72,12 @@
         </div>
 
 
-        
+
+        <!-- review system -->
+
+
+        {% comment %}
+
         {# <button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fas fa-heart det-fav-active"></i> Add to Favorite</button> #}
         <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fas fa-comment-alt det-rev-active"></i> Leave a Review</button>
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
@@ -96,31 +111,132 @@
 
           </div>
         </div>
+        {% endcomment %}
+
+
+        <!--Review btn for model button-->
+        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> Leave a Review</button>
+        <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!--<form>-->
+              <div class="modal-header">
+                <h4 class="modal-title">Write a Review</h4>
+                <button type="button" id="close_model_box" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="pwd">Title:</label>
+                    <input type="text" class="form-control" id="pwd1" name="title_input" maxlength="255" autofocus>
+                    <label for="comment">Message:</label>
+                    <textarea type="text" name="input" class="form-control bg-white" placeholder="Your review message"></textarea>
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+               <button type="button" value="Submit" id="submitButton" class ="btn btn-primary"  >Add your review</button>
+              </div>
+            <!--</form>-->
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Different models used in this document-->
+        <!--User info model-->
+
+        <!--User info  Modal -->
+          <button type="button" style="display: none;"  value="Submit" id="info_message_display"  data-toggle="modal" data-target="#myModalUserInfo" ></button>
+          <div class="modal fade" id="myModalUserInfo" role="dialog">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                  <h4 class="modal-title">Information</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="information_message_p_tag">Info message</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--close of user info model-->
+
+        <!-- Edit review model  -->
+        <button type="button" id="edit_hidden_btn"  data-toggle="modal" data-target="#myModalForEdit" style="display:none"></button>
+        <div class="modal fade" id="myModalForEdit" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!--<form>-->
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Review</h4>
+                <!--<button type="button" id="close_model_box" class="close" data-dismiss="modal">&times;</button>-->
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <input type="hidden" id="edited_message_id" value="" >
+                    <label for="pwdEdit">Title:</label>
+                    <input type="text" class="form-control" id="edited_title_input" name="edited_title_input" maxlength="255" autofocus>
+                    <label for="commentEdit">Message:</label>
+                    <textarea type="text" name="edited_message_input" id="edited_message_input" class="form-control bg-white" placeholder="Your review message"></textarea>
+
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button"  class="btn btn-primary" id="edited_cancel_button" data-dismiss="modal">Cancel</button>
+               <button type="button" value="Submit" id="submitButtonForEdit" class ="btn btn-primary" onclick="sendButtonClick()" ><i class="fa fa-telegram"></i> Send</button>
+              </div>
+            <!--</form>-->
+            </div>
+          </div>
+        </div>
+
+        <!--End Edit review model  -->
+
+        <!--Yes no   Modal -->
+          <button type="button" style="display: none;"  value="Submit" id="yes_no_message_display"  data-toggle="modal" data-target="#myModalYesNo" ></button>
+          <div class="modal fade" id="myModalYesNo" role="dialog">
+            <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <input type="hidden" id="message_delete_id" value="">
+                  <h4 class="modal-title">Information</h4>
+                </div>
+                <div class="modal-body">
+                  <p id="yes_no_message_p_tag">Are you sure you want to delete this message?</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="DeleteButtonYes()"  data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--close of user info model-->
+
+        <!--End of  Different models used in this document-->
+        <!--End review system -->
+
+
+
       </div>
       <div class="col-md-9">
         <h5 id="det-book-title" class="text-capitalize">{{object.title}}</h5>
-        <p>{% trans "By" %}:<span>
-           <!--Original author of the document which was made audio file later-->
-              {% if  object.audio_original_document_authors.all %}
-                  {% for author in object.audio_original_document_authors.all %}
-                    <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize">{{ author }}</a>{%  if not forloop.last %},{%  endif %}
-                  {% endfor %}
-              {% endif %}
-        </span> </p>
 
-        <div class="_1dlNCg"><div class="niH0FQ">
-          <span id="productRating_undefined_MOBFF5ZG7HCKHJCS_" class="_2_KrJI">
-            <div class="hGSR34 _2beYZw">4.3<!-- --> ★</div>
-          </span><span class="_38sUEc">
-            <span><span>109 Ratings&nbsp;</span><span class="_1VpSqZ">&amp;</span><span>&nbsp;35 Reviews</span></span>
-          </span>
-        </div>
-      </div>
 
-      <audio id="selectedAudio" 
-        style="width: 100%;" preload="auto" tabindex="0" controls="" 
+      <audio id="selectedAudio"
+        style="width: 100%;" preload="auto" tabindex="0" controls=""
         type="audio/mpeg"
-        title="{{ object.title }}" 
+        title="{{ object.title }}"
         about="{{ object.title }}"
         src="{{ MEDIA_URL }}{{ object.audiofileupload_set.first.upload }}"
         controlslist="nodownload">
@@ -134,13 +250,13 @@
         <!-- audio playlist -->
         {% for audio in object.audiofileupload_set.all %}
               <div class="pl-3   {% if forloop.counter == 1 %}curr-playing-audio{% endif %}">
-                  
+
                   {% if forloop.counter == 1 %}
                   <img src="{% static 'base_assets/img/source.gif' %}" style="width: 12.25px;" alt="currently playing" />
                   {% else %}
                   <i class="fa fa-play-circle"></i>
                   {% endif %}
-                    <span  data-src="{{ MEDIA_URL }}{{ audio.upload }}" 
+                    <span  data-src="{{ MEDIA_URL }}{{ audio.upload }}"
                     class="text-capitalize playspan"
                      data-title="{{ audio.file_name }}" onclick="playAudio(this)">
                       {{ forloop.counter }}&nbsp;.&nbsp;{% if audio.file_name %}{{ audio.file_name }}
@@ -148,14 +264,14 @@
                            {% trans "Audio" %}{{forloop.counter}}
                         {% endif %}
                     </span>
-            
-                    </script>
+
+
                     <span style="float: right;">
                         <audio class="calculateAudioLength"
-                       
+
                         src="{{ MEDIA_URL }}{{ audio.upload }}">
                       </audio>
-                        
+
                     </span>
               </div>
         {% endfor %}
@@ -215,13 +331,13 @@
                           {%  endif %}
                          {% endfor %}
                       </td>
-                  
+
                 </tr>
               {% endif %}
 
               <!-- original authors -->
 
-             {% if  object.audio_original_document_authors.all %}   
+             {% if  object.audio_original_document_authors.all %}
              <tr>
                 <th scope="col">{% trans "Original author(s):" %}</th>
                 <td class="text-capitalize">
@@ -250,7 +366,7 @@
               <tr>
                   <th scope="col text-capitalize">{% trans "Place of Publication:" %}</th>
                   <td class="text-capitalize">{{ object.place_of_publication }}</td>
-                </tr> 
+                </tr>
               {% endif %}
 
 
@@ -273,7 +389,7 @@
                   </td>
                 </tr>
 
-                
+
               {% endif %}
 
               <!-- audio genre -->
@@ -298,7 +414,7 @@
 
             <!-- audio volume -->
             {% if  object.volume %}
-            
+
                 <tr>
                 <th scope="col text-capitalize" class="text-capitalize">{% trans "Volume:" %}</th>
                 <td class="text-capitalize">{{ object.volume }}</td>
@@ -307,13 +423,13 @@
 
               <!-- audio edition -->
               {% if  object.edition %}
-            
+
                   <tr>
                   <th scope="col text-capitalize" class="text-capitalize">{% trans "edition:" %}</th>
                   <td class="text-capitalize">{{ object.edition }}</td>
                 </tr>
 
-                
+
               {% endif %}
 
 
@@ -343,64 +459,180 @@
         </div>
 
         <div role="tabpanel" class="tab-pane fade" id="reviews">
-          <div class="review-container">
-            <br>
-            <h5>Brihat Sabdakosh</h5>
-            <p>By: <span>Shankar Prasad Adhikari</span></p>
-            <p>Very useful to iBook users. ...</p>
-            <p> <a href="#">Read More</a> </p>
-            <hr>
-          </div>
-          <div class="review-container">
-            <br>
-            <h5>युनिकोडमा भए अझ जाति हुने थियो</h5>
-            <p>By: <span>Shankar Prasad Adhikari</span></p>
-            <p>नेपाली शब्दकोशलाई डिजिटल रुप दिन खोजिएको यो प्रयाश अत्यन्त सह्रानिय छ। किन्तु यो डिजिटल पुस्तक नेपाली युनिकोड फर्म्याटमा भएको भए शब्दहरु तुरुन्त खोज्न सघाउ पुग्ने थियो। साथै, यस पुस्तकले चाँडै मोबाइल एपको रुप पाओस् भन्ने मेरो कामना। ...</p>
-            <p> <a href="#">Read More</a> </p>
-            <hr>
-          </div>
-          <div class="review-container">
-            <br>
-            <h5>Complete the Dictionary</h5>
-            <p>By: <span>Shankar Prasad Adhikari</span></p>
-            <p>नेपाली भएर पनि नेपाली राम्ररी प्रयोग गर्न नजान्ने,वोल्न नजान्ने का लागि यो अति नै महत्व पु्र्ण पुस्तकको रूपमा रहेको छ । यसले मानवको भाषा सञ्चार प्रक्रियालाई मजवुद बनाएको छ । म अत्यन्तै खुसी छु। धन्यवाद हजुर हरूलाई ...</p>
-            <p> <a href="#">Read More</a> </p>
-            <hr>
-          </div>
+
+
+          <!--<div class="review-container">-->
+            <!--<br>-->
+            <!--<h5>Brihat Sabdakosh</h5>-->
+            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
+            <!--<p>Very useful to iBook users. ...</p>-->
+            <!--<p> <a href="#">Read More</a> </p>-->
+            <!--<hr>-->
+          <!--</div>-->
+          <!--<div class="review-container">-->
+            <!--<br>-->
+            <!--<h5>युनिकोडमा भए अझ जाति हुने थियो</h5>-->
+            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
+            <!--<p>नेपाली शब्दकोशलाई डिजिटल रुप दिन खोजिएको यो प्रयाश अत्यन्त सह्रानिय छ। किन्तु यो डिजिटल पुस्तक नेपाली युनिकोड फर्म्याटमा भएको भए शब्दहरु तुरुन्त खोज्न सघाउ पुग्ने थियो। साथै, यस पुस्तकले चाँडै मोबाइल एपको रुप पाओस् भन्ने मेरो कामना। ...</p>-->
+            <!--<p> <a href="#">Read More</a> </p>-->
+            <!--<hr>-->
+          <!--</div>-->
+          <!--<div class="review-container">-->
+            <!--<br>-->
+            <!--<h5>Complete the Dictionary</h5>-->
+            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
+            <!--<p>नेपाली भएर पनि नेपाली राम्ररी प्रयोग गर्न नजान्ने,वोल्न नजान्ने का लागि यो अति नै महत्व पु्र्ण पुस्तकको रूपमा रहेको छ । यसले मानवको भाषा सञ्चार प्रक्रियालाई मजवुद बनाएको छ । म अत्यन्तै खुसी छु। धन्यवाद हजुर हरूलाई ...</p>-->
+            <!--<p> <a href="#">Read More</a> </p>-->
+            <!--<hr>-->
+          <!--</div>-->
+
+          {% if data_review %}
+          {% for v in data_review %}
+
+            {% if v.published == True %}
+                <div class="review-container" id="comment_{{ v.pk }}">
+                  <!--This one is for published-->
+                  <br>
+                  <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                  <p>By: <span>{{  v.user }}</span></p>
+                  <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                    {% if user == v.user %}
+
+                   <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                   <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+                    {% else %}
+
+                      <!--<p>Welcome,  user. Please log in.</p>-->
+
+                    {% endif %}
+              <hr>
+             </div>
+            {% else %}
+                   {% if user == v.user %}
+                        <!--This one is for unpublished-->
+                           <div class="review-container" id="comment_{{ v.pk }}" >
+                              <br>
+                              <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                              <p>By: <span>{{  v.user }}</span></p>
+                              <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                              <p>status=unpublished</p>
+                                 <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                           <hr>
+                           </div>
+                   {% endif %}
+             {% endif %}
+
+           {% endfor %}
+
+
+
+          {% elif paginated_data %}
+                        <!--Pagination links starts here-->
+
+              {% for v in paginated_data %}
+                        {% if v.published == True %}
+                            <div class="review-container" id="comment_{{ v.pk }}">
+                              <!--This one is for published-->
+                              <br>
+                              <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                              <p>By: <span>{{  v.user }}</span></p>
+                              <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                                {% if user == v.user %}
+
+                               <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                               <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+
+                                {% else %}
+
+                                  <!--<p>Welcome,  user. Please log in.</p>-->
+
+                                {% endif %}
+                          <hr>
+                         </div>
+                        {% else %}
+                               {% if user == v.user %}
+                                    <!--This one is for unpublished-->
+                                       <div class="review-container" id="comment_{{ v.pk }}" >
+                                          <br>
+                                          <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
+                                          <p>By: <span>{{  v.user }}</span></p>
+                                          <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
+                                          <p>status=unpublished</p>
+                                             <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
+                                             <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                                       <hr>
+                                       </div>
+                               {% endif %}
+                         {% endif %}
+                          {% endfor %}
+                       <div class="pagination">
+                        <span class="step-links">
+                          {% if paginated_data.has_previous %}
+                          <a href="?page={{ users.previous_page_number }}">previous</a>
+                          {% endif %}
+
+                          <!-- Showing the page numbers in Html Page -->
+                          <span class="current">
+                          Page {{ paginated_data.number }} of {{ paginated_data.paginator.num_pages }}.
+                        </span>
+
+                      {% if paginated_data.has_next %}
+                      <a href="?page={{ paginated_data.next_page_number }}">next</a>
+                      {% endif %}
+                      </span>
+                      </div>
+
+            <!--This is end of paginated links-->
+           {% endif %}
+
+
+
+
+
+
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <hr> -->
+   <hr>
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
-      <h5 id="det-book-title">{% trans "Similar Audio Books" %}</h5>
+      {% if object.get_similar_items.all %}
+      <h5 id="det-book-title">{% trans "Similar Audio Books You May Like" %}</h5>
+      {% endif %}
     </div>
 
 
     {% for similar_object in object.get_similar_items %}
-    <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">
+
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
+             <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">
+
             {% if similar_object.thumbnail  %}
             <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
-     
+
             <img  src="{% static 'base_assets/img/audio_book.png' %}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% endif %}
 
           </div>
-          <p class="book-label text-capitalize"> <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}"></a>{{similar_object.title}}</p>
+          <p class="book-label text-capitalize"> {{similar_object.title}}</p>
           <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
-        </div>
+          </a>
+
+          </div>
       </div>
-      </a>
-        
+
+
     {% endfor %}
   </div>
 </div>
@@ -418,7 +650,7 @@
             $("#audioList").children("div").removeClass('curr-playing-audio');
             // Add class to this audio
             $(event).parent().addClass('curr-playing-audio');
-            // Remove all img tag with playing gif. 
+            // Remove all img tag with playing gif.
 
             var gifLink = $("#audioList").children('div').children('img').first().attr('src');
             var images = $("#audioList").children('div').children('img')
@@ -426,8 +658,8 @@
 
             $(images).remove(); // remove all images
             $(plays).remove(); // remove all plays
-            // add plays on all button except currently playing. 
-          
+            // add plays on all button except currently playing.
+
             // add running button on all
             $(images.first()).insertBefore(event);
             // add play button on all element
@@ -437,11 +669,11 @@
             // remove the sibling of this item
             $(event).siblings('i').remove()
             // remove siblling of currently selected item and img tag
-            // add img gif just above the span tag. 
+            // add img gif just above the span tag.
             $(images.first()).insertBefore(event);
-            
-            // remove all 
-    
+
+            // remove all
+
             // Now change the audio src
             var audioPlayer = document.getElementById("selectedAudio");
             audioPlayer.setAttribute("src", selectedURL);
@@ -451,4 +683,228 @@
         }
     })(window);
 </script>
+
+<script>
+
+
+/***************************Review code****************************/
+
+    //--for the review system
+    $("#submitButton").click(function (e){
+      e.preventDefault();
+      var user_title = $("input[type='text'][name='title_input']").val().trim();
+      var user_input = $("textarea[type='text'][name='input']").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      //alert("title="+ user_title);
+      //alert("detail="+ user_input);
+      //return;
+      if(user_name == "" || user_name == "AnonymousUser" ){
+        //alert("Login to post you message");
+
+        //$("#close_model_box").click();
+        $("#information_message_p_tag").text('Login to post you message');
+        $("#info_message_display").click();
+
+
+        return;
+      }else if(user_input == "" || user_title == "" ){
+        //alert("Please enter you title and message properly!");
+
+        //$("#close_model_box").click();
+        $("#information_message_p_tag").text('Please enter the title and message properly!');
+        $("#info_message_display").click();
+
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "content_type" : content_type,
+          "content_id" : content_id,
+          "input_title":user_title,
+        },
+        success: function (data) {
+          $("textarea[type='text'][name='input']").val('');
+          $("input[type='text'][name='title_input']").val('');
+          //alert("Your review message has been sent. It will be display here after approval from moderator");
+          var pk_value = data.pk_value;
+
+          //close_model_box
+           $("#information_message_p_tag").text('Your review has been sent to the moderator. It will be available to the general public after the approval. However, you still can edit or delete your review.');
+           $("#close_model_box").click();
+           $("#info_message_display").click();
+             //when success we need to append the data to the comment section
+             $("#reviews").prepend('<div class="review-container" id="comment_'+pk_value+'">' +
+                  '<br><h5 id="posted_title_'+pk_value+'">'+user_title+'</h5>'+
+                  '<p>By: <span>' +user_name+'</span></p>'+
+                  '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
+                  '<p>status:unpublished</p>'+
+                  '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+                   '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
+             '</div>');
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+    });
+
+     //Method to EditComment
+     $("#reviews").delegate("button.EditComment","click",function (e){
+
+      var id_value = $(this).val();
+      posted_title= $("#posted_title_"+id_value).text().trim();
+      posted_message= $("#posted_message_"+id_value).text().trim();
+
+      //alert("title="+posted_title+ "message"+posted_message);
+      //alert("element="+element[0]+"id="+element_class);
+
+      //return;
+      $("#edited_title_input").val(posted_title);
+      $("#edited_message_id").val(id_value);
+      $("textarea#edited_message_input").val(posted_message);
+       $("#edit_hidden_btn").click();
+
+     });
+
+
+    /*This is triggered when editing and sending item*/
+    function sendButtonClick(){
+
+      //data capture
+      var user_input = $("textarea#edited_message_input").val().trim();
+      var user_input_title =$("#edited_title_input").val().trim();
+      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
+      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
+      var user_name = $("input[type='hidden'][name='user']").val().trim();
+      var pk_value = $("#edited_message_id").val();
+      //alert("pk="+pk_value);
+      //return;
+
+
+
+      if(user_input_title.trim() == "" || user_input.trim() == "" ){
+        $("#information_message_p_tag").text('Please enter the title and message properly!');
+        $("#info_message_display").click();
+        return;
+      }
+       $.ajax({
+        type:'post',
+        url: '/review_system/edit/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input": user_input,
+          "input_title":user_input_title,
+          "content_type" : content_type,
+          "content_id" : content_id,
+          "pk_val":pk_value,
+        },
+        success: function (data) {
+
+        //alert("update successful")
+
+        //close_model_box
+         $("#information_message_p_tag").text('Your message has been edited successfully!');
+         $("#edited_cancel_button").click();
+         $("#info_message_display").click();
+
+         var pk_value = data.pk_value;
+         var id_div = "comment_"+pk_value;
+         $("#"+id_div).empty(); //Remove child element in a div
+
+         /* 1. Delete the item first and append the new edited item in the list */
+
+         $("#"+id_div).append('<br><h5 id="posted_title_'+pk_value+'">'+user_input_title+'</h5>'+
+              '<p>By: <span>' +user_name+'</span></p>'+
+              '<p id="posted_message_'+pk_value+'">'+user_input+'</p>'+
+              '<p>status:unpublished</p>'+
+              '<button type="button" value="'+pk_value+'" id="'+pk_value+'" class="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
+              '<button type="button" value="'+pk_value+'" class="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button><hr>'+
+         '');
+
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+
+
+    }//CLose of sendButtonClick
+
+    //Function delete
+    $("#reviews").delegate("button.DeleteComment","click",function (e){
+
+      //alert("delete btn clicked")
+      var pk_value = $(this).val();
+
+      $("#message_delete_id").val(pk_value);
+      $("#yes_no_message_display").click()
+
+
+
+   }); //Close of delete container
+
+   function DeleteButtonYes(){
+     // alert("inside delete buton yes");
+     //var pk_value = $(this).val();
+         var pk_value = $("#message_delete_id").val()
+
+
+          //alert(pk_value)
+          //return;
+         //console.log(pk_value);
+       $.ajax({
+        type:'post',
+        url: '/review_system/delete/',
+         headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+        data: {
+          "input_pk": pk_value,
+        },
+        success: function (data) {
+          //if (data.is_taken) {
+          //alert('SUCCESS');
+
+          $("#information_message_p_tag").text('Your message has been deleted !');
+         $("#edited_cancel_button").click();
+         $("#info_message_display").click();
+
+
+         // Lets remove the element here
+         $("#comment_"+pk_value).remove();
+
+
+
+        },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+      });
+
+
+
+   }
+
+
+/***************************Close of review code****************************/
+
+</script>
+
+
+
 {% endblock content %}

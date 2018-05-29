@@ -678,123 +678,46 @@
 
   <!-- <hr> -->
   <!-- start of similar books -->
-    {% comment %}
+
   <div class="row">
     <div class="col-md-12">
-      <h5 id="det-book-title">Similar Books</h5>
+      {% if object.get_similar_items.all %}
+      <h5 id="det-book-title">{% trans "Similar Videos You May Like" %}</h5>
+      {% endif %}
     </div>
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">Aaloo-Maaloo-Kaaloo taaloo sallo al;skjfkl;asjf</a></p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
 
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/qhCkTA4uYKjyVWzejAyQp4MXd03I0p.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">The Man Who Kasdf asdf asf asfnew</a> </p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
+     {% for similar_object in object.get_similar_items %}
 
     <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/sMoKVbGwmomToAWluyHIe6I0XrrWMb.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">Thewa Mawer n Whawer awerwe o Knew</a> </p>
-        <p class="book-type"><i class="fas fa-headphones"></i> Audiobook</p>
+        <div class="grid-book-cont">
+          <div class="img-cont">
+             <a href=" {% url 'video:detail_without_slug'  similar_object.pk %}">
 
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
+            {% if similar_object.thumbnail  %}
+            <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% else %}
 
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
+            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% endif %}
+
+          </div>
+          <p class="book-label text-capitalize"> {{similar_object.title}}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
+          </a>
+
+          </div>
       </div>
-    </div>
 
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/fejgPIUfBvzcmKlGLzMY7pTe3q1Nel.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">The Man Who Knew</a> </p>
-        <p class="book-type"><i class="fas fa-video"></i> Video</p>
 
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
+    {% endfor %}
 
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
 
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/qhCkTA4uYKjyVWzejAyQp4MXd03I0p.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">The Man Who Knew</a> </p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
 
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
-
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">Aaloo-Maaloo-Kaaloo taaloo sallo al;skjfkl;asjf</a></p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-
-      </div>
-    </div>
 
   </div>
   </div>
-    {% endcomment %}
 
 </div>
 
