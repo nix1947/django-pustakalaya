@@ -19,14 +19,14 @@
                   <a class="nav-link active" href="#auth-eng-letters" role="tab" data-toggle="tab">A - Z</a>
                 </li>
               </ul>
-      
+
               <!-- Tab panes -->
               <div class="tab-content" style="margin-top: -1px;">
                 <div role="tabpanel" class="tab-pane in" id="auth-nep-letters">
                   <div class="alph-list auth-alph-list">
                     <div class="alph-list auth-alph-list">
                             {% for nepali in nepali_letters %}
-                                <a href="#ath-no-{{nepali}}"><button type="button" class="btn btn-default ole-btn-auth">{{ nepali }}</button></a>   
+                                <a href="#ath-no-{{nepali}}"><button type="button" class="btn btn-default ole-btn-auth">{{ nepali }}</button></a>
                             {% endfor %}
                     </div>
                   </div>
@@ -39,7 +39,7 @@
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <div class="row">                            
+                          <div class="row">
                             <!-- get the list of author that start with nepali letter -->
                             {% for author in author_dict|get:nepali %}
                             <div class="col-md-4">
@@ -47,18 +47,18 @@
                             </div>
 
                             {% endfor %}
-                      
-    
-    
+
+
+
                           </div>
-          
+
                         </div>
                       </div>
                       <hr>
 
-                 
+
                  {% endfor %}
-      
+
                 </div>
                 <div role="tabpanel" class="tab-pane active in" id="auth-eng-letters">
 
@@ -66,7 +66,7 @@
 
                         <div class="alph-list auth-alph-list">
                                 {% for english in letters %}
-                                    <a class="text-capitalize" href="#ath-no-{{english}}"><button type="button" class="btn btn-default text-capitalize ole-btn-auth">{{ english }}</button></a>   
+                                    <a class="text-capitalize" href="#ath-no-{{english}}"><button type="button" class="btn btn-default text-capitalize ole-btn-auth">{{ english }}</button></a>
                                 {% endfor %}
                         </div>
                   </div>
@@ -78,7 +78,7 @@
                           </div>
                         </div>
                         <div class="col-md-9">
-                          <div class="row">                            
+                          <div class="row">
                             <!-- get the list of author that start with nepali letter -->
                             {% for author in author_dict|get:english %}
                             <div class="col-md-4">
@@ -96,5 +96,5 @@
         </div>
       </div>
       </div>
-      <a id="back-to-top" href="#" class="btn btn-lg back-to-top ole-btn" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><i class="fas fa-arrow-up"></i></a>
+      <a id="back-to-top" href="#" class="btn btn-lg back-to-top ole-btn" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><i class="fa` fa-arrow-up"></i></a>
 {% endblock content %}
