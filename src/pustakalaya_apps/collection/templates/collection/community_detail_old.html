@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load pustakalaya_filters %}
+{% block title %} {% endblock title %}
+{% block content %}
+    <div class="container min_height_author_detail">
+        <h5 class="text-capitalize title-font"><span class="text-info">{{ community_name | transtolocal }}</span></h5>
+        <hr>
+        {% for collection in collection_list %}
+            <li style="list-style: none; list-style-type: none;">
+               <i class="fa fa-book text-primary" aria-hidden="true"></i>
+                <a class="paragraph-font" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+
+                    {{ collection.collection_name | transtolocal }}
+                </a>
+             <span class="text-muted">&nbsp;({{ collection.es_count }})</span>
+            </li>
+          <div class="mb-3"></div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+

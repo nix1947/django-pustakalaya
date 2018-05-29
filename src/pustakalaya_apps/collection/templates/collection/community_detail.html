@@ -2,21 +2,194 @@
 {% load i18n %}
 {% load pustakalaya_filters %}
 {% block title %} {% endblock title %}
+{% block style %}
+ {{block.super}}
+  <style>
+        .cats-list {
+            /* background: #3E3E3E; */
+            color: #fff;
+            padding: 10px;
+          }
+          
+          .ole-btn-cats {
+              padding: 6px 8px;
+          }
+          
+          @media only screen and (max-width: 576px) {
+            .ole-btn-cats {
+                padding: 6px 8px;
+                margin-bottom: 10px;
+            }
+          }
+  </style>
+{% endblock style %}
 {% block content %}
-    <div class="container min_height_author_detail">
-        <h5 class="text-capitalize title-font"><span class="text-info">{{ community_name | transtolocal }}</span></h5>
-        <hr>
-        {% for collection in collection_list %}
-            <li style="list-style: none; list-style-type: none;">
-               <i class="fa fa-book text-primary" aria-hidden="true"></i>
-                <a class="paragraph-font" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+<div class="main-contain">
+    <div class="container">
+        <div role="tabpanel" class="tab-pane active in" id="auth-eng-letters">
+        <div class="alph-list cats-list">
+            <div class="nep-auth-menus">
+            <a href="#cat-1"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Literatures and Arts" %}</button></a>
+            <a href="#cat-2"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Course Materials" %}</button></a>
+            <a href="#cat-3"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Teaching Materials" %}</button></a>
+            <a href="#cat-4"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Reference Materials" %}</button></a>
+            <a href="#cat-5"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Other Educational Materials" %}</button></a>
+            <a href="#cat-6"><button type="button" class="btn btn-default ole-btn ole-btn-cats">{% trans "Newspapers and Magazines" %}</button></a>
+            </div>
+        </div>
+            <hr>
+            <div id="cat-1" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-book mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Literature and Arts" %}</h6>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    
+                    {% for collection in literature_and_arts.collection_list %}
+                <div class="col-md-4 col-12">
+                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                
+                </div>
 
-                    {{ collection.collection_name | transtolocal }}
-                </a>
-             <span class="text-muted">&nbsp;({{ collection.es_count }})</span>
-            </li>
-          <div class="mb-3"></div>
-        {% endfor %}
+                {% endfor %}
+                
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+    
+            <div id="cat-2" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-desktop mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Course Materials" %}</h6>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+
+
+                    {% for collection in course_materials.collection_list %}
+                    <div class="col-md-4 col-12">
+                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                    
+                    </div>
+
+                    {% endfor %}
+                
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+    
+            <div id="cat-3" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-graduation-cap mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Teaching Materials" %}</h6>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+
+                {% for collection in teaching_materials.collection_list %}
+                <div class="col-md-4 col-12">
+                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                
+                </div>
+
+                {% endfor %}
+            
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+    
+            <div id="cat-4" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-briefcase mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Reference Materials" %}</h6>
+            </div>
+            <div class="col-md-9">
+
+
+                    {% for collection in reference_materials.collection_list %}
+                    <div class="col-md-4 col-12">
+                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                    
+                    </div>
+
+                    {% endfor %}
+                
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+    
+            <div id="cat-5" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-flask mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Other Educational Materials" %}</h6>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                
+
+                {% for collection in othereducational_materials.collection_list %}
+                <div class="col-md-4 col-12">
+                    <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                
+                </div>
+
+                {% endfor %}
+
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+    
+            <div id="cat-6" class="row ath-list-cont">
+            <div class="col-md-3">
+                <div class="page-cap-cont">
+                <i class="fa fa-1x fa-newspaper-o mr-2" aria-hidden="true"></i>
+                </div>
+                <br>
+                <h6>{% trans "Newspapers and Magazines" %}</h6>
+            </div>
+            <div class="col-md-9">
+                    {% for collection in newpapers_and_magazines.collection_list %}
+                    <div class="col-md-4 col-12">
+                        <a class="text-capitalize" href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"> {{ collection.collection_name | transtolocal }}<span class="text-muted">({{ collection.es_count }})</span></a>
+                    
+                    </div>
+
+                    {% endfor %}
+                
+                </div>
+    
+            </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    
     </div>
 {% endblock content %}
 
