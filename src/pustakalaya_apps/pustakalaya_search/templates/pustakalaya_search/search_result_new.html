@@ -75,7 +75,7 @@
             <div id="type" >
             {% for type, count, selected in response.facets.type %}
             <div class="checkbox">
-              <label class="lab-cont" for="{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
+              <label class="lab-cont text-capitalize" for="{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
                 <input id="{{ type }}" value="{{ type }}"
                       {% if selected %} checked {% endif %}
                      type="checkbox"
@@ -112,7 +112,7 @@
                       <!-- vuejs syntax to render name -->
 
                       <div class="checkbox" id="myList">
-                        <label class="lab-cont facet-element" :for="keyword.keyword">
+                        <label class="lab-cont facet-element text-capitalize" :for="keyword.keyword">
                               <%keyword.keyword %>
                           <span class="text-muted">&nbsp;(<%keyword.count %>)</span>
                           <input type="checkbox"
@@ -174,7 +174,7 @@
               <div  id="languages">
                   {% for language, count, selected in languages %}
                   <div class="checkbox">
-                    <label class="lab-cont facet-element">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
+                    <label class="lab-cont text-capitalize facet-element">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
                       <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
                       <span class="checkmark"></span>
                     </label>
@@ -193,7 +193,7 @@
               <div id="education_levels">
                    {% for type, count, selected in education_levels %}
                   <div class="checkbox">
-                    <label class="lab-cont" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+                    <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                       <span class="text-muted">&nbsp;({{ count }})</span>
 
                        <input id="{{ type }}" value="{{ type }}"
@@ -220,7 +220,7 @@
             <div id="collections">
             {% for type, count, selected in collections %}
             <div class="checkbox">
-              <label class="lab-cont" for="{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
+              <label class="lab-cont text-capitalize" for="{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
                 <input id="{{ type }}" type="checkbox"
                     {% if selected %} checked {% endif %}
                    value="{{ type }}"
@@ -245,7 +245,7 @@
             <div id="license_type">
             {% for type, count, selected in license_type %}
             <div class="checkbox">
-              <label class="lab-cont" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+              <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                 <span class="text-muted">&nbsp;({{ count }})</span>
                 <input id="{{ type }}" type="checkbox"
                       {% if selected %} checked {% endif %}
@@ -368,21 +368,33 @@
 
 
       </div> <!--Close of row div-->
-
-
             {% else %}
-                <div class="container" style="min-height:150px;">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class=" col-md-8 search">
-                            <p class="text-capitalize text-danger text-center">{% trans "result not found for" %}&nbsp; <span class="text-primary">{{q}}<span></span></p>
-                            <!--{% include "_partials/search_form.html" %}-->
-
-                        </div>
-                        <div class="col-md-2"></div>
+                <style>
+                        .sad_container{
+                            text-align: center;
+                          }
+                          
+                          .sad_container > .sadface{
+                            font-size: 100px;
+                          }
+                          
+                </style>
+                <div class="main-contain"></div>
+                <div class="container">
+                  <div class="sad_container">
+              
+                    <div class="sadface">
+                      <i class="fa fa-frown-o"></i>
                     </div>
-
+                    <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
+                    <br>
+                    <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any documents" %}.</p>
+                    <p>{% trans "Make sure you spelled the words correctly or try a different keyword" %}.</p>
+                  </div>
+              
                 </div>
+              </div>
+            <div>
 
             {% endif %}
   </div><!--close of container-->

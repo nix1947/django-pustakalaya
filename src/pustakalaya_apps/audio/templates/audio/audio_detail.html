@@ -2,741 +2,453 @@
 {% load static %}
 {% load i18n %}
 {% load pustakalaya_filters %}
-{% block style %}
-{{ block.super }}
-<style>
-        /* Some css to override styles */
-        /* TODO: move this css to pustakalaya.css */
-        .border-line {
-            padding-top: 5px;
-            padding-bottom: 5px !important;
-            padding-left: 3px;
-            border-top: 1px solid #dddddd;
-        }
 
-        .border-line span {
-            display: inline-block;
-            width: 300px;
-
-        }
-
-  .jumbotron{
-    padding:5px 15px!important;
-  }
-  .container-breadcrum{
-    display:left;
-
-    }
-
-</style>
-{% endblock style %}
 {% block content %}
-<div class=" min_height" style="margin-left:8.0rem;margin-right:8.0rem;">
+<div class="main-contain">
+  <div class="container">
+    <div class="row" style="margin: 15px 0px;">
+      <div class="col-md-12" style="padding: 0px;">
+          {% if object.collections.all%}
+          <span class="container-breadcrum bold">
+            <!-- Bread crums -->
+            {% for collection in object.collections.all %}
+            {% if forloop.first %}
+            <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>
+            <span style="color: #00838F;">&nbsp;<i class="fa fa fa-caret-right"></i></span>&emsp;
+            {% endif %}
+            <a  href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}"
 
-      {% if object.collections.all%}
-      <span class=" bold">
-        <!-- Bread crums -->
-
-        {% for collection in object.collections.all %}
-        {% if forloop.first %}
-        <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>
-        <span> >> </span>
-        {% endif %}
-
-        <a   href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
-        {{ collection.collection_name | transtolocal }}
-        </a>
-        {%  if not forloop.last %} ,{%  endif %}
-        {% endfor %}
-
-      </span>
-      {% endif %}
-  <div class="row">
-    <div class="col-md-3 col-sm-12 col-xs-12">
-      <!-- Logo -->
-
-
-
+            >
+            {{ collection.collection_name | transtolocal }}
+            </a>
+            {%  if not forloop.last %} ,{%  endif %}
+            {% endfor %}
+          {% endif %}
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-3 det-img-cont">
       {% if object.thumbnail  %}
-       <img class="img-responsive rounded w-100" height="280px" src="{{ MEDIA_URL }}{{ object.thumbnail }}"
-           alt="{{ object.title }}" title="{{ object.title }}">
-      {% else %}
+        <img src="{{ MEDIA_URL }}{{ object.thumbnail }}"
+        title="{{ object.title }}"
+        alt="{{ object.title }}" />
+     {% else %}
 
-       <img class="img-responsive rounded w-100" height="280px" src="{% static 'base_assets/img/audio_book.png' %}"
-           alt="{{ object.title }}" title="{{ object.title }}">
-      {% endif %}
+      <img src="{% static 'base_assets/img/audio_book.png' %}"
+        title="{{ object.title }}"
+        alt="{{ object.title }}" />
+     {% endif %}
 
+     
+  
+        <div class="ratings-container">
+         
+         {# <button type="button" class="btn ole-btn" style="margin-bottom: 1rem;"><i class="fas fa-book"></i> Document Available</button> #}
+          {%  if request.user.is_superuser %}
 
+          <p class="text-primary description">
+           <button class="btn btn-sm">
+              <a  href="{{ object.get_admin_url }}" class="btn btn-sm">{%  trans "Edit" %}</a>
+           </button>
+          </p>
 
-      <!-- share buttons -->
-      <!--<div class="text-center">
-          <a href="http://www.facebook.com/E-pustakalaya" class="btn btn-primary btn-icon btn-round">
-              <i class="fa fa-facebook-square"></i>
-          </a>
-          <a href="http://www.twitter.com/E-pustakalaya" class="btn btn-info btn-icon btn-round">
-              <i class="fa fa-twitter"></i>
-          </a>
-          <a href="http://www.google.com/E-pustakalaya" class="btn btn-default btn-icon btn-round">
-              <i class="fa fa-google-plus"></i>
-          </a>
-          <a href="http://www.linkedin.com/E-pustakalaya" class="btn btn-info btn-icon btn-round">
-              <i class="fa fa-linkedin"></i>
-          </a>
-      </div>-->
-    </div>
+{%  endif %}
 
-    <div class="col-md-9 col-sm-12 col-xs-12">
-      <!--Audio section -->
-      <!-- audio player -->
-     <h4 class="text-capitalize h4 lead mt-0 pt-0 "><b>{{ object.title }}</b></h4>
-      <p id="audio-title"
-         class="text-left  pl-3 text-dark text-capitalize" hidden>{{ object.audiofileupload_set.first.file_name }}</p>
-      <div>
-        <audio id="selectedAudio" preload="auto" tabindex="0" controls type="audio/mpeg"
-               title="{{ object.title }}" about="{{ object.title }}"
-               src="{{ MEDIA_URL }}{{ object.audiofileupload_set.first.upload }}"
-               type="audio/mp3" controlsList="nodownload">
-        </audio>
-      </div>
-      <div id="audioList"
-      style="overflow-y: auto;max-height: 300px;"
-      >
-        <h6 class="text-primary text-uppercase mb-4 mt-3 ">{{ object.title }}</h6>
-        {% for audio in object.audiofileupload_set.all %}
-        <div class="text-dark pl-3 ">
-                            <span style="cursor: pointer"
-                                  class=" {% if forloop.counter == 1 %} text-primary {% endif %}"
-                                  data-src="{{ MEDIA_URL }}{{ audio.upload }}"
-                                  data-title="{{ audio.file_name }}"
-                                  onclick="playAudio(this)" class="text-dark text-capitalize ">
-                                 {{ forloop.counter }}&nbsp;.&nbsp;
-                              {% if audio.file_name %}
-                               {{ audio.file_name }}
-                              {% else %}
-                              Audio{{forloop.counter}}
-                              {% endif %}
-                            </span>
+          {% comment %}
+          <p>Rate this book:</p>
+          <p>This is the star container</p>
+          {% endcomment %}
         </div>
-        <hr/>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-  <div class="row" >
-    <div class="col-md-12 col-sm-12 col-xs-12">
-       {%  if request.user.is_superuser %}
-
-                     <p class="text-primary description" style="font-size:120%;">
-                      <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
-                     </p>
-
-           {%  endif %}
-
-      <h4 class="text-capitalize h4 lead mt-0 pt-0 " style="overflow-wrap: break-word;"><b>{{ object.title }}</b></h4>
 
 
+        
+        {# <button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fas fa-heart det-fav-active"></i> Add to Favorite</button> #}
+        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fas fa-comment-alt det-rev-active"></i> Leave a Review</button>
+        <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
 
-      {% if  object.abstract %}
-      <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-        <div class="col-12   tex-dark font-weight-normal" >
-          {{ object.abstract }}
-        </div>
-      </div>
-      {% endif %}
-
-      <!--Read by section-->
-      <div class="read-section">
-
-
-        {% if  object.audio_read_by.all %}
-      <div class="row border-line " style="overflow-wrap: break-word;" >
-        <!-- Read by/Voice -->
-        <!-- TODO pluralization -->
-        <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Read/Voice by:" %}</div>
-        {%  if object.audio_read_by %}
-        <div class="col-lg-10 text-dark  text-primary">
-          {% for audio_author in object.audio_read_by.all %}
-          <a href="{% url 'author:author_detail' author.getname|slugify_unicode audio_author.pk %}">
-            {{audio_author.getName}}
-            {% if not forloop.last %}
-              , &nbsp;
-            {% endif%}
-          </a>
-
-
-          {% endfor %}
-
-
-        </div>
-        {% endif %}
-      </div>
-      {% endif %}
-
-        <!-- publisher section -->
-       {% if  object.publisher.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-
-            <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Publisher:" %}</div>
-            <div class="col-lg-10 text-dark  ">
-             {% for publisher in object.publisher.all %}
-              {{ publisher.publisher_name }}
-              {%  if not forloop.last %}
-                        ,
-              {%  endif %}
-             {% endfor %}
+            <!-- Modal content-->
+            <div class="modal-content">
+              <form>
+              <div class="modal-header">
+                <h4 class="modal-title">Write a Review</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="usr">User Name:</label>
+                    <input type="text" class="form-control" id="usr">
+                    <label for="pwd">Email:</label>
+                    <input type="password" class="form-control" id="pwd">
+                    <label for="pwd">Title:</label>
+                    <input type="password" class="form-control" id="pwd">
+                    <label for="comment">Review:</label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary ole-btn">Submit</button>
+              </div>
+            </form>
             </div>
 
+          </div>
         </div>
-        {% endif %}
+      </div>
+      <div class="col-md-9">
+        <h5 id="det-book-title" class="text-capitalize">{{object.title}}</h5>
+        <p>{% trans "By" %}:<span>
+           <!--Original author of the document which was made audio file later-->
+              {% if  object.audio_original_document_authors.all %}
+                  {% for author in object.audio_original_document_authors.all %}
+                    <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize">{{ author }}</a>{%  if not forloop.last %},{%  endif %}
+                  {% endfor %}
+              {% endif %}
+        </span> </p>
 
-          <!--Original author of the document which was made audio file later-->
-             {% if  object.audio_original_document_authors.all %}
-                      <div class="row pb-1 border-line">
+        <div class="_1dlNCg"><div class="niH0FQ">
+          <span id="productRating_undefined_MOBFF5ZG7HCKHJCS_" class="_2_KrJI">
+            <div class="hGSR34 _2beYZw">4.3<!-- --> ★</div>
+          </span><span class="_38sUEc">
+            <span><span>109 Ratings&nbsp;</span><span class="_1VpSqZ">&amp;</span><span>&nbsp;35 Reviews</span></span>
+          </span>
+        </div>
+      </div>
 
-                          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Original author(s):" %}</div>
-                          <div class="col-lg-10 text-dark ">
-                           {% for author in object.audio_original_document_authors.all %}
-                            <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
-                              {{ author }}
-                            </a>
-                            {%  if not forloop.last %}
-                                      ,
-                            {%  endif %}
-                           {% endfor %}
-                          </div>
-
-                      </div>
-             {% endif %}
+      <audio id="selectedAudio" 
+        style="width: 100%;" preload="auto" tabindex="0" controls="" 
+        type="audio/mpeg"
+        title="{{ object.title }}" 
+        about="{{ object.title }}"
+        src="{{ MEDIA_URL }}{{ object.audiofileupload_set.first.upload }}"
+        controlslist="nodownload">
+      </audio>
 
 
-              <!-- release date -->
-              {% if  object.audio_release_date %}
-                <div class="row pb-1 border-line">
-                    <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "Release date:" %}</div>
-                    <div class="col-lg-10 text-dark  "> {{ object.audio_release_date }}</div>
-                </div>
+      <br>
+      <br>
+
+      <div id="audioList" style="overflow-y: auto;max-height: 300px;">
+        <!-- audio playlist -->
+        {% for audio in object.audiofileupload_set.all %}
+              <div class="pl-3   {% if forloop.counter == 1 %}curr-playing-audio{% endif %}">
+                  
+                  {% if forloop.counter == 1 %}
+                  <img src="{% static 'base_assets/img/source.gif' %}" style="width: 12.25px;" alt="currently playing" />
+                  {% else %}
+                  <i class="fa fa-play-circle"></i>
+                  {% endif %}
+                    <span  data-src="{{ MEDIA_URL }}{{ audio.upload }}" 
+                    class="text-capitalize playspan"
+                     data-title="{{ audio.file_name }}" onclick="playAudio(this)">
+                      {{ forloop.counter }}&nbsp;.&nbsp;{% if audio.file_name %}{{ audio.file_name }}
+                        {% else %}
+                           {% trans "Audio" %}{{forloop.counter}}
+                        {% endif %}
+                    </span>
+            
+                    </script>
+                    <span style="float: right;">
+                        <audio class="calculateAudioLength"
+                       
+                        src="{{ MEDIA_URL }}{{ audio.upload }}">
+                      </audio>
+                        
+                    </span>
+              </div>
+        {% endfor %}
+      </div>
+
+      <br>
+      <br>
+
+      <p>
+        {{object.abstract}}
+      </p>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" href="#details" role="tab" data-toggle="tab">{% trans "Details" %}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#reviews" role="tab" data-toggle="tab">{% trans "Reviews" %}</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active in" id="details">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              </thead>
+              <tbody>
+
+              {% if  object.audio_read_by.all %}
+                  <tr>
+                      <th scope="col">{% trans "Voice by"%}:</th>
+                      <td class="text-capitalize">
+                        {% for audio_author in object.audio_read_by.all %}
+                        <a href="{% url 'author:author_detail' author.getname|slugify_unicode audio_author.pk %}">
+                          {{audio_author.getName}}
+                          {% if not forloop.last %}
+                            , &nbsp;
+                          {% endif%}
+                        </a>
+                        {% endfor %}
+                      </td>
+                    </tr>
               {% endif %}
 
-        <!-- place of publication -->
-        {% if   object.place_of_publication %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2  font-weight-normal text-dark">{% trans "Place of Publication:" %}</div>
-          <div class="col-lg-10 text-dark "> {{ object.place_of_publication }}</div>
-        </div>
-        {% endif %}
 
-        <!-- Publication year -->
-        {% if  object.publication_year_on_text %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "publication year:" %}</div>
-          <div class="col-lg-10 text-dark  "> {{ object.publication_year_on_text }}
+              <!-- publisher -->
+              {% if  object.publisher.all %}
+               <tr>
+                  <th scope="col">{% trans "Publisher" %}</th>
+                      <td class="text-capitalize">
+                          {% for publisher in object.publisher.all %}
+                          {{ publisher.publisher_name }}
+                          {%  if not forloop.last %}
+                                    ,
+                          {%  endif %}
+                         {% endfor %}
+                      </td>
+                  
+                </tr>
+              {% endif %}
 
+              <!-- original authors -->
+
+             {% if  object.audio_original_document_authors.all %}   
+             <tr>
+                <th scope="col">{% trans "Original author(s):" %}</th>
+                <td class="text-capitalize">
+                    {% for author in object.audio_original_document_authors.all %}
+                   <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                     {{ author }}
+                   </a>
+                   {%  if not forloop.last %}
+                             ,
+                   {%  endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+             {% endif %}
+
+             <!-- release date -->
+                {% if object.audio_release_date %}
+                <tr>
+                    <th scope="col text-capitalize">{% trans "Release date:" %}</th>
+                    <td>{{ object.audio_release_date }}</td>
+                  </tr>
+              {% endif %}
+
+               <!-- place of publication -->
+              {% if   object.place_of_publication %}
+              <tr>
+                  <th scope="col text-capitalize">{% trans "Place of Publication:" %}</th>
+                  <td class="text-capitalize">{{ object.place_of_publication }}</td>
+                </tr> 
+              {% endif %}
+
+
+              <!-- Publication year -->
+              {% if  object.publication_year_on_text %}
+                <tr>
+                    <th scope="col" class="text-capitalize">{% trans "publication year:" %}</th>
+                    <td class="text-capitalize">{{ object.publication_year_on_text }}</td>
+                </tr>
+              {% endif %}
+
+              <!-- audio types -->
+              {% if  object.audio_types.all %}
+              <tr>
+                  <th scope="col" class="text-capitalize">{% trans "type:" %}</th>
+                  <td class="text-capitalize">
+                      {% for audio in object.audio_types.all %}
+                        {{ audio.name }}
+                      {% endfor %}
+                  </td>
+                </tr>
+
+                
+              {% endif %}
+
+              <!-- audio genre -->
+            {% if  object.audio_genre.all %}
+                <tr>
+                    <th scope="col " class="text-capitalize">{% trans "genre:" %}</th>
+                    <td class="text-capitalize">
+                        {% for genre in object.audio_genre.all %}
+                        {{ genre.custom_genre }}{%  if not forloop.last %},{%  endif %}
+                      {% endfor %}
+                    </td>
+                  </tr>
+            {% endif %}
+
+                  <!-- audio series -->
+            {% if  object.audio_series %}
+              <tr>
+                  <th scope="col text-capitalize" class="text-capitalize">{% trans "series name:" %}</th>
+                  <td class="text-capitalize">{{ object.audio_series.series_name }}</td>
+                </tr>
+            {% endif %}
+
+            <!-- audio volume -->
+            {% if  object.volume %}
+            
+                <tr>
+                <th scope="col text-capitalize" class="text-capitalize">{% trans "Volume:" %}</th>
+                <td class="text-capitalize">{{ object.volume }}</td>
+              </tr>
+            {% endif %}
+
+              <!-- audio edition -->
+              {% if  object.edition %}
+            
+                  <tr>
+                  <th scope="col text-capitalize" class="text-capitalize">{% trans "edition:" %}</th>
+                  <td class="text-capitalize">{{ object.edition }}</td>
+                </tr>
+
+                
+              {% endif %}
+
+
+               <!-- Available year -->
+              {% if  object.year_of_available_on_text%}
+              <tr>
+                  <th scope="col" class="text-capitalize">{% trans "available year:" %}</th>
+                  <td class="text-capitalize"> {{ object.year_of_available_on_text }}</td>
+              </tr>
+              {% endif %}
+
+              {% if object.keywords.all %}
+              <tr>
+                  <th scope="col" class="text-capitalize">{% trans "keywords:" %}</th>
+                  <td>
+                      {% for keyword in object.keywords.all %}
+                      <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" class="text-capitalize"> {{ keyword.keyword }}</a>
+                         {%  if not forloop.last %},{%  endif %}
+                      {% endfor %}
+                  </td>
+                </tr>
+
+              {% endif %}
+              </tbody>
+            </table>
           </div>
         </div>
-        {% endif %}
 
-        <!-- audio read by -->
-        <!--{# {% if  object.audio_read_by %}-->
-        <!--<div class="row pb-1 border-line" style="overflow-wrap: break-word;">-->
-          <!--<div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "read by:" %}</div>-->
-          <!--<div class="col-lg-10 text-dark text-capitalize"> {{ object.audio_read_by.getname }}</div>-->
-        <!--</div>-->
-        <!--{% endif %} #}-->
-        <!-- audio type -->
-        {% if  object.audio_types.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "type:" %}</div>
-          {% for audio in object.audio_types.all %}
-          <div class="col-lg-10 text-dark "> {{ audio.name }}</div>
-          {% endfor %}
-        </div>
-        {% endif %}
-
-        <!-- audio running time -->
-         {% if  object.audio_running_time %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Running time:" %}</div>
-          <div class="col-lg-10 text-dark  "> {{ object.audio_running_time }}</div>
-        </div>
-        {% endif %}
-
-        <!-- audio genre -->
-         {% if  object.audio_genre.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "genre:" %}</div>
-          <div class="col-lg-10 text-dark  ">
-
-          {% for genre in object.audio_genre.all %}
-            {{ genre.custom_genre }}
-             {%  if not forloop.last %}
-                                            ,
-             {%  endif %}
-          {% endfor %}
+        <div role="tabpanel" class="tab-pane fade" id="reviews">
+          <div class="review-container">
+            <br>
+            <h5>Brihat Sabdakosh</h5>
+            <p>By: <span>Shankar Prasad Adhikari</span></p>
+            <p>Very useful to iBook users. ...</p>
+            <p> <a href="#">Read More</a> </p>
+            <hr>
+          </div>
+          <div class="review-container">
+            <br>
+            <h5>युनिकोडमा भए अझ जाति हुने थियो</h5>
+            <p>By: <span>Shankar Prasad Adhikari</span></p>
+            <p>नेपाली शब्दकोशलाई डिजिटल रुप दिन खोजिएको यो प्रयाश अत्यन्त सह्रानिय छ। किन्तु यो डिजिटल पुस्तक नेपाली युनिकोड फर्म्याटमा भएको भए शब्दहरु तुरुन्त खोज्न सघाउ पुग्ने थियो। साथै, यस पुस्तकले चाँडै मोबाइल एपको रुप पाओस् भन्ने मेरो कामना। ...</p>
+            <p> <a href="#">Read More</a> </p>
+            <hr>
+          </div>
+          <div class="review-container">
+            <br>
+            <h5>Complete the Dictionary</h5>
+            <p>By: <span>Shankar Prasad Adhikari</span></p>
+            <p>नेपाली भएर पनि नेपाली राम्ररी प्रयोग गर्न नजान्ने,वोल्न नजान्ने का लागि यो अति नै महत्व पु्र्ण पुस्तकको रूपमा रहेको छ । यसले मानवको भाषा सञ्चार प्रक्रियालाई मजवुद बनाएको छ । म अत्यन्तै खुसी छु। धन्यवाद हजुर हरूलाई ...</p>
+            <p> <a href="#">Read More</a> </p>
+            <hr>
           </div>
         </div>
-        {% endif %}
-
-        <!-- audio series -->
-        {% if  object.audio_series %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "series name:" %}</span>
-          <span class="col-lg-10 text-dark  "> {{ object.audio_series.series_name }}</span>
-        </div>
-        {% endif %}
-
-        <!-- audio series -->
-        {% if  object.volume %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Volume:" %}</span>
-          <span class="col-lg-10 text-dark "> {{ object.volume }}</span>
-        </div>
-        {% endif %}
-
-        <!-- audio edition -->
-        {% if  object.edition %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "edition:" %}</span>
-          <span class="col-lg-10 text-dark  "> {{ object.edition }}</span>
-        </div>
-        {% endif %}
-
-
-
-
-        <!-- Available year -->
-        {% if  object.year_of_available_on_text%}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "available year:" %}</div>
-          <div class="col-lg-10 text-dark "> {{ object.year_of_available_on_text }}</div>
-        </div>
-        {% endif %}
-
-        <!-- Keywords -->
-
-         {% if object.keywords.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <!-- TODO pluralization -->
-
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "keywords:" %}</div>
-           <div class="col-lg-10 text-dark ">
-          {% for keyword in object.keywords.all %}
-          <a href="{% url 'keyword:keyword_detail' keyword.keyword %}"> {{ keyword.keyword }}</a>
-             {%  if not forloop.last %}
-                                            ,
-             {%  endif %}
-          {% endfor %}
-           </div>
-        </div>
-        {% endif %}
-
-
-
-        <!-- License type -->
-        {% if  object.license.license %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <!-- TODO pluralization -->
-          <div class="col-lg-2 capitalize font-weight-normal text-dark">{% trans "License type:" %}</div>
-          <div class="col-lg-10 text-dark  "> {{ object.license.license }}</div>
-        </div>
-        {% endif %}
-
-        <!-- Language -->
-         {% if  object.languages.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <!-- TODO: implement pluralization in total page -->
-          <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "languages" %}:</div>
-          <div class="col-lg-10 text-dark">
-          {% for language in object.languages.all %}
-           {{ language }}
-            {%  if not forloop.last %}
-            ,
-             {%  endif %}
-          {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-
-        <!-- Education level -->
-         {% if  object.education_levels.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <!-- TODO: implement pluralization in total page -->
-          <div class="col-lg-2 text-capitalize hidden text-dark text-capitalize">{% trans "education levels" %}:</div>
-          <div class="col-lg-10 text-dark">
-          {% for education_level in object.education_levels.all %}
-          {{ education_level }}
-           {%  if not forloop.last %}
-                                            ,
-             {%  endif %}
-
-          {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
-
-
-        <!-- sponsor -->
-        {% if  object.sponsors.all %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <!-- TODO pluralization -->
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "sponsors:" %}</div>
-          <div class="col-lg-10 text-dark ">
-          {% for sponsor in object.sponsors.all %}
-          {{ sponsor }}
-          {%  if not forloop.last %}
-                                            ,
-             {%  endif %}
-
-          {% endfor %}
-          </div>
-        </div>
-        {% endif %}
-
-        <!-- Rights -->
-         {% if  object.custom_license %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "right:" %}</div>
-          <div class="col-lg-10 text-dark "> {{ object.custom_license }}</div>
-        </div>
-        {% endif %}
-
-         <!-- Description -->
-        {% if  object.description %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "description:" %}</div>
-          <div class="col-lg-10 text-dark  "> {{ object.description }}</div>
-        </div>
-        {% endif %}
-
-         <!-- audio edition -->
-        {% if  object.additional_note %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Additional note:" %}</span>
-          <span class="col-lg-10 text-dark  "> {{ object.additional_note }}</span>
-        </div>
-        {% endif %}
-
-
-         <!-- audio edition -->
-        {% if  object.link_name %}
-        <div class="row pb-1 border-line" style="overflow-wrap: break-word;">
-          <span class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Audio Link:" %}</span>
-          <span class="col-lg-10 text-dark  "> {{ object.link_name }}</span>
-        </div>
-        {% endif %}
-
-          <!-- link_name and link description -->
-
-         {% if object.audiolinkinfo_set.all %}
-          <div class="row pb-1 border-line"  style="overflow-wrap: break-word; max-height: 250px;overflow-y: scroll;">
-              <!-- Authors -->
-              <!-- TODO pluralization -->
-             {% for link in  object.audiolinkinfo_set.all %}
-
-             <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link:" %}</div>
-            <div class="col-lg-10 text-dark "><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></div>
-
-
-             <div class="col-lg-2 text-capitalize font-weight-normal text-dark">{% trans "Link Description:" %}</div>
-              <div class="col-lg-10 text-dark ">{{ link.link_description }}</div>
-
-             {% endfor %}
-          </div>
-         {% endif %}
-
       </div>
     </div>
   </div>
 
+  <!-- <hr> -->
+  <!-- start of similar books -->
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-
-      <br><br>
-            <!--Review system added-->
-                   <div class="container"  style="margin-left:-27px;">
-
-                     <div class="form-group">
-                       <div class="container" >
-
-                         <input type="hidden" name="content_type" value="audio"/>
-                         <input type="hidden" name="content_id" value="{{ object.pk }}">
-
-                         <label>Your review message:</label>
-                         <textarea type="text" name="input" class="form-control bg-white" placeholder="Your review message"></textarea>
-                         <button type="button" value="Submit" id="submitButton" class ="btn btn-primary" >Add your review</button>
-
-                       </div>
-                     </div>
-
-                     <div class="container"  style="margin-left:-40px !important;" id="commentContainer">
-                       <!--comment system views -->
-                       <ul>
-                       {% if user %}
-                       <input type="hidden" name="user" value="{{ user }}">
-                       {% endif %}
-
-                       {% if data_review %}
-
-                         {% for v in data_review %}
-                         <li style="list-style: none" id ="comment_{{ v.pk }}">
-
-                           <div class="jumbotron" id="div_comment_{{ v.pk }}">
-                              <p class="font-weight-bold input_post" style="word-wrap: break-word;">
-                                {{ v.post }}
-                                </p>
-                              <p>
-                                <small class="text-capitalize"> by: {{  v.user }}</small>
-                              </p>
-
-                               {% if user == v.user %}
-                                <!--<p>Welcome, {{ user.get_username }}. Thanks for logging <in class=""></in></p>-->
-
-                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>
-                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
-
-                                  {% else %}
-                                    <!--<p>Welcome,  user. Please log in.</p>-->
-                              {% endif %}
-                           </div>
-                         </li>
-                         {% endfor %}
-
-                        {% elif paginated_data %}
-                        <!--Pagination links starts here-->
-
-
-                         {% for v in paginated_data %}
-                         <li style="list-style: none" id ="comment_{{ v.pk }}">
-
-                           <div class="jumbotron" id="div_comment_{{ v.pk }}">
-                              <p class="font-weight-bold input_post" style="word-wrap: break-word;">
-                                {{ v.post }}
-                                </p>
-                              <p>
-                                <small class="text-capitalize"> by: {{  v.user }}</small>
-                              </p>
-
-                               {% if user == v.user %}
-                                <!--<p>Welcome, {{ user.get_username }}. Thanks for logging <in class=""></in></p>-->
-
-                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>
-                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
-
-
-                                  {% else %}
-                                    <!--<p>Welcome,  user. Please log in.</p>-->
-                              {% endif %}
-                           </div>
-                         </li>
-                          {% endfor %}
-
-                       <div class="pagination">
-                        <span class="step-links">
-                          {% if paginated_data.has_previous %}
-                          <a href="?page={{ users.previous_page_number }}">previous</a>
-                          {% endif %}
-
-                          <!-- Showing the page numbers in Html Page -->
-                          <span class="current">
-                          Page {{ paginated_data.number }} of {{ paginated_data.paginator.num_pages }}.
-                        </span>
-
-                {% if paginated_data.has_next %}
-                <a href="?page={{ paginated_data.next_page_number }}">next</a>
-                {% endif %}
-                </span>
-                </div>
-
-                        <!--This is end of paginated links-->
-                        {% endif %}
-
-                        </ul>
-                     </div>
-                    <!--model for login message -->
-                   </div>
-
-
+    <div class="col-md-12">
+      <h5 id="det-book-title">{% trans "Similar Audio Books" %}</h5>
     </div>
+
+
+    {% for similar_object in object.get_similar_items %}
+    <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}">
+    <div class="col-md-2 col-sm-6 col-6">
+        <div class="grid-book-cont">
+          <div class="img-cont">
+            {% if similar_object.thumbnail  %}
+            <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% else %}
+     
+            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% endif %}
+
+          </div>
+          <p class="book-label text-capitalize"> <a href=" {% url 'audio:detail_without_slug'  similar_object.pk %}"></a>{{similar_object.title}}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
+        </div>
+      </div>
+      </a>
+        
+    {% endfor %}
   </div>
-
 </div>
-{% endblock content %}
-{% block script %}
-{{ block.super }}
+</div>
+
+
+<!-- script to play audio -->
 <script>
-        (function (window) {
-            window.playAudio = function (event) {
-                // get the url of selected audio.
-                var selectedURL = event.getAttribute('data-src');
-                var title = event.getAttribute("data-title");
-                // Remove all active class and add the selected class.
-                $("#audioList").children("div").children("span").removeClass('text-primary');
-                // Add class to this audio
-                $(event).addClass('text-primary');
-                // Now change the audio src
-                var audioPlayer = document.getElementById("selectedAudio");
-                audioPlayer.setAttribute("src", selectedURL);
-                $("#audio-title").text(title);
-                // Play the audio
-                audioPlayer.play();
-            }
-        })(window);
+    (function (window) {
+        window.playAudio = function (event) {
+            // get the url of selected audio.
+            var selectedURL = event.getAttribute('data-src');
+            var title = event.getAttribute("data-title");
+            // Remove all active class and add the selected class.
+            $("#audioList").children("div").removeClass('curr-playing-audio');
+            // Add class to this audio
+            $(event).parent().addClass('curr-playing-audio');
+            // Remove all img tag with playing gif. 
 
+            var gifLink = $("#audioList").children('div').children('img').first().attr('src');
+            var images = $("#audioList").children('div').children('img')
+            var plays =  $("#audioList").children('div').children('i')
 
+            $(images).remove(); // remove all images
+            $(plays).remove(); // remove all plays
+            // add plays on all button except currently playing. 
+          
+            // add running button on all
+            $(images.first()).insertBefore(event);
+            // add play button on all element
+            $.each($("#audioList").children('div').children('.playspan'), function(index, spanT) {
+               $("<i class='fa fa-play-circle'></i>").insertBefore(spanT);
+            });
+            // remove the sibling of this item
+            $(event).siblings('i').remove()
+            // remove siblling of currently selected item and img tag
+            // add img gif just above the span tag. 
+            $(images.first()).insertBefore(event);
+            
+            // remove all 
+    
+            // Now change the audio src
+            var audioPlayer = document.getElementById("selectedAudio");
+            audioPlayer.setAttribute("src", selectedURL);
+            $("#audio-title").text(title);
+            // Play the audio
+            audioPlayer.play();
+        }
+    })(window);
 </script>
-
-<script>
-
-    $("#submitButton").click(function (e){
-      e.preventDefault();
-      var user_input = $("textarea[type='text'][name='input']").val().trim();
-      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
-      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
-      var user_name = $("input[type='hidden'][name='user']").val().trim();
-      if(user_name == "" || user_name == "AnonymousUser" ){
-        alert("Login to post you message");
-        return;
-      }else if(user_input == "" ){
-        alert("Please enter you message first");
-        return;
-      }
-       $.ajax({
-        type:'post',
-        url: '/review_system/',
-         headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-        data: {
-          "input": user_input,
-          "content_type" : content_type,
-          "content_id" : content_id,
-        },
-        success: function (data) {
-          $("textarea[type='text'][name='input']").val('');
-          var pk_value = data.pk_value;
-          //when success we need to append the data to the comment section
-      $("#commentContainer ul").append(''+
-                          '<li style="list-style: none" id ="comment_'+ pk_value +'">'+
-                          ' <div class="jumbotron" id="div_comment_'+ pk_value +'"> '+
-                          ' <p class="font-weight-bold input_post" style="word-wrap: break-word;"> '+
-                            user_input +
-                            '</p>'+
-                            '<p>' +
-                            '<small class="text-capitalize"> by:' +  user_name +'</small>'+
-                            '</p>'+
-                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
-                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>'+
-                            '</div>'+
-                            '</li>');
-        },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-      });
-    });
-    $("#commentContainer ul").delegate("button.EditComment","click",function (e){
-      if($("#editSection").length){
-        return;
-      }
-      var pk_value = $(this).val();
-      //lets grab the editing values first
-      var idval= "#comment_"+pk_value +"  .jumbotron .input_post";
-      var editText =  $(idval).text();
-      $(idval).append('<div id="editSection">'+
-        '<p>Edited Message is: </p>'+
-        '<textarea type="text" name="editedContent" placeholder="'+ $.trim(editText) +'" value="'+$.trim(editText)+'" class="form-control bg-white">'+$.trim(editText)+'</textarea>'+
-        '<button type="submit"  class="btn btn-sm btn-primary editButtonGo" value="'+ pk_value +'" style="color:white;background:blue;">Go</button>'+
-        '<button type="submit"  class="btn btn-sm btn-primary editButtonCancel" style="color:white;background:blue;">Cancel</button>'+
-        '</div>'
-      );
-    });
-
-    //this one is for delete
-  $("#commentContainer ul").delegate("button.DeleteComment","click",function (e){
-      var pk_value = $(this).val();
-      console.log(pk_value);
-       $.ajax({
-        type:'post',
-        url: '/review_system/delete/',
-         headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-        data: {
-          "input_pk": pk_value,
-        },
-        success: function (data) {
-          //if (data.is_taken) {
-          //alert('SUCCESS');
-            //alert("data = "+ data);
-          //}
-          var id = "#comment_"+pk_value
-          $(id).remove();
-        },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-      });
-    });
-
-  //cancel button click
-  $("#commentContainer ul").delegate("button.editButtonCancel","click",function (e){
-    $("#editSection").remove();
-  });
-
-  //button go
-  $("#commentContainer ul").delegate("button.editButtonGo","click",function (e){
-
-   //data capture
-      var user_input = $("textarea[type='text'][name='editedContent']").val().trim();
-      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
-      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
-      var user_name = $("input[type='hidden'][name='user']").val().trim();
-      var pk_value = $(".editButtonGo").val();
-      //alert("pk="+pk_value);
-      //return;
-      if(user_name == "" || user_input == "" ){
-        return;
-      }
-       $.ajax({
-        type:'post',
-        url: '/review_system/edit/',
-         headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-        data: {
-          "input": user_input,
-          "content_type" : content_type,
-          "content_id" : content_id,
-          "pk_val":pk_value,
-        },
-        success: function (data) {
-          $("textarea[type='text'][name='input']").val('');
-
-          var pk_value = data.pk_value;
-          var id_div = "div_comment_"+pk_value ;
-          $("#"+id_div).remove();
-          //when success we need to append the data to the comment section
-         var id_list = "#comment_"+pk_value;
-        $("#commentContainer ul li"+ id_list).append(''+
-                          ' <div class="jumbotron " id="'+id_div+'" > '+
-                          ' <p class="font-weight-bold input_post" style="word-wrap: break-word;"> '+
-                            user_input +
-                            '</p>'+
-                            '<p>' +
-                            '<small class="text-capitalize"> by:' +  user_name +'</small>'+
-                            '</p>'+
-                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-primary font-weight-bold EditComment">Edit</button>'+
-                            '<button type="button" value="'+ pk_value +'"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>'+
-                            '</div>'+
-                            '');
-        },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-      });
-  });
-  </script>
-{% endblock script %}
+{% endblock content %}

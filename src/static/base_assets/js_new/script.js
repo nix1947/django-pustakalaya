@@ -221,3 +221,26 @@ function setPadding() {
     searchBox.css("padding-left", forPadd);
   }
 }
+
+
+// book, audio and detail page read more code
+function readMore($curRev){
+  var length = $curRev.text().length;
+  var originalText = $curRev.text();
+  var splittedText = "";
+
+  if (length > 100) {
+    splittedText = $curRev.text().substring(0, 100);
+    splittedText += "...";
+    $curRev.siblings(".ole-read-more").show(0);
+  }
+
+  $curRev.text(splittedText);
+
+  $("#button_more").click(function() {
+    $curRev.text(originalText);
+    $curRev.hide(0);
+    $curRev.show(0);
+    $("#button_more").hide(0);
+  });
+}

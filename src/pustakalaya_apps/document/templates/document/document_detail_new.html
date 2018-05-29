@@ -36,7 +36,7 @@
           <!-- Bread crums -->
           {% for collection in object.collections.all %}
           {% if forloop.first %}
-          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>&emsp;
+          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>&emsp;
 
           <span style="color: #00838F;"> <i class="fa fa-caret-right"></i></span>&emsp;
           {% endif %}
@@ -284,7 +284,7 @@
                {% if  object.document_authors.all %}
                   <tr>
                     <th scope="col">{% trans "Author(s)" %}:</th>
-                    <td>
+                    <td class="text-capitalize">
                       {% for author in object.document_authors.all %}
                          <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize"> {{  author }}</a>
                         {%  if not forloop.last %}
@@ -299,7 +299,7 @@
                {% if  object.document_illustrators.all %}
                 <tr>
                   <th scope="col">{% trans "Illustrators:" %}</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for illustrator in object.document_illustrators.all %}
                       {{ illustrator }}
                       {%  if not forloop.last %}
@@ -315,7 +315,7 @@
                {% if  object.document_editors.all %}
                 <tr>
                   <th scope="col">{% trans "Editor(s):" %}</th>
-                  <td>{% for editor in object.document_editors.all %}
+                  <td class="text-capitalize">{% for editor in object.document_editors.all %}
                         {{ editor }}
                       {%  if not forloop.last %}
                                 ,
@@ -331,7 +331,7 @@
                {% if  object.document_translator.all %}
                 <tr>
                   <th scope="col">{% trans "Translator(s):" %}</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for translator in object.document_translator.all %}
                         {{ translator }}
                       {%  if not forloop.last %}
@@ -348,7 +348,7 @@
               {% if  object.publisher.all %}
                <tr>
                   <th scope="col">{% trans "Publisher:" %}</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for publisher in object.publisher.all %}
                         {{ publisher.publisher_name }}
                       {%  if not forloop.last %}
@@ -364,7 +364,7 @@
                 {% if  object.place_of_publication %}
                <tr>
                   <th scope="col">{% trans "Place of Publication:" %}</th>
-                  <td>{{ object.place_of_publication }}</td>
+                  <td class="text-capitalize">{{ object.place_of_publication }}</td>
                 </tr>
                {% endif %}
 
@@ -373,7 +373,7 @@
                 {% if  object.publication_year_on_text %}
                <tr>
                   <th scope="col">{% trans "Publication year:" %}</th>
-                  <td>{{ object.publication_year_on_text }}</td>
+                  <td class="text-capitalize">{{ object.publication_year_on_text }}</td>
                 </tr>
                {% endif %}
 
@@ -382,7 +382,7 @@
                {% if  object.year_of_available_on_text %}
                <tr>
                   <th scope="col">{% trans "Available year:" %}</th>
-                  <td> {{ object.year_of_available_on_text }}</td>
+                  <td class="text-capitalize"> {{ object.year_of_available_on_text }}</td>
                 </tr>
                {% endif %}
 
@@ -391,7 +391,7 @@
                 {%  if object.keywords.all  %}
                <tr>
                   <th scope="col">{% trans "Keywords:" %}</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for keyword in object.keywords.all %}
                     <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" >
                         {{ keyword.keyword| transtolocal }}&nbsp;{%  if not forloop.last %}
@@ -409,7 +409,7 @@
               {% if  object.license.license %}
                <tr>
                   <th scope="col">{% trans "License type:" %}</th>
-                  <td>{{ object.license.license }}</td>
+                  <td class="text-capitalize">{{ object.license.license }}</td>
                 </tr>
                {%  endif %}
 
@@ -418,7 +418,7 @@
                 <!-- document series -->
                <tr>
                   <th scope="col">{% trans "Series:" %}</th>
-                  <td>{{ object.document_series }}</td>
+                  <td class="text-capitalize">{{ object.document_series }}</td>
                 </tr>
                {%  endif %}
 
@@ -426,7 +426,7 @@
                 {% if  object.edition %}
                <tr>
                   <th scope="col">{% trans "Edition:" %}</th>
-                  <td>{{ object.edition }}</td>
+                  <td class="text-capitalize">{{ object.edition }}</td>
                 </tr>
                {% endif %}
 
@@ -443,7 +443,7 @@
                {% if  object.documentidentifier.identifier_id %}
                <tr>
                   <th scope="col">{{ object.documentidentifier.identifier_type }}:</th>
-                  <td>{{ object.documentidentifier.identifier_id }}</td>
+                  <td class="text-capitalize">{{ object.documentidentifier.identifier_id }}</td>
                 </tr>
                {% endif %}
 
@@ -452,7 +452,7 @@
                 {% if  object.document_total_page %}
                 <tr>
                   <th scope="col">{% trans "Total pages" %}:</th>
-                  <td>{{ object.document_total_page }}</td>
+                  <td class="text-capitalize">{{ object.document_total_page }}</td>
                 </tr>
                 {% endif %}
 
@@ -461,7 +461,7 @@
                 {% if object.languages.all %}
                 <tr>
                   <th scope="col">{% trans "Language" %}:</th>
-                  <td>{% for language in object.languages.all %}
+                  <td class="text-capitalize">{% for language in object.languages.all %}
                         {{ language }}
                       {%  if not forloop.last %},{%  endif %}
                     {% endfor %}</td>
@@ -472,7 +472,7 @@
                 {% if  object.education_levels.all %}
                <tr>
                   <th scope="col">{% trans "Education Levels" %}:</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for education_level in object.education_levels.all %}
                         {{ education_level }}
                         {%  if not forloop.last %}
@@ -490,7 +490,7 @@
               {%  if  object.document_interactivity != "NA"     %}
                <tr>
                   <th scope="col">{% trans "Interactivity" %}:</th>
-                  <td>{{ object.document_interactivity }}</td>
+                  <td class="text-capitalize">{{ object.document_interactivity }}</td>
                 </tr>
                {%  endif %}
                {%  endif %}
@@ -501,7 +501,7 @@
               {% if  object.sponsors.all %}
                <tr>
                   <th scope="col">{% trans "Sponsors:" %}</th>
-                  <td>
+                  <td class="text-capitalize">
                     {% for sponsor in object.sponsors.all %}
                         {{ sponsor }}
                         {%  if not forloop.last %}
@@ -518,7 +518,7 @@
               {% if  object.custom_license %}
                <tr>
                   <th scope="col">{% trans "Rights:" %}</th>
-                  <td>{{ object.custom_license }}</td>
+                  <td class="text-capitalize">{{ object.custom_license }}</td>
                 </tr>
                {% endif %}
 
@@ -528,7 +528,7 @@
               {% if  object.additional_note %}
                <tr>
                   <th scope="col">{% trans "Additional note:" %}</th>
-                  <td>{{ object.additional_note }}</td>
+                  <td class="text-capitalize">{{ object.additional_note }}</td>
                 </tr>
                {% endif %}
 
@@ -537,7 +537,7 @@
               {% if  object.description %}
                 <tr>
                   <th scope="col">{% trans "Description:" %}</th>
-                  <td>{{ object.description }}</td>
+                  <td class="text-capitalize">{{ object.description }}</td>
                 </tr>
               {% endif %}
 
@@ -553,7 +553,7 @@
 
                <tr>
                   <th scope="col">{% trans "Link Description:" %}</th>
-                  <td>{{ link.link_description }}</td>
+                  <td class="text-capitalize">{{ link.link_description }}</td>
                 </tr>
                {% endfor %}
              {% endif %}
@@ -683,110 +683,39 @@
     </div>
   </div>
 
-  <!-- <hr> -->
-    {% comment %}
+   <hr>
+  
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
-      <h5 id="det-book-title">Similar Books</h5>
+      <h5 id="det-book-title">{% trans "Similar Books" %}</h5>
     </div>
+    {% for similar_object in object.get_similar_items %}
 
+    <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
     <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif" alt="ole logo" />
+        <div class="grid-book-cont">
+          <div class="img-cont">
+            {% if similar_object.thumbnail  %}
+            <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% else %}
+     
+            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+                alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
+           {% endif %}
+
+          </div>
+          <p class="book-label text-capitalize"> <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">{{similar_object.title}}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>&nbsp;{{similar_object.type}}</p>
         </div>
-        <p class="book-label"> <a href="#">Aaloo-Maaloo-Kaaloo taaloo sallo al;skjfkl;asjf</a></p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
       </div>
-    </div>
+    </a>
 
 
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/qhCkTA4uYKjyVWzejAyQp4MXd03I0p.jpg" alt="ole logo" />
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/sMoKVbGwmomToAWluyHIe6I0XrrWMb.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">Thewa Mawer n Whawer awerwe o Knew</a> </p>
-        <p class="book-type"><i class="fas fa-headphones"></i> Audiobook</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
-
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/fejgPIUfBvzcmKlGLzMY7pTe3q1Nel.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">The Man Who Knew</a> </p>
-        <p class="book-type"><i class="fas fa-video"></i> Video</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
-
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/qhCkTA4uYKjyVWzejAyQp4MXd03I0p.jpg" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">The Man Who Knew</a> </p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-      </div>
-    </div>
-
-    <div class="col-md-2 col-sm-6 col-6">
-      <div class="grid-book-cont">
-        <div class="img-cont">
-          <img src="./images/bookx/b6X5FMto19mSsIAxgFpx7lOQhSaKnJ.gif" alt="ole logo" />
-        </div>
-        <p class="book-label"> <a href="#">Aaloo-Maaloo-Kaaloo taaloo sallo al;skjfkl;asjf</a></p>
-        <p class="book-type"> <i class="fas fa-book"></i> Document</p>
-
-        <div class="list-abstract text-secondary small-device-small-font " style="overflow-wrap: break-word;">The other little girl was prettier, but of a more stubborn type; more passionate, less organised, and infinitely more assertive. Black- haired, black-eyed, swarthy, large-mouthed, snub-nosed; the very type and essence of unrestrained, impulsive, emotional, sensual nature. A seeing eye ...
-          <br>
-          <strong class="text-black">Views:</strong>
-          &nbsp;1
-        </div>
-
-        <a class="list-btn ole-btn" style="cursor:pointer;">Read</a>
-
-      </div>
-    </div>
+    {% endfor %}
   </div>
-    {% endcomment %}
-
-
-
 </div>
 
 

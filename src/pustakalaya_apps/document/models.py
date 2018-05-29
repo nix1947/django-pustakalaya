@@ -251,11 +251,10 @@ class Document(AbstractItem, HitCountMixin):
     @property
     def get_view_count(self):
         return self.hit_count_generic.count() or 0
+
     
-    @property
-    def get_avg_ratings(self):
-        # Query the document and return the avg rating.        
-        return rating_obj.averge
+    def get_similar_items(self):
+        return Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()
 
     def __str__(self):
         return self.title
