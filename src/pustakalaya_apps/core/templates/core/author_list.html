@@ -4,186 +4,97 @@
 {% load pustakalaya_filters %}
 {% block style %}
     {{ block.super }}
-    <style>
-        a#alphabet-button {
-            background-color: #fff;
-            font-size: 11pt;
-            min-width: 25px !important;
-            min-height: 30px !important;
-        }
-
-        a#alphabet-button:hover {
-            background-color: #ecf0f1;
-            text-color: #2980b9;
-            min-width: 25px !important;
-            min-height: 30px !important;
-        }
-
-        a#alphabet-button:focus {
-            background-color: #ecf0f1;
-            min-width: 25px !important;
-            min-height: 30px !important;
-
-        }
-
-    .page-link1{
-     border:1px solid #00838f;
-     border-radius:1px;
-     margin-left:5px;
-     margin-right:5px;
-     padding:5px 10px 5px 10px;
-     margin-top:25px;
-     }
-      .page-link1{
-
-     color:#00838f;
-     }
-     .page-link1:hover{
-     background-color:#00838f;
-     color:#fff;
-     }
-     .page-item{
-     background-color: #FAFAFA;
-     }
-     .page-link{
-      background-color:#00838f!important;
-      color:#fff;
-     }
-
-    </style>
 {% endblock style %}
 {% block content %}
-    <div class="container min_height_author_detail pt-4">
-        <div class="row mb-5">
-            <div class="col-md-11 col-sm-12 col-xs-12">
-                {% for l in letters %}
-                    <span>
 
-        <a id="alphabet-button" class="btn btn-xs btn-simple text-primary text-uppercase pb-1 pt-1 pr-1 pl-1"
+<div class="main-contain">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <ul class="nav nav-tabs auth-navs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link" href="#auth-nep-letters" role="tab" data-toggle="tab">अ - ह</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#auth-eng-letters" role="tab" data-toggle="tab">A - Z</a>
+                </li>
+              </ul>
+      
+              <!-- Tab panes -->
+              <div class="tab-content" style="margin-top: -1px;">
+                <div role="tabpanel" class="tab-pane in" id="auth-nep-letters">
+                  <div class="alph-list auth-alph-list">
+                    <div class="alph-list auth-alph-list">
+                            {% for nepali in nepali_letters %}
+                                <a href="#ath-no-{{nepali}}"><button type="button" class="btn btn-default ole-btn-auth">{{ nepali }}</button></a>   
+                            {% endfor %}
+                    </div>
+                  </div>
 
-           href="?letter={{ l }}"
-           readonly>{{ l }}</a>
-      </span>
-                {% endfor %}
-                <br>
-                {% for nepali in nepali_letters %}
-                    <span>
+                  {% for nepali in nepali_letters %}
+                  <div id="ath-no-{{nepali}}" class="row ath-list-cont">
+                        <div class="col-md-3">
+                          <div class="page-cap-cont">
+                            <span class="page-cap-let">{{nepali}}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="row">                            
+                            <!-- get the list of author that start with nepali letter -->
+                            {% for author in author_dict|get:nepali %}
+                            <div class="col-md-4">
+                              <a  href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">{{author.getname}}</a>
+                            </div>
 
-        <a id="alphabet-button" class="btn btn-xs btn-simple text-primary text-uppercase pb-1 pt-1 pr-1 pl-1"
+                            {% endfor %}
+                      
+    
+    
+                          </div>
+          
+                        </div>
+                      </div>
+                      <hr>
 
-           href="?letter={{ nepali }}"
-           readonly>{{ nepali }}</a>
-      </span>
-
-                {% endfor %}
-              <br>
-              {% if letter_exist %}
-              <a id="alphabet-button" class="btn btn-xs btn-simple text-primary"
-           href="/authors/"
-           readonly>Show all</a>
-              {% endif %}
-
-
-            </div>
-        </div>
-
-        <!-- author list -->
-        {% for author in authors %}
-            {% if author.getname.strip  %}
-            <div class="row mb-2">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <span class="text-dark">{{ page_number_count|add:forloop.counter }}.</span>
-                    <a style="text-decoration: none" class="text-primary"
-                       href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">
-                        {{ author.getname }}
-                    </a>
+                 
+                 {% endfor %}
+      
                 </div>
+                <div role="tabpanel" class="tab-pane active in" id="auth-eng-letters">
+
+                  <div class="alph-list auth-alph-list">
+
+                        <div class="alph-list auth-alph-list">
+                                {% for english in letters %}
+                                    <a class="text-capitalize" href="#ath-no-{{english}}"><button type="button" class="btn btn-default text-capitalize ole-btn-auth">{{ english }}</button></a>   
+                                {% endfor %}
+                        </div>
+                  </div>
+                  {% for english in letters %}
+                         <div id="ath-no-{{english}}" class="row ath-list-cont">
+                        <div class="col-md-3">
+                          <div class="page-cap-cont">
+                            <span class="page-cap-let text-capitalize">{{english}}</span>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="row">                            
+                            <!-- get the list of author that start with nepali letter -->
+                            {% for author in author_dict|get:english %}
+                            <div class="col-md-4">
+                              <a class="text-capitalize"  href="/authors/{{ author.getname|slugify_unicode }}/{{ author.pk }}">{{author.getname}}</a>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                 {% endfor %}
+              </div>
             </div>
-            <hr>
-            {% endif %}
-        {% endfor %}
-
-        <!-- include pagination -->
-        {% if authors.has_other_pages %}
-
-           <div class="row">
-           <div class="col-md-8 col-md-offset-2">
-                <div>
-                <ul class="pagination pagination-primary">
-
-                  <!--Previous button-->
-                    {% if authors.has_previous %}
-                  <li class="page-item">
-                   {% if letter %}
-                           <a href="?letter={{ letter }}&page={{ authors.previous_page_number }}" class="page-link1">&laquo;Previous</a>
-                          {% else %}
-                           <a href="?page={{ authors.previous_page_number }}" class="page-link1">&laquo;Previous</a>
-                          {% endif %}
-                  </li>
-                    {% endif %}
-
-                    <!--Intermediate links-->
-                    {% for i in authors.paginator.page_range %}
-                  {% if i <   authors.number|add:5 and i > authors.number|add:-5 %}
-                          <li class="page-item active">
-                          {% if letter %}
-                            <a href="?letter={{ letter }}&page={{ i }}"
-                             {% if   i  == authors.number %} class=" page-link" style="margin-top:-5px;"{% else %}
-                             class="page-link1" {% endif %}>{{ i }}</a>
-                          {% else %}
-                         <a href="?page={{ i }}"
-                         {% if   i  == authors.number %} class=" page-link" style="margin-top:-5px;"{% else %}
-                             class="page-link1" {% endif %}
-                         >{{ i }}</a>
-
-                          {% endif %}
-                           </li>
-                       {% endif %}
-
-                    {% endfor %}
-
-                  <!--last link-->
-
-                  {% if authors.has_next or  authors.has_previous%}
-                    {% if authors.number != authors.paginator.num_pages %}
-               {% if authors.number < authors.paginator.num_pages|add:-5 %}
-                    <li>...</li>
-                    <li class="page-item active" >
-
-                      {% if letter %}
-                      <a href="?letter={{ letter }}&page={{ authors.paginator.num_pages }}"
-                    class="page-link1"
-                        >{{ authors.paginator.num_pages }}</a>
-                      {% else %}
-                           <a href="?page={{ authors.paginator.num_pages }}"
-                    class="page-link1"
-                        >{{ authors.paginator.num_pages }}</a>
-                          {% endif %}
-
-                      </li>
-              {% endif %}
-                    {% endif %}
-              {% endif %}
-
-                     <!--Next button-->
-                    {% if authors.has_next %}
-                        <li class="page-item">
-                           {% if letter %}
-                             <a href="?letter={{ letter }}&page={{ authors.next_page_number }}"
-                                                 class="page-link1">Next&raquo;</a>
-                          {% else %}
-                         <a href="?page={{ authors.next_page_number }}"
-                                                 class="page-link1">Next&raquo;</a>
-                          {% endif %}
-                        </li>
-                    {% endif %}
-
-
-                </ul>
-            </div>
-           </div>
-           </div>
-        {% endif %}
-    </div>
-
+          </div>
+        </div>
+      </div>
+      </div>
+      <a id="back-to-top" href="#" class="btn btn-lg back-to-top ole-btn" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><i class="fas fa-arrow-up"></i></a>
 {% endblock content %}
