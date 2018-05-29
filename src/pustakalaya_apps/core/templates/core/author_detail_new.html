@@ -56,7 +56,7 @@
         <tr>
           <th>{% trans "Address" %}:</th>
           <td>
-            <p>{{ object.address }}</p>
+            {{ object.address }}
           </td>
         </tr>
        {% endif %}
@@ -66,7 +66,7 @@
         <tr>
           <th>{% trans "Born" %}:</th>
           <td>
-            <p>{{ object.dob }}</p>
+            {{ object.dob }}
           </td>
         </tr>
       {% endif %}
@@ -75,7 +75,7 @@
         <tr>
         <th>{% trans "Place of birth" %}:</th>
         <td>
-          <p>{{ object.place_of_birth }}</p>
+          {{ object.place_of_birth }}
           </td>
       </tr>
        {% endif %}
@@ -87,14 +87,14 @@
         <tr>
           <th>{% trans "Demise" %}:</th>
           <td>
-            <p>{{ object.date_of_death }}</p>
+            {{ object.date_of_death }}
         </tr>
        {% endif %}
 
       {% if object.place_of_death %}
         <tr>
         <th>{% trans "Place of death" %}:</th>
-        <td><p>{{ object.place_of_death }}</p></td>
+        <td>{{ object.place_of_death }}</td>
       </tr>
       {% endif %}
 
@@ -102,7 +102,7 @@
        <tr>
           <th>{% trans "Pen name" %}:</th>
           <td>
-            <p>{{ object.pen_name }}</p>
+            {{ object.pen_name }}
         </tr>
       {% endif %}
 
@@ -111,12 +111,10 @@
        <tr>
           <th>{% trans "Genre" %}:</th>
           <td>
-            <p>
               {% for genre in object.genre.all %}
                     {{ genre.custom_genre }}
                      {%  if not forloop.last %},{%  endif %}
                   {% endfor %}
-            </p>
         </tr>
        {% endif %}
 
@@ -144,7 +142,7 @@
   <!-- start of similar books -->
   <div class="row">
     <div class="col-md-12">
-      <h5 id="det-book-title">Author's Publications</h5>
+      <h5 id="det-book-title">{% trans "Author's Publications" %}</h5>
     </div>
 
 
@@ -163,7 +161,7 @@
 
            </div>
           <p class="book-label text-capitalize"> {{ book.title }}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>Document</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>{% trans "Document" %}</p>
           </a>
       </div>
        </div>
@@ -186,7 +184,7 @@
 
            </div>
           <p class="book-label text-capitalize"> {{ book.title }}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>Document</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>{% trans "Document" %}</p>
           </a>
       </div>
        </div>

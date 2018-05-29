@@ -42,7 +42,7 @@
               <i class="fa fa-list ole-gr-lt-icon ole-gr-ly-inactive" style="margin-right: 35px;"></i>
 
               <div class="form-group" style="display: inline;">
-                <label for="exampleSelect1" style="display: inline;">Sort By: </label>
+                <label for="exampleSelect1" style="display: inline;">{% trans "Sort By" %}: </label>
                 <!--<select class="form-control" id="tit-drpdn">-->
                   <!--<option>Date Added</option>-->
                   <!--<option>Popularity</option>-->
@@ -60,7 +60,7 @@
     <div class="row">
 
       <div class="col-md-12 tit-filter-btn">
-        <p class="">Filter <i class="fa fa-filter" style="margin-left:10px;"></i></p>
+        <p class="">{% trans "Filter" %} <i class="fa fa-filter" style="margin-left:10px;"></i></p>
       </div>
 
       <div class="col-md-3 tit-sid-lst">
@@ -302,7 +302,7 @@
                 <div id="selected-badges"></div>
 
                 <span class="applied-filters__add-button">
-                  <button type="button" class="-js-add-filter button button--small">Add filter</button>
+                  <button type="button" class="-js-add-filter button button--small">{% trans "Add filter" %}</button>
                 </span>
               </div>
 
@@ -332,11 +332,11 @@
                   <p class="book-label"> <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">{{ hit.title|truncatewords:11 }}</a></p>
                   <p class="book-type">
                       {% if hit.type == "document"%}
-                        <i class="fa fa-book"></i> Document
+                        <i class="fa fa-book"></i> {% trans "Document" %}
                       {% elif hit.type == "audio"%}
-                        <i class="fa fa-headphones"></i> Audiobook
+                        <i class="fa fa-headphones"></i> {% trans "Audiobook" %}
                        {% else %}
-                        <i class="fa fa-video"></i> Video
+                        <i class="fa fa-video"></i> {% trans "Video" %}
                       {% endif %}
                   </p>
 
@@ -373,16 +373,16 @@
                         .sad_container{
                             text-align: center;
                           }
-                          
+
                           .sad_container > .sadface{
                             font-size: 100px;
                           }
-                          
+
                 </style>
                 <div class="main-contain"></div>
                 <div class="container">
                   <div class="sad_container">
-              
+
                     <div class="sadface">
                       <i class="fa fa-frown-o"></i>
                     </div>
@@ -391,7 +391,7 @@
                     <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any documents" %}.</p>
                     <p>{% trans "Make sure you spelled the words correctly or try a different keyword" %}.</p>
                   </div>
-              
+
                 </div>
               </div>
             <div>
