@@ -191,11 +191,11 @@ class Video(AbstractItem):
         from django.urls import reverse
         return reverse("video:detail", kwargs={"title": slugify(self.title), "pk": self.pk})
 
-    
-     
+
+
     def get_similar_items(self):
-        return Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()
-        
+        return Video.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
+
 
     def doc(self):
         # Parent attr

@@ -172,10 +172,10 @@ class Audio(AbstractItem):
             return None
 
         return [(author.getName, author.pk) for author in self.audio_read_by.all()] or [None]
-    
+
 
     def get_similar_items(self):
-        return Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()
+        return Audio.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
 
 
 

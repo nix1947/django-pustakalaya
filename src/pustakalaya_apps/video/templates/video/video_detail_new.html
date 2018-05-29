@@ -1,31 +1,20 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load i18n %}
-{% load ratings %}
 {% load pustakalaya_filters %}
-{% load hitcount_tags %}
-{% load crispy_forms_tags %}
-
-<!-- override some css -->
-{% block style %}
-    {{ block.super }}
-
-{% endblock style %}
+{% load static %}
 
 {% block content %}
 
+<!--New div container -->
 
 <!--REMOVE THIS LATER-->
- <input type="hidden" name="content_type" value="document"/>
+ <input type="hidden" name="content_type" value="video"/>
  <input type="hidden" name="content_id" value="{{ object.pk }}">
- {% if user %}
+  {% if user %}
   <input type="hidden" name="user" value="{{ user }}">
   {% endif %}
 
 <!--End of remove this later-->
-
-
-
 <div class="main-contain">
   <div class="container">
     <div class="row" style="margin: 15px 0px;">
@@ -36,7 +25,7 @@
           <!-- Bread crums -->
           {% for collection in object.collections.all %}
           {% if forloop.first %}
-          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>&emsp;
+          <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}">{{collection.community_name | transtolocal  }}</a>&emsp;
 
           <span style="color: #00838F;"> <i class="fa fa-caret-right"></i></span>&emsp;
           {% endif %}
@@ -55,55 +44,83 @@
     <hr>
 
     <div class="row">
-      <div class="col-md-3 det-img-cont">
-            {% if object.thumbnail  %}
-                  <img  src="{{ MEDIA_URL }}{{ object.thumbnail }}"
-                         alt="{{ object.title }}" title="{{ object.title }}">
-            {% else %}
-                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
-                         alt="{{ object.title }}" title="{{ object.title }}">
-            {% endif %}
+      <div class="col-md-12">
 
-        <div class="ratings-container">
-        {% for document in object.documentfileupload_set.all %}
-          <p>{% trans "File size: " %}{{ document.upload.size | file_size_format }}</p>
-        {% endfor %}
+          <h5 id="det-book-title">{{ object.title }}</h5>
+          <!--<p>By: <span><a href="#">Antone Checov</a></span> </p>-->
+      </div>
+    </div>
 
-          <p>Rate this book:</p>
-          <p><!-- Rating -->
-            {% ratings object %}</p>
+    <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12 ole-vdo-cont">
+                <video class="video-js vjs-default-skin" width="100%" height="450px"
+                       id="selectedVideo" controls="controls" loop controlsList="nodownload" preload="auto"
+                       style="border: 5px solid rgba(127,140,141,0.11)"
+                       src="{{ MEDIA_URL }}{{ object.videofileupload_set.first.upload }}"
+                       type="video/mp4"
+                       data-setup='{ "aspectRatio":"640:360", "playbackRates": [1, 1.5, 2] }'>
+                </video>
+            </div>
+            <div id="videoList" class="col-md-4 col-sm-12 col-xs-12 ole-playlist-cont" style="max-height: 450px; width:426px; overflow-y: scroll;">
+
+               {% for video in object.videofileupload_set.all %}
+                        <div class="indv-play" style="width:100%;max-height:100px;margin-bottom:5px;">
+                           <span style="cursor: pointer;"
+                                  data-src="{{ MEDIA_URL }}{{ video.upload }}"
+                                  data-title="{{ video.file_name }}"
+                                  onclick="playVideo(this)" class="
+                                  {% if forloop.counter == 1 %}
+                                  text-primary
+                                  show-playing-msg
+                                   {% else %}
+                                   hide-playing-msg
+                                   text-white
+                                   {% endif %}
+                                  text-capitalize" >
+
+                          <div class="video-thumb video-elems">
+
+                            <div class="now-playing">
+                              <p class="playing-msg-p">Now Playing</p>
+                            </div>
+                            <img src="
+                            {% if video.thumbnail %}
+                            {{ MEDIA_URL }}{{ video.thumbnail }}
+                            {% else %}
+                            {% static 'images_new/video_thumnail.png' %}
+                            {% endif %}"
+                             alt="ole logo" style="max-height:100px;" />
+                          </div>
+                              <div>
+                                 {{ forloop.counter }}.&nbsp;
+                                {% if video.file_name %}
+                               {{ video.file_name }}
+                              {% else %}
+                              Video{{forloop.counter}}
+                              {% endif %}
+                          </div>
+                            </span>
+
+                        </div>
+              {% endfor %}
+
+
+
+
+            </div>
         </div>
 
+    <div class="row">
+      <div class="col-md-3 det-img-cont">
 
-        <!--Favourite button-->
-        <!--<button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fa fa-heart det-fav-active"></i> Add to Favorite</button>-->
-
-        <p id="favourite_hanging_place">
-          {% if  request.user.is_authenticated %}
-           {% if favourite_data.first.user != "" %}
-
-            {% if request.user == favourite_data.first.user %}
-             <button type="button" class="btn ole-btn-trans det-fav-added" value="{{object.pk }}" id="added_to_favourite"><i class="fa fa-check-circle"> Added to favourite </i></button>
-
-            {% else %}
-            <button type="button" value="{{ object.pk  }}"class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite </button>
-
-            {% endif %}
-        {% else %}
-        <button type="button" value="{{ object.pk  }}" class="btn ole-btn-trans add_to_favourite"><i class="fa fa-heart det-fav-active"> Add to favourite </i></button>
-
-        {% endif %}
-          {% endif %}
-        </p>
+        {%  if request.user.is_superuser %}
+         <div class="col-12 text-primary description mb-2">
+          <a href="{{ object.get_admin_url }}" class="btn btn-sm btn-secondary">{%  trans "Edit" %}</a>
+         </div>
+       {%  endif %}
 
 
 
-
-
-        <!--End Favourite button-->
-
-
-        <!--Review code starts here-->
         <!--Review btn for model button-->
         <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> Leave a Review</button>
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
@@ -214,60 +231,28 @@
         <!--close of user info model-->
 
         <!--End of  Different models used in this document-->
-        <!--End of revew code starts here-->
 
 
 
-      </div>
-      <div class="col-md-9">
-        <h5 id="det-book-title" class="text-capitalize">{{ object.title }}</h5>
-        {% if object.document_authors.all %}
-        <p>By:
-          <span>
-            {% for author in object.document_authors.all %}
-            <a  href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize" >{{ author }}</a>
-             {%  if not forloop.last %},{%  endif %}
-            {% endfor %}
-          </span>
-
-        </p>
-        {% endif %}
-
-
-        <div class="_1dlNCg"><div class="niH0FQ">
-          <span id="productRating_undefined_MOBFF5ZG7HCKHJCS_" class="_2_KrJI">
-            <div id="ole-rating-avg">{{ rating_average }} ★</div>
-          </span><span class="_38sUEc">
-            <span><span id="ole-rating-count">{{ rating_total }} Ratings&nbsp;</span><span>{{ hitcount.total_hits }} {% trans "Views" %}&nbsp;</span><span class="_1VpSqZ">&amp;</span><span>&nbsp;{{ total_review_count }} Reviews</span></span>
-          </span>
         </div>
-      </div>
 
-        {% for document in object.documentfileupload_set.all %}
-          <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}{{ document.upload.size | file_size_format }}'>
-            <button type="button" class="btn ole-btn">
-          {% trans 'Read Book ' %}
-          </button>
-          </a>
-        {% endfor %}
+        <!--End for For review -->
 
+      <div class="col-md-9">
 
       <br>
       <br>
 
-      <p>
-        {% if  object.abstract %}
-          {{ object.abstract }}
-        {% endif %}
 
-      </p>
+
+      <p>{{ object.abstract }}</p>
 
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" href="#details" role="tab" data-toggle="tab">{% trans "Details" %}</a>
+          <a class="nav-link active" data-target="#details" role="tab" data-toggle="tab">Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#reviews" role="tab" data-toggle="tab">{% trans "Reviews" %}</a>
+          <a class="nav-link" data-target="#reviews" role="tab" data-toggle="tab">Reviews</a>
         </li>
       </ul>
 
@@ -281,61 +266,81 @@
               <tbody>
 
 
-               {% if  object.document_authors.all %}
-                  <tr>
-                    <th scope="col">{% trans "Author(s)" %}:</th>
-                    <td class="text-capitalize">
-                      {% for author in object.document_authors.all %}
-                         <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}" class="text-capitalize"> {{  author }}</a>
-                        {%  if not forloop.last %}
-                                  ,
-                        {%  endif %}
-                      {% endfor %}
-                    </td>
-                  </tr>
-               {% endif %}
+                <!-- publisher section -->
+                  {% if  object.publisher.all %}
+                   <tr>
+                  <th scope="col">{% trans "Publisher(s):" %}</th>
+                  <td>
+                     {% for publisher in object.publisher.all %}
+                        {{ publisher.publisher_name }}
+                        {%  if not forloop.last %},{%  endif %}
+                     {% endfor %}
+                  </td>
+                </tr>
+                  {% endif %}
 
-                <!-- Illustrator section -->
-               {% if  object.document_illustrators.all %}
+                <!--original authors-->
+                {% if  object.video_original_document_authors.all %}
                 <tr>
-                  <th scope="col">{% trans "Illustrators:" %}</th>
-                  <td class="text-capitalize">
-                    {% for illustrator in object.document_illustrators.all %}
-                      {{ illustrator }}
+                  <th scope="col">{% trans "Original author(s):" %}</th>
+                  <td>
+                    {% for author in object.video_original_document_authors.all %}
+                      <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                        {{ author }}
+                      </a>
                       {%  if not forloop.last %}
                                 ,
                       {%  endif %}
-                    {% endfor %}
+                     {% endfor %}
                   </td>
+                </tr>
+                {% endif %}
+
+              <!-- release date -->
+              {% if  object.video_release_date %}
+              <tr>
+                  <th scope="col">{% trans "Release date:" %}</th>
+                  <td>{{ object.video_release_date }}</td>
+                </tr>
+              {% endif %}
+
+
+                <!-- place of publication -->
+              {% if  object.place_of_publication %}
+              <tr>
+                  <th scope="col">{% trans "Place of Publication:" %}</th>
+                  <td>{{ object.place_of_publication }}</td>
+                </tr>
+              {% endif %}
+
+
+
+                 <!-- Publication year -->
+              {% if object.publication_year_on_text %}
+              <tr>
+                  <th scope="col">{% trans "Publication year:" %}</th>
+                  <td>{{ object.publication_year_on_text }}</td>
                 </tr>
                {% endif %}
 
-
-              <!-- editor section -->
-               {% if  object.document_editors.all %}
-                <tr>
-                  <th scope="col">{% trans "Editor(s):" %}</th>
-                  <td class="text-capitalize">{% for editor in object.document_editors.all %}
-                        {{ editor }}
-                      {%  if not forloop.last %}
-                                ,
-                      {%  endif %}
-                    {% endfor %}
-                  </td>
+              {% if object.year_of_available_on_text %}
+                <!-- Available year -->
+              <tr>
+                  <th scope="col">{% trans "Available year:" %}</th>
+                  <td>{{ object.year_of_available_on_text }}</td>
                 </tr>
-               {% endif %}
+              {% endif %}
 
 
-
-               <!-- editor section -->
-               {% if  object.document_translator.all %}
+               <!-- Keywords -->
+              {% if object.keywords.all %}
                 <tr>
-                  <th scope="col">{% trans "Translator(s):" %}</th>
-                  <td class="text-capitalize">
-                    {% for translator in object.document_translator.all %}
-                        {{ translator }}
+                  <th scope="col">{% trans "Keyword(s):" %}</th>
+                  <td>
+                    {% for keyword in object.keywords.all %}
+                            <a href="{% url 'keyword:keyword_detail' keyword.keyword %}">{{ keyword.keyword }}</a>
                       {%  if not forloop.last %}
-                                ,
+                                            ,
                       {%  endif %}
                     {% endfor %}
                   </td>
@@ -343,14 +348,60 @@
               {% endif %}
 
 
+              {% if object.license.license %}
+                  <!-- License type -->
+                  <tr>
+                    <th scope="col">{% trans "License type:" %}</th>
+                    <td>{{ object.license.license }}</td>
+                  </tr>
+              {% endif %}
+
+                <!-- video series -->
+              {% if object.video_series %}
+                <tr>
+                  <th scope="col">{% trans "Series:" %}</th>
+                  <td>{{ object.video_series }}</td>
+                </tr>
+              {% endif %}
 
 
-              {% if  object.publisher.all %}
+
+              <!-- video volume -->
+              {% if object.volume %}
+                <tr>
+                  <th scope="col">{% trans "Volume:" %}</th>
+                  <td>{{ object.volume }}</td>
+                </tr>
+              {% endif %}
+
+                 <!-- video edition -->
+              {% if object.edition %}
+                <tr>
+                  <th scope="col">{% trans "Edition:" %}</th>
+                  <td>{{ object.edition }}</td>
+                </tr>
+              {% endif %}
+
+
+
+
+               <!-- video running time -->
+              {% if  object.video_running_time %}
                <tr>
-                  <th scope="col">{% trans "Publisher:" %}</th>
-                  <td class="text-capitalize">
-                    {% for publisher in object.publisher.all %}
-                        {{ publisher.publisher_name }}
+                  <th scope="col">{% trans "Running time" %}</th>
+                  <td>{{ object.video_running_time }}</td>
+                </tr>
+              {% endif %}
+
+                <!-- video director time -->
+              {% if  object.video_director.all %}
+                <tr>
+                  <th scope="col">{% trans "Video director" %}</th>
+                  <td>
+                    {% for author in object.video_director.all %}
+                      <a href="{% url 'author:author_detail' author.getname|slugify_unicode author.pk %}">
+                        {{ author }}
+                      </a>
                       {%  if not forloop.last %}
                                 ,
                       {%  endif %}
@@ -360,215 +411,162 @@
               {% endif %}
 
 
-               <!-- place of publication -->
-                {% if  object.place_of_publication %}
+              <!-- Video producer -->
+              {% if  object.video_producers.all %}
+                 <tr>
+                    <th scope="col">{% trans "Video producer" %}:</th>
+                    <td>
+                        {% for producer in object.video_producers.all %}
+                           {{ producer }}
+                      {%  if not forloop.last %}
+                      ,
+                     {%  endif %}
+                      {% endfor %}
+                    </td>
+                  </tr>
+              {% endif %}
+
+
+
+                 <!-- video certificate license -->
+              {% if  object.video_certificate_license %}
                <tr>
-                  <th scope="col">{% trans "Place of Publication:" %}</th>
-                  <td class="text-capitalize">{{ object.place_of_publication }}</td>
+                  <th scope="col">{% trans "Certificate license" %}:</th>
+                  <td>{{ object.video_certificate_license }}</td>
                 </tr>
                {% endif %}
 
 
-                <!-- Publication year -->
-                {% if  object.publication_year_on_text %}
-               <tr>
-                  <th scope="col">{% trans "Publication year:" %}</th>
-                  <td class="text-capitalize">{{ object.publication_year_on_text }}</td>
+              <!-- video age group -->
+              {% if  object.age %}
+                <tr>
+                  <th scope="col">{% trans "Age group:" %}</th>
+                  <td>{{ object.age }}</td>
                 </tr>
-               {% endif %}
+              {% endif %}
 
 
-               <!-- Available year -->
-               {% if  object.year_of_available_on_text %}
-               <tr>
-                  <th scope="col">{% trans "Available year:" %}</th>
-                  <td class="text-capitalize"> {{ object.year_of_available_on_text }}</td>
-                </tr>
-               {% endif %}
-
-
-               <!-- Keywords -->
-                {%  if object.keywords.all  %}
-               <tr>
-                  <th scope="col">{% trans "Keywords:" %}</th>
-                  <td class="text-capitalize">
-                    {% for keyword in object.keywords.all %}
-                    <a href="{% url 'keyword:keyword_detail' keyword.keyword %}" >
-                        {{ keyword.keyword| transtolocal }}&nbsp;{%  if not forloop.last %}
-                          ,
-                      {%  endif %}
-
-                    </a>
-                   {% endfor %}
+               <!-- video genre -->
+               {% if  object.video_genre.all %}
+                 <tr>
+                <th scope="col">{% trans "genre" %}:</th>
+                <td>
+                    {% for genre in object.video_genre.all %}
+                  {{ genre.custom_genre }}
+                   {%  if not forloop.last %}
+                                                  ,
+                   {%  endif %}
+                {% endfor %}
                 </td>
-                </tr>
-                {%  endif  %}
-
-
-              <!-- License type -->
-              {% if  object.license.license %}
-               <tr>
-                  <th scope="col">{% trans "License type:" %}</th>
-                  <td class="text-capitalize">{{ object.license.license }}</td>
-                </tr>
-               {%  endif %}
-
-
-               {%  if  object.document_series  %}
-                <!-- document series -->
-               <tr>
-                  <th scope="col">{% trans "Series:" %}</th>
-                  <td class="text-capitalize">{{ object.document_series }}</td>
-                </tr>
-               {%  endif %}
-
-               <!-- document edition -->
-                {% if  object.edition %}
-               <tr>
-                  <th scope="col">{% trans "Edition:" %}</th>
-                  <td class="text-capitalize">{{ object.edition }}</td>
-                </tr>
+              </tr>
                {% endif %}
 
-               <!-- document volume -->
-                  {% if  object.volume %}
-               <tr>
-                  <th scope="col">{% trans "Volume:" %}</th>
-                  <td>{{ object.volume }}</td>
+
+
+                <!-- Language -->
+                {% if  object.languages.all %}
+                <tr>
+                  <th scope="col">{% trans "Languages" %}:</th>
+                  <td>
+                    {% for language in object.languages.all %}
+                         {{ language }}
+                    {%  if not forloop.last %}
+                    ,
+                   {%  endif %}
+                    {% endfor %}
+                  </td>
                 </tr>
                 {% endif %}
 
-               <!-- isbn -->
-                <!-- document isb -->
-               {% if  object.documentidentifier.identifier_id %}
-               <tr>
-                  <th scope="col">{{ object.documentidentifier.identifier_type }}:</th>
-                  <td class="text-capitalize">{{ object.documentidentifier.identifier_id }}</td>
-                </tr>
-               {% endif %}
-
-
-                <!-- total page -->
-                {% if  object.document_total_page %}
-                <tr>
-                  <th scope="col">{% trans "Total pages" %}:</th>
-                  <td class="text-capitalize">{{ object.document_total_page }}</td>
-                </tr>
-                {% endif %}
-
-
-               <!-- Language -->
-                {% if object.languages.all %}
-                <tr>
-                  <th scope="col">{% trans "Language" %}:</th>
-                  <td class="text-capitalize">{% for language in object.languages.all %}
-                        {{ language }}
-                      {%  if not forloop.last %},{%  endif %}
-                    {% endfor %}</td>
-                </tr>
-               {% endif %}
-
-              <!-- Education level -->
+                  <!-- Education level -->
                 {% if  object.education_levels.all %}
-               <tr>
-                  <th scope="col">{% trans "Education Levels" %}:</th>
-                  <td class="text-capitalize">
-                    {% for education_level in object.education_levels.all %}
-                        {{ education_level }}
+                  <tr>
+                    <th scope="col">{% trans "Education levels" %}:</th>
+                    <td>
+                       {% for education_level in object.education_levels.all %}
+                           {{ education_level }}
                         {%  if not forloop.last %}
-                                ,
-                            {%  endif %}
-
-                    {% endfor %}
-                  </td>
-                </tr>
-               {% endif %}
-
-              <!-- Interactivity -->
-
-              {%  if  object.document_interactivity  %}
-              {%  if  object.document_interactivity != "NA"     %}
-               <tr>
-                  <th scope="col">{% trans "Interactivity" %}:</th>
-                  <td class="text-capitalize">{{ object.document_interactivity }}</td>
-                </tr>
-               {%  endif %}
-               {%  endif %}
+                                              ,
+                        {%  endif %}
+                      {% endfor %}
+                    </td>
+                  </tr>
+                {% endif %}
 
 
-
-              <!-- sponsor -->
-              {% if  object.sponsors.all %}
-               <tr>
-                  <th scope="col">{% trans "Sponsors:" %}</th>
-                  <td class="text-capitalize">
-                    {% for sponsor in object.sponsors.all %}
-                        {{ sponsor }}
-                        {%  if not forloop.last %}
-                                ,
-                            {%  endif %}
-
-                    {% endfor %}
-                  </td>
-                </tr>
-              {% endif %}
-
-
-                 <!-- Rights -->
-              {% if  object.custom_license %}
-               <tr>
-                  <th scope="col">{% trans "Rights:" %}</th>
-                  <td class="text-capitalize">{{ object.custom_license }}</td>
-                </tr>
-               {% endif %}
-
-
-
-               <!-- additional_note -->
-              {% if  object.additional_note %}
-               <tr>
-                  <th scope="col">{% trans "Additional note:" %}</th>
-                  <td class="text-capitalize">{{ object.additional_note }}</td>
-                </tr>
-               {% endif %}
-
-
-               <!-- Description -->
-              {% if  object.description %}
+                <!-- sponsor -->
+                {% if  object.sponsors.all %}
                 <tr>
-                  <th scope="col">{% trans "Description:" %}</th>
-                  <td class="text-capitalize">{{ object.description }}</td>
+                  <th scope="col">{% trans "Sponsors:" %}</th>
+                  <td>
+                     {% for sponsor in object.sponsors.all %}
+                        {{ sponsor }}
+                    {%  if not forloop.last %}
+                                            ,
+                      {%  endif %}
+                    {% endfor %}
+                  </td>
                 </tr>
-              {% endif %}
+                {% endif %}
+
+
+                <!-- Rights -->
+               {% if  object.custom_license %}
+                <tr>
+                  <th scope="col">{% trans "Right:" %}</th>
+                  <td>{{ object.custom_license }}</td>
+                </tr>
+               {% endif %}
 
 
 
-              <!-- link_name and link description -->
-             {% if object.documentlinkinfo_set.all %}
-               {% for link in  object.documentlinkinfo_set.all %}
-               <tr>
+
+                {% if object.description  %}
+                <!-- Description -->
+                <tr>
+                  <th scope="col">{% trans "Description" %}:</th>
+                  <td>{{ object.description }}</td>
+                </tr>
+               {% endif %}
+
+
+
+               <!-- video additional_note -->
+               {% if object.additional_note %}
+                <tr>
+                  <th scope="col">{% trans "Additional note" %}:</th>
+                  <td>{{ object.additional_note }}</td>
+                </tr>
+                {% endif %}
+
+
+
+
+
+               {% if object.videolinkinfo_set.all %}
+                <!-- Authors -->
+                <!-- TODO pluralization -->
+               {% for link in  object.videolinkinfo_set.all %}
+                  <tr>
                   <th scope="col">{% trans "Link:" %}</th>
                   <td><a href="{{ link.link_name}}" target="_blank">{{ link.link_name}}</a></td>
                 </tr>
 
-               <tr>
+                  <tr>
                   <th scope="col">{% trans "Link Description:" %}</th>
-                  <td class="text-capitalize">{{ link.link_description }}</td>
+                  <td>{{ link.link_description }}</td>
                 </tr>
                {% endfor %}
-             {% endif %}
-
-
-
+               {% endif %}
 
               </tbody>
             </table>
           </div>
         </div>
 
-
-        <!--**************Start review comment*****************-->
         <div role="tabpanel" class="tab-pane fade" id="reviews">
+
+
 
           {% if data_review %}
           {% for v in data_review %}
@@ -673,31 +671,28 @@
 
 
 
-
-
-
         </div>
-        <!--**************End of review comment*****************-->
-
       </div>
     </div>
   </div>
 
-   <hr>
-
+  <!-- <hr> -->
   <!-- start of similar books -->
+
   <div class="row">
     <div class="col-md-12">
       {% if object.get_similar_items.all %}
-      <h5 id="det-book-title">{% trans "Similar Books You May Like" %}</h5>
+      <h5 id="det-book-title">{% trans "Similar Videos You May Like" %}</h5>
       {% endif %}
     </div>
-    {% for similar_object in object.get_similar_items %}
 
-    <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">
+     {% for similar_object in object.get_similar_items %}
+
     <div class="col-md-2 col-sm-6 col-6">
         <div class="grid-book-cont">
           <div class="img-cont">
+             <a href=" {% url 'video:detail_without_slug'  similar_object.pk %}">
+
             {% if similar_object.thumbnail  %}
             <img  src="{{ MEDIA_URL }}{{ similar_object.thumbnail }}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
@@ -708,33 +703,72 @@
            {% endif %}
 
           </div>
-          <p class="book-label text-capitalize"> <a href="{% url 'document:detail_without_slug'  similar_object.pk %}">{{similar_object.title}}</p>
-          <p class="book-type text-capitalize"> <i class="fa fa-book"></i>&nbsp;{{similar_object.type}}</p>
-        </div>
-      </div>
-    </a>
+          <p class="book-label text-capitalize"> {{similar_object.title}}</p>
+          <p class="book-type text-capitalize"> <i class="fa fa-headphones"></i>&nbsp;{{similar_object.type}}</p>
+          </a>
 
+          </div>
+      </div>
 
 
     {% endfor %}
+
+
+
+
   </div>
+  </div>
+
 </div>
 
+<!--End New div container -->
 
 
 
-
-<!-- css scripts for book rating -->
-<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 {% endblock content %}
 
-
-
-
 {% block script %}
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-{{ block.super }}
-<script>
+    {{ block.super }}
+    <script>
+        (function (window) {
+            window.playVideo = function (event) {
+
+                // get the url of selected video.
+                var selectedURL = event.getAttribute('data-src');
+
+                var title = event.getAttribute("data-title");
+
+                // Remove all active class and add the selected class.
+                $("#videoList").children("div").children("span").removeClass('text-primary');
+
+
+                $("#videoList").children("div").children("span").addClass('hide-playing-msg');
+                $("#videoList").children("div").children("span").addClass('text-white');
+                $("#videoList").children("div").children("span").removeClass('show-playing-msg');
+
+                // Add class to this video
+                console.log("event = "+$(event))
+                $(event).addClass('text-primary');
+                $(event).addClass('show-playing-msg');
+                $(event).removeClass('hide-playing-msg');
+
+                // Now change the video src
+                var videoPlayer = document.getElementById("selectedVideo");
+
+                videoPlayer.setAttribute("src", selectedURL);
+                $("#video-title").text(title);
+
+                // Play the video
+                videoPlayer.play();
+            }
+        })(window);
+
+
+  <!-- If you'd like to support IE8 -->
+
+    </script>
+
+    <script>
 
 /***************************Review code****************************/
 
@@ -952,139 +986,21 @@
 
 /***************************Close of review code****************************/
 
-
-/***************************Add to favourite****************************/
-
-
-  /*Add to favourite code don't touch it works*/
-
-  //for favourite likes #favourite_hanging_place
-  $("#favourite_hanging_place").delegate("button.add_to_favourite","click",function (e){
-      e.preventDefault();
-      var user_input = "checked";
-
-      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
-      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
-      var user_name = $("input[type='hidden'][name='user']").val().trim();
-      //alert("some value");
-      //return;
-      if(user_name == "" || user_name == "AnonymousUser" ){
-        alert("Login to add to your favourite");
-        return;
-      }
-       $.ajax({
-        type:'post',
-        url: '/favourite_collection/',
-         headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-        data: {
-          "input": user_input,
-          "content_type" : content_type,
-          "content_id" : content_id,
-        },
-        success: function (data) {
-          $('.add_to_favourite').remove();
-           $("#favourite_hanging_place").append(''+
-                           '<button type="button" class="btn ole-btn-trans det-fav-added" value="'+ content_id +'" id="added_to_favourite"><i class="fa fa-check-circle"></i> Added to favourite</button>'
-                      +'');
-
-        },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-      });
-    });
-
-  //Added_favourite , remove form favourite now
-   $("#favourite_hanging_place").delegate(" #added_to_favourite","click",function (e){
-      e.preventDefault();
-      var user_input = "unchecked";
-
-      var content_type = $("input[type='hidden'][name='content_type']").val().trim();
-      var content_id = $("input[type='hidden'][name='content_id']").val().trim();
-      var user_name = $("input[type='hidden'][name='user']").val().trim();
-      if(user_name == "" || user_name == "AnonymousUser" ){
-        alert("Login to add to your favourite");
-        return;
-      }
-       $.ajax({
-        type:'post',
-        url: '/favourite_collection/favourite_remove/',
-         headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-        data: {
-          "input": user_input,
-          "content_type" : content_type,
-          "content_id" : content_id,
-        },
-        success: function (data) {
-          $("#added_to_favourite").remove();
-          $("#favourite_hanging_place")
-
-           $("#favourite_hanging_place").append(''+
-                           '<button type="button" value="'+ content_id +'" class="btn ole-btn-trans add_to_favourite" ><i class="fa fa-heart det-fav-active"></i> Add to favourite</button>'
-               +'');
-
-        },
-            error: function (data) {
-                console.log('An error occurred.');
-                console.log(data);
-            },
-      });
-    });
-/***************************Close of Add to favourite****************************/
-/***************************Star rating change detection****************************/
-
-
-    // 1. hide the rating object
-
-      var d1= $("div.star-ratings .star-ratings-rating-average");
-      var d2= $("div.star-ratings .star-ratings-rating-count");
-      var d3= $("div.star-ratings .star-ratings-rating-user");
-      var d4= $("div.star-ratings .star-ratings-errors");
-      d1.css("display","none")
-      d2.css("display","none")
-      d3.css("display","none")
-      d4.css("display","none")
-
-    //2. show another rating with trigger
-   //****************Mutation observer*********
-
-
-   var observer = new MutationObserver(fnHandler),
-        elTarget = document.querySelector(".star-ratings"),
-        objConfig = {
-
-
-            attributes:true,
-                    };
-
-      //then actually do some observing
-      observer.observe(elTarget, objConfig);
-
-      function fnHandler () {
-          //alert("DETECTED_VARIATION");
-         var avg = $('.star-ratings div.star-ratings-rating-average .star-ratings-rating-value').text();
-         var ratings = $('.star-ratings div.star-ratings-rating-count .star-ratings-rating-value').text();
-
-          var rounded =parseFloat(avg).toFixed(1);
-
-          //alert("avg="+avg+"rat="+ratings)
-          $('#ole-rating-avg').text(rounded+" ★")
-          $('#ole-rating-count').text(ratings+" Ratings ")
-
-      }
-
-
-
-
-/***************************End of Star rating change detection****************************/
-
-
-</script>
+    </script>
 
 
 {% endblock script %}
+{% block style %}
+    <!-- inherit all the base styles -->
+    {{ block.super }}
+  <style>
+
+    .show-playing-msg  .playing-msg-p{
+     display:block;
+    }
+    .hide-playing-msg  .playing-msg-p{
+     display: none;
+    }
+  </style>
+{% endblock style %}
+

@@ -53,7 +53,7 @@ class VideoDetailView(DetailView):
         #adding pagination to the review system
 
         # review system data extractions
-        data_review = Review.objects.filter(content_id= self.object.pk,content_type='video',published=True)
+        data_review = Review.objects.filter(content_id= self.object.pk,content_type='video')
 
         # adding pagination to the review system
         ##########################Review pagination add########################
@@ -81,4 +81,4 @@ class VideoDetailView(DetailView):
             context["data_review"] = data_review
 
         return self.render_to_response(context)
-    template_name = "video/video_detail.html"
+    template_name = "video/video_detail_new.html"

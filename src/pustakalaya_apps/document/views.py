@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage , PageNotAnInteger
 from django.http import Http404, HttpResponse
 from star_ratings.models import Rating
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
 
 # from .forms import BaseDocumentFormSet
 
@@ -90,14 +91,19 @@ class DocumentDetailView(HitCountDetailView):  # Detail view is inherited from H
         # Rating average,total,and user_rating
         # Get the rating of current object
         # Get content type
-        content_type = ContentType.objects.get(model="document")
-        rating_obj = Rating.objects.get(content_type=content_type, object_id=self.object.pk)
+        try:
+            content_type = ContentType.objects.get(model="document")
+            rating_obj = Rating.objects.get(content_type=content_type, object_id=self.object.pk)
 
-        # Average rating
-        context["rating_average"] = round(rating_obj.average, 1)
+            # Average rating
+            context["rating_average"] = round(rating_obj.average, 1)
 
-        # Total ratings
-        context["rating_total"]=rating_obj.total
+            # Total ratings
+            context["rating_total"]=rating_obj.total
+        except ObjectDoesNotExist:
+            pass
+
+
 
         return self.render_to_response(context)
 

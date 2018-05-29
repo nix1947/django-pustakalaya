@@ -252,9 +252,9 @@ class Document(AbstractItem, HitCountMixin):
     def get_view_count(self):
         return self.hit_count_generic.count() or 0
 
-    
+
     def get_similar_items(self):
-        return Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()
+        return Document.objects.filter(keywords__in=[keyword.id for keyword in self.keywords.all()]).distinct()[:12]
 
     def __str__(self):
         return self.title
@@ -373,7 +373,7 @@ class Document(AbstractItem, HitCountMixin):
 
     def document_link_name(self):
         return self.link_name;
-    
+
 
 class UnpublishedDocument(Document):
     """
