@@ -1,0 +1,23 @@
+{% load static %}
+<!-- for test purpose -->
+
+<script type="application/ld+json">
+    { 
+      "@context": "http://schema.org", 
+      "@type": "WebSite", 
+      "url": "http://pustakalaya.org", 
+      "image": "{% static 'images_new/pustlogo.png' %}"
+      "name": "Digital library of Nepal",
+       "author": {
+          "@type": "Person",
+          "name": "Manoj Gautam"
+          "website": "https://manojgautam.com.np"
+        },
+      "description": "E-Pustakalaya is an education-focused digital library containing full-text documents, images, videos and audio files that can be accessed through an intranet or the internet. The user can either read documents, view videos, and listen to audio clips directly from the E-library server or she can download these materials to her personal computer and view them later. E-Pustakalaya holds collections in both Nepali and English languages. In the future, we will also add materials in other national languages of Nepal",
+      "publisher": "OLE Nepal",
+      "potentialAction": { 
+        "@type": "SearchAction", 
+        "target": "/search/?q={search_term}", 
+        "query-input": "required name=q" } 
+        }
+    </script>

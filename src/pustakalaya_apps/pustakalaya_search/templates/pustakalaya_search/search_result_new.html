@@ -294,6 +294,23 @@
                   </div>
               <!-- end of submit form-->
 
+              <!-- script to for google SEO -->
+              <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "WebSite",
+                  "url": "https://www.pustakalaya.org/",
+                  "potentialAction": [{
+                    "@type": "SearchAction",
+                    "target": "https://pustakalaya.org/search/?q={search_term_string}",
+                    "query-input": "required name=q"
+                  },{
+                    "@type": "SearchAction",
+                    "target": "https/pustakalaya.org/search/?q={search_term_string}",
+                    "query-input": "required name=q"
+                  }]
+                }
+                </script>
 
 
               <div class="col-md-12 applied-filters" style="margin-top: 15px;">
@@ -606,18 +623,25 @@
 
          var type_full_text = type;
          //console.log("string=",type)
-
+        
+         var string = ""; 
          if (type == "type"){
          type_full_text="Media Type";
+         string= "type-";
          }else if(type=="education_levels"){
+            string= "education-";
           type_full_text="Education Level";
+
          }else if(type=="license_type"){
+            string= "license-";
           type_full_text="License Type";
          }else if(type=="collections"){
+             
           type_full_text="Collections";
          }else if(type=="keywords"){
           type_full_text="Keywords";
          }else if(type=="languages"){
+            string= "lang-";
           type_full_text="Language";
          }
 
@@ -628,7 +652,7 @@
                     <span class="sr-only">Filter</span>\
                   </span>\
                   <span class="filter-badge__description text-capitalize">'+ type_full_text +'::'+ value +'</span>\
-                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + value + "'"   +')\">\
+                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + string  + value + "'"   +')\">\
                     <i class="fa fa-times-circle" aria-hidden="true"></i>\
                     <span class="sr-only">Close</span>\
                   </button>';
@@ -643,7 +667,9 @@
          var type_full_text = type;
          //console.log("string=",type)
 
+         var string = "";
          if(type=="collections"){
+            string= "collection-";
           type_full_text="Collections";
          }
 
@@ -654,7 +680,7 @@
                     <span class="sr-only">Filter</span>\
                   </span>\
                   <span class="filter-badge__description">'+ type_full_text +'::'+ trimmed_value +'</span>\
-                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + actual_value + "'"   +')\">\
+                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + string + actual_value + "'"   +')\">\
                     <i class="fa fa-times-circle" aria-hidden="true"></i>\
                     <span class="sr-only">Close</span>\
                   </button>';

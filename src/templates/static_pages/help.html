@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% block style %}
+{{block.super}}
+  <style>
+  .help-ico{
+    float: right;
+  }
+  
+  .exp-main{
+    float: right;
+    margin-bottom: 20px;
+  }
+  
+  .help-main-ques, .exp-main{
+    color: #00838F;
+    cursor: pointer;
+  }
+  
+  .help-main-ques:hover, .exp-main:hover{
+    color: #00BBD3;
+  }
+  
+  .help-ques-cont hr{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  </style>
+
+{%  endblock style %}
+
+
 {% block content %}
 <!--pustakalaya help-->
 <div class="main-contain">

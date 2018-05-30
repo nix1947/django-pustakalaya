@@ -1085,6 +1085,25 @@
 
 
 </script>
+<!-- script for seo -->
+<script type='application/ld+json'> 
+  {
+    "@context": "http://www.schema.org",
+    "@type": "Book",
+    "brand": "Document",
+    "logo": "{{ MEDIA_URL }}{{ object.thumbnail }}",
+    "name": "Pustakalaya",
+    "author": "Manoj Gautam, Nishant Karki, Dilak Shakya"
+    "category": "Books",
+    "image": "{% static 'images_new/pustlogo.png' %}",
+    "description": "{{object.title}}",
+    "aggregateRating": {
+      "@type": "aggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "21"
+    }
+  }
+   </script>
 
 
 {% endblock script %}
