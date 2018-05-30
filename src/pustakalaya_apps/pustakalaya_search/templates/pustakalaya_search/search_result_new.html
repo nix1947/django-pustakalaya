@@ -220,10 +220,10 @@
             <div id="collections">
             {% for type, count, selected in collections %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" type="checkbox"
+              <label class="lab-cont text-capitalize" for="{{ type }}">{{ type| transtolocal  }} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="{{ type   }}" type="checkbox"
                     {% if selected %} checked {% endif %}
-                   value="{{ type }}"
+                   value="{{ type  }}"
                    onclick="queryAndFilter()">
                 <span class="checkmark"></span>
               </label>
@@ -310,6 +310,7 @@
             {% for hit in hits %}
               <div class="col-md-3 col-sm-6 col-6">
 
+                <a href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}">
                 <div class="grid-book-cont">
                   <div class="img-cont">
 
@@ -336,7 +337,7 @@
                       {% elif hit.type == "audio"%}
                         <i class="fa fa-headphones"></i> {% trans "Audiobook" %}
                        {% else %}
-                        <i class="fa fa-video"></i> {% trans "Video" %}
+                        <i class="fa fa-video-camera"></i> {% trans "Video" %}
                       {% endif %}
                   </p>
 
@@ -344,12 +345,19 @@
                     {{ hit.abstract|truncatewords:40 }}
                     <br>
                     <strong class="text-black">{% trans "Views" %}:&nbsp;{{ hit.view_count }}</strong>
-                    &nbsp;1
+
                    </div>
 
-                  <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
 
+                    {% if hit.type == "document"%}
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>
+                      {% elif hit.type == "audio"%}
+                         <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Listen" %}</a>
+                       {% else %}
+                        <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Watch" %}</a>
+                      {% endif %}
                 </div>
+                </a>
 
 
               </div>
@@ -388,7 +396,7 @@
                     </div>
                     <h5 style="font-family: 'Roboto Slab', serif;">{% trans "No Results Found"%}</h5>
                     <br>
-                    <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any documents" %}.</p>
+                    <p>{% trans "Your search" %} <b>{{q}}</b> {% trans "did not match any title" %}.</p>
                     <p>{% trans "Make sure you spelled the words correctly or try a different keyword" %}.</p>
                   </div>
 
@@ -484,7 +492,8 @@
 
             }
 
-            loopSelectedOption(filters.type);
+
+
 
             // construct the query
             var query = {
@@ -557,7 +566,21 @@
           else if(key == "collections"){
           // collections
           for(var i =0;i<dictionary[key].length;i++){
-            RenderSelectedItem(key,dictionary[key][i]);
+
+            if($(".lang-swi").attr("data-lang")=="ne"){
+                var str = dictionary[key][i];
+                var trimmed =str.split("[[");
+                //console.log(trimmed + "trimed 0 index="+trimmed[0])
+                var trimmed_english = trimmed[0];
+                //RenderSelectedItem(key,dictionary[key][i]);
+                SpecialRenderForCollections(key,dictionary[key][i],trimmed_english);
+            }else{
+                var str = dictionary[key][i];
+                var trimmed =str.substring(str.lastIndexOf('[')+1,str.lastIndexOf(']]'));
+                //console.log("nepali text"+trimmed);
+                var trimmed_nepali = trimmed;
+                SpecialRenderForCollections(key,dictionary[key][i],trimmed_nepali);
+            }
            }
           }
           else if(key == "keywords"){
@@ -585,7 +608,7 @@
         var mainElement = document.getElementById('selected-badges');
 
          var type_full_text = type;
-         console.log("string=",type)
+         //console.log("string=",type)
 
          if (type == "type"){
          type_full_text="Media Type";
@@ -616,6 +639,36 @@
           mainElement.appendChild(div);
       }
 
+       /*This function actually renders the filter badges*/
+      function SpecialRenderForCollections(type,actual_value,trimmed_value){
+        var mainElement = document.getElementById('selected-badges');
+
+         var type_full_text = type;
+         //console.log("string=",type)
+
+         if(type=="collections"){
+          type_full_text="Collections";
+         }
+
+
+           var div = document.createElement('div');
+              div.className = 'filter-badge';
+           div.innerHTML='<span class="filter-badge__icon">\
+                    <span class="sr-only">Filter</span>\
+                  </span>\
+                  <span class="filter-badge__description">'+ type_full_text +'::'+ trimmed_value +'</span>\
+                  <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + actual_value + "'"   +')\">\
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>\
+                    <span class="sr-only">Close</span>\
+                  </button>';
+
+          mainElement.appendChild(div);
+      }
+
+
+
+
+
        /*click trigger click*/
        function clickDocument(itemID){
        var elem = document.getElementById(itemID);
@@ -627,9 +680,9 @@
       //console.log(JSON.parse(urlParams["form-filter"]))
       //console.log(urlParams["form-filter"])
 
-
-      loopSelectedOption(JSON.parse(urlParams["form-filter"]));
-
+      if(urlParams["form-filter"] != ""){
+          loopSelectedOption(JSON.parse(urlParams["form-filter"]));
+       }
 
 
 

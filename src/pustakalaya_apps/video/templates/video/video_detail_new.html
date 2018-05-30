@@ -64,25 +64,37 @@
             <div id="videoList" class="col-md-4 col-sm-12 col-xs-12 ole-playlist-cont" style="max-height: 450px; width:426px; overflow-y: scroll;">
 
                {% for video in object.videofileupload_set.all %}
+
                         <div class="indv-play" style="width:100%;max-height:100px;margin-bottom:5px;">
                            <span style="cursor: pointer;"
                                   data-src="{{ MEDIA_URL }}{{ video.upload }}"
                                   data-title="{{ video.file_name }}"
                                   onclick="playVideo(this)" class="
                                   {% if forloop.counter == 1 %}
-                                  text-primary
+                                  ole-color
                                   show-playing-msg
                                    {% else %}
                                    hide-playing-msg
                                    text-white
                                    {% endif %}
+                                   font-weight-bold
                                   text-capitalize" >
 
-                          <div class="video-thumb video-elems">
+                          <div class="video-thumb video-elems mr-1">
 
                             <div class="now-playing">
                               <p class="playing-msg-p">{% trans "Now Playing" %}</p>
                             </div>
+
+
+                             <p class="vid-duration">
+                               <video class="calculateVideoLength"
+                                    hidden
+                                  src="{{ MEDIA_URL }}{{ video.upload }}">
+                                </video>
+                               <span class="videoduration"></span>
+
+                             </p>
                             <img src="
                             {% if video.thumbnail %}
                             {{ MEDIA_URL }}{{ video.thumbnail }}
@@ -739,7 +751,7 @@
                 var title = event.getAttribute("data-title");
 
                 // Remove all active class and add the selected class.
-                $("#videoList").children("div").children("span").removeClass('text-primary');
+                $("#videoList").children("div").children("span").removeClass('ole-color');
 
 
                 $("#videoList").children("div").children("span").addClass('hide-playing-msg');
@@ -748,7 +760,7 @@
 
                 // Add class to this video
                 console.log("event = "+$(event))
-                $(event).addClass('text-primary');
+                $(event).addClass('ole-color');
                 $(event).addClass('show-playing-msg');
                 $(event).removeClass('hide-playing-msg');
 
@@ -997,6 +1009,10 @@
     .hide-playing-msg  .playing-msg-p{
      display: none;
     }
+    .ole-color{
+    color: #00848F!important;
+    }
+
   </style>
 {% endblock style %}
 

@@ -26,9 +26,9 @@
       </div>
       <div class="col-md-9">
         <h5 id="det-book-title">{{ object.getname }}<span>
-          (
-           {% if  object.authors_name_in_other_language.all %}
 
+           {% if  object.authors_name_in_other_language.all %}
+            (
               {% for author in object.authors_name_in_other_language.all %}
 
                 <!-- {# <a href="{% url 'author:author_detail' author.getname|slugify  author.pk %}">{{ author }}</a> #}-->
@@ -37,8 +37,9 @@
                           ,
                 {%  endif %}
               {% endfor %}
-          {% endif %}
           )
+          {% endif %}
+
         </span></h5>
 
         <!-- <h5 id="det-book-title">About Author</h5> -->
