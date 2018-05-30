@@ -75,8 +75,8 @@
             <div id="type" >
             {% for type, count, selected in response.facets.type %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" value="{{ type }}"
+              <label class="lab-cont text-capitalize" for="type-{{ type }}">{% blocktrans %} {{ type }} {% endblocktrans %} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="type-{{ type }}" value="{{ type }}"
                       {% if selected %} checked {% endif %}
                      type="checkbox"
                      onclick="queryAndFilter()">
@@ -154,13 +154,11 @@
                                               return this.keywords.filter(function (keyword) {
                                                   return keyword.keyword.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
                                               });
-                                              //return this.customers;
                                           },
                                       }
                                   });
 
                               </script>
-
               </div>
 
           {% endif %}
@@ -174,8 +172,8 @@
               <div  id="languages">
                   {% for language, count, selected in languages %}
                   <div class="checkbox">
-                    <label class="lab-cont text-capitalize facet-element">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
-                      <input id="{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
+                    <label class="lab-cont text-capitalize facet-element" for="lang-{{language}}">{{ language }} <span class="text-muted">&nbsp;({{ count }})</span>
+                      <input id="lang-{{ language }}" value="{{ language }}" {% if selected %} checked {% endif %} type="checkbox" onclick="queryAndFilter()">
                       <span class="checkmark"></span>
                     </label>
                   </div>
@@ -193,10 +191,10 @@
               <div id="education_levels">
                    {% for type, count, selected in education_levels %}
                   <div class="checkbox">
-                    <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+                    <label class="lab-cont text-capitalize" for="education-{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                       <span class="text-muted">&nbsp;({{ count }})</span>
 
-                       <input id="{{ type }}" value="{{ type }}"
+                       <input id="education-{{ type }}" value="{{ type }}"
                           {% if selected %} checked {% endif %}
                          type="checkbox"
                          onclick="queryAndFilter()">
@@ -220,8 +218,8 @@
             <div id="collections">
             {% for type, count, selected in collections %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" type="checkbox"
+              <label class="lab-cont text-capitalize" for="collection-{{ type }}">{{ type | transtolocal }} <span class="text-muted">&nbsp;({{ count }})</span>
+                <input id="collection-{{ type }}" type="checkbox"
                     {% if selected %} checked {% endif %}
                    value="{{ type }}"
                    onclick="queryAndFilter()">
@@ -245,9 +243,9 @@
             <div id="license_type">
             {% for type, count, selected in license_type %}
             <div class="checkbox">
-              <label class="lab-cont text-capitalize" for="{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
+              <label class="lab-cont text-capitalize" for="license-{{ type }}"> {% blocktrans %} {{ type }} {% endblocktrans %}
                 <span class="text-muted">&nbsp;({{ count }})</span>
-                <input id="{{ type }}" type="checkbox"
+                <input id="license-{{ type }}" type="checkbox"
                       {% if selected %} checked {% endif %}
                      value="{{ type }}"
                       onclick="queryAndFilter()">
@@ -353,8 +351,6 @@
 
               </div>
               {% endfor %}
-              <!--end book audio video-->
-
 
             </div>
 
@@ -606,7 +602,7 @@
            div.innerHTML='<span class="filter-badge__icon">\
                     <span class="sr-only">Filter</span>\
                   </span>\
-                  <span class="filter-badge__description">'+ type_full_text +'::'+ value +'</span>\
+                  <span class="filter-badge__description text-capitalize">'+ type_full_text +'::'+ value +'</span>\
                   <button type="button" class="filter-badge__remove-button" onclick="clickDocument('  + "'" + value + "'"   +')\">\
                     <i class="fa fa-times-circle" aria-hidden="true"></i>\
                     <span class="sr-only">Close</span>\

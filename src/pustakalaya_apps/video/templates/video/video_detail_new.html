@@ -30,9 +30,12 @@
           <span style="color: #00838F;"> <i class="fa fa-caret-right"></i></span>&emsp;
           {% endif %}
 
-          <a href="{% url "collection:collection_detail" collection.collection_name|slugify collection.pk %}">
+          <a class="text-capitalize"
+          href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
           {{ collection.collection_name | transtolocal }}
-          </a>
+         </a>
+
+         
           {%  if not forloop.last %} ,{%  endif %}
           {% endfor %}
         </span>
