@@ -44,7 +44,7 @@
           <a class="text-capitalize"
           href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
           {{ collection.collection_name | transtolocal }}
-        </a>          
+        </a>
           {%  if not forloop.last %} ,{%  endif %}
           {% endfor %}
         </span>
@@ -61,9 +61,15 @@
                   <img  src="{{ MEDIA_URL }}{{ object.thumbnail }}"
                          alt="{{ object.title }}" title="{{ object.title }}">
             {% else %}
-                  <img src="{% static 'base_assets/img/book_image_default.png' %}"
+                  <img src="{% static 'images_new/book_thumnail.png' %}"
                          alt="{{ object.title }}" title="{{ object.title }}">
             {% endif %}
+
+         {%  if request.user.is_superuser %}
+           <p class="text-primary ">
+            <a href="{{ object.get_admin_url }}" class="btn btn-md btn-secondary">{%  trans "Edit" %}</a>
+           </p>
+       {%  endif %}
 
         <div class="ratings-container">
         {% for document in object.documentfileupload_set.all %}
@@ -242,6 +248,7 @@
           </span>
         </div>
       </div>
+
 
         {% for document in object.documentfileupload_set.all %}
           <a href="{{ MEDIA_URL }}{{ document.upload }}" target="_blank" title='{% trans "File size: " %}{{ document.upload.size | file_size_format }}'>
@@ -703,7 +710,7 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+            <img  src="{% static 'images_new/book_thumnail.png' %}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% endif %}
 

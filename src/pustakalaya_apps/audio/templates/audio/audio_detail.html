@@ -26,7 +26,7 @@
             <a href="/community/{{collection.community_name.split|join:"-" | transtolocal }}" class="text-capitalize">{{collection.community_name | transtolocal  }}</a>
             <span style="color: #00838F;">&nbsp;<i class="fa fa fa-caret-right"></i></span>&emsp;
             {% endif %}
-            
+
             <a class="text-capitalize"
             href=' /search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":["{{collection.collection_name}}"],"keywords":[],"license_type":[]}&searchIn=all'>
             {{ collection.collection_name | transtolocal }}
@@ -45,7 +45,7 @@
         alt="{{ object.title }}" />
      {% else %}
 
-      <img src="{% static 'base_assets/img/audio_book.png' %}"
+      <img src="{% static 'images_new/audio_thumnail.png' %}"
         title="{{ object.title }}"
         alt="{{ object.title }}" />
      {% endif %}
@@ -212,7 +212,7 @@
                   {% if forloop.counter == 1 %}
                   <img src="{% static 'base_assets/img/source.gif' %}" style="width: 12.25px;" alt="currently playing" />
                   {% else %}
-                  <i class="fa fa-play-circle"></i>
+                  <i class="fa fa-play"></i>
                   {% endif %}
                     <span  data-src="{{ MEDIA_URL }}{{ audio.upload }}"
                     class="text-capitalize playspan"
@@ -552,7 +552,7 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'base_assets/img/audio_book.png' %}"
+            <img  src="{% static 'images_new/audio_thumnail.png' %}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% endif %}
 
@@ -596,7 +596,7 @@
             $(images.first()).insertBefore(event);
             // add play button on all element
             $.each($("#audioList").children('div').children('.playspan'), function(index, spanT) {
-               $("<i class='fa fa-play-circle'></i>").insertBefore(spanT);
+               $("<i class='fa fa-play'></i>").insertBefore(spanT);
             });
             // remove the sibling of this item
             $(event).siblings('i').remove()

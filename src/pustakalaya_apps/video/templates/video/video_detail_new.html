@@ -35,7 +35,7 @@
           {{ collection.collection_name | transtolocal }}
          </a>
 
-         
+
           {%  if not forloop.last %} ,{%  endif %}
           {% endfor %}
         </span>
@@ -712,7 +712,7 @@
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% else %}
 
-            <img  src="{% static 'base_assets/img/video_book.png' %}"
+            <img  src="{% static 'images_new/video_thumnail.png' %}"
                 alt="{{ similar_object.title }}" title="{{ similar_object.title }}">
            {% endif %}
 
