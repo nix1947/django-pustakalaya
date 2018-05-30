@@ -584,13 +584,16 @@
             if($(".lang-swi").attr("data-lang")=="ne"){
                 var str = dictionary[key][i];
                 var trimmed =str.split("[[");
-                //console.log(trimmed + "trimed 0 index="+trimmed[0])
-                var trimmed_english = trimmed[0];
+                var trimmed_english = trimmed[0] ;
+               
                 //RenderSelectedItem(key,dictionary[key][i]);
                 SpecialRenderForCollections(key,dictionary[key][i],trimmed_english);
             }else{
                 var str = dictionary[key][i];
                 var trimmed =str.substring(str.lastIndexOf('[')+1,str.lastIndexOf(']]'));
+                if(!trimmed){
+                    trimmed=dictionary[key][i];
+                }
                 //console.log("nepali text"+trimmed);
                 var trimmed_nepali = trimmed;
                 SpecialRenderForCollections(key,dictionary[key][i],trimmed_nepali);
