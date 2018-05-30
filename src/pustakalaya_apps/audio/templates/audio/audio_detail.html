@@ -54,8 +54,7 @@
 
         <div class="ratings-container">
 
-         {# <button type="button" class="btn ole-btn" style="margin-bottom: 1rem;"><i class="fas fa-book"></i> Document Available</button> #}
-          {%  if request.user.is_superuser %}
+           {%  if request.user.is_superuser %}
 
           <p class="text-primary description">
            <button class="btn btn-sm">
@@ -65,10 +64,6 @@
 
 {%  endif %}
 
-          {% comment %}
-          <p>Rate this book:</p>
-          <p>This is the star container</p>
-          {% endcomment %}
         </div>
 
 
@@ -76,46 +71,9 @@
         <!-- review system -->
 
 
-        {% comment %}
-
-        {# <button type="button" class="btn ole-btn-trans" style="margin-bottom: 1rem;"><i class="fas fa-heart det-fav-active"></i> Add to Favorite</button> #}
-        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fas fa-comment-alt det-rev-active"></i> Leave a Review</button>
-        <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <form>
-              <div class="modal-header">
-                <h4 class="modal-title">Write a Review</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label for="usr">User Name:</label>
-                    <input type="text" class="form-control" id="usr">
-                    <label for="pwd">Email:</label>
-                    <input type="password" class="form-control" id="pwd">
-                    <label for="pwd">Title:</label>
-                    <input type="password" class="form-control" id="pwd">
-                    <label for="comment">Review:</label>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary ole-btn">Submit</button>
-              </div>
-            </form>
-            </div>
-
-          </div>
-        </div>
-        {% endcomment %}
-
 
         <!--Review btn for model button-->
-        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> Leave a Review</button>
+        <button type="button" class="btn ole-btn-trans" data-toggle="modal" data-target="#myModal" style="margin-bottom: 1rem;"><i class="fa fa-comment det-rev-active"></i> {% trans "Leave a Review" %}</button>
         <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog">
@@ -177,22 +135,22 @@
             <div class="modal-content">
               <!--<form>-->
               <div class="modal-header">
-                <h4 class="modal-title">Edit Review</h4>
+                <h4 class="modal-title">{% trans "Edit Review" %}</h4>
                 <!--<button type="button" id="close_model_box" class="close" data-dismiss="modal">&times;</button>-->
               </div>
               <div class="modal-body">
                   <div class="form-group">
                     <input type="hidden" id="edited_message_id" value="" >
-                    <label for="pwdEdit">Title:</label>
+                    <label for="pwdEdit">{% trans "Title" %}:</label>
                     <input type="text" class="form-control" id="edited_title_input" name="edited_title_input" maxlength="255" autofocus>
-                    <label for="commentEdit">Message:</label>
+                    <label for="commentEdit">{% trans "Message" %}:</label>
                     <textarea type="text" name="edited_message_input" id="edited_message_input" class="form-control bg-white" placeholder="Your review message"></textarea>
 
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button"  class="btn btn-primary" id="edited_cancel_button" data-dismiss="modal">Cancel</button>
-               <button type="button" value="Submit" id="submitButtonForEdit" class ="btn btn-primary" onclick="sendButtonClick()" ><i class="fa fa-telegram"></i> Send</button>
+                <button type="button"  class="btn btn-primary" id="edited_cancel_button" data-dismiss="modal">{% trans "Cancel" %}</button>
+               <button type="button" value="Submit" id="submitButtonForEdit" class ="btn btn-primary" onclick="sendButtonClick()" ><i class="fa fa-telegram"></i> {% trans "Send" %}</button>
               </div>
             <!--</form>-->
             </div>
@@ -208,14 +166,14 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <input type="hidden" id="message_delete_id" value="">
-                  <h4 class="modal-title">Information</h4>
+                  <h4 class="modal-title">{% trans "Information" %}</h4>
                 </div>
                 <div class="modal-body">
-                  <p id="yes_no_message_p_tag">Are you sure you want to delete this message?</p>
+                  <p id="yes_no_message_p_tag">{% trans "Are you sure you want to delete this message?" %}</p>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="DeleteButtonYes()"  data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary" onclick="DeleteButtonYes()"  data-dismiss="modal">{% trans "Yes" %}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "No" %}</button>
                 </div>
               </div>
             </div>
@@ -286,10 +244,10 @@
 
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" href="#details" role="tab" data-toggle="tab">{% trans "Details" %}</a>
+          <a class="nav-link active"  data-target="#details" role="tab" data-toggle="tab">{% trans "Details" %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#reviews" role="tab" data-toggle="tab">{% trans "Reviews" %}</a>
+          <a class="nav-link"  data-target="#reviews" role="tab" data-toggle="tab">{% trans "Reviews" %}</a>
         </li>
       </ul>
 
@@ -460,32 +418,6 @@
 
         <div role="tabpanel" class="tab-pane fade" id="reviews">
 
-
-          <!--<div class="review-container">-->
-            <!--<br>-->
-            <!--<h5>Brihat Sabdakosh</h5>-->
-            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
-            <!--<p>Very useful to iBook users. ...</p>-->
-            <!--<p> <a href="#">Read More</a> </p>-->
-            <!--<hr>-->
-          <!--</div>-->
-          <!--<div class="review-container">-->
-            <!--<br>-->
-            <!--<h5>युनिकोडमा भए अझ जाति हुने थियो</h5>-->
-            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
-            <!--<p>नेपाली शब्दकोशलाई डिजिटल रुप दिन खोजिएको यो प्रयाश अत्यन्त सह्रानिय छ। किन्तु यो डिजिटल पुस्तक नेपाली युनिकोड फर्म्याटमा भएको भए शब्दहरु तुरुन्त खोज्न सघाउ पुग्ने थियो। साथै, यस पुस्तकले चाँडै मोबाइल एपको रुप पाओस् भन्ने मेरो कामना। ...</p>-->
-            <!--<p> <a href="#">Read More</a> </p>-->
-            <!--<hr>-->
-          <!--</div>-->
-          <!--<div class="review-container">-->
-            <!--<br>-->
-            <!--<h5>Complete the Dictionary</h5>-->
-            <!--<p>By: <span>Shankar Prasad Adhikari</span></p>-->
-            <!--<p>नेपाली भएर पनि नेपाली राम्ररी प्रयोग गर्न नजान्ने,वोल्न नजान्ने का लागि यो अति नै महत्व पु्र्ण पुस्तकको रूपमा रहेको छ । यसले मानवको भाषा सञ्चार प्रक्रियालाई मजवुद बनाएको छ । म अत्यन्तै खुसी छु। धन्यवाद हजुर हरूलाई ...</p>-->
-            <!--<p> <a href="#">Read More</a> </p>-->
-            <!--<hr>-->
-          <!--</div>-->
-
           {% if data_review %}
           {% for v in data_review %}
 
@@ -498,8 +430,8 @@
                   <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
                     {% if user == v.user %}
 
-                   <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
-                   <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                   <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >{% trans "Edit" %}</button>
+                   <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">{% trans "Delete" %}</button>
 
                     {% else %}
 
@@ -516,9 +448,9 @@
                               <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
                               <p>By: <span>{{  v.user }}</span></p>
                               <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
-                              <p>status=unpublished</p>
-                                 <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
-                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                              <p>{% trans "review status is unpublished" %}</p>
+                                 <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >{% trans "Edit" %}</button>
+                                 <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">{% trans "Delete" %}</button>
                            <hr>
                            </div>
                    {% endif %}
@@ -541,8 +473,8 @@
                               <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
                                 {% if user == v.user %}
 
-                               <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
-                               <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                               <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >{% trans "Edit" %}</button>
+                               <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">{% trans "Delete" %}</button>
 
                                 {% else %}
 
@@ -559,9 +491,9 @@
                                           <h5 id="posted_title_{{ v.pk }}">{{ v.title }}</h5>
                                           <p>By: <span>{{  v.user }}</span></p>
                                           <p id="posted_message_{{ v.pk }}">{{ v.post }}</p>
-                                          <p>status=unpublished</p>
-                                             <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >Edit</button>
-                                             <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">Delete</button>
+                                          <p>{% trans "review status is unpublished" %}</p>
+                                             <button type="button" value="{{ v.pk }}" id="{{ v.pk }}"  class ="btn btn-sm btn-primary font-weight-bold EditComment" >{% trans "Edit" %}</button>
+                                             <button type="button" value="{{ v.pk }}"  class ="btn btn-sm btn-warning font-weight-bold DeleteComment">{% trans "Delete" %}</button>
                                        <hr>
                                        </div>
                                {% endif %}
@@ -570,7 +502,7 @@
                        <div class="pagination">
                         <span class="step-links">
                           {% if paginated_data.has_previous %}
-                          <a href="?page={{ users.previous_page_number }}">previous</a>
+                          <a href="?page={{ users.previous_page_number }}">{% trans "previous" %}</a>
                           {% endif %}
 
                           <!-- Showing the page numbers in Html Page -->
@@ -579,7 +511,7 @@
                         </span>
 
                       {% if paginated_data.has_next %}
-                      <a href="?page={{ paginated_data.next_page_number }}">next</a>
+                      <a href="?page={{ paginated_data.next_page_number }}">{% trans "next" %}</a>
                       {% endif %}
                       </span>
                       </div>
