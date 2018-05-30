@@ -66,25 +66,34 @@
 
                     " >
                   <div class="slid-img-container">
+                     
+                    <i class="
+                    {% if item.type == 'document' %}
+                      fa fa-book hover-type
+                   {% elif item.type == 'audio' %}
+                      fa fa-headphones hover-type
+                   {% elif item.type == 'video' %}
+                      fa fa-video-camera hover-type
+                   {% endif %}
+                      " ></i>
 
                     <img class="slid-books" src="
                       {% if item.thumbnail %}
                           {{MEDIA_URL}}{{item.thumbnail}}
                       {% else %}
-                      {% if item.type == 'document' %}
-                        {% static  'images_new/book_thumnail.png' %}
-                       {% endif %}
+                          {% if item.type == 'document' %}
+                            {% static  'images_new/book_thumnail.png' %}
+                          {% endif %}
 
-                     {% if item.type == 'audio' %}
-                     {% static  'images_new/audio_thumnail.png' %}
+                        {% if item.type == 'audio' %}
+                        {% static  'images_new/audio_thumnail.png' %}
 
-                     {% endif %}
+                        {% endif %}
 
-                     {% if item.type == 'video' %}
-                     {% static  'images_new/video_thumnail.png' %}
+                        {% if item.type == 'video' %}
+                        {% static  'images_new/video_thumnail.png' %}
 
-
-                     {% endif %}
+                        {% endif %}
                       {% endif %}
 
                       " alt="ole logo" />

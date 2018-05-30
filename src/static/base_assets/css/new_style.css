@@ -167,6 +167,7 @@ a.text-primary:focus, a.text-primary:hover {
     color: #FFF;
     padding: 5px;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 #menu li:hover {
@@ -1313,6 +1314,18 @@ a.text-primary:focus, a.text-primary:hover {
 
 /* Author select page */
 
+.nav-link:hover{
+  cursor: pointer;
+}
+
+.nav-link{
+  color: #00838F !important;
+}
+
+.nav-link.active{
+  color: #212529 !important;
+}
+
 .auth-navs .nav-link {
   color: #fff !important;
   background-color: #9F9F9F !important;
@@ -1473,14 +1486,26 @@ a.text-primary:focus, a.text-primary:hover {
     color: #868e96 !important;
 }
 
-.nav-link:hover{
-  cursor: pointer;
+.modal-header {
+    background: #00BCD4;
+    color: white;
 }
 
-.nav-link{
-  color: #00838F !important;
+.DeleteComment, .EditComment{
+  background: none !important;
+  border: 0px !important;
+  font-weight: normal !important;
 }
 
-.nav-link.active{
-  color: #212529 !important;
+.DeleteComment {
+    color: #D65A49 !important;
 }
+
+.EditComment {
+    color: #00BCD4 !important;
+}
+
+.card {
+    background-color: transparent !important;
+    border: 0px solid rgba(0,0,0,.125) !important;
+} 
