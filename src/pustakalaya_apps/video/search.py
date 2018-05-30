@@ -12,16 +12,15 @@ class VideoDoc(ItemDoc):
     # Video type specific
 
     # Common fields in document, audio and video library
-    publisher = Text()
-    sponsors = Text(multi=True),
-    keywords = Text(multi=True)
-
-    video_running_time = Text()
-    thumbnail = Text()
-    video_director = Text()
-    video_series = Text()
-    video_certificate_license = Text()
-    video_genre = Text()
+    # publisher = Text()
+    # sponsors = Text(multi=True),
+    # keywords = Text(multi=True)
+    # video_running_time = Text()
+    # thumbnail = Text()
+    # video_director = Text()
+    # video_series = Text()
+    # video_certificate_license = Text()
+    # video_genre = Text()
 
     class Meta:
         index = settings.ES_INDEX
