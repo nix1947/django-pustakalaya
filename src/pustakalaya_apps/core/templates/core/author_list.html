@@ -26,13 +26,13 @@
                   <div class="alph-list auth-alph-list">
                     <div class="alph-list auth-alph-list">
                             {% for nepali in nepali_letters %}
-                                <a href="#ath-no-{{nepali}}"><button type="button" class="btn btn-default ole-btn-auth">{{ nepali }}</button></a>
+                                <a href="#ath-no-{{forloop.counter}}"><button type="button" class="btn btn-default ole-btn-auth">{{ nepali }}</button></a>
                             {% endfor %}
                     </div>
                   </div>
 
                   {% for nepali in nepali_letters %}
-                  <div id="ath-no-{{nepali}}" class="row ath-list-cont">
+                  <div id="ath-no-{{forloop.counter}}" class="row ath-list-cont">
                         <div class="col-md-3">
                           <div class="page-cap-cont">
                             <span class="page-cap-let">{{nepali}}</span>
@@ -62,14 +62,14 @@
                 </div>
                 <div role="tabpanel" class="tab-pane active in" id="auth-eng-letters">
 
-                  <div class="alph-list auth-alph-list">
+                 
 
                         <div class="alph-list auth-alph-list">
                                 {% for english in letters %}
                                     <a class="text-capitalize" href="#ath-no-{{english}}"><button type="button" class="btn btn-default text-capitalize ole-btn-auth">{{ english }}</button></a>
                                 {% endfor %}
                         </div>
-                  </div>
+                 
                   {% for english in letters %}
                          <div id="ath-no-{{english}}" class="row ath-list-cont">
                         <div class="col-md-3">
@@ -96,5 +96,5 @@
         </div>
       </div>
       </div>
-      <a id="back-to-top" href="#" class="btn btn-lg back-to-top ole-btn" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><i class="fa` fa-arrow-up"></i></a>
+      <a id="back-to-top" href="#" class="btn btn-lg back-to-top ole-btn" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><i class="fa fa-arrow-up"></i></a>
 {% endblock content %}

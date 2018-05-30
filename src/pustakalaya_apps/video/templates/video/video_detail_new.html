@@ -338,9 +338,8 @@
                   <th scope="col">{% trans "Keyword(s):" %}</th>
                   <td>
                     {% for keyword in object.keywords.all %}
-                            <a href="{% url 'keyword:keyword_detail' keyword.keyword %}">{{ keyword.keyword }}</a>
-                      {%  if not forloop.last %}
-                                            ,
+                            <a href='/search/?q=&form-filter={"type":[],"languages":[],"education_levels":[],"communities":[],"collections":[],"keywords":["{{keyword.keyword}}"],"license_type":[]}'>{{ keyword.keyword }}</a>
+                      {%  if not forloop.last %},
                       {%  endif %}
                     {% endfor %}
                   </td>
