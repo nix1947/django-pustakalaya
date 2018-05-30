@@ -344,7 +344,6 @@
                     {{ hit.abstract|truncatewords:40 }}
                     <br>
                     <strong class="text-black">{% trans "Views" %}:&nbsp;{{ hit.view_count }}</strong>
-                    &nbsp;1
                    </div>
 
                   <a class="list-btn ole-btn" href="{% url hit.type|add:':detail' hit.title|slugify_unicode hit.id %}" style="cursor:pointer;">{% trans "Read" %}</a>

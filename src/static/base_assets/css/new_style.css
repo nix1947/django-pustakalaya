@@ -11,7 +11,6 @@ a:hover {
 a {
   color: #00838F;
 }
-
 /* ========================= NAVBAR SELECT DROPDOWN ===================== */
 
 /*the container must be positioned relative:*/
@@ -170,8 +169,6 @@ a.text-primary:focus, a.text-primary:hover {
     cursor: pointer;
 }
 
-
-
 #menu li:hover {
     /* background-color: #ffd98a; */
     color: black !important;
@@ -181,10 +178,9 @@ a.text-primary:focus, a.text-primary:hover {
     display: block;
 }
 
-#menu li, #menu .lang-swi:hover {
-  color: #00BCD4 !important;
+#menu li a:hover {
+  color: #00BCD4;
 }
-
 
 
 #menu .dropdown-items a{
@@ -540,6 +536,8 @@ a.text-primary:focus, a.text-primary:hover {
 
 .slid-books{
   position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .slick-prev::before, .slick-next::before {
@@ -627,16 +625,14 @@ a.text-primary:focus, a.text-primary:hover {
 .hover-type {
     position: absolute;
     z-index: 6;
-    right: 5%;
-    top: 5%;
-    font-size: 20px;
-    /* background: rgba(0,0,0,0.2); */
-    visibility: hidden;
-}
-
-.slid-img-container:hover .hover-type{
-  color: #4D4D4D;
-  visibility: visible;
+    right: 0%;
+    top: 0%;
+    font-size: 15px;
+    color: #fff;
+    background: #00838f;
+    padding: 5px 5px 12px 12px;
+    border-radius: 0px 0px 0px 50px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
 }
 
 .slid-software-container {
@@ -1164,8 +1160,6 @@ a.text-primary:focus, a.text-primary:hover {
 
 /* details page */
 
-/* details page */
-
 #det-book-title{
   font-family: 'Roboto Slab', serif;
 }
@@ -1431,6 +1425,10 @@ a.text-primary:focus, a.text-primary:hover {
   margin-left: 50%;
   transform: translateX(-50%);
 }
+/* for commit */
+.page-cap-cont .fa{
+  margin-right: 0px !important;
+}
 
 .back-to-top {
     cursor: pointer;
@@ -1452,6 +1450,10 @@ a.text-primary:focus, a.text-primary:hover {
   color: #212529;
 }
 
+.ath-list-cont a:hover {
+    color: #00bcd4;
+}
+
 
 
 .author-table .table td, .author-table .table th {
@@ -1469,4 +1471,16 @@ a.text-primary:focus, a.text-primary:hover {
 
 .text-muted {
     color: #868e96 !important;
+}
+
+.nav-link:hover{
+  cursor: pointer;
+}
+
+.nav-link{
+  color: #00838F !important;
+}
+
+.nav-link.active{
+  color: #212529 !important;
 }
