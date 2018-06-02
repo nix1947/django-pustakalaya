@@ -7,6 +7,7 @@ class ItemDoc(DocType):
     Don't get index in the index server."""
     id = Text()
     title = Text(fields={'keyword': Keyword()})
+    title_search = Text()
     title_suggest = Completion()
     abstract = Text()
     type = Text(fields={'keyword': Keyword()})
